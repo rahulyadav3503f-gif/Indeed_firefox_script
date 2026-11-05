@@ -1,0 +1,17 @@
+user_pref("browser.shell.checkDefaultBrowser", false);
+user_pref("browser.startup.homepage_override.mstone", "ignore");
+user_pref("browser.aboutwelcome.enabled", false);
+user_pref("datareporting.policy.dataSubmissionEnabled", false);
+user_pref("datareporting.policy.firstRunURL", "");
+user_pref("browser.sessionstore.resume_from_crash", false);
+user_pref("app.update.auto", false);
+user_pref("app.update.enabled", false);
+user_pref("browser.download.useDownloadDir", true);
+user_pref("browser.download.folderList", 2);
+user_pref("browser.download.save_converter_index", 1);
+user_pref("browser.download.manager.addToRecentDocs", false);
+user_pref("browser.tabs.warnOnClose", false);
+user_pref("browser.tabs.warnOnCloseOtherTabs", false);
+user_pref("browser.warnOnQuit", false);
+user_pref("view_source.wrap_long_lines", false);
+user_pref("browser.download.dir", "/home/ubuntu/new_indeed_script/Temp_Data/rank_1");

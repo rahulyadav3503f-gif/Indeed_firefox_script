@@ -1,0 +1,27 @@
+# Runtime dependencies.
+#
+#   pandas / openpyxl   the 32-column Excel output and its rollover
+#
+# That is the whole list. In particular this project needs NO browser
+# automation library: the browser is driven by opera + xdotool + xclip,
+# which are SYSTEM packages, not Python ones (see README.md, "Install").
+# Brief restriction 8: "Do not introduce unnecessary dependencies."
+pandas>=1.5
+openpyxl>=3.0
+
+# -- NOT required, and why ------------------------------------------------
+# playwright    the original collector uses it; this one must not (brief
+#               section 4: "Do not use Playwright or Selenium").
+# requests      no HTTP request is ever made for job data (brief section 4:
+#               "Do not use direct HTTP requests as a substitute").
+# gtts          the ORIGINAL new_mylib.py imports it at module level for a
+#               text-to-speech helper nothing here calls. upstream.py
+#               installs a harmless stand-in when it is absent, so you do
+#               NOT need to install it. Install it only if you want the
+#               original module's speak() to work.
+# psutil        same situation as gtts.
+# Levenshtein   used by the original city_to_state() for fuzzy matching.
+#               Without it, upstream.py's stand-in makes the fuzzy path
+#               raise, which city_state_name() catches and records as
+#               state="Other". Install it for accurate state resolution:
+#                   pip install Levenshtein

@@ -1,0 +1,75 @@
+<!doctype html>
+<meta charset="utf-8">
+<title>python developer jobs in Pune - Local Fixture</title>
+<style>
+ body{font:14px system-ui;margin:0;display:flex}
+ #list{width:46%;overflow:auto;height:100vh;padding:12px;box-sizing:border-box;border-right:1px solid #ccc}
+ #preview{width:54%;padding:12px;overflow:auto;height:100vh;box-sizing:border-box}
+ .card{border:1px solid #ddd;border-radius:6px;padding:10px;margin-bottom:10px}
+ .card h2{font-size:15px;margin:0 0 4px}
+ nav a{margin-right:10px}
+</style>
+<!-- LOCAL TEST FIXTURE. Not Indeed, not a copy of Indeed's markup.
+     It reproduces only the three STRUCTURAL facts the automation depends on:
+       1. a two-panel layout (listing left, preview right);
+       2. job titles that are real <a href> links to separate detail pages;
+       3. the page furniture (nav, "Easily apply", "N days ago") that the
+          extractor must strip and the card counter must recognise.
+     Tab order: the nav links come first, which is why LINK_TAB_OFFSET
+     exists and is configurable rather than assumed to be zero. -->
+<nav>
+  <a href="#home">Home</a>
+  <a href="#company-reviews">Company reviews</a>
+  <a href="#salary-guide">Salary guide</a>
+</nav>
+<div id="list">
+  <h1>Python Developer jobs in Pune</h1>
+  <p>25 jobs</p>
+
+  <div class="card">
+    <h2><a href="job_detail_1.html?jk=fixture0000000001">Backend Developer</a></h2>
+    <div>Example Technologies Pvt Ltd</div>
+    <div>Pune, Maharashtra</div>
+    <div>₹8,00,000 - ₹12,00,000 a year</div>
+    <div>Full-time</div>
+    <div>Easily apply</div>
+    <div>3 days ago</div>
+  </div>
+
+  <div class="card">
+    <h2><a href="job_detail_2.html?jk=fixture0000000002">Senior Network Engineer</a></h2>
+    <div>Fixture Infra Services</div>
+    <div>Pune, Maharashtra</div>
+    <div>Full-time</div>
+    <div>Easily apply</div>
+    <div>Just posted</div>
+  </div>
+
+  <div class="card">
+    <h2><a href="job_detail_3.html?jk=fixture0000000003">Sales Executive</a></h2>
+    <div>Fixture Retail Ltd</div>
+    <div>Pune, Maharashtra</div>
+    <div>Full-time</div>
+    <div>7 days ago</div>
+  </div>
+
+  <div class="card">
+    <h2><a href="job_detail_4.html?jk=fixture0000000004">Cloud Support Engineer</a></h2>
+    <div>Fixture Cloud Services</div>
+    <div>Remote in Pune, Maharashtra</div>
+    <div>₹45,000 - ₹60,000 a month</div>
+    <div>Full-time</div>
+    <div>Easily apply</div>
+    <div>1 day ago</div>
+  </div>
+  <div style="height:1400px"></div>
+  <p>Below the fold, so Page_Down has something to do.</p>
+  <a href="?start=10">Next Page</a>
+</div>
+<div id="preview">
+  <h2>Backend Developer</h2>
+  <p>This is the PREVIEW panel. If the automation scrolls or copies this
+     instead of the listing panel, the test notices: this text says so.</p>
+  <div style="height:1200px"></div>
+  <p>End of preview panel.</p>
+</div>

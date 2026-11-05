@@ -1,0 +1,22 @@
+{
+  "_comment": [
+    "The two AUTHORITATIVE source files, copied verbatim into this project.",
+    "The change request names them as the authoritative sources and forbids",
+    "using older versions. target_audience_roles.py's own MAINTENANCE note",
+    "says every script folder must be self-contained and must not import",
+    "across folders, so these are copies, not imports.",
+    "tests/test_vendor_provenance.py re-checks these md5s."
+  ],
+  "copied_from": "/home/ubuntu/Desktop/naukri_script (1)/naukri_script",
+  "copied_at": "2026-11-05",
+  "files": {
+    "target_audience_roles.py": {
+      "md5": "54b2540006a5b9a678792c276798ee2c",
+      "bytes": 94895
+    },
+    "new_mylib.py": {
+      "md5": "5e06a7d1edefd4d1675aee5dc239c503",
+      "bytes": 94131
+    }
+  }
+}

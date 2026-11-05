@@ -1,0 +1,84 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>Azure Administrator - Northwind Cloud Services - Pune, Maharashtra | Fixture</title>
+<meta property="og:title" content="Azure Administrator - Northwind Cloud Services">
+<meta name="description" content="Azure Administrator role in Pune.">
+<!--
+  A job-detail fixture in the shape a real job page has: a JSON-LD
+  JobPosting carrying the fields the page states, and NOTHING for the
+  fields it does not.
+
+  DELIBERATELY ABSENT, so the blank-cell rule can be tested:
+      baseSalary            -> salary_min / salary_max / salary_currency
+      validThrough          -> expiry_date
+      applicationDeadline   -> application_deadline
+      educational qualification of any kind
+
+  If any of those ever turn up populated in a row built from this file,
+  something invented them.
+-->
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "JobPosting",
+  "title": "Azure Administrator",
+  "identifier": "NW-AZ-4417",
+  "datePosted": "2026-10-28",
+  "employmentType": "FULL_TIME",
+  "experienceRequirements": "2 - 5 years",
+  "skills": "Azure, Active Directory, PowerShell, Intune",
+  "hiringOrganization": {
+    "@type": "Organization",
+    "name": "Northwind Cloud Services",
+    "sameAs": "https://www.northwind-cloud.example"
+  },
+  "jobLocation": {
+    "@type": "Place",
+    "address": {
+      "@type": "PostalAddress",
+      "addressLocality": "Pune",
+      "addressRegion": "Maharashtra",
+      "addressCountry": "IN"
+    }
+  },
+  "description": "<p>We are hiring an Azure Administrator to run and support our customers' Azure tenants from our Pune office.</p><h3>Responsibilities</h3><ul><li>Administer Azure subscriptions, policies and RBAC.</li><li>Manage Active Directory and Entra ID identities.</li><li>Support Intune-managed endpoints.</li></ul>"
+}
+</script>
+</head>
+<body>
+<nav><a href="listing_page.html">Back to search results</a> | <a href="#main">Skip to main content</a></nav>
+<main id="main">
+  <h1>Azure Administrator</h1>
+  <div>Northwind Cloud Services</div>
+  <div>Pune, Maharashtra</div>
+  <div>Full-time</div>
+  <button>Apply now</button>
+  <button>Save this job</button>
+
+  <h2>Full job description</h2>
+  <p>We are hiring an Azure Administrator to run and support our customers'
+  Azure tenants from our Pune office.</p>
+  <h3>Responsibilities</h3>
+  <ul>
+    <li>Administer Azure subscriptions, policies and RBAC.</li>
+    <li>Manage Active Directory and Entra ID identities.</li>
+    <li>Support Intune-managed endpoints.</li>
+  </ul>
+  <p>Experience: 2 - 5 years</p>
+</main>
+
+<!-- The related-jobs rail: a DIFFERENT job's title and company. If any of
+     this leaks into the row, the cut-off logic has failed. -->
+<aside>
+  <h2>Similar jobs</h2>
+  <h3>Senior Network Architect</h3>
+  <div>Contoso Infrastructure Ltd</div>
+  <div>Bengaluru, Karnataka</div>
+  <div>₹25,00,000 - ₹32,00,000 a year</div>
+</aside>
+
+<footer>Cookies, privacy and terms</footer>
+</body>
+</html>
