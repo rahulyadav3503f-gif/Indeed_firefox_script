@@ -80,3 +80,17 @@ Exiting due to channel error.
 Exiting due to channel error.
 Exiting due to channel error.
 Gtk-Message: 10:07:53.287: Not loading module "atk-bridge": The functionality is provided by GTK natively. Please try to not load it.
+Gtk-Message: 10:28:20.153: Not loading module "atk-bridge": The functionality is provided by GTK natively. Please try to not load it.
+Exiting due to channel error.
+Exiting due to channel error.
+Exiting due to channel error.
+Exiting due to channel error.
+Exiting due to channel error.
+Exiting due to channel error.
+Exiting due to channel error.
+Gtk-Message: 10:46:35.807: Not loading module "atk-bridge": The functionality is provided by GTK natively. Please try to not load it.
+libva info: VA-API version 1.20.0
+libva info: Trying to open /snap/firefox/8995/gpu-2404/usr/lib/x86_64-linux-gnu/dri/iHD_drv_video.so
+libva info: Found init function __vaDriverInit_1_20
+libva info: va_openDriver() returns 0
+Gtk-Message: 11:02:55.922: Not loading module "atk-bridge": The functionality is provided by GTK natively. Please try to not load it.

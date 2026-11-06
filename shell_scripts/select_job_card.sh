@@ -167,6 +167,20 @@ LANDED_Y=""
 
 while [ "$PROBES" -lt "$PROBE_LIMIT" ] && [ "$Y" -le "$CARD_MAX_Y" ]; do
     PROBES=$((PROBES + 1))
+
+    # CLOSE THE ADDRESS-BAR PANEL BEFORE EVERY CLICK.
+    #
+    # This loop reads the url after each probe to see whether the selection
+    # changed, and that read uses Ctrl+L -- which does not merely focus the
+    # address bar, it opens the SUGGESTION DROPDOWN over the top of the
+    # page. The next probe then clicks at the next y... which is now a row
+    # in that dropdown, not a job card. Firefox follows the suggestion and
+    # the run lands on a site that has nothing to do with Indeed.
+    #
+    # Measured twice before this guard existed: runs ended up on
+    # youtube.com and on wikipedia.org, having "selected" nothing.
+    dismiss_url_dropdown
+
     note "probe $PROBES: clicking ${CARD_X},${Y}"
     xdotool mousemove --sync "$CARD_X" "$Y" >/dev/null 2>&1
     sleep 0.25
@@ -178,9 +192,20 @@ while [ "$PROBES" -lt "$PROBE_LIMIT" ] && [ "$Y" -le "$CARD_MAX_Y" ]; do
     # HAZARD: a card can hold links that leave the results page entirely.
     if [ -n "$URL_AFTER" ] && ! url_is_listing "$URL_AFTER"; then
         warn "the click navigated away from the listing ($URL_AFTER); going Back"
+        dismiss_url_dropdown
         xdotool key --clearmodifiers alt+Left >/dev/null 2>&1
         sleep "$PAGE_SETTLE_SECONDS"
         URL_AFTER=$(copy_address_bar_retry "$WINDOW_ID" "$CLIPBOARD_TIMEOUT") || URL_AFTER=""
+
+        # Having gone Back, refuse to carry on probing unless we really are
+        # on the listing again: clicking blind on an unknown page is how one
+        # wrong click becomes several.
+        if [ -n "$URL_AFTER" ] && ! url_is_listing "$URL_AFTER"; then
+            fail "$EX_NAVIGATION" \
+                "a probe click left the listing and Back did not return to \
+it (now at '$URL_AFTER'). Refusing to keep clicking on a page that is not \
+the job list."
+        fi
         Y=$((Y + PROBE_STEP))
         continue
     fi

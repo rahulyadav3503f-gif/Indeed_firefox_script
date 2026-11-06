@@ -736,6 +736,38 @@ class CardOutcome(object):
         self.job_url = job_url
 
 
+
+def log_field_report(report, row):
+    """Log what the saved page gave us, field by field, all 32 of them.
+
+    Printed for EVERY card, before the source tab closes, because "did this
+    job actually come out of its own file?" is the question that matters
+    most and it should never need a second tool to answer.
+    """
+    found = [column for column in DETAIL_COLUMNS
+             if str(row.get(column, "") or "").strip()]
+    log("      [fields] %d of %d columns filled   (isolation: %s, %d job(s) "
+        "in the document)"
+        % (len(found), len(DETAIL_COLUMNS), report.isolation,
+           report.jobs_in_document))
+
+    for column in DETAIL_COLUMNS:
+        value = str(row.get(column, "") or "").strip()
+        source = report.provenance.get(column, "")
+        if value:
+            shown = value if len(value) <= 64 else value[:61] + "..."
+            shown = shown.replace("\n", " ")
+            log("         %-22s %s%s"
+                % (column, shown, "   [%s]" % source if source else ""))
+        else:
+            log("         %-22s (blank -- not stated in the saved page)"
+                % column)
+
+    if report.notes:
+        for note in report.notes[:4]:
+            log("      [note] %s" % note)
+
+
 def process_one_card(controller, store, checkpoint, index, card_index,
                      keyword, city, input_row, page_state=None):
     """Open card ``card_index``, read it, decide, save, close.
@@ -813,15 +845,24 @@ def process_one_card(controller, store, checkpoint, index, card_index,
         return CardOutcome(CardOutcome.FAILED, error.detail(),
                            job_url=job_url)
 
-    # -- parse THE SAVED FILE ----------------------------------------------
-    # The file is Firefox's rendered view-source document; build_row_from_file
-    # unwraps it back to the page's original html and reads the fields that
-    # are actually in it.  A field the page did not state stays BLANK -- see
-    # source_file/indeed_source.py.
+    # -- READ ALL 32 FIELDS OUT OF THE SAVED FILE, NOW --------------------
+    # This happens BEFORE the source tab is closed and before the next card
+    # is selected, so every job is fully resolved from its own saved file
+    # while that file is the thing on screen.
+    #
+    # job_key IS NOT OPTIONAL HERE.  A saved Indeed results page describes
+    # EVERY card on it -- 16 jobs in a measured capture -- so without the
+    # key there is nothing to tell the extractor which of them this row is
+    # about.  Omitting it was a real bug: the row came back with
+    #     job_title   = "Keyword : all jobs"
+    #     company     = "Edit location input box label"
+    # which is the page's own accessibility furniture, read by the
+    # visible-text fallback because isolation never ran.
     try:
         row, report = build_row_from_file(
             source_path, apply_url=job_url, input_row=input_row,
-            state_resolver=city_state_name)
+            state_resolver=city_state_name,
+            job_key=getattr(window, "job_key", ""))
     except OSError as error:
         controller.force_close_source_tab()
         return CardOutcome(CardOutcome.FAILED,
@@ -829,9 +870,19 @@ def process_one_card(controller, store, checkpoint, index, card_index,
                            % (source_path, error), job_url=job_url)
 
     parsed = report.parsed
-    if report.missing:
-        log("      [blank] %d column(s) the page did not state: %s"
-            % (len(report.missing), ", ".join(report.missing[:8])))
+    log_field_report(report, row)
+
+    # A row that could not be isolated out of a multi-job document may be
+    # describing a DIFFERENT job. Refuse it rather than write it.
+    if report.isolation == "NONE":
+        controller.force_close_source_tab()
+        return CardOutcome(
+            CardOutcome.FAILED,
+            "the saved source describes %d jobs and job %s could not be "
+            "isolated from it; refusing to write a row that may belong to "
+            "another job" % (report.jobs_in_document,
+                             getattr(window, "job_key", "?")),
+            job_url=job_url)
 
     index.mark_seen(row)
     checkpoint.note_examined(normalise_job_url(row.get("source_url")

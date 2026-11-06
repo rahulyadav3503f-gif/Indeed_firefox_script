@@ -1,4 +1,4 @@
 index	job_key	method	saved_file	bytes	page_url
-0	9e5a5dcdeb1f5dfa	preselected	/home/ubuntu/new_indeed_script/Temp_Data/rank_1/job_1_0000.html	1032914	https://in.indeed.com/jobs?q=Python+Developer&l=Delhi&from=searchOnHP&vjk=9e5a5dcdeb1f5dfa
-1	2925bcb0653659eb	click	/home/ubuntu/new_indeed_script/Temp_Data/rank_1/job_1_0001.html	1027018	https://in.indeed.com/jobs?q=Python+Developer&l=Delhi&from=searchOnHP&vjk=2925bcb0653659eb
-2	119e67615abaf432	click	/home/ubuntu/new_indeed_script/Temp_Data/rank_1/job_1_0002.html	1031009	https://in.indeed.com/jobs?q=Python+Developer&l=Delhi&from=searchOnHP&vjk=119e67615abaf432
+0	9e5a5dcdeb1f5dfa	preselected	/home/ubuntu/new_indeed_script/Temp_Data/rank_1/job_1_0000.html	1014143	https://in.indeed.com/jobs?q=Python+Developer&l=Delhi&from=searchOnHP&vjk=9e5a5dcdeb1f5dfa
+1	2925bcb0653659eb	click	/home/ubuntu/new_indeed_script/Temp_Data/rank_1/job_1_0001.html	1023176	https://in.indeed.com/jobs?q=Python+Developer&l=Delhi&from=searchOnHP&vjk=2925bcb0653659eb
+2	119e67615abaf432	click	/home/ubuntu/new_indeed_script/Temp_Data/rank_1/job_1_0002.html	1016255	https://in.indeed.com/jobs?q=Python+Developer&l=Delhi&from=searchOnHP&vjk=119e67615abaf432

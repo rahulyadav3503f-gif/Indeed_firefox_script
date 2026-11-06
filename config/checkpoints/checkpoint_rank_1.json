@@ -5100,26 +5100,30 @@
   "current_page": 1,
   "current_city": "Delhi",
   "current_keyword": "Social Media Designer",
-  "done_job_urls": [],
+  "done_job_urls": [
+    "https://in.indeed.com/jobs?vjk=7054e9285f86de31"
+  ],
   "completed_cities": [],
   "total_complete_cycle": 0,
   "last_completed_job_id": "",
   "saved_jobs": 0,
   "duplicate_jobs": 0,
   "rejected_jobs": 0,
-  "failed_jobs": 5,
-  "examined_jobs": 0,
+  "failed_jobs": 7,
+  "examined_jobs": 1,
   "failure_state": {
-    "at": "2026-11-06 09:01:39",
-    "stage": "search",
-    "reason": "the search was submitted but the results url does not match the keyword and city asked for. Wanted something matching 'in.indeed.com.*[?&]q=Social[+%%]Media[+%%]Designer.*[&]l=Delhi', the address bar says 'https://in.indeed.com/'. Refusing to read job cards from a page that is not this search. | stage=search_jobs.sh | exit=7",
+    "at": "2026-11-06 10:29:35",
+    "stage": "card",
+    "reason": "save",
     "rank": 1,
     "city": "Delhi",
     "keyword": "Social Media Designer",
-    "page": 1
+    "page": 1,
+    "card": 0,
+    "job_url": "https://in.indeed.com/jobs?q=Social+Media+Designer&l=Delhi&from=searchOnHP&vjk=7054e9285f86de31"
   },
   "cycle_complete": false,
-  "updated_at": "2026-11-06 10:03:32",
+  "updated_at": "2026-11-06 10:30:41",
   "recent_failures": [
     {
       "at": "2026-11-05 20:16:29",
@@ -5171,6 +5175,28 @@
       "city": "Delhi",
       "keyword": "Social Media Designer",
       "page": 1
+    },
+    {
+      "at": "2026-11-06 10:29:10",
+      "stage": "excel",
+      "reason": "ModuleNotFoundError: No module named 'openpyxl'",
+      "rank": 1,
+      "city": "Delhi",
+      "keyword": "Social Media Designer",
+      "page": 1,
+      "job_url": "https://in.indeed.com/jobs?q=Social+Media+Designer&l=Delhi&from=searchOnHP&vjk=7054e9285f86de31",
+      "job_title": "Keyword : all jobs"
+    },
+    {
+      "at": "2026-11-06 10:29:35",
+      "stage": "card",
+      "reason": "save",
+      "rank": 1,
+      "city": "Delhi",
+      "keyword": "Social Media Designer",
+      "page": 1,
+      "card": 0,
+      "job_url": "https://in.indeed.com/jobs?q=Social+Media+Designer&l=Delhi&from=searchOnHP&vjk=7054e9285f86de31"
     }
   ]
 }

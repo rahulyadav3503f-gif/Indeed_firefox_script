@@ -117,6 +117,29 @@ class TestCardSelection(unittest.TestCase):
         body = code_of(script("select_job_card.sh"))
         self.assertIn("alt+Left", body)
 
+    def test_the_url_dropdown_is_closed_before_every_probe_click(self):
+        """The read that checks the selection is what re-opens the panel.
+
+        Each probe reads the url with Ctrl+L to see whether the selection
+        changed; Ctrl+L opens the suggestion dropdown OVER the page. The
+        next probe then clicks a dropdown row instead of a job card and
+        Firefox follows the suggestion -- measured, twice, landing on
+        youtube.com and wikipedia.org.
+        """
+        body = code_of(script("select_job_card.sh"))
+        loop = body.split("while [ \"$PROBES\" -lt")[1].split("\ndone")[0]
+        dismiss_at = loop.index("dismiss_url_dropdown")
+        click_at = loop.index("xdotool click 1")
+        self.assertLess(dismiss_at, click_at,
+                        "the dropdown must be dismissed BEFORE the click")
+
+    def test_probing_stops_if_back_does_not_return_to_the_listing(self):
+        """One wrong click must not become several."""
+        body = code_of(script("select_job_card.sh"))
+        recovery = body.split("alt+Left")[1].split("continue")[0]
+        self.assertIn("url_is_listing", recovery)
+        self.assertIn("fail", recovery)
+
     def test_the_main_loop_is_zero_based(self):
         source = open(os.path.join(BASE, "find_indeed_job.py"),
                       encoding="utf-8").read()
@@ -437,6 +460,77 @@ class TestNoPostSearchVerification(unittest.TestCase):
         body = self.body()
         self.assertIn("assert_input_lands", body)
         self.assertIn("REFUSING to type", body)
+
+
+# ===========================================================================
+# PER-CARD EXTRACTION -- all 32 fields, from THIS job's own saved file
+# ===========================================================================
+
+class TestInlineExtraction(unittest.TestCase):
+    """A real run produced, for a job that was none of these things:
+
+        Job Title: Keyword : all jobs
+        Company:   Edit location input box label
+
+    Those are the page's accessibility labels. The cause was that
+    find_indeed_job.py called build_row_from_file() WITHOUT job_key, so the
+    selected job was never isolated out of a 16-job document and the
+    visible-text fallback read the furniture.
+    """
+
+    def setUp(self):
+        self.source = open(os.path.join(BASE, "find_indeed_job.py"),
+                           encoding="utf-8").read()
+
+    def test_the_job_key_is_passed_to_the_extractor(self):
+        call = self.source.split("build_row_from_file(")[1].split(")")[0]
+        self.assertIn("job_key=", call)
+
+    def test_extraction_happens_before_the_tab_closes(self):
+        """'...before going to the next job card.'
+
+        Compared against the NORMAL close (controller.close_source_tab,
+        the one with the two delays). The force_close_source_tab() calls
+        that appear earlier are error paths which abandon the card before
+        there is anything to extract.
+        """
+        card = self.source.split("def process_one_card(")[1].split("\ndef ")[0]
+        extract_at = card.index("build_row_from_file(")
+        report_at = card.index("log_field_report(")
+        save_at = card.index("append_row(")
+        close_at = card.index("controller.close_source_tab(")
+        self.assertLess(extract_at, report_at)
+        self.assertLess(report_at, save_at)
+        self.assertLess(save_at, close_at)
+
+    def test_every_column_is_reported_for_every_card(self):
+        self.assertIn("def log_field_report(", self.source)
+        report = self.source.split("def log_field_report(")[1].split("\ndef ")[0]
+        self.assertIn("for column in DETAIL_COLUMNS", report)
+        self.assertIn("(blank -- not stated in the saved page)", report)
+
+    def test_a_row_that_could_not_be_isolated_is_refused(self):
+        """Better no row than another job's row."""
+        card = self.source.split("def process_one_card(")[1]
+        self.assertIn('report.isolation == "NONE"', card)
+        guard = card.split('report.isolation == "NONE"')[1][:400]
+        self.assertIn("CardOutcome.FAILED", guard)
+
+    def test_the_pane_is_preferred_over_the_card_list(self):
+        """The pane describes ONE job; the card list describes sixteen."""
+        source = open(os.path.join(BASE, "source_file", "indeed_source.py"),
+                      encoding="utf-8").read()
+        block = source.split("if card is not None:")[1].split("isolation =")[0]
+        self.assertLess(block.index("fields_from_job_header"),
+                        block.index("fields_from_job_card"))
+
+    def test_the_pane_is_only_used_for_the_job_we_selected(self):
+        source = open(os.path.join(BASE, "source_file", "indeed_source.py"),
+                      encoding="utf-8").read()
+        for function in ("selected_job_header", "selected_job_description"):
+            body = source.split("def %s(" % function)[1].split("\ndef ")[0]
+            self.assertIn("autoOpenJobAttributes", body)
+            self.assertIn("opened == job_key", body)
 
 
 # ===========================================================================

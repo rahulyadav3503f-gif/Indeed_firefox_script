@@ -173,6 +173,13 @@ for (( i = 0; i < COUNT; i++ )); do
 
     BYTES=$(value_of "$SAVE_OUT" saved_bytes)
     PAGE_URL=$(value_of "$SAVE_OUT" page_url)
+
+    # EXTRACT ALL 32 FIELDS NOW, from the file just saved, BEFORE the source
+    # tab is closed and before the next card is selected. This mirrors what
+    # find_indeed_job.py does inline; doing it here too means the live run
+    # shows the same thing the collector would log.
+    echo "  --- reading all 32 fields out of $(basename "$OUT_FILE") ---"
+    python3 "$BASE/tools/show_fields.py" "$OUT_FILE" "$KEY" "$PAGE_URL" || true
     printf '%s\t%s\t%s\t%s\t%s\t%s\n' \
         "$i" "$KEY" "$METHOD" "$OUT_FILE" "$BYTES" "$PAGE_URL" >> "$LOG"
     SAVED=$((SAVED + 1))

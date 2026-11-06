@@ -232,6 +232,22 @@ The card index is **0-based**.
 - Nothing new below the limit ⇒ `no_more_cards=yes`, which the caller reads
   as the normal end of the page.
 
+> **The address-bar dropdown is a trap, and it caused three failed runs.**
+> `Ctrl+L` does not merely focus the address bar — it opens a **suggestion
+> panel covering the top ~500px of the page**. Any click aimed at the page
+> while it is open lands on a suggestion row, and Firefox navigates there.
+> Observed landings: `youtube.com` and `wikipedia.org`.
+>
+> It bites wherever a read is followed by a click:
+> - the search step reads the url, then clicks the keyword box;
+> - the card-probe loop reads the url after each probe to see whether the
+>   selection changed, then clicks the next candidate position.
+>
+> So `dismiss_url_dropdown()` (a single `Escape`) is called before **every**
+> click into the page. Escape also means *stop loading*, so it is never
+> called inside a wait loop — only immediately before a click, when nothing
+> is in flight.
+
 ### Step 4 — Ctrl+U  (`save_page_source.sh`)
 1. Read the address bar — this is the job identity, and `--expect-url`
    makes a mismatch a hard failure.

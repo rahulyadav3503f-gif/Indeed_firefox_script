@@ -594,6 +594,78 @@ def selected_job_description(original_html, job_key):
     return ""
 
 
+def selected_job_header(original_html, job_key):
+    """The OPEN job's own header model, or None.
+
+    ``jobInfoHeaderModel`` is what Indeed renders in the right-hand pane:
+    the title, company, location, job types and salary of the job that is
+    actually selected. It is a better source than the card list, because it
+    describes ONE job rather than the sixteen on the page -- and, like the
+    description, it is only used once ``autoOpenJobAttributes.jobKey``
+    confirms the open job is the one we asked for.
+    """
+    if not job_key:
+        return None
+    for _hint, document in _iter_json_blobs(original_html):
+        opened = None
+        header = None
+        for candidate in _iter_dicts(document):
+            attributes = candidate.get("autoOpenJobAttributes")
+            if opened is None and isinstance(attributes, dict):
+                opened = str(attributes.get("jobKey", ""))
+            model = candidate.get("jobInfoHeaderModel")
+            if header is None and isinstance(model, dict):
+                header = model
+        if header is not None and opened == job_key:
+            return header
+    return None
+
+
+_SALARY_PERIOD = {"YEARLY": "a year", "MONTHLY": "a month",
+                  "WEEKLY": "a week", "DAILY": "a day", "HOURLY": "an hour"}
+
+
+def fields_from_job_header(header):
+    """Raw fields from the open job's header.  Absent stays absent."""
+    found = {}
+    if not isinstance(header, dict):
+        return found
+
+    for raw_key, spelling in (("job_title", "jobTitle"),
+                              ("company_name", "companyName"),
+                              ("location", "formattedLocation")):
+        value = _text_of(header.get(spelling))
+        if value:
+            found[raw_key] = value
+
+    types = header.get("jobTypes")
+    if isinstance(types, list):
+        labels = [_text_of(item) for item in types]
+        labels = [label for label in labels if label]
+        if labels:
+            found["employment_type"] = ", ".join(labels)
+    elif _text_of(types):
+        found["employment_type"] = _text_of(types)
+
+    # Salary is rendered from three parts; it is only written when there is
+    # an actual amount. A currency or a period on its own states nothing.
+    minimum = _text_of(header.get("salaryMin"))
+    maximum = _text_of(header.get("salaryMax"))
+    currency = _text_of(header.get("salaryCurrency"))
+    period = _SALARY_PERIOD.get(str(header.get("salaryType") or "").upper(), "")
+    if minimum or maximum:
+        if minimum and maximum and minimum != maximum:
+            amount = "%s - %s" % (minimum, maximum)
+        else:
+            amount = minimum or maximum
+        found["salary_text"] = " ".join(
+            part for part in (currency, amount, period) if part).strip()
+        if currency:
+            found["salary_currency"] = currency
+
+    return found
+
+
 def _job_types_of(card):
     """Employment type from Indeed's taxonomy block, or ""."""
     for group in card.get("taxonomyAttributes") or []:
@@ -687,6 +759,11 @@ def fields_from_source(original_html, apply_url="", input_row=None,
             # full text. Measured: snippet 135 chars vs pane 4,319 chars for
             # the same job. So the pane goes first, or the row gets a teaser
             # where the description belongs.
+            # The OPEN job's own pane first: it describes this one job.
+            # The card list is the fallback for anything it omits.
+            header = selected_job_header(original_html, job_key)
+            if header is not None:
+                adopt(fields_from_job_header(header), "job-pane")
             description = selected_job_description(original_html, job_key)
             if description:
                 adopt({"description": description}, "job-pane")
@@ -806,6 +883,7 @@ __all__ = [
     "document_title", "fields_from_meta", "html_to_visible_text",
     "fields_from_source", "blank_columns", "build_row_from_html",
     "job_card_for_key", "fields_from_job_card", "count_jobs",
-    "selected_job_description",
+    "selected_job_description", "selected_job_header",
+    "fields_from_job_header",
     "build_row_from_file", "SourceReport",
 ]
