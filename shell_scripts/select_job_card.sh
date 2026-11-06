@@ -1,38 +1,65 @@
 #!/usr/bin/env bash
-# Select one job card on the results page with the mouse, then PROVE which
-# job is now showing.
+# Select one job card and PROVE which job is now showing.
 #
 # USAGE
 #   select_job_card.sh --window WID --index N
-#                      [--card-x PX] [--first-card-y PX] [--card-pitch PX]
-#                      [--expect-title TEXT] [--marker vjk=]
-#                      [--temp-file PATH]
+#                      [--preselected-key KEY] [--seen-keys k1,k2,...]
+#                      [--card-x PX] [--start-y PX] [--max-y PX]
+#                      [--probe-step PX] [--probe-limit N]
+#                      [--marker vjk=] [--listing-pattern REGEX]
 #
 # STDOUT
 #   RESULT:index=N
-#   RESULT:clicked_at=X,Y
-#   RESULT:url_before=...
 #   RESULT:selected_url=...
-#   RESULT:selected_key=<the vjk/jk value, when the url carries one>
-#   RESULT:selection_changed=yes|no
-#   RESULT:title_confirmed=yes|no|not_checked
-#   RESULT:detail_text_file=PATH       (when --temp-file was given)
+#   RESULT:selected_key=<vjk value>
+#   RESULT:selection_method=preselected|click
+#   RESULT:clicked_at=X,Y            (click method only)
+#   RESULT:learned_card_y=PX         (the y that worked -- Python learns from it)
+#   RESULT:probes=N
+#   RESULT:no_more_cards=yes         (nothing selectable below --start-y)
 #
-# WHY A CLICK AND NOT Tab-Tab-Return
-# ----------------------------------
-# Tab order on a results page runs through the header, the filter chips and
-# every card's "save" and "apply" control before it reaches the next card,
-# and it changes whenever the page's furniture changes.  Counting tabs is
-# therefore a guess that fails silently on the wrong element.  A click at a
-# position in the results column is a guess too -- but it is a guess that
-# can be CHECKED afterwards, because selecting a card changes the url, and
-# that is what the rest of this script does.
+# ===========================================================================
+# WHY THIS WAS REWRITTEN -- THREE CONFIRMED FAULTS FROM A REAL RUN
+# ===========================================================================
+# The first live run produced:
 #
-# THE CHECK IS THE POINT.  A card that was not really selected means the
-# next Ctrl+U saves the PREVIOUS job's source under the new job's name, and
-# one job's details are written under another job's identity.  That is the
-# worst thing this project can do, so a selection that cannot be confirmed
-# is a hard failure, never a warning.
+#     card 1 -> click (430,448) -> vjk unchanged -> ERROR "SAME job"
+#     card 2 -> click (430,596) -> vjk unchanged -> ERROR "SAME job"
+#     card 3 -> click (430,744) -> vjk CHANGED    -> accepted
+#
+# Measured against the operator's screenshot of that exact page, the three
+# faults were:
+#
+# FAULT 1.  INDEED PRE-SELECTS THE FIRST JOB.
+#     A freshly loaded results page ALREADY carries vjk=<first job> in its
+#     url, and the first card is drawn highlighted. There is nothing to
+#     click to "select" it -- it is selected. The old script clicked at it,
+#     saw an unchanged vjk, and reported the SAME-job error. The first job
+#     of every search was therefore never collected, and the search was
+#     abandoned. That is what --preselected-key fixes: index 0 is accepted
+#     WITHOUT a click when Indeed has already selected it.
+#
+# FAULT 2.  CARD HEIGHTS ARE NOT CONSTANT, SO CARD_PITCH CANNOT EXIST.
+#     On that page the card tops were 410, 645 and 835 -- pitches of 259 and
+#     191, not the configured 148. The selected card is taller still,
+#     because it expands to show "View similar jobs with this employer", and
+#     cards with an "Easily apply" badge or a salary line are taller than
+#     ones without. Clicks at 448 and 596 both landed inside card 1 for
+#     exactly this reason. So this script no longer multiplies an index by a
+#     pitch: it PROBES downward and lets the page tell it where the next
+#     card is, reporting the y that worked so Python can learn the spacing.
+#
+# FAULT 3.  "UNCHANGED vjk" WAS TREATED AS A FATAL IDENTITY ERROR.
+#     An unchanged vjk means "that click did not land on a new card" -- a
+#     miss worth retrying a little lower, not a reason to abandon the
+#     keyword. It is now a probe miss.
+#
+# ONE MORE HAZARD, HANDLED: a card can contain links that NAVIGATE AWAY
+# ("View similar jobs with this employer"). After every click the url is
+# checked against the listing pattern, and a navigation is undone with Back
+# before probing continues -- otherwise the next Ctrl+U would save a page
+# that is not a job at all.
+# ===========================================================================
 
 SCRIPT_NAME="select_job_card"
 SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
@@ -41,30 +68,30 @@ source "$SCRIPT_DIR/_common.sh"
 
 WINDOW_ID=""
 INDEX=""
-EXPECT_TITLE=""
-TEMP_FILE=""
+PRESELECTED_KEY=""
+SEEN_KEYS=""
 MARKER="${CARD_MARKER:-vjk=}"
+LISTING_PATTERN="${LISTING_PATTERN:-/jobs\?|/jobs$|[?&]q=}"
 
-# Geometry of the results column.  These are the one set of numbers in this
-# project that depend on how the page happens to be laid out, so they are
-# arguments with overridable defaults rather than constants, and the script
-# reports exactly where it clicked so a wrong value is visible immediately.
 : "${CARD_X:=430}"
-: "${FIRST_CARD_Y:=300}"
-: "${CARD_PITCH:=148}"
-: "${CARD_MAX_Y:=980}"
+: "${START_Y:=440}"          # first card's clickable area, from the screenshot
+: "${CARD_MAX_Y:=1000}"
+: "${PROBE_STEP:=55}"        # smaller than the shortest card seen (~170px)
+: "${PROBE_LIMIT:=12}"
 
 while [ $# -gt 0 ]; do
     case "$1" in
-        --window)        WINDOW_ID="$2";    shift 2 ;;
-        --index)         INDEX="$2";        shift 2 ;;
-        --card-x)        CARD_X="$2";       shift 2 ;;
-        --first-card-y)  FIRST_CARD_Y="$2"; shift 2 ;;
-        --card-pitch)    CARD_PITCH="$2";   shift 2 ;;
-        --max-y)         CARD_MAX_Y="$2";   shift 2 ;;
-        --expect-title)  EXPECT_TITLE="$2"; shift 2 ;;
-        --marker)        MARKER="$2";       shift 2 ;;
-        --temp-file)     TEMP_FILE="$2";    shift 2 ;;
+        --window)           WINDOW_ID="$2";       shift 2 ;;
+        --index)            INDEX="$2";           shift 2 ;;
+        --preselected-key)  PRESELECTED_KEY="$2"; shift 2 ;;
+        --seen-keys)        SEEN_KEYS="$2";       shift 2 ;;
+        --card-x)           CARD_X="$2";          shift 2 ;;
+        --start-y)          START_Y="$2";         shift 2 ;;
+        --max-y)            CARD_MAX_Y="$2";      shift 2 ;;
+        --probe-step)       PROBE_STEP="$2";      shift 2 ;;
+        --probe-limit)      PROBE_LIMIT="$2";     shift 2 ;;
+        --marker)           MARKER="$2";          shift 2 ;;
+        --listing-pattern)  LISTING_PATTERN="$2"; shift 2 ;;
         *) fail "$EX_USAGE" "unknown argument: $1" ;;
     esac
 done
@@ -76,112 +103,126 @@ case "$INDEX" in ''|*[!0-9]*) fail "$EX_USAGE" "--index must be a number, got '$
 require_tools xdotool xclip xprop
 require_display
 window_exists "$WINDOW_ID" || fail "$EX_NO_WINDOW" "window $WINDOW_ID no longer exists"
-
-require_focus "$WINDOW_ID"
-require_fullscreen "$WINDOW_ID"
+require_window_ready "$WINDOW_ID"
 
 emit "index=$INDEX"
 
+key_of_url() {
+    local url="$1" key=""
+    case "$url" in
+        *"$MARKER"*) key="${url##*$MARKER}"; key="${key%%&*}" ;;
+    esac
+    printf '%s' "$key"
+}
+
+key_already_seen() {
+    local key="$1"
+    [ -z "$key" ] && return 1
+    case ",$SEEN_KEYS," in
+        *",$key,"*) return 0 ;;
+    esac
+    return 1
+}
+
+url_is_listing() {
+    printf '%s' "$1" | grep -qE "$LISTING_PATTERN"
+}
+
 # ---------------------------------------------------------------------------
-# 1. WHERE ARE WE NOW?  (also the input guard -- a click is an action)
+# 1. WHERE ARE WE?  (also the input guard -- a click is an action)
 # ---------------------------------------------------------------------------
-URL_BEFORE=$(assert_input_lands "$WINDOW_ID" "")
+assert_input_lands "$WINDOW_ID" "" \
+    || fail "$EX_FOCUS" "input guard: $GUARD_REASON. REFUSING to click -- on \
+this desktop the click could land in one of your own windows (see FACT 4)."
+URL_BEFORE="$GUARD_URL"
+KEY_BEFORE=$(key_of_url "$URL_BEFORE")
 emit "url_before=$URL_BEFORE"
-note "before selection: $URL_BEFORE"
-
-KEY_BEFORE=""
-case "$URL_BEFORE" in
-    *"$MARKER"*) KEY_BEFORE="${URL_BEFORE##*$MARKER}"; KEY_BEFORE="${KEY_BEFORE%%&*}" ;;
-esac
+note "before selection: key='${KEY_BEFORE:-none}'"
 
 # ---------------------------------------------------------------------------
-# 2. CLICK THE CARD
+# 2. FAULT 1: IS IT ALREADY SELECTED?
 # ---------------------------------------------------------------------------
-TARGET_Y=$(( FIRST_CARD_Y + INDEX * CARD_PITCH ))
-
-if [ "$TARGET_Y" -gt "$CARD_MAX_Y" ]; then
-    fail "$EX_USAGE" \
-        "card $INDEX would be at y=$TARGET_Y, past the bottom of the results \
-column (max $CARD_MAX_Y). Scroll the list with scroll_jobs.sh and select \
-with a smaller index, rather than clicking off-screen."
-fi
-
-note "clicking card $INDEX at ${CARD_X},${TARGET_Y}"
-emit "clicked_at=${CARD_X},${TARGET_Y}"
-xdotool mousemove --sync "$CARD_X" "$TARGET_Y" >/dev/null 2>&1
-sleep 0.3
-xdotool click 1 >/dev/null 2>&1
-sleep "$PAGE_SETTLE_SECONDS"
-
-# ---------------------------------------------------------------------------
-# 3. PROVE SOMETHING WAS SELECTED
-# ---------------------------------------------------------------------------
-URL_AFTER=$(copy_address_bar "$WINDOW_ID" "$CLIPBOARD_TIMEOUT") || URL_AFTER=""
-[ -n "$URL_AFTER" ] || fail "$EX_IDENTITY" \
-    "could not read the address bar after clicking, so there is no proof of \
-which job is selected. Refusing to continue."
-emit "selected_url=$URL_AFTER"
-note "after selection: $URL_AFTER"
-
-KEY_AFTER=""
-case "$URL_AFTER" in
-    *"$MARKER"*) KEY_AFTER="${URL_AFTER##*$MARKER}"; KEY_AFTER="${KEY_AFTER%%&*}" ;;
-esac
-emit "selected_key=$KEY_AFTER"
-
-CHANGED="no"
-[ "$URL_BEFORE" != "$URL_AFTER" ] && CHANGED="yes"
-emit "selection_changed=$CHANGED"
-
-if [ -z "$KEY_AFTER" ] && [ "$CHANGED" != "yes" ]; then
-    fail "$EX_IDENTITY" \
-        "the click at ${CARD_X},${TARGET_Y} changed nothing: the url is still \
-'$URL_AFTER' and carries no '$MARKER'. Either the click missed the card \
-column (adjust --card-x / --first-card-y / --card-pitch) or there is no \
-card $INDEX on this page."
-fi
-
-if [ -n "$KEY_BEFORE" ] && [ "$KEY_BEFORE" = "$KEY_AFTER" ]; then
-    fail "$EX_IDENTITY" \
-        "card $INDEX resolves to the SAME job as the previous selection \
-($MARKER$KEY_AFTER). Saving its source now would write one job's details \
-twice. Check --card-pitch: the click probably landed on the same card."
-fi
-
-# ---------------------------------------------------------------------------
-# 4. CONFIRM THE JOB'S IDENTITY ON THE PAGE
-# ---------------------------------------------------------------------------
-TITLE_CONFIRMED="not_checked"
-if [ -n "$EXPECT_TITLE" ] || [ -n "$TEMP_FILE" ]; then
-    DETAIL_TEXT=$(copy_page_text "$WINDOW_ID" "$CLIPBOARD_TIMEOUT") || DETAIL_TEXT=""
-
-    if [ -n "$DETAIL_TEXT" ] && looks_like_access_denied "$DETAIL_TEXT"; then
-        emit "access_denied=yes"
-        fail "$EX_ACCESS_DENIED" \
-            "the job detail pane is an access refusal. Stopping; no retry, no identity change."
-    fi
-
-    if [ -n "$TEMP_FILE" ] && [ -n "$DETAIL_TEXT" ]; then
-        write_temp_atomic "$TEMP_FILE" "$DETAIL_TEXT" \
-            && emit "detail_text_file=$TEMP_FILE"
-    fi
-
-    if [ -n "$EXPECT_TITLE" ]; then
-        if printf '%s' "$DETAIL_TEXT" | grep -qiF -- "$EXPECT_TITLE"; then
-            TITLE_CONFIRMED="yes"
-        else
-            TITLE_CONFIRMED="no"
-        fi
+# Indeed selects the first job for us. Clicking at it would change nothing,
+# which is precisely the "failure" the old script reported. If the job in
+# the url is one we have not handled yet, it IS the selection -- take it.
+if [ -n "$KEY_BEFORE" ] && ! key_already_seen "$KEY_BEFORE"; then
+    if [ -z "$PRESELECTED_KEY" ] || [ "$PRESELECTED_KEY" = "$KEY_BEFORE" ]; then
+        note "job $KEY_BEFORE is already selected by Indeed -- taking it without clicking"
+        emit "selected_url=$URL_BEFORE"
+        emit "selected_key=$KEY_BEFORE"
+        emit "selection_method=preselected"
+        emit "probes=0"
+        exit "$EX_OK"
     fi
 fi
-emit "title_confirmed=$TITLE_CONFIRMED"
 
-if [ "$TITLE_CONFIRMED" = "no" ]; then
+# ---------------------------------------------------------------------------
+# 3. FAULT 2: PROBE DOWNWARD INSTEAD OF MULTIPLYING BY A PITCH
+# ---------------------------------------------------------------------------
+PROBES=0
+Y="$START_Y"
+SELECTED_URL=""
+SELECTED_KEY=""
+LANDED_Y=""
+
+while [ "$PROBES" -lt "$PROBE_LIMIT" ] && [ "$Y" -le "$CARD_MAX_Y" ]; do
+    PROBES=$((PROBES + 1))
+    note "probe $PROBES: clicking ${CARD_X},${Y}"
+    xdotool mousemove --sync "$CARD_X" "$Y" >/dev/null 2>&1
+    sleep 0.25
+    xdotool click 1 >/dev/null 2>&1
+    sleep "$PAGE_SETTLE_SECONDS"
+
+    URL_AFTER=$(copy_address_bar_retry "$WINDOW_ID" "$CLIPBOARD_TIMEOUT") || URL_AFTER=""
+
+    # HAZARD: a card can hold links that leave the results page entirely.
+    if [ -n "$URL_AFTER" ] && ! url_is_listing "$URL_AFTER"; then
+        warn "the click navigated away from the listing ($URL_AFTER); going Back"
+        xdotool key --clearmodifiers alt+Left >/dev/null 2>&1
+        sleep "$PAGE_SETTLE_SECONDS"
+        URL_AFTER=$(copy_address_bar_retry "$WINDOW_ID" "$CLIPBOARD_TIMEOUT") || URL_AFTER=""
+        Y=$((Y + PROBE_STEP))
+        continue
+    fi
+
+    KEY_AFTER=$(key_of_url "$URL_AFTER")
+
+    if [ -n "$KEY_AFTER" ] && [ "$KEY_AFTER" != "$KEY_BEFORE" ] \
+       && ! key_already_seen "$KEY_AFTER"; then
+        SELECTED_URL="$URL_AFTER"
+        SELECTED_KEY="$KEY_AFTER"
+        LANDED_Y="$Y"
+        break
+    fi
+
+    # FAULT 3: an unchanged key is a MISS, not a fatal error.
+    if [ "$KEY_AFTER" = "$KEY_BEFORE" ]; then
+        note "   same job still selected -- the click was inside the current card"
+    elif key_already_seen "$KEY_AFTER"; then
+        note "   job $KEY_AFTER has already been handled -- probing past it"
+        KEY_BEFORE="$KEY_AFTER"
+    fi
+    Y=$((Y + PROBE_STEP))
+done
+
+emit "probes=$PROBES"
+
+if [ -z "$SELECTED_KEY" ]; then
+    # Nothing new below --start-y. For the caller this is the normal end of
+    # a page's cards; it is reported as such rather than as a fault, and
+    # the wording is what find_indeed_job.py matches on.
+    emit "no_more_cards=yes"
     fail "$EX_IDENTITY" \
-        "the selected job's page does not contain the expected title \
-'$EXPECT_TITLE'. The wrong card is open; refusing to save its source under \
-that job's name."
+        "no new job card found: $PROBES probe(s) between y=$START_Y and \
+y=$CARD_MAX_Y changed nothing that had not already been handled. Either the \
+page's cards are exhausted or the list needs scrolling."
 fi
 
-note "card $INDEX selected and confirmed"
+emit "selected_url=$SELECTED_URL"
+emit "selected_key=$SELECTED_KEY"
+emit "selection_method=click"
+emit "clicked_at=${CARD_X},${LANDED_Y}"
+emit "learned_card_y=$LANDED_Y"
+note "card index $INDEX selected: job $SELECTED_KEY at y=$LANDED_Y after $PROBES probe(s)"
+
 exit "$EX_OK"

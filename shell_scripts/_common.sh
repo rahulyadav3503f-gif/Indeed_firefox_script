@@ -63,7 +63,8 @@ EX_USAGE=2
 EX_LAUNCH=3            # the browser would not start
 EX_NO_WINDOW=4         # no window of ours exists / it disappeared
 EX_FOCUS=5             # could not focus our window
-EX_FULLSCREEN=6        # fullscreen could not be confirmed
+EX_FULLSCREEN=6        # (retired) fullscreen could not be confirmed
+EX_WINDOW_GEOMETRY=15  # the window is not a usable size
 EX_NAVIGATION=7        # the expected page is not there
 EX_CLIPBOARD_STALE=8   # Ctrl+C did not change the clipboard
 EX_CLIPBOARD_EMPTY=9   # the copy produced nothing
@@ -79,6 +80,12 @@ EX_SAVE_FILE=14        # the dialog ran but no usable file arrived
 # ---------------------------------------------------------------------------
 : "${KEY_DELAY_MS:=14}"            # xdotool type --delay
 : "${PAGE_SETTLE_SECONDS:=3}"      # after a navigation, before reading
+# How long to let Indeed's page finish rendering AFTER it has loaded and
+# BEFORE clicking into its search boxes.  This is not belt-and-braces: the
+# "what" and "where" boxes move while the hero area lays out, so a click
+# sent too early lands on the page background, the keyword goes nowhere,
+# and the Return that follows is delivered to whatever has focus.
+: "${SEARCH_FIELD_DELAY_SECONDS:=7}"
 : "${CLIPBOARD_TIMEOUT:=8}"        # how long to wait for Ctrl+C to land
 : "${FOCUS_TIMEOUT:=10}"
 : "${FULLSCREEN_TIMEOUT:=10}"
@@ -189,14 +196,61 @@ require_focus() {
     fail "$EX_FOCUS" "could not focus window $win within ${FOCUS_TIMEOUT}s"
 }
 
-#: Move focus out of the address bar and into the page.  Needed before any
-#: page-level shortcut: with the caret still in the address bar after a
-#: Ctrl+L, F11 and Ctrl+U are swallowed.  MEASURED: F11 did nothing until
-#: Escape+F6 preceded it, then worked every time.
+#: Close the address-bar suggestion panel.
+#:
+#: MEASURED, AND IT WRECKED THREE LIVE RUNS. Ctrl+L does not merely focus
+#: the address bar -- it opens a suggestion DROPDOWN that covers the top of
+#: the content area (roughly 500px tall, the full width of the page). Every
+#: address-bar read therefore leaves a panel sitting on top of the page.
+#:
+#: The next thing the search does is click where Indeed's keyword box is...
+#: which, with the panel open, is a row in that dropdown. Captured as a
+#: screenshot: the click point landed exactly on "YouTube - youtube.com".
+#: The browser dutifully navigated to YouTube, and on another run to
+#: Wikipedia, and the search then "failed" for reasons that looked like
+#: focus theft and were nothing of the kind.
+#:
+#: So: after reading the address bar and before clicking into the page, the
+#: panel is dismissed. Escape is the one key that closes it. Escape also
+#: means STOP LOADING, so this is only ever called when no navigation is in
+#: flight -- never inside a wait loop.
+dismiss_url_dropdown() {
+    xdotool key --clearmodifiers Escape >/dev/null 2>&1
+    sleep 0.4
+}
+
+#: Put keyboard focus in the PAGE, deterministically.
+#:
+#: THIS IS THE BUG THAT BROKE Ctrl+U, AND IT IS WORTH THE PARAGRAPH.
+#:
+#: The old body was `Escape; F6`, from whatever state focus happened to be
+#: in. Two measurements on the live browser killed that:
+#:
+#:   * F6 TOGGLES between the address bar and the page. It does not "go to
+#:     the page". From the address bar it reaches the page; from the page it
+#:     goes to the ADDRESS BAR.
+#:   * Escape does NOT move focus out of the address bar. Measured:
+#:     Ctrl+L then Escape still had the caret in the address bar.
+#:
+#: So `Escape; F6` starting from page focus LANDED IN THE ADDRESS BAR, and
+#: the Ctrl+U that followed was interpreted as a text-field edit -- Ctrl+U
+#: in a GTK entry is "delete to start of line". Observed live: the address
+#: bar was wiped, no view-source tab opened, and every later address-bar
+#: read came back empty. That is the whole of:
+#:
+#:     ERROR(12): Ctrl+U did not produce the view-source tab within 15s.
+#:                Address bar reads: <unreadable>
+#:
+#: The fix is to stop guessing the current state. Ctrl+L ALWAYS lands in the
+#: address bar; F6 from there ALWAYS lands in the page. Measured from both
+#: starting states, it gives PAGE either way.
+#:
+#: Escape is deliberately NOT used here: on a page that is still loading it
+#: means STOP LOADING, which is a separate bug this project already had.
 focus_page_content() {
     local win="$1"
-    xdotool key --clearmodifiers Escape >/dev/null 2>&1; sleep 0.25
-    xdotool key --clearmodifiers F6     >/dev/null 2>&1; sleep 0.25
+    xdotool key --clearmodifiers ctrl+l >/dev/null 2>&1; sleep 0.35
+    xdotool key --clearmodifiers F6     >/dev/null 2>&1; sleep 0.35
 }
 
 #: True when _NET_WM_STATE carries _NET_WM_STATE_FULLSCREEN.
@@ -206,37 +260,173 @@ is_fullscreen() {
 
 #: Fullscreen is REQUIRED for the whole workflow, so it is re-checked at the
 #: start of every step rather than only at launch.
-#: F11 is a TOGGLE, so this checks the state before pressing it and after,
-#: and never presses it twice in a row without re-reading _NET_WM_STATE --
-#: a blind second press is what turns fullscreen back off.
+#: NORMAL WINDOW MODE -- fullscreen is deliberately NOT used any more.
 #:
-#: MEASURED: `xdotool key --window <id> F11` (a synthetic XSendEvent) and
-#: plain XTEST `xdotool key F11` BOTH reach Firefox, but neither does
-#: anything while the caret sits in the address bar.  focus_page_content()
-#: first is what makes it deterministic.
-require_fullscreen() {
-    local win="$1" waited=0 attempts=0
-    is_fullscreen "$win" && return 0
-    note "window $win is not fullscreen -- requesting it"
-    while [ "$attempts" -lt 3 ]; do
-        xdotool windowactivate "$win" >/dev/null 2>&1
-        sleep 0.5
-        focus_page_content "$win"
-        xdotool key --clearmodifiers F11 >/dev/null 2>&1
-        attempts=$((attempts + 1))
-        waited=0
-        while [ "$(printf '%.0f' "$waited")" -lt 4 ]; do
-            if is_fullscreen "$win"; then
-                note "fullscreen confirmed (attempt $attempts)"
-                return 0
-            fi
-            sleep "$POLL_INTERVAL"
-            waited=$(awk "BEGIN{print $waited + $POLL_INTERVAL}")
-        done
+#: The project used to press F11 and refuse to continue unless
+#: _NET_WM_STATE_FULLSCREEN was set.  That requirement has been WITHDRAWN:
+#: Firefox now runs in an ordinary decorated window so the operator can
+#: watch it, matching the supplied screenshot (1845x1046 on a 1920x1080
+#: screen, title bar visible).
+#:
+#: What replaced it is NOT "nothing".  A window still has to be mapped,
+#: focused and the size we expect before a coordinate-based click means
+#: anything, so require_window_ready() checks exactly that.
+exit_fullscreen_if_set() {
+    local win="$1"
+    is_fullscreen "$win" || return 0
+    note "window $win is fullscreen; leaving fullscreen (normal window mode)"
+    xdotool windowactivate --sync "$win" >/dev/null 2>&1
+    focus_page_content "$win"
+    xdotool key --clearmodifiers F11 >/dev/null 2>&1
+    local waited=0
+    while [ "$(printf '%.0f' "$waited")" -lt 6 ]; do
+        is_fullscreen "$win" || { note "left fullscreen"; return 0; }
+        sleep "$POLL_INTERVAL"
+        waited=$(awk "BEGIN{print $waited + $POLL_INTERVAL}")
     done
-    fail "$EX_FULLSCREEN" \
-        "window $win would not go fullscreen after $attempts attempts. \
-_NET_WM_STATE reads: $(xprop -id "$win" _NET_WM_STATE 2>&1 | tail -1)"
+    warn "could not leave fullscreen; continuing in whatever state it is in"
+    return 1
+}
+
+#: Put the window where the screenshot has it.  Size and position are
+#: arguments, never constants: a different screen needs different numbers
+#: and nothing here should have to be edited to supply them.
+#: MEASURED: a single windowsize/windowmove right after the window appears
+#: is frequently IGNORED -- the window is still mapping and the compositor
+#: overrides it.  Observed: asked for 1845x1046+0+34, got 1332x999+44+4.
+#: That matters more than it looks, because the search-box and job-card
+#: coordinates are measured against the intended size; in a 1332-wide
+#: window the click lands somewhere else entirely.
+#:
+#: So the request is repeated until the geometry sticks, and the caller is
+#: told what was actually achieved rather than what was asked for.
+set_window_geometry() {
+    local win="$1" x="$2" y="$3" width="$4" height="$5"
+    local attempt=0 got_w got_h line X= Y= WIDTH= HEIGHT=
+
+    while [ "$attempt" -lt 5 ]; do
+        attempt=$((attempt + 1))
+        [ -n "$width" ] && [ -n "$height" ] \
+            && xdotool windowsize "$win" "$width" "$height" >/dev/null 2>&1
+        [ -n "$x" ] && [ -n "$y" ] \
+            && xdotool windowmove "$win" "$x" "$y" >/dev/null 2>&1
+        sleep 0.7
+
+        line=$(xdotool getwindowgeometry --shell "$win" 2>/dev/null) || return 1
+        eval "$line"
+        got_w="${WIDTH:-0}"; got_h="${HEIGHT:-0}"
+
+        # Within a few pixels is fine: window managers round to increments.
+        if [ "$(( got_w > width ? got_w - width : width - got_w ))" -le 8 ] \
+           && [ "$(( got_h > height ? got_h - height : height - got_h ))" -le 8 ]; then
+            note "window geometry set on attempt $attempt: ${got_w}x${got_h}+${X}+${Y}"
+            return 0
+        fi
+        note "geometry attempt $attempt gave ${got_w}x${got_h}+${X}+${Y}, retrying"
+    done
+
+    warn "could not set the window to ${width}x${height}; it is ${got_w}x${got_h}. \
+Coordinates calibrated for ${width}x${height} may not land correctly."
+    return 1
+}
+
+#: WINDOW_GEOMETRY -> "WIDTHxHEIGHT+X+Y" as the X server currently sees it.
+window_geometry() {
+    local win="$1" line
+    line=$(xdotool getwindowgeometry --shell "$win" 2>/dev/null) || return 1
+    local X= Y= WIDTH= HEIGHT=
+    eval "$line"
+    printf '%sx%s+%s+%s' "$WIDTH" "$HEIGHT" "$X" "$Y"
+}
+
+#: The replacement for require_fullscreen(): the window must exist, be
+#: focused, and be big enough that the results column is actually on
+#: screen.  A 400x300 window would make every card coordinate meaningless,
+#: so that is refused rather than clicked into.
+: "${MIN_WINDOW_WIDTH:=900}"
+: "${MIN_WINDOW_HEIGHT:=600}"
+require_window_ready() {
+    local win="$1"
+    window_exists "$win" || fail "$EX_NO_WINDOW" "window $win no longer exists"
+    require_focus "$win"
+
+    local line X= Y= WIDTH= HEIGHT=
+    line=$(xdotool getwindowgeometry --shell "$win" 2>/dev/null) \
+        || fail "$EX_NO_WINDOW" "cannot read the geometry of window $win"
+    eval "$line"
+
+    if [ "${WIDTH:-0}" -lt "$MIN_WINDOW_WIDTH" ] \
+       || [ "${HEIGHT:-0}" -lt "$MIN_WINDOW_HEIGHT" ]; then
+        fail "$EX_WINDOW_GEOMETRY" \
+            "the Firefox window is ${WIDTH}x${HEIGHT}, smaller than the \
+${MIN_WINDOW_WIDTH}x${MIN_WINDOW_HEIGHT} minimum. Job-card coordinates are \
+measured against a normal-sized window; clicking inside a window this small \
+would select the wrong thing or nothing."
+    fi
+    return 0
+}
+
+# ---------------------------------------------------------------------------
+# PAGE STATE WITHOUT THE CLIPBOARD
+# ---------------------------------------------------------------------------
+# The window TITLE is a free, instant, non-destructive read of what the page
+# is.  Firefox puts the document title there, so a Cloudflare interstitial
+# says "Just a moment...", a dead host says "Server not found", and a real
+# Indeed results page says "<n> <keyword> jobs in <city>...".
+#
+# This is what replaced copying the whole listing page with Ctrl+A/Ctrl+C.
+# That copy was only ever used to answer "did the page load, and is it a
+# refusal?", and it answered it expensively: it depended on the clipboard
+# changing, which is exactly the thing that failed in the field with
+# "Ctrl+C did not change the clipboard".
+title_says_access_denied() {
+    printf '%s' "$1" | grep -qiE \
+        "just a moment|access denied|forbidden|attention required|\
+blocked|captcha|are you a robot|security check|unusual traffic|\
+too many requests|rate limit|cloudflare"
+}
+
+title_says_error_page() {
+    printf '%s' "$1" | grep -qiE \
+        "server not found|problem loading|unable to connect|\
+connection (timed out|reset|failure)|did not respond|page not found|\
+not found|network protocol error|secure connection failed"
+}
+
+#: Poll the window title until it stops changing -- a page that is still
+#: loading keeps retitling.  Returns the settled title.
+wait_for_title_to_settle() {
+    local win="$1" timeout="${2:-15}" previous="" current="" stable=0 waited=0
+    while [ "$(printf '%.0f' "$waited")" -lt "$timeout" ]; do
+        current=$(window_name "$win")
+        if [ -n "$current" ] && [ "$current" = "$previous" ]; then
+            stable=$((stable + 1))
+            [ "$stable" -ge 2 ] && break
+        else
+            stable=0
+        fi
+        previous="$current"
+        sleep 0.5
+        waited=$(awk "BEGIN{print $waited + 0.5}")
+    done
+    printf '%s' "$current"
+}
+
+#: Poll the ADDRESS BAR until it matches an extended regex, or time out.
+#: Uses the quiet read, so it never cancels a load in progress.
+wait_for_url_match() {
+    local win="$1" pattern="$2" timeout="${3:-20}" url="" waited=0
+    while [ "$(printf '%.0f' "$waited")" -lt "$timeout" ]; do
+        url=$(copy_address_bar_quiet "$win" 5) || url=""
+        if [ -n "$url" ] && printf '%s' "$url" | grep -qE "$pattern"; then
+            printf '%s' "$url"
+            return 0
+        fi
+        sleep 1
+        waited=$(awk "BEGIN{print $waited + 1}")
+    done
+    printf '%s' "$url"
+    return 1
 }
 
 # ---------------------------------------------------------------------------
@@ -319,6 +509,33 @@ copy_address_bar() {
 copy_address_bar_quiet() {
     local win="$1" timeout="${2:-$CLIPBOARD_TIMEOUT}"
     _copy_with_nonce "$win" "$timeout" ctrl+l ctrl+a ctrl+c
+}
+
+#: MEASURED: the FIRST clipboard read after a script boundary fails often
+#: enough to matter.  In the live Ctrl+U test, search_jobs.sh read the url
+#: fine, then select_job_card.sh's very first read came back empty, and a
+#: read two seconds later worked.  The window needs a moment to actually
+#: hold focus after `windowactivate`, and a single attempt lands inside
+#: that window.
+#:
+#: This is the direct cause of the "<unreadable>" in the error the operator
+#: reported.  One retry removes it; the retry count is a tunable rather
+#: than a magic 2 because a loaded machine may need more.
+: "${ADDRESS_BAR_ATTEMPTS:=3}"
+copy_address_bar_retry() {
+    local win="$1" timeout="${2:-$CLIPBOARD_TIMEOUT}" url="" attempt=0
+    while [ "$attempt" -lt "$ADDRESS_BAR_ATTEMPTS" ]; do
+        attempt=$((attempt + 1))
+        url=$(copy_address_bar_quiet "$win" "$timeout")
+        if [ -n "$url" ]; then
+            [ "$attempt" -gt 1 ] && note "address bar read on attempt $attempt"
+            printf '%s' "$url"
+            return 0
+        fi
+        xdotool windowactivate --sync "$win" >/dev/null 2>&1
+        sleep 0.8
+    done
+    return 1
 }
 
 #: All visible text on the page.
@@ -449,27 +666,46 @@ firefox_x11_env() {
 #   When the guard fails the script STOPS.  It does not retry blindly and it
 #   does not "try anyway": there is nowhere safe to send the keystroke.
 assert_input_lands() {
-    local win="$1" expect="$2" seen=""
-    seen=$(copy_address_bar "$win" "$CLIPBOARD_TIMEOUT") || seen=""
+    local win="$1" expect="$2"
 
-    if [ -z "$seen" ]; then
-        fail "$EX_FOCUS" \
-            "input guard: could not read the address bar, so there is no \
-proof that keystrokes are reaching window $win. REFUSING to type -- on this \
-desktop the keys could land in one of your own windows (see FACT 4)."
+    # NOTE THE SHAPE, AND WHY.  This used to be called as
+    #     URL=$(assert_input_lands "$win" "")
+    # and it called fail() on a bad read.  fail() ends with `exit`, and an
+    # `exit` inside $( ) ends only the SUBSHELL -- so the script carried on
+    # with the error MESSAGE as its url and exited 0.  Observed live: the
+    # guard printed "REFUSING to type", and the script then went ahead and
+    # clicked anyway.  A guard that does not guard is worse than none.
+    #
+    # So it sets GUARD_URL and returns a status; the CALLER decides, at top
+    # level, where fail() really does end the script:
+    #
+    #     assert_input_lands "$win" "" || fail "$EX_FOCUS" "..."
+    #     URL_BEFORE="$GUARD_URL"
+    GUARD_URL=""
+    GUARD_REASON=""
+
+    GUARD_URL=$(copy_address_bar_retry "$win" "$CLIPBOARD_TIMEOUT") || GUARD_URL=""
+
+    if [ -z "$GUARD_URL" ]; then
+        GUARD_REASON="could not read the address bar after \
+${ADDRESS_BAR_ATTEMPTS} attempts, so there is no proof that keystrokes are \
+reaching window $win"
+        return 1
     fi
+
+    # Every caller of this guard goes on to click or type into the PAGE,
+    # and the read above left the suggestion panel covering it.
+    dismiss_url_dropdown
 
     if [ -n "$expect" ]; then
-        case "$seen" in
+        case "$GUARD_URL" in
             *"$expect"*) : ;;
             *)
-                fail "$EX_FOCUS" \
-                    "input guard: expected the focused page to contain \
-'$expect' but the address bar returned '$seen'. Keystrokes are NOT going to \
-our Firefox window. REFUSING to type (see FACT 4)." ;;
+                GUARD_REASON="expected the focused page to contain '$expect' \
+but the address bar returned '$GUARD_URL'; keystrokes are NOT going to our \
+Firefox window"
+                return 1 ;;
         esac
     fi
-
-    printf '%s' "$seen"
     return 0
 }

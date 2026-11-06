@@ -14,3 +14,49 @@ Exiting due to channel error.
 Exiting due to channel error.
 Exiting due to channel error.
 Exiting due to channel error.
+Gtk-Message: 21:25:35.208: Not loading module "atk-bridge": The functionality is provided by GTK natively. Please try to not load it.
+update.go:193: cannot change mount namespace according to change mount (/var/lib/snapd/hostfs/usr/share/gimp/2.0/help /usr/share/gimp/2.0/help none bind,ro 0 0): cannot write to "/var/lib/snapd/hostfs/usr/share/gimp/2.0/help" because it would affect the host in "/var/lib/snapd"
+update.go:193: cannot change mount namespace according to change mount (/var/lib/snapd/hostfs/usr/share/sphinx_rtd_theme /usr/share/sphinx_rtd_theme none bind,ro 0 0): cannot write to "/var/lib/snapd/hostfs/usr/share/sphinx_rtd_theme" because it would affect the host in "/var/lib/snapd"
+update.go:193: cannot change mount namespace according to change mount (/var/lib/snapd/hostfs/usr/share/xubuntu-docs /usr/share/xubuntu-docs none bind,ro 0 0): cannot write to "/var/lib/snapd/hostfs/usr/share/xubuntu-docs" because it would affect the host in "/var/lib/snapd"
+Gtk-Message: 23:36:36.658: Not loading module "atk-bridge": The functionality is provided by GTK natively. Please try to not load it.
+Exiting due to channel error.
+Exiting due to channel error.
+Exiting due to channel error.
+Exiting due to channel error.
+Exiting due to channel error.
+Exiting due to channel error.
+Gtk-Message: 23:37:34.265: Not loading module "atk-bridge": The functionality is provided by GTK natively. Please try to not load it.
+Exiting due to channel error.
+Exiting due to channel error.
+Exiting due to channel error.
+Exiting due to channel error.
+Exiting due to channel error.
+Exiting due to channel error.
+Exiting due to channel error.
+Gtk-Message: 23:39:21.305: Not loading module "atk-bridge": The functionality is provided by GTK natively. Please try to not load it.
+Exiting due to channel error.
+Exiting due to channel error.
+Exiting due to channel error.
+Exiting due to channel error.
+Exiting due to channel error.
+Exiting due to channel error.
+Exiting due to channel error.
+Gtk-Message: 23:44:38.890: Not loading module "atk-bridge": The functionality is provided by GTK natively. Please try to not load it.
+Gtk-Message: 00:02:06.380: Not loading module "atk-bridge": The functionality is provided by GTK natively. Please try to not load it.
+Gtk-Message: 00:14:18.265: Not loading module "atk-bridge": The functionality is provided by GTK natively. Please try to not load it.
+Gtk-Message: 00:14:42.042: Not loading module "atk-bridge": The functionality is provided by GTK natively. Please try to not load it.
+Gtk-Message: 00:18:13.373: Not loading module "atk-bridge": The functionality is provided by GTK natively. Please try to not load it.
+Gtk-Message: 00:22:29.816: Not loading module "atk-bridge": The functionality is provided by GTK natively. Please try to not load it.
+[Parent 21637, IPC I/O Parent] WARNING: process 21980 exited on signal 9: file ipc/chromium/src/chrome/common/process_watcher_posix_sigchld.cc:161
+Gtk-Message: 00:34:38.298: Not loading module "atk-bridge": The functionality is provided by GTK natively. Please try to not load it.
+update.go:193: cannot change mount namespace according to change mount (/var/lib/snapd/hostfs/usr/share/gimp/2.0/help /usr/share/gimp/2.0/help none bind,ro 0 0): cannot write to "/var/lib/snapd/hostfs/usr/share/gimp/2.0/help" because it would affect the host in "/var/lib/snapd"
+update.go:193: cannot change mount namespace according to change mount (/var/lib/snapd/hostfs/usr/share/sphinx_rtd_theme /usr/share/sphinx_rtd_theme none bind,ro 0 0): cannot write to "/var/lib/snapd/hostfs/usr/share/sphinx_rtd_theme" because it would affect the host in "/var/lib/snapd"
+update.go:193: cannot change mount namespace according to change mount (/var/lib/snapd/hostfs/usr/share/xubuntu-docs /usr/share/xubuntu-docs none bind,ro 0 0): cannot write to "/var/lib/snapd/hostfs/usr/share/xubuntu-docs" because it would affect the host in "/var/lib/snapd"
+Gtk-Message: 09:00:08.800: Not loading module "atk-bridge": The functionality is provided by GTK natively. Please try to not load it.
+Exiting due to channel error.
+Exiting due to channel error.
+Exiting due to channel error.
+Exiting due to channel error.
+Exiting due to channel error.
+Exiting due to channel error.
+Exiting due to channel error.

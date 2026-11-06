@@ -5107,21 +5107,19 @@
   "saved_jobs": 0,
   "duplicate_jobs": 0,
   "rejected_jobs": 0,
-  "failed_jobs": 3,
+  "failed_jobs": 5,
   "examined_jobs": 0,
   "failure_state": {
-    "at": "2026-11-05 20:17:23",
-    "stage": "card",
-    "reason": "card 2 resolves to the SAME job as the previous selection (vjk=64a602f0dbc2745d). Saving its source now would write one job's details twice. Check --card-pitch: the click probably landed on the same card. | stage=select_job_card.sh | exit=11",
+    "at": "2026-11-06 09:01:39",
+    "stage": "search",
+    "reason": "the search was submitted but the results url does not match the keyword and city asked for. Wanted something matching 'in.indeed.com.*[?&]q=Social[+%%]Media[+%%]Designer.*[&]l=Delhi', the address bar says 'https://in.indeed.com/'. Refusing to read job cards from a page that is not this search. | stage=search_jobs.sh | exit=7",
     "rank": 1,
     "city": "Delhi",
     "keyword": "Social Media Designer",
-    "page": 1,
-    "card": 2,
-    "job_url": ""
+    "page": 1
   },
   "cycle_complete": false,
-  "updated_at": "2026-11-05 20:17:35",
+  "updated_at": "2026-11-06 09:02:30",
   "recent_failures": [
     {
       "at": "2026-11-05 20:16:29",
@@ -5153,6 +5151,26 @@
       "page": 1,
       "card": 2,
       "job_url": ""
+    },
+    {
+      "at": "2026-11-05 23:46:48",
+      "stage": "card",
+      "reason": "Ctrl+U did not produce the view-source tab for this page within 15s. Wanted 'view-source:https://in.indeed.com/jobs?q=Social+Media+Designer&l=Delhi&from=searchOnHP&vjk=60c2445d0567a701', address bar reads '<unreadable>'. Nothing was saved. | stage=save_page_source.sh | exit=12",
+      "rank": 1,
+      "city": "Delhi",
+      "keyword": "Social Media Designer",
+      "page": 1,
+      "card": 0,
+      "job_url": "https://in.indeed.com/jobs?q=Social+Media+Designer&l=Delhi&from=searchOnHP&vjk=60c2445d0567a701"
+    },
+    {
+      "at": "2026-11-06 09:01:39",
+      "stage": "search",
+      "reason": "the search was submitted but the results url does not match the keyword and city asked for. Wanted something matching 'in.indeed.com.*[?&]q=Social[+%%]Media[+%%]Designer.*[&]l=Delhi', the address bar says 'https://in.indeed.com/'. Refusing to read job cards from a page that is not this search. | stage=search_jobs.sh | exit=7",
+      "rank": 1,
+      "city": "Delhi",
+      "keyword": "Social Media Designer",
+      "page": 1
     }
   ]
 }

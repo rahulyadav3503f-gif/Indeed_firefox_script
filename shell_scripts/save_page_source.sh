@@ -78,13 +78,12 @@ mkdir -p "$OUT_DIR" || fail "$EX_SAVE_FILE" "cannot create $OUT_DIR"
 # Refuse to be confused by a previous run's leftovers.
 rm -rf "$OUT_FILE" "$OUT_DIR/$OUT_BASE".* "$OUT_DIR/${OUT_BASE%.*}"_files 2>/dev/null
 
-require_focus "$WINDOW_ID"
-require_fullscreen "$WINDOW_ID"
+require_window_ready "$WINDOW_ID"
 
 # ---------------------------------------------------------------------------
 # 1. WHICH PAGE ARE WE ABOUT TO TAKE THE SOURCE OF?
 # ---------------------------------------------------------------------------
-PAGE_URL=$(copy_address_bar "$WINDOW_ID" "$CLIPBOARD_TIMEOUT") || PAGE_URL=""
+PAGE_URL=$(copy_address_bar_retry "$WINDOW_ID" "$CLIPBOARD_TIMEOUT") || PAGE_URL=""
 [ -n "$PAGE_URL" ] || fail "$EX_NAVIGATION" \
     "could not read the address bar, so there is no way to know which page \
 the source would belong to. Refusing to save an unidentified page."

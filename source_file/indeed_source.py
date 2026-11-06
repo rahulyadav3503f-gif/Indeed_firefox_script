@@ -404,6 +404,159 @@ def html_to_visible_text(original_html):
     return _MANY_BLANKS.sub("\n\n", "\n".join(line for line in lines if line))
 
 
+
+# ===========================================================================
+# 2d. ISOLATING ONE JOB FROM A LISTING DOCUMENT
+# ===========================================================================
+# MEASURED on a real capture: the source saved after Ctrl+U on an Indeed
+# results page is the LISTING document. One file described 16 distinct jobs
+# (16 distinct jk= values) and carried no JSON-LD at all.
+#
+# That matters more than it sounds. Parsing such a file as a whole would mix
+# sixteen jobs' titles, companies and salaries into one row -- precisely the
+# "do not mix information from different jobs" failure. So when the caller
+# knows WHICH job was selected (the vjk= key), the document is narrowed to
+# that job before any field is read.
+#
+# Indeed embeds its card data as JSON inside inline <script> blocks. The
+# exact variable name has changed over the years, so several spellings are
+# tried and the first that yields the selected key wins.
+
+_JSON_START = re.compile(r"[{\[]")
+
+
+def _balanced_json(text, start):
+    """The balanced JSON value beginning at ``start``, or "".
+
+    A regex cannot match balanced braces, and these blobs are large and
+    full of braces inside strings, so the scan tracks string state and
+    escapes rather than counting braces naively.
+    """
+    if start >= len(text) or text[start] not in "{[":
+        return ""
+    opener = text[start]
+    closer = "}" if opener == "{" else "]"
+    depth = 0
+    in_string = False
+    escaped = False
+    for index in range(start, len(text)):
+        char = text[index]
+        if in_string:
+            if escaped:
+                escaped = False
+            elif char == "\\":
+                escaped = True
+            elif char == '"':
+                in_string = False
+            continue
+        if char == '"':
+            in_string = True
+        elif char == opener:
+            depth += 1
+        elif char == closer:
+            depth -= 1
+            if depth == 0:
+                return text[start:index + 1]
+    return ""
+
+
+#: Where Indeed has kept its job-card array, newest spelling first.
+_CARD_BLOB_HINTS = (
+    'mosaic-provider-jobcards',
+    '_initialData',
+    'window.mosaic.providerData',
+    'jobmap',
+)
+
+
+def _iter_json_blobs(original_html):
+    """Every balanced JSON value that follows one of the known hints."""
+    for hint in _CARD_BLOB_HINTS:
+        for match in re.finditer(re.escape(hint), original_html):
+            opener = _JSON_START.search(original_html, match.end())
+            if not opener or opener.start() - match.end() > 80:
+                continue
+            blob = _balanced_json(original_html, opener.start())
+            if not blob:
+                continue
+            try:
+                yield hint, json.loads(blob)
+            except ValueError:
+                continue
+
+
+def _iter_dicts(value):
+    """Every dict anywhere inside a nested JSON structure."""
+    if isinstance(value, dict):
+        yield value
+        for item in value.values():
+            for found in _iter_dicts(item):
+                yield found
+    elif isinstance(value, list):
+        for item in value:
+            for found in _iter_dicts(item):
+                yield found
+
+
+#: The spellings Indeed has used for a card's own id.
+_JOB_KEY_FIELDS = ("jobkey", "jobKey", "jk", "encryptedResultData")
+
+
+def job_card_for_key(original_html, job_key):
+    """The embedded JSON object describing ``job_key``, or None.
+
+    Returns the card Indeed itself published for that job, which is far
+    better evidence than anything scraped out of the rendered text.
+    """
+    if not job_key:
+        return None
+    for _hint, document in _iter_json_blobs(original_html):
+        for candidate in _iter_dicts(document):
+            for field in _JOB_KEY_FIELDS:
+                if str(candidate.get(field, "")) == job_key:
+                    return candidate
+    return None
+
+
+#: Indeed's card JSON -> the raw keys the ORIGINAL row builder reads.
+#: Several spellings per field because the blob's shape has changed over
+#: time; the first one actually present wins, and anything absent STAYS
+#: absent (the blank-cell rule applies here exactly as everywhere else).
+_CARD_FIELD_MAP = (
+    ("job_title",        ("title", "jobTitle", "displayTitle", "normTitle")),
+    ("company_name",     ("company", "companyName", "truncatedCompany")),
+    ("location",         ("formattedLocation", "jobLocationCity",
+                          "formattedLocationFull", "locationName")),
+    ("salary_text",      ("salarySnippet", "extractedSalary",
+                          "estimatedSalary", "salaryText")),
+    ("employment_type",  ("jobTypes", "jobType", "employmentType")),
+    ("description",      ("snippet", "jobDescription", "descriptionHtml")),
+    ("posted_date",      ("pubDate", "formattedRelativeTime", "datePublished")),
+    ("company_website",  ("companyOverviewLink", "companyUrl")),
+)
+
+
+def fields_from_job_card(card):
+    """Raw fields from ONE embedded job-card object.  Absent stays absent."""
+    found = {}
+    if not isinstance(card, dict):
+        return found
+    for raw_key, spellings in _CARD_FIELD_MAP:
+        for spelling in spellings:
+            if spelling not in card:
+                continue
+            value = _text_of(card[spelling])
+            if value:
+                found[raw_key] = value
+                break
+    return found
+
+
+def count_jobs(original_html):
+    """How many distinct jobs this one document describes."""
+    return len(set(re.findall(r"(?:jk|vjk)=([a-f0-9]{16})",
+                              original_html or "")))
+
 # ===========================================================================
 # 3. PUTTING IT TOGETHER
 # ===========================================================================
@@ -412,10 +565,12 @@ class SourceReport(object):
     """What was found, where each value came from, and what was not there."""
 
     __slots__ = ("raw", "provenance", "missing", "notes", "source_path",
-                 "was_view_source", "original_bytes", "parsed")
+                 "was_view_source", "original_bytes", "parsed",
+                 "isolation", "jobs_in_document")
 
     def __init__(self, raw, provenance, missing, notes, source_path,
-                 was_view_source, original_bytes, parsed):
+                 was_view_source, original_bytes, parsed,
+                 isolation="", jobs_in_document=0):
         self.raw = raw
         self.provenance = provenance
         self.missing = missing
@@ -424,6 +579,12 @@ class SourceReport(object):
         self.was_view_source = was_view_source
         self.original_bytes = original_bytes
         self.parsed = parsed
+        #: How the selected job was separated from the others in the file:
+        #: "job-card" (Indeed's own JSON), "single-job" (the document
+        #: described one job), or "NONE" (it could not be, and the row may
+        #: therefore mix jobs -- the caller must not trust it).
+        self.isolation = isolation
+        self.jobs_in_document = jobs_in_document
 
     def __repr__(self):
         return ("<SourceReport %d fields, %d blank columns, from %s>"
@@ -441,8 +602,8 @@ _NON_JOB_COLUMNS = frozenset((
 
 
 def fields_from_source(original_html, apply_url="", input_row=None,
-                       expected_title=""):
-    """(raw, provenance, notes, parsed) from one page's original html."""
+                       expected_title="", job_key=""):
+    """(raw, provenance, notes, parsed, isolation) from one page's html."""
     raw = {}
     provenance = {}
     notes = []
@@ -456,6 +617,25 @@ def fields_from_source(original_html, apply_url="", input_row=None,
                 continue                      # first (best) source wins
             raw[key] = value
             provenance[key] = source_name
+
+    # A LISTING document describes every card on the page. Narrow it to the
+    # ONE job that was selected before reading any field, or the row ends up
+    # mixing sixteen jobs.
+    isolation = "single-job"
+    total_jobs = count_jobs(original_html)
+    if total_jobs > 1:
+        card = job_card_for_key(original_html, job_key) if job_key else None
+        if card is not None:
+            adopt(fields_from_job_card(card), "job-card")
+            isolation = "job-card"
+            notes.append("isolated job %s from a document describing %d jobs"
+                         % (job_key, total_jobs))
+        else:
+            isolation = "NONE"
+            notes.append("WARNING: the document describes %d jobs and the "
+                         "selected one (%s) could not be isolated; "
+                         "field values may belong to another job"
+                         % (total_jobs, job_key or "<unknown>"))
 
     posting = json_ld_job_posting(original_html)
     if posting:
@@ -479,7 +659,7 @@ def fields_from_source(original_html, apply_url="", input_row=None,
         provenance.setdefault("source_url", "address-bar")
         provenance.setdefault("apply_url", "address-bar")
 
-    return raw, provenance, notes, parsed
+    return raw, provenance, notes, parsed, isolation
 
 
 def blank_columns(row):
@@ -491,11 +671,11 @@ def blank_columns(row):
 
 def build_row_from_html(original_html, apply_url="", input_row=None,
                         state_resolver=None, fetched_at=None,
-                        expected_title="", source_path=""):
+                        expected_title="", source_path="", job_key=""):
     """(row, report) -- original html to a complete 32-column row."""
-    raw, provenance, notes, parsed = fields_from_source(
+    raw, provenance, notes, parsed, isolation = fields_from_source(
         original_html, apply_url=apply_url, input_row=input_row,
-        expected_title=expected_title)
+        expected_title=expected_title, job_key=job_key)
 
     row = extract_job_details(raw, input_row=input_row,
                               state_resolver=state_resolver,
@@ -506,13 +686,14 @@ def build_row_from_html(original_html, apply_url="", input_row=None,
         raw=raw, provenance=provenance, missing=blank_columns(row),
         notes=notes, source_path=source_path,
         was_view_source=False, original_bytes=len(original_html or ""),
-        parsed=parsed)
+        parsed=parsed, isolation=isolation,
+        jobs_in_document=count_jobs(original_html))
     return row, report
 
 
 def build_row_from_file(path, apply_url="", input_row=None,
                         state_resolver=None, fetched_at=None,
-                        expected_title=""):
+                        expected_title="", job_key=""):
     """(row, report) -- a saved source FILE to a complete 32-column row."""
     with open(path, "r", encoding="utf-8", errors="replace") as handle:
         saved = handle.read()
@@ -522,7 +703,7 @@ def build_row_from_file(path, apply_url="", input_row=None,
     row, report = build_row_from_html(
         original_html, apply_url=apply_url, input_row=input_row,
         state_resolver=state_resolver, fetched_at=fetched_at,
-        expected_title=expected_title, source_path=path)
+        expected_title=expected_title, source_path=path, job_key=job_key)
     report.was_view_source = was_view_source
     if was_view_source:
         report.notes.insert(0, "unwrapped a Firefox view-source save "
@@ -536,5 +717,6 @@ __all__ = [
     "json_ld_job_posting", "fields_from_json_ld", "meta_tags",
     "document_title", "fields_from_meta", "html_to_visible_text",
     "fields_from_source", "blank_columns", "build_row_from_html",
+    "job_card_for_key", "fields_from_job_card", "count_jobs",
     "build_row_from_file", "SourceReport",
 ]

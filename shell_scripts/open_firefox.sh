@@ -1,6 +1,11 @@
 #!/usr/bin/env bash
-# Start OUR Firefox, identify its window, make it fullscreen, open a page,
-# and verify all of it.  Replaces the Opera open_indeed.sh.
+# Start OUR Firefox, identify its window, size it, open a page, verify.
+#
+# NORMAL WINDOW MODE.  This script no longer puts Firefox into fullscreen:
+# the requirement was withdrawn so the operator can watch the run in an
+# ordinary decorated window.  Size and position default to the supplied
+# screenshot (1845x1046 at +0+34 on a 1920x1080 screen) and are arguments,
+# not constants.
 #
 # The four things it must not do, and how it does not:
 #
@@ -22,18 +27,23 @@
 #       closed, and this script never calls a bare `firefox URL`, which
 #       would open a tab inside it (see FACT 3 in _common.sh).
 #
-#   "Firefox must run in fullscreen mode."
-#       require_fullscreen() reads _NET_WM_STATE and refuses to continue
-#       unless _NET_WM_STATE_FULLSCREEN is actually set.
+#   "Firefox must NOT run in fullscreen mode."
+#       No F11 is sent, no fullscreen window-manager request is made, and a
+#       window that somehow arrives fullscreen is taken OUT of it.  What is
+#       still checked is that the window is focused and big enough for the
+#       results column to be on screen -- without that, every card
+#       coordinate is meaningless. See require_window_ready().
 #
 # USAGE
 #   open_firefox.sh --profile DIR --url URL [--state-file FILE]
 #                   [--expect-host HOST] [--download-dir DIR]
+#                   [--window-size WxH] [--window-pos X,Y]
 #
 # STDOUT
 #   RESULT:firefox_pid=NNNN
 #   RESULT:window_id=NNNNNNN
-#   RESULT:fullscreen=yes
+#   RESULT:window_geometry=WIDTHxHEIGHT+X+Y
+#   RESULT:fullscreen=no
 #   RESULT:url=<what the address bar actually says>
 #   RESULT:verified=yes|no
 #   RESULT:access_denied=yes|no
@@ -48,6 +58,12 @@ TARGET_URL=""
 STATE_FILE=""
 EXPECT_HOST=""
 DOWNLOAD_DIR=""
+# Defaults read off the supplied screenshot: a normal window occupying the
+# screen below the GNOME top bar, title bar visible.
+: "${WINDOW_WIDTH:=1845}"
+: "${WINDOW_HEIGHT:=1046}"
+: "${WINDOW_X:=0}"
+: "${WINDOW_Y:=34}"
 
 while [ $# -gt 0 ]; do
     case "$1" in
@@ -57,6 +73,8 @@ while [ $# -gt 0 ]; do
         --expect-host)   EXPECT_HOST="$2";  shift 2 ;;
         --download-dir)  DOWNLOAD_DIR="$2"; shift 2 ;;
         --firefox)       FIREFOX_BIN="$2";  shift 2 ;;
+        --window-size)   WINDOW_WIDTH="${2%%x*}"; WINDOW_HEIGHT="${2##*x}"; shift 2 ;;
+        --window-pos)    WINDOW_X="${2%%,*}";     WINDOW_Y="${2##*,}";      shift 2 ;;
         *) fail "$EX_USAGE" "unknown argument: $1" ;;
     esac
 done
@@ -186,7 +204,21 @@ case " $PRE_EXISTING " in
         fail "$EX_NO_WINDOW" "window $WINDOW_ID existed before this script started -- refusing to drive somebody else's browser." ;;
 esac
 
-note "window_id=$WINDOW_ID name=$(window_name "$WINDOW_ID")"
+# A SECOND INSTANCE ON THE SAME PROFILE DOES NOT GIVE A BROWSER WINDOW.
+# Firefox shows a "Close Firefox" / "profile is already in use" dialog
+# instead, and that dialog IS a window of our pid -- so the window search
+# finds it and everything downstream fails with a baffling "the address bar
+# does not contain indeed". Measured live. Name it here instead.
+WINDOW_TITLE=$(window_name "$WINDOW_ID")
+case "$WINDOW_TITLE" in
+    "Close Firefox"*|*"already in use"*|*"Profile Missing"*)
+        fail "$EX_LAUNCH" \
+            "Firefox opened the '$WINDOW_TITLE' dialog instead of a browser \
+window: another Firefox is already using the profile $PROFILE_DIR. Close \
+that instance first, or reuse its window instead of launching a new one." ;;
+esac
+
+note "window_id=$WINDOW_ID name=$WINDOW_TITLE"
 emit "firefox_pid=$FIREFOX_PID"
 emit "window_id=$WINDOW_ID"
 emit "profile_dir=$PROFILE_DIR"
@@ -195,8 +227,19 @@ emit "profile_dir=$PROFILE_DIR"
 # 6. FOCUS AND FULLSCREEN, BOTH VERIFIED
 # ---------------------------------------------------------------------------
 require_focus "$WINDOW_ID"
-require_fullscreen "$WINDOW_ID"
-emit "fullscreen=yes"
+
+# NORMAL WINDOW, NOT FULLSCREEN.
+# A profile that was last used fullscreen reopens fullscreen, so leaving it
+# is done explicitly rather than assumed.
+exit_fullscreen_if_set "$WINDOW_ID"
+set_window_geometry "$WINDOW_ID" "$WINDOW_X" "$WINDOW_Y" \
+                    "$WINDOW_WIDTH" "$WINDOW_HEIGHT"
+require_window_ready "$WINDOW_ID"
+
+GEOMETRY=$(window_geometry "$WINDOW_ID")
+emit "window_geometry=$GEOMETRY"
+emit "fullscreen=no"
+note "normal window: $GEOMETRY (asked for ${WINDOW_WIDTH}x${WINDOW_HEIGHT}+${WINDOW_X}+${WINDOW_Y})"
 
 # ---------------------------------------------------------------------------
 # 7. VERIFY THE EXPECTED PAGE IS ACTUALLY THERE
@@ -216,10 +259,15 @@ if [ -n "$ACTUAL_URL" ]; then
 fi
 emit "verified=$VERIFIED"
 
-PAGE_TEXT=$(copy_page_text "$WINDOW_ID" "$CLIPBOARD_TIMEOUT") || PAGE_TEXT=""
-if [ -n "$PAGE_TEXT" ] && looks_like_access_denied "$PAGE_TEXT"; then
+# Refusal detection from the WINDOW TITLE, not from a Ctrl+A/Ctrl+C copy of
+# the page.  The title is free, instant, and cannot fail the way the
+# clipboard did in the field ("Ctrl+C did not change the clipboard").
+PAGE_TITLE=$(wait_for_title_to_settle "$WINDOW_ID" 10)
+emit "title=$PAGE_TITLE"
+if title_says_access_denied "$PAGE_TITLE"; then
     emit "access_denied=yes"
-    fail "$EX_ACCESS_DENIED" "the first page is an access refusal, not the site. Stopping: no retry, no identity change."
+    fail "$EX_ACCESS_DENIED" \
+        "the first page is an access refusal (title: '$PAGE_TITLE'). Stopping: no retry, no identity change."
 fi
 emit "access_denied=no"
 
@@ -227,14 +275,14 @@ emit "access_denied=no"
 # 8. HAND THE IDS TO PYTHON
 # ---------------------------------------------------------------------------
 if [ -n "$STATE_FILE" ]; then
-    write_temp_atomic "$STATE_FILE" "$(printf '{\n  "firefox_pid": %s,\n  "window_id": "%s",\n  "profile_dir": "%s",\n  "download_dir": "%s",\n  "url": "%s",\n  "verified": "%s",\n  "fullscreen": "yes",\n  "display": "%s",\n  "xauthority": "%s",\n  "started_at": "%s"\n}\n' \
+    write_temp_atomic "$STATE_FILE" "$(printf '{\n  "firefox_pid": %s,\n  "window_id": "%s",\n  "profile_dir": "%s",\n  "download_dir": "%s",\n  "url": "%s",\n  "verified": "%s",\n  "fullscreen": "no",\n  "display": "%s",\n  "xauthority": "%s",\n  "started_at": "%s"\n}\n' \
         "$FIREFOX_PID" "$WINDOW_ID" "$PROFILE_DIR" "$DOWNLOAD_DIR" "$ACTUAL_URL" \
         "$VERIFIED" "$DISPLAY" "$XAUTH_IN_USE" "$(date -Is)")" \
         || warn "could not write state file $STATE_FILE"
 fi
 
 if [ "$VERIFIED" != "yes" ]; then
-    fail "$EX_NAVIGATION" "Firefox is up and fullscreen, but the address bar does not contain '${EXPECT_HOST}'. Got: ${ACTUAL_URL:-<unreadable>}"
+    fail "$EX_NAVIGATION" "Firefox is up in a normal window, but the address bar does not contain '${EXPECT_HOST}'. Got: ${ACTUAL_URL:-<unreadable>}"
 fi
 
 note "ready"

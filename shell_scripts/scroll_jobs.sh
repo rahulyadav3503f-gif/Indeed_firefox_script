@@ -71,7 +71,7 @@ require_display
 window_exists "$WINDOW_ID" || fail "$EX_NO_WINDOW" "window $WINDOW_ID is gone"
 
 require_focus "$WINDOW_ID"
-require_fullscreen "$WINDOW_ID"
+require_window_ready "$WINDOW_ID"
 
 case "$TARGET" in
 list)

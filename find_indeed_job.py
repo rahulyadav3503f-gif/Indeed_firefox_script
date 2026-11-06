@@ -1,14 +1,14 @@
 #!/usr/bin/env python3
-"""Indeed collector built on Opera + xdotool + xclip.  Rank-aware, resumable.
+"""Indeed collector built on Firefox + xdotool + xclip.  Rank-aware, resumable.
 
 WHAT THIS IS
 ------------
 A SECOND, independent Indeed collector.  The original project in
 ``/home/ubuntu/check_indeed`` drives a Playwright browser; this one drives a
-real Opera window with desktop automation, in the architecture the college
+real Firefox window with desktop automation, in the architecture the college
 extraction project established:
 
-    Python  ->  shell_scripts/*.sh  ->  xdotool / xclip  ->  Opera
+    Python  ->  shell_scripts/*.sh  ->  xdotool / xclip  ->  Firefox
 
 Nothing here touches the original project except to IMPORT from it,
 read-only: the 85-role plan, the 110-city list and the 32-column row
@@ -39,7 +39,7 @@ fixture mode, the self-test, the dry run) works out of the box.
 USAGE
     python3 find_indeed_job.py --status            # read the checkpoint
     python3 find_indeed_job.py --plan              # print the plan, no browser
-    python3 find_indeed_job.py --fixture-run       # local HTML, real Opera
+    python3 find_indeed_job.py --fixture-run       # local HTML, real Firefox
     python3 find_indeed_job.py --rank 1 --num-sys 5    # live (gated)
 """
 
@@ -92,7 +92,16 @@ DISPLAY_OVERRIDE = ""            # "" = inherit DISPLAY; ":99" for an Xvfb
 # then exits with "cannot open display".  "" uses XAUTHORITY as inherited.
 # See shell_scripts/_common.sh, FACT 2.
 FIREFOX_XAUTH_COPY = os.path.join(BASE_DIR, "config", "xauth_xwayland")
-SEARCH_MODE = "url"              # "url" (address bar) or "form" (on-page)
+# "form" = click Indeed's own search boxes and type into them (what was
+# asked for). "url" = build a search url in the address bar; kept as a
+# fallback and used automatically for file:// fixture runs, which have no
+# search form.
+SEARCH_MODE = "form"
+
+# Seconds to wait after Indeed's page has loaded and before its search boxes
+# are clicked and typed into.  Indeed keeps laying the page out after it
+# reports loaded, and the boxes move while it does.
+SEARCH_FIELD_DELAY_SECONDS = 7
 
 # -- where the job cards are in the results column -------------------------
 # The ONLY numbers in this project that depend on how the page is laid out.
@@ -100,9 +109,32 @@ SEARCH_MODE = "url"              # "url" (address bar) or "form" (on-page)
 # clicked and then verifies what got selected, so a wrong value shows up as
 # a refusal rather than as the wrong job being saved.
 CARD_X = 430                     # x inside the results column
-FIRST_CARD_Y = 300               # y of the first card
-CARD_PITCH = 148                 # y distance between cards
+FIRST_CARD_Y = 440               # y of the FIRST card's clickable area
+CARD_MAX_Y = 1000                # below this is off the results column
+CARD_PROBE_STEP = 55             # how far down to step when a probe misses
+CARD_PROBE_LIMIT = 12            # probes before declaring "no more cards"
+MIN_CARD_GAP = 60                # shortest plausible gap to the next card
 CARD_URL_MARKER = "vjk="         # the query parameter holding the job key
+
+# NOTE: there is deliberately NO CARD_PITCH any more.  Indeed's job cards
+# are not a fixed height -- on one measured results page the card tops were
+# 410, 645 and 835, i.e. pitches of 259 and 191, and the selected card is
+# taller again because it expands.  The old FIRST_CARD_Y=300 / CARD_PITCH=148
+# therefore put cards 1 and 2 inside the SAME card.  select_job_card.sh now
+# probes downward and reports the y that worked.
+
+# -- the Firefox window (NORMAL, never fullscreen) -------------------------
+# Defaults read off the supplied screenshot: 1845x1046 at +0+34 on a
+# 1920x1080 screen, title bar visible, operator able to watch.
+WINDOW_SIZE = (1845, 1046)
+WINDOW_POS = (0, 34)
+
+# -- Indeed's two search boxes, in screen coordinates ----------------------
+# Used by SEARCH_MODE="form" to click the real fields instead of building a
+# search url.  Both are read back and confirmed before the search is
+# submitted, so a wrong value fails loudly instead of running a wrong search.
+SEARCH_WHAT_XY = (700, 240)
+SEARCH_WHERE_XY = (1100, 240)
 JOB_URL_PATTERN = r"(viewjob|/rc/clk|/pagead/clk|jk=|job_detail)"
 
 # -- the two mandated pacing delays (brief section 21) ---------------------
@@ -143,7 +175,7 @@ EXCEL_BATCH_SIZE = 100           # rows per archived current_data_cycleN.xlsx
 EXCEL_KEEP_BACKUPS = 20
 
 # -- schedule (brief section 21) -------------------------------------------
-NIGHT_PAUSE_ENABLED = True
+NIGHT_PAUSE_ENABLED = False
 NIGHT_START_HOUR = 23            # 23:00 .. 05:00 Asia/Kolkata
 NIGHT_END_HOUR = 5
 TIMEZONE = "Asia/Kolkata"
@@ -189,7 +221,7 @@ LOG_EVERY_ROW = True
 from new_mylib import all_cities as _all_city_names          # noqa: E402
 from new_mylib import city_to_state                          # noqa: E402
 from target_audience_roles import (                          # noqa: E402
-    build_role_plan, is_non_it_title, role_plan_split)
+    build_role_plan, is_non_it_title, role_plan_split, role_department)
 
 from source_file.indeed_checkpoint import Checkpoint         # noqa: E402
 from source_file.indeed_controller import (                  # noqa: E402
@@ -557,15 +589,32 @@ def show_job_line(summary, card_index, title="", company="",
     log("-" * 60)
 
 
+def _plan_department_count(plan_pairs):
+    """How many departments the plan actually spans.
+
+    Counted from the role module, never hardcoded. It is in the banner
+    because it is the one number that makes the Track A / Track B split
+    legible: 1 department would mean the old IT-only plan is back.
+    """
+    try:
+        return len({role_department(keyword)
+                    for _dept, keyword in plan_pairs})
+    except Exception:                                    # pragma: no cover
+        return 0
+
+
 def show_banner(cities, plan_pairs, checkpoint):
     target, other, percent = role_plan_split()
     log("=" * 72)
-    log("NEW INDEED COLLECTOR -- Opera / xdotool / xclip")
+    log("NEW INDEED COLLECTOR -- Firefox / xdotool / xclip")
     log("=" * 72)
     log("  %s" % upstream.describe())
     log("  rank            : %d of %d" % (rank, num_sys))
-    log("  keywords        : %d  (%d target-audience + %d other IT = %.1f%% "
-        "target)" % (len(plan_pairs), target, other, percent))
+    log("  keywords        : %d" % len(plan_pairs))
+    log("    target-audience : %d  (%.1f%% of the plan)" % (target, percent))
+    log("    fresher/other   : %d  (%.1f%%)"
+        % (other, 100.0 - percent if plan_pairs else 0.0))
+    log("    departments     : %d" % _plan_department_count(plan_pairs))
     log("  cities (all)    : %d" % len(all_cities()))
     log("  cities (rank %d) : %d  -> %s%s"
         % (rank, len(cities), ", ".join(cities[:4]),
@@ -609,10 +658,17 @@ def build_controller_config(which_rank=None, base_url=None, logger=None):
         display=DISPLAY_OVERRIDE or None,
         xauth_copy=FIREFOX_XAUTH_COPY or None,
         search_mode=SEARCH_MODE,
+        search_field_delay_seconds=SEARCH_FIELD_DELAY_SECONDS,
         card_x=CARD_X,
         first_card_y=FIRST_CARD_Y,
-        card_pitch=CARD_PITCH,
+        card_max_y=CARD_MAX_Y,
+        card_probe_step=CARD_PROBE_STEP,
+        card_probe_limit=CARD_PROBE_LIMIT,
         card_url_marker=CARD_URL_MARKER,
+        window_size=WINDOW_SIZE,
+        window_pos=WINDOW_POS,
+        what_xy=SEARCH_WHAT_XY,
+        where_xy=SEARCH_WHERE_XY,
         pre_close_delay_seconds=PRE_CLOSE_DELAY_SECONDS,
         post_close_delay_seconds=POST_CLOSE_DELAY_SECONDS,
         window_timeout=WINDOW_TIMEOUT_SECONDS,
@@ -673,7 +729,7 @@ class CardOutcome(object):
 
 
 def process_one_card(controller, store, checkpoint, index, card_index,
-                     keyword, city, input_row):
+                     keyword, city, input_row, page_state=None):
     """Open card ``card_index``, read it, decide, save, close.
 
     THE ORDER MATTERS and is the brief's section 9 order:
@@ -687,8 +743,14 @@ def process_one_card(controller, store, checkpoint, index, card_index,
     summary = checkpoint.summary()
     window = None
 
+    page_state = page_state if page_state is not None else {}
+    seen_keys = page_state.setdefault("seen_keys", [])
+    start_y = page_state.setdefault("next_start_y", FIRST_CARD_Y)
+
     try:
-        window = controller.select_job_card(card_index)
+        window = controller.select_job_card(card_index,
+                                            seen_keys=seen_keys,
+                                            start_y=start_y)
     except ContextMenuFailed as error:
         return CardOutcome(CardOutcome.NO_MORE_CARDS, error.detail())
     except WrongJobWindow as error:
@@ -697,13 +759,23 @@ def process_one_card(controller, store, checkpoint, index, card_index,
         # OTHER identity failure is a real fault and must not be mistaken
         # for "we are finished".
         detail = error.detail()
-        if "changed nothing" in detail:
+        if "no new job card found" in detail or "changed nothing" in detail:
             return CardOutcome(CardOutcome.NO_MORE_CARDS, detail)
         return CardOutcome(CardOutcome.FAILED, detail)
     except AccessDenied as error:
         return CardOutcome(CardOutcome.ACCESS_DENIED, error.detail())
     except (FullscreenFailed, BrowserError) as error:
         return CardOutcome(CardOutcome.FAILED, error.detail())
+
+    # Remember this job so a later probe on the same page cannot take it
+    # again, and start the next probe just below where this one landed.
+    if getattr(window, "job_key", ""):
+        if window.job_key not in seen_keys:
+            seen_keys.append(window.job_key)
+    if getattr(window, "learned_card_y", 0):
+        page_state["next_start_y"] = window.learned_card_y + MIN_CARD_GAP
+    log("      selected job %s (%s)"
+        % (window.job_key or "?", window.selection_method or "?"))
 
     job_url = window.url
     normalised = normalise_job_url(job_url)
@@ -887,12 +959,27 @@ def run_combo(controller, store, checkpoint, index, keyword, city,
         card_failures = 0
         seen_before_page = index.unique_seen
 
-        for card_index in range(1, MAX_CARDS_PER_PAGE + 1):
+        # PAGE STATE, carried from card to card.
+        #
+        #   seen_keys     the jobs already taken from THIS results page, so a
+        #                 probe that lands back on one of them is treated as
+        #                 a miss instead of being collected twice.
+        #   next_start_y  where to begin probing for the next card.  Seeded
+        #                 from configuration, then LEARNED: each successful
+        #                 selection reports the y it landed on, and the next
+        #                 probe starts just below it.  This is what replaced
+        #                 the fixed CARD_PITCH that could not work.
+        page_state = {"seen_keys": [], "next_start_y": FIRST_CARD_Y}
+
+        # 0-BASED.  It used to start at 1, which -- on top of the pitch bug --
+        # meant the first card was never even aimed at.
+        for card_index in range(0, MAX_CARDS_PER_PAGE):
             if _SHUTDOWN_REQUESTED:
                 raise KeyboardInterrupt("shutdown requested")
 
             outcome = process_one_card(controller, store, checkpoint, index,
-                                       card_index, keyword, city, input_row)
+                                       card_index, keyword, city, input_row,
+                                       page_state)
 
             if outcome.kind == CardOutcome.ACCESS_DENIED:
                 log("  [STOP] the source refused a job page: %s"
@@ -1227,6 +1314,16 @@ def collect(args):
 
     config = build_controller_config(base_url=base_url)
 
+    # A file:// fixture has no Indeed search form to click, so form mode
+    # cannot work there.  Falling back is automatic rather than something
+    # the operator has to remember, and it is logged so a fixture run is
+    # never mistaken for a test of the form-typing path.
+    if fixture and config.search_mode == "form":
+        config.search_mode = "url"
+        log("  search mode    : url (fixtures have no search form to type into)")
+    else:
+        log("  search mode    : %s" % config.search_mode)
+
     controller = IndeedController(config)
     _CONTROLLER = controller
 
@@ -1298,7 +1395,7 @@ def collect(args):
 
 def parse_args(argv=None):
     parser = argparse.ArgumentParser(
-        description="Indeed collector driven through Opera with xdotool and "
+        description="Indeed collector driven through Firefox with xdotool and "
                     "xclip.",
         epilog="Live collection is gated: see LIVE_COLLECTION_ENABLED.")
     parser.add_argument("--rank", type=int, default=rank,
@@ -1313,7 +1410,7 @@ def parse_args(argv=None):
                         help="print this rank's checkpoint and Excel state")
     parser.add_argument("--fixture-run", action="store_true",
                         help="run the whole pipeline against the local HTML "
-                             "fixtures (real Opera, no Indeed)")
+                             "fixtures (real Firefox, no Indeed)")
     parser.add_argument("--max-combos", type=int, default=None,
                         help="stop after N keyword+city combinations")
     parser.add_argument("--pre-close-delay", type=float, default=None,

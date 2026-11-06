@@ -1,4 +1,4 @@
-"""New Indeed collector -- Opera / xdotool / xclip browser automation.
+"""New Indeed collector -- Firefox / xdotool / xclip browser automation.
 
 The modules the brief asks for (section 5), and nothing else:
 

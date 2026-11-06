@@ -124,3 +124,444 @@
 2026-11-05 20:17:31       $ /home/ubuntu/new_indeed_script/shell_scripts/save_page_source.sh --window 10485783 --out /home/ubuntu/new_indeed_script/Temp_Data/rank_1/job_1_0003.html --expect-url vjk=fc87a613fd7377f6
 2026-11-05 20:17:35 
 [STOP] signal 2. Checkpoint saved -- re-run to continue from here.
+2026-11-05 23:36:33 ========================================================================
+2026-11-05 23:36:33 NEW INDEED COLLECTOR -- Firefox / xdotool / xclip
+2026-11-05 23:36:33 ========================================================================
+2026-11-05 23:36:33   roles+cities : vendor/ (local, authoritative) -- new_mylib.py md5 5e06a7d1, target_audience_roles.py md5 54b25400
+  row builder  : /home/ubuntu/check_indeed (read-only, 32-column schema)  [stand-ins: gtts, psutil, Levenshtein]
+2026-11-05 23:36:33   rank            : 1 of 5
+2026-11-05 23:36:33   keywords        : 1264
+2026-11-05 23:36:33     target-audience : 200  (15.8% of the plan)
+2026-11-05 23:36:33     fresher/other   : 1064  (84.2%)
+2026-11-05 23:36:33     departments     : 116
+2026-11-05 23:36:33   cities (all)    : 110
+2026-11-05 23:36:33   cities (rank 1) : 23  -> Delhi, Gurugram, Gurgaon, Noida ...
+2026-11-05 23:36:33   excel columns   : 32
+2026-11-05 23:36:33   output          : /home/ubuntu/new_indeed_script/Excel_Data/rank_1
+2026-11-05 23:36:33   temp            : /home/ubuntu/new_indeed_script/Temp_Data/rank_1
+2026-11-05 23:36:33   checkpoint      : /home/ubuntu/new_indeed_script/config/checkpoints/checkpoint_rank_1.json
+2026-11-05 23:36:33   loop            : city-outer, keyword-inner (brief section 8)
+2026-11-05 23:36:33   delays          : 10s before close, 10s before next card
+2026-11-05 23:36:33   night rest      : 23:00-05:00 Asia/Kolkata
+2026-11-05 23:36:33   work period     : 3.7-4.2 h, then a 30-60 min break
+2026-11-05 23:36:33   page ceiling    : 4 listing page(s) per keyword+city
+2026-11-05 23:36:33   unique target   : 100 distinct jobs EXAMINED per keyword+city
+2026-11-05 23:36:33   TOTAL COMPLETE CYCLE : 0   (cities finished this crawl cycle: 0/23)
+2026-11-05 23:36:33 ========================================================================
+2026-11-05 23:36:33   search mode    : form
+2026-11-05 23:36:33       $ /home/ubuntu/new_indeed_script/shell_scripts/open_firefox.sh --profile /home/ubuntu/new_indeed_script/config/firefox_profile/rank_1 --url https://in.indeed.com --state-file /home/ubuntu/new_indeed_script/Temp_Data/rank_1/browser_window.json --expect-host indeed --download-dir /home/ubuntu/new_indeed_script/Temp_Data/rank_1 --window-size 1845x1046 --window-pos 0,34
+2026-11-05 23:36:45         [open_firefox] pre-existing Firefox windows (never touched): none
+2026-11-05 23:36:45         [open_firefox] display=:0 xauthority=/home/ubuntu/new_indeed_script/config/xauth_xwayland
+2026-11-05 23:36:45         [open_firefox] launch mode: snap (inner binary inside 'snap run --shell')
+2026-11-05 23:36:45         [open_firefox] firefox pid=3635
+2026-11-05 23:36:45         [open_firefox] window_id=10485783 name=Mozilla Firefox
+2026-11-05 23:36:45         [open_firefox] normal window: 1850x1053+70+27 (asked for 1845x1046+0+34)
+2026-11-05 23:36:45         [open_firefox] address bar: https://in.indeed.com/
+2026-11-05 23:36:45         [open_firefox] ready
+2026-11-05 23:36:45         -> exit 0 in 11.7s (window_id=10485783 fullscreen=no access_denied=no verified=yes)
+2026-11-05 23:36:45    browser ready: pid=3635 window=10485783 fullscreen=no
+2026-11-05 23:36:45 
+========================================================================
+2026-11-05 23:36:45 CRAWL CYCLE 1 | CITY 1/23: Delhi   (keywords 1..1264)
+2026-11-05 23:36:45 TOTAL COMPLETE CYCLE SO FAR: 0
+2026-11-05 23:36:45 ========================================================================
+2026-11-05 23:36:45 
+[PAUSE] night rest 23:00-05:00 Asia/Kolkata
+2026-11-05 23:36:45   the checkpoint is saved; resuming in 5h 23m
+2026-11-05 23:36:45    closed our Firefox (pid 3635)
+2026-11-05 23:36:45       [wait] 5h 23m scheduled rest
+2026-11-05 23:37:01 
+[STOP] signal 2. Checkpoint saved -- re-run to continue from here.
+2026-11-05 23:37:33 ========================================================================
+2026-11-05 23:37:33 NEW INDEED COLLECTOR -- Firefox / xdotool / xclip
+2026-11-05 23:37:33 ========================================================================
+2026-11-05 23:37:33   roles+cities : vendor/ (local, authoritative) -- new_mylib.py md5 5e06a7d1, target_audience_roles.py md5 54b25400
+  row builder  : /home/ubuntu/check_indeed (read-only, 32-column schema)  [stand-ins: gtts, psutil, Levenshtein]
+2026-11-05 23:37:33   rank            : 1 of 5
+2026-11-05 23:37:33   keywords        : 1264
+2026-11-05 23:37:33     target-audience : 200  (15.8% of the plan)
+2026-11-05 23:37:33     fresher/other   : 1064  (84.2%)
+2026-11-05 23:37:33     departments     : 116
+2026-11-05 23:37:33   cities (all)    : 110
+2026-11-05 23:37:33   cities (rank 1) : 23  -> Delhi, Gurugram, Gurgaon, Noida ...
+2026-11-05 23:37:33   excel columns   : 32
+2026-11-05 23:37:33   output          : /home/ubuntu/new_indeed_script/Excel_Data/rank_1
+2026-11-05 23:37:33   temp            : /home/ubuntu/new_indeed_script/Temp_Data/rank_1
+2026-11-05 23:37:33   checkpoint      : /home/ubuntu/new_indeed_script/config/checkpoints/checkpoint_rank_1.json
+2026-11-05 23:37:33   loop            : city-outer, keyword-inner (brief section 8)
+2026-11-05 23:37:33   delays          : 10s before close, 10s before next card
+2026-11-05 23:37:33   night rest      : disabled
+2026-11-05 23:37:33   work period     : 3.7-4.2 h, then a 30-60 min break
+2026-11-05 23:37:33   page ceiling    : 4 listing page(s) per keyword+city
+2026-11-05 23:37:33   unique target   : 100 distinct jobs EXAMINED per keyword+city
+2026-11-05 23:37:33   TOTAL COMPLETE CYCLE : 0   (cities finished this crawl cycle: 0/23)
+2026-11-05 23:37:33 ========================================================================
+2026-11-05 23:37:33   search mode    : form
+2026-11-05 23:37:33       $ /home/ubuntu/new_indeed_script/shell_scripts/open_firefox.sh --profile /home/ubuntu/new_indeed_script/config/firefox_profile/rank_1 --url https://in.indeed.com --state-file /home/ubuntu/new_indeed_script/Temp_Data/rank_1/browser_window.json --expect-host indeed --download-dir /home/ubuntu/new_indeed_script/Temp_Data/rank_1 --window-size 1845x1046 --window-pos 0,34
+2026-11-05 23:37:42         [open_firefox] pre-existing Firefox windows (never touched): none
+2026-11-05 23:37:42         [open_firefox] display=:0 xauthority=/home/ubuntu/new_indeed_script/config/xauth_xwayland
+2026-11-05 23:37:42         [open_firefox] launch mode: snap (inner binary inside 'snap run --shell')
+2026-11-05 23:37:42         [open_firefox] firefox pid=4619
+2026-11-05 23:37:42         [open_firefox] window_id=10485783 name=Mozilla Firefox
+2026-11-05 23:37:42         [open_firefox] normal window: 1850x1053+70+27 (asked for 1845x1046+0+34)
+2026-11-05 23:37:42         [open_firefox] address bar: https://in.indeed.com/
+2026-11-05 23:37:42         [open_firefox] ready
+2026-11-05 23:37:42         -> exit 0 in 8.7s (window_id=10485783 fullscreen=no access_denied=no verified=yes)
+2026-11-05 23:37:42    browser ready: pid=4619 window=10485783 fullscreen=no
+2026-11-05 23:37:42 
+========================================================================
+2026-11-05 23:37:42 CRAWL CYCLE 1 | CITY 1/23: Delhi   (keywords 1..1264)
+2026-11-05 23:37:42 TOTAL COMPLETE CYCLE SO FAR: 0
+2026-11-05 23:37:42 ========================================================================
+2026-11-05 23:37:42 
+  [cycle 1 | city 1/23 Delhi | keyword 1/1264 Social Media Designer | worked 8s]
+2026-11-05 23:37:42 
+  [page 1/4] Social Media Designer @ Delhi  (start=0)
+2026-11-05 23:37:42       $ /home/ubuntu/new_indeed_script/shell_scripts/search_jobs.sh --window 10485783 --keyword 'Social Media Designer' --city Delhi --base-url https://in.indeed.com --mode form --what-xy 700,240 --where-xy 1100,240
+2026-11-05 23:37:58         [search_jobs] input guard passed; address bar reads: https://in.indeed.com/
+2026-11-05 23:37:58         [search_jobs] form search: 'Social Media Designer' in 'Delhi'
+2026-11-05 23:37:58         [search_jobs] clicking the keyword box at 700,240
+2026-11-05 23:37:58         [search_jobs] clicking the city box at 1100,240
+2026-11-05 23:37:58         [search_jobs] both fields confirmed; submitting
+2026-11-05 23:37:58         [search_jobs] window title: 300 Social Media Designer Job Vacancies in Delhi | Indeed — Mozilla Firefox
+2026-11-05 23:37:58         [search_jobs] address bar after search: https://in.indeed.com/jobs?q=Social+Media+Designer&l=Delhi&from=searchOnHP&vjk=60c2445d0567a701
+2026-11-05 23:37:58         [search_jobs] results ready; Indeed pre-selected job 60c2445d0567a701
+2026-11-05 23:37:58         [search_jobs] search ready: Social Media Designer @ Delhi
+2026-11-05 23:37:58         -> exit 0 in 16.1s (access_denied=no verified=yes)
+2026-11-05 23:37:58       $ /home/ubuntu/new_indeed_script/shell_scripts/select_job_card.sh --window 10485783 --index 0 --card-x 430 --start-y 440 --max-y 1000 --probe-step 55 --probe-limit 12 --marker vjk= --preselected-key 60c2445d0567a701
+2026-11-05 23:38:00         [select_job_card] before selection: key='60c2445d0567a701'
+2026-11-05 23:38:00         [select_job_card] job 60c2445d0567a701 is already selected by Indeed -- taking it without clicking
+2026-11-05 23:38:00         -> exit 0 in 1.9s 
+2026-11-05 23:38:00       selected job 60c2445d0567a701 (preselected)
+2026-11-05 23:38:00       $ /home/ubuntu/new_indeed_script/shell_scripts/save_page_source.sh --window 10485783 --out /home/ubuntu/new_indeed_script/Temp_Data/rank_1/job_1_0000.html --expect-url vjk=60c2445d0567a701
+2026-11-05 23:38:50 
+[STOP] signal 2. Checkpoint saved -- re-run to continue from here.
+2026-11-05 23:39:20 ========================================================================
+2026-11-05 23:39:20 NEW INDEED COLLECTOR -- Firefox / xdotool / xclip
+2026-11-05 23:39:20 ========================================================================
+2026-11-05 23:39:20   roles+cities : vendor/ (local, authoritative) -- new_mylib.py md5 5e06a7d1, target_audience_roles.py md5 54b25400
+  row builder  : /home/ubuntu/check_indeed (read-only, 32-column schema)  [stand-ins: gtts, psutil, Levenshtein]
+2026-11-05 23:39:20   rank            : 1 of 5
+2026-11-05 23:39:20   keywords        : 1264
+2026-11-05 23:39:20     target-audience : 200  (15.8% of the plan)
+2026-11-05 23:39:20     fresher/other   : 1064  (84.2%)
+2026-11-05 23:39:20     departments     : 116
+2026-11-05 23:39:20   cities (all)    : 110
+2026-11-05 23:39:20   cities (rank 1) : 23  -> Delhi, Gurugram, Gurgaon, Noida ...
+2026-11-05 23:39:20   excel columns   : 32
+2026-11-05 23:39:20   output          : /home/ubuntu/new_indeed_script/Excel_Data/rank_1
+2026-11-05 23:39:20   temp            : /home/ubuntu/new_indeed_script/Temp_Data/rank_1
+2026-11-05 23:39:20   checkpoint      : /home/ubuntu/new_indeed_script/config/checkpoints/checkpoint_rank_1.json
+2026-11-05 23:39:20   loop            : city-outer, keyword-inner (brief section 8)
+2026-11-05 23:39:20   delays          : 10s before close, 10s before next card
+2026-11-05 23:39:20   night rest      : disabled
+2026-11-05 23:39:20   work period     : 3.7-4.2 h, then a 30-60 min break
+2026-11-05 23:39:20   page ceiling    : 4 listing page(s) per keyword+city
+2026-11-05 23:39:20   unique target   : 100 distinct jobs EXAMINED per keyword+city
+2026-11-05 23:39:20   TOTAL COMPLETE CYCLE : 0   (cities finished this crawl cycle: 0/23)
+2026-11-05 23:39:20 ========================================================================
+2026-11-05 23:39:20   search mode    : form
+2026-11-05 23:39:20       $ /home/ubuntu/new_indeed_script/shell_scripts/open_firefox.sh --profile /home/ubuntu/new_indeed_script/config/firefox_profile/rank_1 --url https://in.indeed.com --state-file /home/ubuntu/new_indeed_script/Temp_Data/rank_1/browser_window.json --expect-host indeed --download-dir /home/ubuntu/new_indeed_script/Temp_Data/rank_1 --window-size 1845x1046 --window-pos 0,34
+2026-11-05 23:39:29         [open_firefox] pre-existing Firefox windows (never touched): none
+2026-11-05 23:39:29         [open_firefox] display=:0 xauthority=/home/ubuntu/new_indeed_script/config/xauth_xwayland
+2026-11-05 23:39:29         [open_firefox] launch mode: snap (inner binary inside 'snap run --shell')
+2026-11-05 23:39:29         [open_firefox] firefox pid=6489
+2026-11-05 23:39:29         [open_firefox] window_id=10485783 name=Mozilla Firefox
+2026-11-05 23:39:29         [open_firefox] normal window: 1850x1053+70+27 (asked for 1845x1046+0+34)
+2026-11-05 23:39:29         [open_firefox] address bar: https://in.indeed.com/
+2026-11-05 23:39:29         [open_firefox] ready
+2026-11-05 23:39:29         -> exit 0 in 8.8s (window_id=10485783 fullscreen=no access_denied=no verified=yes)
+2026-11-05 23:39:29    browser ready: pid=6489 window=10485783 fullscreen=no
+2026-11-05 23:39:29 
+========================================================================
+2026-11-05 23:39:29 CRAWL CYCLE 1 | CITY 1/23: Delhi   (keywords 1..1264)
+2026-11-05 23:39:29 TOTAL COMPLETE CYCLE SO FAR: 0
+2026-11-05 23:39:29 ========================================================================
+2026-11-05 23:39:29 
+  [cycle 1 | city 1/23 Delhi | keyword 1/1264 Social Media Designer | worked 8s]
+2026-11-05 23:39:29 
+  [page 1/4] Social Media Designer @ Delhi  (start=0)
+2026-11-05 23:39:29       $ /home/ubuntu/new_indeed_script/shell_scripts/search_jobs.sh --window 10485783 --keyword 'Social Media Designer' --city Delhi --base-url https://in.indeed.com --mode form --what-xy 700,240 --where-xy 1100,240
+2026-11-05 23:39:45         [search_jobs] input guard passed; address bar reads: https://in.indeed.com/
+2026-11-05 23:39:45         [search_jobs] form search: 'Social Media Designer' in 'Delhi'
+2026-11-05 23:39:45         [search_jobs] clicking the keyword box at 700,240
+2026-11-05 23:39:45         [search_jobs] clicking the city box at 1100,240
+2026-11-05 23:39:45         [search_jobs] both fields confirmed; submitting
+2026-11-05 23:39:45         [search_jobs] window title: 300 Social Media Designer Job Vacancies in Delhi | Indeed — Mozilla Firefox
+2026-11-05 23:39:45         [search_jobs] address bar after search: https://in.indeed.com/jobs?q=Social+Media+Designer&l=Delhi&from=searchOnHP&vjk=a821b90e52c68065
+2026-11-05 23:39:45         [search_jobs] results ready; Indeed pre-selected job a821b90e52c68065
+2026-11-05 23:39:45         [search_jobs] search ready: Social Media Designer @ Delhi
+2026-11-05 23:39:45         -> exit 0 in 15.7s (access_denied=no verified=yes)
+2026-11-05 23:39:45       $ /home/ubuntu/new_indeed_script/shell_scripts/select_job_card.sh --window 10485783 --index 0 --card-x 430 --start-y 440 --max-y 1000 --probe-step 55 --probe-limit 12 --marker vjk= --preselected-key a821b90e52c68065
+2026-11-05 23:39:46         [select_job_card] before selection: key='a821b90e52c68065'
+2026-11-05 23:39:46         [select_job_card] job a821b90e52c68065 is already selected by Indeed -- taking it without clicking
+2026-11-05 23:39:46         -> exit 0 in 1.9s 
+2026-11-05 23:39:46       selected job a821b90e52c68065 (preselected)
+2026-11-05 23:39:46       $ /home/ubuntu/new_indeed_script/shell_scripts/save_page_source.sh --window 10485783 --out /home/ubuntu/new_indeed_script/Temp_Data/rank_1/job_1_0000.html --expect-url vjk=a821b90e52c68065
+2026-11-05 23:40:40 
+[STOP] signal 2. Checkpoint saved -- re-run to continue from here.
+2026-11-05 23:44:38 ========================================================================
+2026-11-05 23:44:38 NEW INDEED COLLECTOR -- Firefox / xdotool / xclip
+2026-11-05 23:44:38 ========================================================================
+2026-11-05 23:44:38   roles+cities : vendor/ (local, authoritative) -- new_mylib.py md5 5e06a7d1, target_audience_roles.py md5 54b25400
+  row builder  : /home/ubuntu/check_indeed (read-only, 32-column schema)  [stand-ins: gtts, psutil, Levenshtein]
+2026-11-05 23:44:38   rank            : 1 of 5
+2026-11-05 23:44:38   keywords        : 1264
+2026-11-05 23:44:38     target-audience : 200  (15.8% of the plan)
+2026-11-05 23:44:38     fresher/other   : 1064  (84.2%)
+2026-11-05 23:44:38     departments     : 116
+2026-11-05 23:44:38   cities (all)    : 110
+2026-11-05 23:44:38   cities (rank 1) : 23  -> Delhi, Gurugram, Gurgaon, Noida ...
+2026-11-05 23:44:38   excel columns   : 32
+2026-11-05 23:44:38   output          : /home/ubuntu/new_indeed_script/Excel_Data/rank_1
+2026-11-05 23:44:38   temp            : /home/ubuntu/new_indeed_script/Temp_Data/rank_1
+2026-11-05 23:44:38   checkpoint      : /home/ubuntu/new_indeed_script/config/checkpoints/checkpoint_rank_1.json
+2026-11-05 23:44:38   loop            : city-outer, keyword-inner (brief section 8)
+2026-11-05 23:44:38   delays          : 10s before close, 10s before next card
+2026-11-05 23:44:38   night rest      : disabled
+2026-11-05 23:44:38   work period     : 3.7-4.2 h, then a 30-60 min break
+2026-11-05 23:44:38   page ceiling    : 4 listing page(s) per keyword+city
+2026-11-05 23:44:38   unique target   : 100 distinct jobs EXAMINED per keyword+city
+2026-11-05 23:44:38   TOTAL COMPLETE CYCLE : 0   (cities finished this crawl cycle: 0/23)
+2026-11-05 23:44:38 ========================================================================
+2026-11-05 23:44:38   search mode    : form
+2026-11-05 23:44:38       $ /home/ubuntu/new_indeed_script/shell_scripts/open_firefox.sh --profile /home/ubuntu/new_indeed_script/config/firefox_profile/rank_1 --url https://in.indeed.com --state-file /home/ubuntu/new_indeed_script/Temp_Data/rank_1/browser_window.json --expect-host indeed --download-dir /home/ubuntu/new_indeed_script/Temp_Data/rank_1 --window-size 1845x1046 --window-pos 0,34
+2026-11-05 23:44:47         [open_firefox] pre-existing Firefox windows (never touched): none
+2026-11-05 23:44:47         [open_firefox] display=:0 xauthority=/home/ubuntu/new_indeed_script/config/xauth_xwayland
+2026-11-05 23:44:47         [open_firefox] launch mode: snap (inner binary inside 'snap run --shell')
+2026-11-05 23:44:47         [open_firefox] firefox pid=8809
+2026-11-05 23:44:47         [open_firefox] window_id=10485783 name=Mozilla Firefox
+2026-11-05 23:44:47         [open_firefox] normal window: 1850x1053+70+27 (asked for 1845x1046+0+34)
+2026-11-05 23:44:47         [open_firefox] address bar: https://in.indeed.com/
+2026-11-05 23:44:47         [open_firefox] ready
+2026-11-05 23:44:47         -> exit 0 in 9.0s (window_id=10485783 fullscreen=no access_denied=no verified=yes)
+2026-11-05 23:44:47    browser ready: pid=8809 window=10485783 fullscreen=no
+2026-11-05 23:44:47 
+========================================================================
+2026-11-05 23:44:47 CRAWL CYCLE 1 | CITY 1/23: Delhi   (keywords 1..1264)
+2026-11-05 23:44:47 TOTAL COMPLETE CYCLE SO FAR: 0
+2026-11-05 23:44:47 ========================================================================
+2026-11-05 23:44:47 
+  [cycle 1 | city 1/23 Delhi | keyword 1/1264 Social Media Designer | worked 9s]
+2026-11-05 23:44:47 
+  [page 1/4] Social Media Designer @ Delhi  (start=0)
+2026-11-05 23:44:47       $ /home/ubuntu/new_indeed_script/shell_scripts/search_jobs.sh --window 10485783 --keyword 'Social Media Designer' --city Delhi --base-url https://in.indeed.com --mode form --what-xy 700,240 --where-xy 1100,240
+2026-11-05 23:45:03         [search_jobs] input guard passed; address bar reads: https://in.indeed.com/
+2026-11-05 23:45:03         [search_jobs] form search: 'Social Media Designer' in 'Delhi'
+2026-11-05 23:45:03         [search_jobs] clicking the keyword box at 700,240
+2026-11-05 23:45:03         [search_jobs] clicking the city box at 1100,240
+2026-11-05 23:45:03         [search_jobs] both fields confirmed; submitting
+2026-11-05 23:45:03         [search_jobs] window title: 300 Social Media Designer Job Vacancies in Delhi | Indeed — Mozilla Firefox
+2026-11-05 23:45:03         [search_jobs] address bar after search: https://in.indeed.com/jobs?q=Social+Media+Designer&l=Delhi&from=searchOnHP&vjk=60c2445d0567a701
+2026-11-05 23:45:03         [search_jobs] results ready; Indeed pre-selected job 60c2445d0567a701
+2026-11-05 23:45:03         [search_jobs] search ready: Social Media Designer @ Delhi
+2026-11-05 23:45:03         -> exit 0 in 15.7s (access_denied=no verified=yes)
+2026-11-05 23:45:03       $ /home/ubuntu/new_indeed_script/shell_scripts/select_job_card.sh --window 10485783 --index 0 --card-x 430 --start-y 440 --max-y 1000 --probe-step 55 --probe-limit 12 --marker vjk= --preselected-key 60c2445d0567a701
+2026-11-05 23:45:04         [select_job_card] before selection: key='60c2445d0567a701'
+2026-11-05 23:45:04         [select_job_card] job 60c2445d0567a701 is already selected by Indeed -- taking it without clicking
+2026-11-05 23:45:04         -> exit 0 in 1.9s 
+2026-11-05 23:45:04       selected job 60c2445d0567a701 (preselected)
+2026-11-05 23:45:04       $ /home/ubuntu/new_indeed_script/shell_scripts/save_page_source.sh --window 10485783 --out /home/ubuntu/new_indeed_script/Temp_Data/rank_1/job_1_0000.html --expect-url vjk=60c2445d0567a701
+2026-11-05 23:46:37         [save_page_source] source will be taken from: https://in.indeed.com/jobs?q=Social+Media+Designer&l=Delhi&from=searchOnHP&vjk=60c2445d0567a701
+2026-11-05 23:46:37         [save_page_source] page identity confirmed against --expect-url
+2026-11-05 23:46:37         [save_page_source] pressing Ctrl+U
+2026-11-05 23:46:37         [save_page_source] ERROR(12): Ctrl+U did not produce the view-source tab for this page within 15s. Wanted 'view-source:https://in.indeed.com/jobs?q=Social+Media+Designer&l=Delhi&from=searchOnHP&vjk=60c2445d0567a701', address bar reads '<unreadable>'. Nothing was saved.
+2026-11-05 23:46:37         -> exit 12 in 92.1s 
+2026-11-05 23:46:37       $ /home/ubuntu/new_indeed_script/shell_scripts/close_source_tab.sh --window 10485783
+2026-11-05 23:46:48         [close_source_tab] address bar before closing: <unreadable>
+2026-11-05 23:46:48         [close_source_tab] WARNING: the front tab is not a view-source tab ('unreadable'); NOT pressing Ctrl+W, because that would close the listing.
+2026-11-05 23:46:48         -> exit 0 in 11.9s (closed=no_tab)
+2026-11-05 23:46:48   [WARN] card 0 failed: Ctrl+U did not produce the view-source tab for this page within 15s. Wanted 'view-source:https://in.indeed.com/jobs?q=Social+Media+Designer&l=Delhi&from=searchOnHP&vjk=60c2445d0567a701', address bar reads '<unreadable>'. Nothing was saved. | stage=save_page_source.sh | exit=12
+2026-11-05 23:46:48       $ /home/ubuntu/new_indeed_script/shell_scripts/select_job_card.sh --window 10485783 --index 1 --card-x 430 --start-y 440 --max-y 1000 --probe-step 55 --probe-limit 12 --marker vjk= --seen-keys 60c2445d0567a701
+2026-11-05 23:47:25 
+[STOP] signal 2. Checkpoint saved -- re-run to continue from here.
+2026-11-06 00:14:04 ========================================================================
+2026-11-06 00:14:04 NEW INDEED COLLECTOR -- Firefox / xdotool / xclip
+2026-11-06 00:14:04 ========================================================================
+2026-11-06 00:14:04   roles+cities : vendor/ (local, authoritative) -- new_mylib.py md5 5e06a7d1, target_audience_roles.py md5 54b25400
+  row builder  : /home/ubuntu/check_indeed (read-only, 32-column schema)  [stand-ins: gtts, psutil, Levenshtein]
+2026-11-06 00:14:04   rank            : 1 of 5
+2026-11-06 00:14:04   keywords        : 1264
+2026-11-06 00:14:04     target-audience : 200  (15.8% of the plan)
+2026-11-06 00:14:04     fresher/other   : 1064  (84.2%)
+2026-11-06 00:14:04     departments     : 116
+2026-11-06 00:14:04   cities (all)    : 110
+2026-11-06 00:14:04   cities (rank 1) : 23  -> Delhi, Gurugram, Gurgaon, Noida ...
+2026-11-06 00:14:04   excel columns   : 32
+2026-11-06 00:14:04   output          : /home/ubuntu/new_indeed_script/Excel_Data/rank_1
+2026-11-06 00:14:04   temp            : /home/ubuntu/new_indeed_script/Temp_Data/rank_1
+2026-11-06 00:14:04   checkpoint      : /home/ubuntu/new_indeed_script/config/checkpoints/checkpoint_rank_1.json
+2026-11-06 00:14:04   loop            : city-outer, keyword-inner (brief section 8)
+2026-11-06 00:14:04   delays          : 10s before close, 10s before next card
+2026-11-06 00:14:04   night rest      : disabled
+2026-11-06 00:14:04   work period     : 3.7-4.2 h, then a 30-60 min break
+2026-11-06 00:14:04   page ceiling    : 4 listing page(s) per keyword+city
+2026-11-06 00:14:04   unique target   : 100 distinct jobs EXAMINED per keyword+city
+2026-11-06 00:14:04   TOTAL COMPLETE CYCLE : 0   (cities finished this crawl cycle: 0/23)
+2026-11-06 00:14:04 ========================================================================
+2026-11-06 00:14:04   search mode    : form
+2026-11-06 00:14:04       $ /home/ubuntu/new_indeed_script/shell_scripts/open_firefox.sh --profile /home/ubuntu/new_indeed_script/config/firefox_profile/rank_1 --url https://in.indeed.com --state-file /home/ubuntu/new_indeed_script/Temp_Data/rank_1/browser_window.json --expect-host indeed --download-dir /home/ubuntu/new_indeed_script/Temp_Data/rank_1 --window-size 1845x1046 --window-pos 0,34
+2026-11-06 00:14:06 
+[STOP] signal 2. Checkpoint saved -- re-run to continue from here.
+2026-11-06 00:14:17 ========================================================================
+2026-11-06 00:14:17 NEW INDEED COLLECTOR -- Firefox / xdotool / xclip
+2026-11-06 00:14:17 ========================================================================
+2026-11-06 00:14:17   roles+cities : vendor/ (local, authoritative) -- new_mylib.py md5 5e06a7d1, target_audience_roles.py md5 54b25400
+  row builder  : /home/ubuntu/check_indeed (read-only, 32-column schema)  [stand-ins: gtts, psutil, Levenshtein]
+2026-11-06 00:14:17   rank            : 1 of 5
+2026-11-06 00:14:17   keywords        : 1264
+2026-11-06 00:14:17     target-audience : 200  (15.8% of the plan)
+2026-11-06 00:14:17     fresher/other   : 1064  (84.2%)
+2026-11-06 00:14:17     departments     : 116
+2026-11-06 00:14:17   cities (all)    : 110
+2026-11-06 00:14:17   cities (rank 1) : 23  -> Delhi, Gurugram, Gurgaon, Noida ...
+2026-11-06 00:14:17   excel columns   : 32
+2026-11-06 00:14:17   output          : /home/ubuntu/new_indeed_script/Excel_Data/rank_1
+2026-11-06 00:14:17   temp            : /home/ubuntu/new_indeed_script/Temp_Data/rank_1
+2026-11-06 00:14:17   checkpoint      : /home/ubuntu/new_indeed_script/config/checkpoints/checkpoint_rank_1.json
+2026-11-06 00:14:17   loop            : city-outer, keyword-inner (brief section 8)
+2026-11-06 00:14:17   delays          : 10s before close, 10s before next card
+2026-11-06 00:14:17   night rest      : disabled
+2026-11-06 00:14:17   work period     : 3.7-4.2 h, then a 30-60 min break
+2026-11-06 00:14:17   page ceiling    : 4 listing page(s) per keyword+city
+2026-11-06 00:14:17   unique target   : 100 distinct jobs EXAMINED per keyword+city
+2026-11-06 00:14:17   TOTAL COMPLETE CYCLE : 0   (cities finished this crawl cycle: 0/23)
+2026-11-06 00:14:17 ========================================================================
+2026-11-06 00:14:17   search mode    : form
+2026-11-06 00:14:17       $ /home/ubuntu/new_indeed_script/shell_scripts/open_firefox.sh --profile /home/ubuntu/new_indeed_script/config/firefox_profile/rank_1 --url https://in.indeed.com --state-file /home/ubuntu/new_indeed_script/Temp_Data/rank_1/browser_window.json --expect-host indeed --download-dir /home/ubuntu/new_indeed_script/Temp_Data/rank_1 --window-size 1845x1046 --window-pos 0,34
+2026-11-06 00:14:27         [open_firefox] pre-existing Firefox windows (never touched): none
+2026-11-06 00:14:27         [open_firefox] display=:0 xauthority=/home/ubuntu/new_indeed_script/config/xauth_xwayland
+2026-11-06 00:14:27         [open_firefox] launch mode: snap (inner binary inside 'snap run --shell')
+2026-11-06 00:14:27         [open_firefox] firefox pid=16882
+2026-11-06 00:14:27         [open_firefox] window_id=10485783 name=Mozilla Firefox
+2026-11-06 00:14:27         [open_firefox] window geometry set on attempt 1: 1850x1053+70+27
+2026-11-06 00:14:27         [open_firefox] normal window: 1850x1053+70+27 (asked for 1845x1046+0+34)
+2026-11-06 00:14:27         [open_firefox] address bar: https://in.indeed.com/
+2026-11-06 00:14:27         [open_firefox] ready
+2026-11-06 00:14:27         -> exit 0 in 10.9s (window_id=10485783 fullscreen=no access_denied=no verified=yes)
+2026-11-06 00:14:27    browser ready: pid=16882 window=10485783 fullscreen=no
+2026-11-06 00:14:27 
+========================================================================
+2026-11-06 00:14:27 CRAWL CYCLE 1 | CITY 1/23: Delhi   (keywords 1..1264)
+2026-11-06 00:14:27 TOTAL COMPLETE CYCLE SO FAR: 0
+2026-11-06 00:14:27 ========================================================================
+2026-11-06 00:14:27 
+  [cycle 1 | city 1/23 Delhi | keyword 1/1264 Social Media Designer | worked 10s]
+2026-11-06 00:14:28 
+  [page 1/4] Social Media Designer @ Delhi  (start=0)
+2026-11-06 00:14:28       $ /home/ubuntu/new_indeed_script/shell_scripts/search_jobs.sh --window 10485783 --keyword 'Social Media Designer' --city Delhi --base-url https://in.indeed.com --mode form --what-xy 700,240 --where-xy 1100,240
+2026-11-06 00:14:37 
+[STOP] signal 2. Checkpoint saved -- re-run to continue from here.
+2026-11-06 00:14:41 ========================================================================
+2026-11-06 00:14:41 NEW INDEED COLLECTOR -- Firefox / xdotool / xclip
+2026-11-06 00:14:41 ========================================================================
+2026-11-06 00:14:41   roles+cities : vendor/ (local, authoritative) -- new_mylib.py md5 5e06a7d1, target_audience_roles.py md5 54b25400
+  row builder  : /home/ubuntu/check_indeed (read-only, 32-column schema)  [stand-ins: gtts, psutil, Levenshtein]
+2026-11-06 00:14:41   rank            : 1 of 5
+2026-11-06 00:14:41   keywords        : 1264
+2026-11-06 00:14:41     target-audience : 200  (15.8% of the plan)
+2026-11-06 00:14:41     fresher/other   : 1064  (84.2%)
+2026-11-06 00:14:41     departments     : 116
+2026-11-06 00:14:41   cities (all)    : 110
+2026-11-06 00:14:41   cities (rank 1) : 23  -> Delhi, Gurugram, Gurgaon, Noida ...
+2026-11-06 00:14:41   excel columns   : 32
+2026-11-06 00:14:41   output          : /home/ubuntu/new_indeed_script/Excel_Data/rank_1
+2026-11-06 00:14:41   temp            : /home/ubuntu/new_indeed_script/Temp_Data/rank_1
+2026-11-06 00:14:41   checkpoint      : /home/ubuntu/new_indeed_script/config/checkpoints/checkpoint_rank_1.json
+2026-11-06 00:14:41   loop            : city-outer, keyword-inner (brief section 8)
+2026-11-06 00:14:41   delays          : 10s before close, 10s before next card
+2026-11-06 00:14:41   night rest      : disabled
+2026-11-06 00:14:41   work period     : 3.7-4.2 h, then a 30-60 min break
+2026-11-06 00:14:41   page ceiling    : 4 listing page(s) per keyword+city
+2026-11-06 00:14:41   unique target   : 100 distinct jobs EXAMINED per keyword+city
+2026-11-06 00:14:41   TOTAL COMPLETE CYCLE : 0   (cities finished this crawl cycle: 0/23)
+2026-11-06 00:14:41 ========================================================================
+2026-11-06 00:14:41   search mode    : form
+2026-11-06 00:14:41       $ /home/ubuntu/new_indeed_script/shell_scripts/open_firefox.sh --profile /home/ubuntu/new_indeed_script/config/firefox_profile/rank_1 --url https://in.indeed.com --state-file /home/ubuntu/new_indeed_script/Temp_Data/rank_1/browser_window.json --expect-host indeed --download-dir /home/ubuntu/new_indeed_script/Temp_Data/rank_1 --window-size 1845x1046 --window-pos 0,34
+2026-11-06 00:14:49         [open_firefox] pre-existing Firefox windows (never touched): none
+2026-11-06 00:14:49         [open_firefox] display=:0 xauthority=/home/ubuntu/new_indeed_script/config/xauth_xwayland
+2026-11-06 00:14:49         [open_firefox] launch mode: snap (inner binary inside 'snap run --shell')
+2026-11-06 00:14:49         [open_firefox] firefox pid=17942
+2026-11-06 00:14:49         [open_firefox] window_id=10485783 name=Mozilla Firefox
+2026-11-06 00:14:49         [open_firefox] window geometry set on attempt 1: 1850x1053+70+27
+2026-11-06 00:14:49         [open_firefox] normal window: 1850x1053+70+27 (asked for 1845x1046+0+34)
+2026-11-06 00:14:49         [open_firefox] address bar: https://in.indeed.com/
+2026-11-06 00:14:49         [open_firefox] ready
+2026-11-06 00:14:49         -> exit 0 in 8.7s (window_id=10485783 fullscreen=no access_denied=no verified=yes)
+2026-11-06 00:14:49    browser ready: pid=17942 window=10485783 fullscreen=no
+2026-11-06 00:14:49 
+========================================================================
+2026-11-06 00:14:49 CRAWL CYCLE 1 | CITY 1/23: Delhi   (keywords 1..1264)
+2026-11-06 00:14:49 TOTAL COMPLETE CYCLE SO FAR: 0
+2026-11-06 00:14:49 ========================================================================
+2026-11-06 00:14:49 
+  [cycle 1 | city 1/23 Delhi | keyword 1/1264 Social Media Designer | worked 8s]
+2026-11-06 00:14:50 
+  [page 1/4] Social Media Designer @ Delhi  (start=0)
+2026-11-06 00:14:50       $ /home/ubuntu/new_indeed_script/shell_scripts/search_jobs.sh --window 10485783 --keyword 'Social Media Designer' --city Delhi --base-url https://in.indeed.com --mode form --what-xy 700,240 --where-xy 1100,240
+2026-11-06 00:14:59 
+[STOP] signal 2. Checkpoint saved -- re-run to continue from here.
+2026-11-06 09:00:05 ========================================================================
+2026-11-06 09:00:05 NEW INDEED COLLECTOR -- Firefox / xdotool / xclip
+2026-11-06 09:00:05 ========================================================================
+2026-11-06 09:00:05   roles+cities : vendor/ (local, authoritative) -- new_mylib.py md5 5e06a7d1, target_audience_roles.py md5 54b25400
+  row builder  : /home/ubuntu/check_indeed (read-only, 32-column schema)  [stand-ins: gtts, psutil, Levenshtein]
+2026-11-06 09:00:05   rank            : 1 of 5
+2026-11-06 09:00:05   keywords        : 1264
+2026-11-06 09:00:05     target-audience : 200  (15.8% of the plan)
+2026-11-06 09:00:05     fresher/other   : 1064  (84.2%)
+2026-11-06 09:00:05     departments     : 116
+2026-11-06 09:00:05   cities (all)    : 110
+2026-11-06 09:00:05   cities (rank 1) : 23  -> Delhi, Gurugram, Gurgaon, Noida ...
+2026-11-06 09:00:05   excel columns   : 32
+2026-11-06 09:00:05   output          : /home/ubuntu/new_indeed_script/Excel_Data/rank_1
+2026-11-06 09:00:05   temp            : /home/ubuntu/new_indeed_script/Temp_Data/rank_1
+2026-11-06 09:00:05   checkpoint      : /home/ubuntu/new_indeed_script/config/checkpoints/checkpoint_rank_1.json
+2026-11-06 09:00:05   loop            : city-outer, keyword-inner (brief section 8)
+2026-11-06 09:00:05   delays          : 10s before close, 10s before next card
+2026-11-06 09:00:05   night rest      : disabled
+2026-11-06 09:00:05   work period     : 3.7-4.2 h, then a 30-60 min break
+2026-11-06 09:00:05   page ceiling    : 4 listing page(s) per keyword+city
+2026-11-06 09:00:05   unique target   : 100 distinct jobs EXAMINED per keyword+city
+2026-11-06 09:00:05   TOTAL COMPLETE CYCLE : 0   (cities finished this crawl cycle: 0/23)
+2026-11-06 09:00:05 ========================================================================
+2026-11-06 09:00:05   search mode    : form
+2026-11-06 09:00:05       $ /home/ubuntu/new_indeed_script/shell_scripts/open_firefox.sh --profile /home/ubuntu/new_indeed_script/config/firefox_profile/rank_1 --url https://in.indeed.com --state-file /home/ubuntu/new_indeed_script/Temp_Data/rank_1/browser_window.json --expect-host indeed --download-dir /home/ubuntu/new_indeed_script/Temp_Data/rank_1 --window-size 1845x1046 --window-pos 0,34
+2026-11-06 09:00:19         [open_firefox] pre-existing Firefox windows (never touched): none
+2026-11-06 09:00:19         [open_firefox] display=:0 xauthority=/home/ubuntu/new_indeed_script/config/xauth_xwayland
+2026-11-06 09:00:19         [open_firefox] launch mode: snap (inner binary inside 'snap run --shell')
+2026-11-06 09:00:19         [open_firefox] firefox pid=4245
+2026-11-06 09:00:19         [open_firefox] window_id=10485783 name=Mozilla Firefox
+2026-11-06 09:00:19         [open_firefox] window geometry set on attempt 1: 1850x1053+70+27
+2026-11-06 09:00:19         [open_firefox] normal window: 1850x1053+70+27 (asked for 1845x1046+0+34)
+2026-11-06 09:00:19         [open_firefox] address bar: https://in.indeed.com/
+2026-11-06 09:00:19         [open_firefox] ready
+2026-11-06 09:00:19         -> exit 0 in 13.3s (window_id=10485783 fullscreen=no access_denied=no verified=yes)
+2026-11-06 09:00:19    browser ready: pid=4245 window=10485783 fullscreen=no
+2026-11-06 09:00:19 
+========================================================================
+2026-11-06 09:00:19 CRAWL CYCLE 1 | CITY 1/23: Delhi   (keywords 1..1264)
+2026-11-06 09:00:19 TOTAL COMPLETE CYCLE SO FAR: 0
+2026-11-06 09:00:19 ========================================================================
+2026-11-06 09:00:19 
+  [cycle 1 | city 1/23 Delhi | keyword 1/1264 Social Media Designer | worked 13s]
+2026-11-06 09:00:19 
+  [page 1/4] Social Media Designer @ Delhi  (start=0)
+2026-11-06 09:00:19       $ /home/ubuntu/new_indeed_script/shell_scripts/search_jobs.sh --window 10485783 --keyword 'Social Media Designer' --city Delhi --base-url https://in.indeed.com --mode form --what-xy 700,240 --where-xy 1100,240
+2026-11-06 09:01:39         [search_jobs] input guard passed; address bar reads: https://in.indeed.com/
+2026-11-06 09:01:39         [search_jobs] waiting 7.0s for the page to settle before typing
+2026-11-06 09:01:39         [search_jobs] form search: 'Social Media Designer' in 'Delhi'
+2026-11-06 09:01:39         [search_jobs] clicking the keyword box at 700,240
+2026-11-06 09:01:39         [search_jobs] clicking the city box at 1100,240
+2026-11-06 09:01:39         [search_jobs] both fields confirmed; submitting
+2026-11-06 09:01:39         [search_jobs] window title: Job Search India | Indeed — Mozilla Firefox
+2026-11-06 09:01:39         [search_jobs] address bar after search: https://in.indeed.com/
+2026-11-06 09:01:39         [search_jobs] ERROR(7): the search was submitted but the results url does not match the keyword and city asked for. Wanted something matching 'in.indeed.com.*[?&]q=Social[+%%]Media[+%%]Designer.*[&]l=Delhi', the address bar says 'https://in.indeed.com/'. Refusing to read job cards from a page that is not this search.
+2026-11-06 09:01:39         -> exit 7 in 80.4s (access_denied=no verified=no)
+2026-11-06 09:01:39   [WARN] the search failed (the search was submitted but the results url does not match the keyword and city asked for. Wanted something matching 'in.indeed.com.*[?&]q=Social[+%%]Media[+%%]Designer.*[&]l=Delhi', the address bar says 'https://in.indeed.com/'. Refusing to read job cards from a page that is not this search. | stage=search_jobs.sh | exit=7)
+2026-11-06 09:01:39       [wait] 22s before a retry
+2026-11-06 09:02:02 
+  [page 1/4] Social Media Designer @ Delhi  (start=0)
+2026-11-06 09:02:02       $ /home/ubuntu/new_indeed_script/shell_scripts/search_jobs.sh --window 10485783 --keyword 'Social Media Designer' --city Delhi --base-url https://in.indeed.com --mode form --what-xy 700,240 --where-xy 1100,240
+2026-11-06 09:02:30 
+[STOP] signal 2. Checkpoint saved -- re-run to continue from here.

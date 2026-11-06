@@ -41,10 +41,9 @@ require_tools xdotool xclip xprop
 require_display
 window_exists "$WINDOW_ID" || fail "$EX_NO_WINDOW" "window $WINDOW_ID no longer exists"
 
-require_focus "$WINDOW_ID"
-require_fullscreen "$WINDOW_ID"
+require_window_ready "$WINDOW_ID"
 
-BEFORE=$(copy_address_bar "$WINDOW_ID" "$CLIPBOARD_TIMEOUT") || BEFORE=""
+BEFORE=$(copy_address_bar_retry "$WINDOW_ID" "$CLIPBOARD_TIMEOUT") || BEFORE=""
 note "address bar before closing: ${BEFORE:-<unreadable>}"
 
 case "$BEFORE" in

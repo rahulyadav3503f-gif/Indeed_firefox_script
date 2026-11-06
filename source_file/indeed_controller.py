@@ -81,7 +81,7 @@ class NoDisplay(BrowserError):
 
 
 class BrowserLaunchFailed(BrowserError):
-    """Opera would not start."""
+    """Firefox would not start."""
 
 
 class WindowNotFound(BrowserError):
@@ -167,9 +167,13 @@ class ControllerConfig(object):
     def __init__(self, project_dir, rank=1, base_url="https://in.indeed.com",
                  firefox_binary="firefox", display=None,
                  xauth_copy=None,
-                 search_mode="url",
-                 card_x=430, first_card_y=300, card_pitch=148,
+                 search_mode="form",
+                 search_field_delay_seconds=7.0,
+                 card_x=430, first_card_y=440, card_max_y=1000,
+                 card_probe_step=55, card_probe_limit=12,
                  card_url_marker="vjk=",
+                 window_size=(1845, 1046), window_pos=(0, 34),
+                 what_xy=(700, 240), where_xy=(1100, 240),
                  pre_close_delay_seconds=10.0,
                  post_close_delay_seconds=10.0,
                  window_timeout=30, focus_timeout=10,
@@ -187,15 +191,29 @@ class ControllerConfig(object):
         # An XAUTHORITY the snap can read.  See _common.sh FACT 2.
         self.xauth_copy = xauth_copy
         self.search_mode = search_mode
-        # Where the job cards are in the results column.  These are the only
-        # numbers in this project that depend on page layout, which is why
-        # they are configuration and why select_job_card.sh reports exactly
-        # where it clicked and then VERIFIES what got selected.
+        # Settle time after Indeed loads, before its search boxes are clicked.
+        self.search_field_delay_seconds = float(search_field_delay_seconds)
+        # Where the job cards are in the results column.
+        #
+        # NOTE WHAT IS NOT HERE ANY MORE: card_pitch.  Indeed's cards are
+        # not a fixed height -- measured on one real page they were 259 and
+        # 191 pixels apart, and the SELECTED card is taller again because it
+        # expands.  Multiplying an index by a pitch therefore clicked the
+        # same card twice and missed the third.  select_job_card.sh probes
+        # downward instead and reports the y that worked.
         self.card_x = int(card_x)
         self.first_card_y = int(first_card_y)
-        self.card_pitch = int(card_pitch)
+        self.card_max_y = int(card_max_y)
+        self.card_probe_step = int(card_probe_step)
+        self.card_probe_limit = int(card_probe_limit)
         # The query parameter Indeed puts the selected job's key in.
         self.card_url_marker = card_url_marker
+        # NORMAL WINDOW (not fullscreen), sized to the supplied screenshot.
+        self.window_size = tuple(window_size)
+        self.window_pos = tuple(window_pos)
+        # Indeed's two search boxes, in screen coordinates for that window.
+        self.what_xy = tuple(what_xy)
+        self.where_xy = tuple(where_xy)
         self.pre_close_delay_seconds = float(pre_close_delay_seconds)
         self.post_close_delay_seconds = float(post_close_delay_seconds)
         self.window_timeout = int(window_timeout)
@@ -261,8 +279,16 @@ class ControllerConfig(object):
             "KEY_DELAY_MS": str(self.key_delay_ms),
             "FIREFOX_BIN": self.firefox_binary,
             "CARD_X": str(self.card_x),
-            "FIRST_CARD_Y": str(self.first_card_y),
-            "CARD_PITCH": str(self.card_pitch),
+            "START_Y": str(self.first_card_y),
+            "CARD_MAX_Y": str(self.card_max_y),
+            "PROBE_STEP": str(self.card_probe_step),
+            "PROBE_LIMIT": str(self.card_probe_limit),
+            "WINDOW_WIDTH": str(self.window_size[0]),
+            "WINDOW_HEIGHT": str(self.window_size[1]),
+            "WINDOW_X": str(self.window_pos[0]),
+            "WINDOW_Y": str(self.window_pos[1]),
+            "SEARCH_MODE": str(self.search_mode),
+            "SEARCH_FIELD_DELAY_SECONDS": str(self.search_field_delay_seconds),
             "VERBOSE_SHELL": "1" if self.verbose else "0",
         })
         if self.display:
@@ -288,17 +314,26 @@ class JobWindow(object):
         #: The job's own key from the url (Indeed's vjk=/jk=), when it has
         #: one.  This is the only stable identity a job has here.
         self.job_key = str(job_key)
+        #: "preselected" when Indeed had already selected it, "click" when
+        #: a probe found it.  Worth logging: an all-"click" run means the
+        #: pre-selection detection is not firing.
+        self.selection_method = ""
+        #: The y a probe actually landed on, so the caller can start the
+        #: next card's probe below it instead of guessing a pitch.
+        self.learned_card_y = 0
 
     def __repr__(self):                                  # pragma: no cover
         return "JobWindow(%s, %r)" % (self.window_id, self.url)
 
 
 class IndeedController(object):
-    """Drives Opera through the shell scripts.  Owns no business rules."""
+    """Drives Firefox through the shell scripts.  Owns no business rules."""
 
     def __init__(self, config):
         self.config = config
         self.firefox_pid = None
+        #: The job Indeed auto-selected on the current results page.
+        self.preselected_key = ""
         self.listing_window = None
         self.open_job_windows = []
         self._last_results = {}
@@ -383,6 +418,8 @@ class IndeedController(object):
             "--state-file", self.config.window_state_file,
             "--expect-host", host,
             "--download-dir", self.config.temp_dir,
+            "--window-size", "%dx%d" % self.config.window_size,
+            "--window-pos", "%d,%d" % self.config.window_pos,
         ], timeout=max(self.config.script_timeout, 180))
 
         self.firefox_pid = results.get("firefox_pid")
@@ -413,45 +450,69 @@ class IndeedController(object):
 
     # -- 2. search ----------------------------------------------------------
     def search(self, keyword, city, start=0, listing_file=None):
-        """One keyword+city search.  Both values come from Python."""
-        listing_file = listing_file or os.path.join(
-            self.config.temp_dir, "listing_data.txt")
+        """One keyword+city search.  Both values come from Python.
+
+        NO LISTING-PAGE COPY.  This used to pass --temp-file so the shell
+        would Ctrl+A/Ctrl+C the whole results page into listing_data.txt and
+        fail the search when the clipboard did not change.  That check is
+        gone: readiness is now proved from the url and the window title.
+        ``listing_file`` is accepted and ignored so older callers do not
+        break.
+
+        Returns the shell's RESULT map, which now carries:
+            results_ready    yes|no
+            preselected_key  the job Indeed auto-selected, if any
+        """
         args = [
             "--window", self.listing_window,
             "--keyword", keyword,
             "--city", city,
             "--base-url", self.config.base_url,
-            "--temp-file", listing_file,
             "--mode", self.config.search_mode,
+            "--what-xy", "%d,%d" % (self.config.what_xy[0], self.config.what_xy[1]),
+            "--where-xy", "%d,%d" % (self.config.where_xy[0], self.config.where_xy[1]),
         ]
         if start:
             args += ["--start", str(start)]
         _, results, _ = self.run_script("search_jobs.sh", args)
+        self.preselected_key = results.get("preselected_key", "")
         return results
 
     # -- 3. one job card ----------------------------------------------------
-    def select_job_card(self, card_index, expect_title="", detail_file=None):
-        """Click job card ``card_index`` and PROVE which job is now showing.
+    def select_job_card(self, card_index, seen_keys=(), start_y=None,
+                        expect_title="", detail_file=None):
+        """Select job card ``card_index`` (0-based) and prove its identity.
 
-        ``card_index`` is 0-based.  The click position comes from the
-        configured results-column geometry; the job it turns out to be is
-        established afterwards from the page's own url, which is the only
-        identity this toolset can verify.  A selection that cannot be
-        confirmed raises -- it is never downgraded to a warning, because the
-        next step saves a source file under this job's name.
+        THREE THINGS THIS HANDLES THAT THE FIRST VERSION DID NOT:
+
+          1. Indeed PRE-SELECTS the first job, so card 0 usually needs no
+             click at all.  ``preselected_key`` from the search is passed
+             through and the shell takes it without clicking.
+          2. Card heights vary, so there is no pitch to multiply.  The
+             shell probes downward from ``start_y`` and reports the y that
+             worked, which this method returns so the caller can learn the
+             spacing for the next card.
+          3. ``seen_keys`` stops a probe accepting a job already handled.
+
+        Returns a JobWindow whose ``job_key`` is the job's own identity.
         """
+        if start_y is None:
+            start_y = self.config.first_card_y
+
         args = [
             "--window", self.listing_window,
             "--index", str(int(card_index)),
             "--card-x", str(self.config.card_x),
-            "--first-card-y", str(self.config.first_card_y),
-            "--card-pitch", str(self.config.card_pitch),
+            "--start-y", str(int(start_y)),
+            "--max-y", str(self.config.card_max_y),
+            "--probe-step", str(self.config.card_probe_step),
+            "--probe-limit", str(self.config.card_probe_limit),
             "--marker", self.config.card_url_marker,
         ]
-        if expect_title:
-            args += ["--expect-title", expect_title]
-        if detail_file:
-            args += ["--temp-file", detail_file]
+        if seen_keys:
+            args += ["--seen-keys", ",".join(str(k) for k in seen_keys if k)]
+        if card_index == 0 and getattr(self, "preselected_key", ""):
+            args += ["--preselected-key", self.preselected_key]
 
         _, results, _ = self.run_script("select_job_card.sh", args)
 
@@ -461,8 +522,13 @@ class IndeedController(object):
                 "select_job_card.sh exited 0 without a selected url",
                 stage="select_job_card.sh", results=results)
 
-        window = JobWindow(self.listing_window, url, True)
-        window.job_key = results.get("selected_key", "")
+        window = JobWindow(self.listing_window, url, False,
+                           job_key=results.get("selected_key", ""))
+        window.selection_method = results.get("selection_method", "")
+        try:
+            window.learned_card_y = int(results.get("learned_card_y") or 0)
+        except (TypeError, ValueError):
+            window.learned_card_y = 0
         return window
 
     # -- 4. save the job's page source --------------------------------------
@@ -554,7 +620,7 @@ class IndeedController(object):
 
     # -- shutdown -----------------------------------------------------------
     def close_browser(self):
-        """Close OUR Opera, and only ours."""
+        """Close OUR Firefox, and only ours."""
         if not self.firefox_pid:
             return False
         try:
@@ -564,7 +630,7 @@ class IndeedController(object):
             self.log("   closed our Firefox (pid %s)" % self.firefox_pid)
             return True
         except (OSError, subprocess.TimeoutExpired) as error:
-            self.log("   [WARN] could not close Opera pid %s: %s"
+            self.log("   [WARN] could not close Firefox pid %s: %s"
                      % (self.firefox_pid, error))
             return False
 

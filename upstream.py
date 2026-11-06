@@ -329,11 +329,32 @@ def load_source_module(name):
 
 
 def describe():
-    """A one-line summary for the startup banner."""
+    """Where each piece of shared configuration actually comes from.
+
+    Two lines, because there are two answers and conflating them is how a
+    reader ends up believing the role plan is still the original project's.
+
+      roles+cities : VENDORED into this project (vendor/), authoritative.
+      row builder  : still IMPORTED from the original project, read-only,
+                     because the 32-column contract must not be duplicated.
+    """
+    lines = []
+    record = vendor_provenance()
+    files = record.get("files", {})
+    if files:
+        lines.append("roles+cities : vendor/ (local, authoritative) -- %s"
+                     % ", ".join("%s md5 %s" % (name, info.get("md5", "?")[:8])
+                                 for name, info in sorted(files.items())))
+    else:
+        lines.append("roles+cities : vendor/ -- PROVENANCE.json missing")
+
     try:
         root = upstream_dir()
     except UpstreamNotFound:
-        return "upstream: NOT FOUND"
+        lines.append("row builder  : NOT FOUND (32-column schema unavailable)")
+        return "\n  ".join(lines)
+
     stubs = stubbed_packages()
-    return "upstream: %s%s" % (
-        root, "  (stand-ins: %s)" % ", ".join(stubs) if stubs else "")
+    lines.append("row builder  : %s (read-only, 32-column schema)%s"
+                 % (root, "  [stand-ins: %s]" % ", ".join(stubs) if stubs else ""))
+    return "\n  ".join(lines)
