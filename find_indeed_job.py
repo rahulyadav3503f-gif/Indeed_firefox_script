@@ -103,6 +103,13 @@ SEARCH_MODE = "form"
 # reports loaded, and the boxes move while it does.
 SEARCH_FIELD_DELAY_SECONDS = 7
 
+# Seconds to wait after pressing Return before going to the first job card.
+# This replaced the post-search verification (url must contain q= and l=,
+# vjk= must appear).  Those checks blocked progression on searches that had
+# loaded perfectly; job identity is enforced later instead -- see
+# select_job_card.sh, save_page_source.sh --expect-url, and indeed_source.py.
+SEARCH_RESULTS_WAIT_SECONDS = 10
+
 # -- where the job cards are in the results column -------------------------
 # The ONLY numbers in this project that depend on how the page is laid out.
 # They are configuration, and select_job_card.sh reports exactly where it
@@ -659,6 +666,7 @@ def build_controller_config(which_rank=None, base_url=None, logger=None):
         xauth_copy=FIREFOX_XAUTH_COPY or None,
         search_mode=SEARCH_MODE,
         search_field_delay_seconds=SEARCH_FIELD_DELAY_SECONDS,
+        search_results_wait_seconds=SEARCH_RESULTS_WAIT_SECONDS,
         card_x=CARD_X,
         first_card_y=FIRST_CARD_Y,
         card_max_y=CARD_MAX_Y,

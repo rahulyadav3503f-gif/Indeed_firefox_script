@@ -69,11 +69,10 @@ class TestNoListingPageCopy(unittest.TestCase):
         self.assertNotIn("--temp-file", body)
         self.assertNotIn("listing_data.txt", body)
 
-    def test_readiness_is_proved_from_url_and_title_instead(self):
+    def test_an_access_refusal_is_still_detected_from_the_title(self):
+        """The listing copy is gone, but refusal handling is NOT."""
         body = code_of(script("search_jobs.sh"))
-        self.assertIn("wait_for_url_match", body)
         self.assertIn("title_says_access_denied", body)
-        self.assertIn("title_says_error_page", body)
 
     def test_a_still_needed_clipboard_read_survives(self):
         """Field read-back and address-bar reads must NOT have been removed."""
@@ -163,6 +162,22 @@ class TestCardSelectionCalls(unittest.TestCase):
         controller.preselected_key = "aaa"
         controller.select_job_card(3)
         self.assertNotIn("--preselected-key", controller.calls[0][1])
+
+    def test_card_zero_without_a_preselected_key_still_works(self):
+        """Now that the search no longer WAITS for vjk=, it may be absent.
+
+        The controller must simply not pass --preselected-key, and the
+        shell then falls back to the key in the url, or to clicking.
+        """
+        controller = self.make({"selected_url": "x?vjk=zzz",
+                                "selected_key": "zzz",
+                                "selection_method": "click",
+                                "learned_card_y": "455"})
+        controller.preselected_key = ""          # search found none
+        window = controller.select_job_card(0)
+        self.assertNotIn("--preselected-key", controller.calls[0][1])
+        self.assertEqual(window.job_key, "zzz")
+        self.assertEqual(window.selection_method, "click")
 
     def test_seen_keys_are_passed_so_a_probe_cannot_recollect(self):
         controller = self.make({"selected_url": "x?vjk=ccc",
@@ -280,15 +295,25 @@ class TestFormSearch(unittest.TestCase):
         self.assertIn("fail", guard.split("submitting")[0])
         self.assertNotIn("submitting anyway", body)
 
-    def test_focus_is_reproved_immediately_before_return(self):
-        body = code_of(script("search_jobs.sh"))
-        before_submit = body.split("submitting")[0]
-        self.assertIn("assert_input_lands", before_submit.split("type_into_field")[-1])
+    def test_no_address_bar_read_between_typing_and_return(self):
+        """Ctrl+L moves the caret OUT of the city box.
 
-    def test_the_url_is_still_checked_against_keyword_and_city(self):
+        A guard there made Return re-load the current page instead of
+        submitting the search -- measured live: both boxes read back
+        correctly and the url never changed. The field read-backs are the
+        proof that keystrokes land; they do not move the caret.
+        """
         body = code_of(script("search_jobs.sh"))
-        self.assertIn("KEYWORD_PATTERN", body)
-        self.assertIn("CITY_PATTERN", body)
+        typing_to_return = body.split("TYPED_CITY=$(type_into_field")[1]
+        typing_to_return = typing_to_return.split("Return")[0]
+        self.assertNotIn("assert_input_lands", typing_to_return)
+        self.assertNotIn("ctrl+l", typing_to_return)
+
+    def test_the_url_is_no_longer_matched_against_keyword_and_city(self):
+        """Removed on request: it blocked searches that had loaded fine."""
+        body = code_of(script("search_jobs.sh"))
+        self.assertNotIn("KEYWORD_PATTERN", body)
+        self.assertNotIn("CITY_PATTERN", body)
 
 
 # ===========================================================================
@@ -342,6 +367,76 @@ class TestFocusHandling(unittest.TestCase):
         common = script("_common.sh")
         self.assertIn("copy_address_bar_retry", common)
         self.assertIn("ADDRESS_BAR_ATTEMPTS", common)
+
+
+# ===========================================================================
+# SIMPLIFIED SEARCH -- no post-Return verification
+# ===========================================================================
+
+class TestNoPostSearchVerification(unittest.TestCase):
+    """After Return the script waits and goes straight to the first card.
+
+    What was removed: the url had to match q=<keyword> and l=<city>, and a
+    vjk= had to appear within 20s, or the search was declared failed. Both
+    blocked progression on searches that had in fact loaded.
+    """
+
+    def body(self):
+        return code_of(script("search_jobs.sh"))
+
+    def test_no_verified_gate_remains(self):
+        body = self.body()
+        self.assertNotIn('VERIFIED="no"', body)
+        self.assertNotIn('[ "$VERIFIED" != "yes" ]', body)
+
+    def test_the_search_does_not_wait_for_a_matching_url(self):
+        self.assertNotIn("wait_for_url_match", self.body())
+
+    def test_vjk_is_a_hint_not_a_gate(self):
+        """preselected_key must still be emitted -- card 0 uses it."""
+        self.assertIn("preselected_key=", self.body())
+
+    def test_the_only_stop_after_return_is_an_access_refusal(self):
+        """Everything else must fall through to card selection.
+
+        Counted rather than described: exactly one fail() may survive
+        after the results wait, and it must be the EX_ACCESS_DENIED one.
+        """
+        after_return = self.body().split("SEARCH_RESULTS_WAIT_SECONDS")[-1]
+        fails = [line for line in after_return.splitlines()
+                 if "fail " in line]
+        self.assertEqual(len(fails), 1, "unexpected fail()s: %r" % fails)
+        self.assertIn("EX_ACCESS_DENIED", fails[0])
+
+    def test_an_error_page_no_longer_blocks(self):
+        body = self.body()
+        self.assertIn("title_says_error_page", body)   # still reported
+        error_branch = body.split("title_says_error_page")[1].split("fi")[0]
+        self.assertIn("warn", error_branch)
+        self.assertNotIn("fail", error_branch)
+
+    def test_the_results_wait_is_configurable_and_ten_seconds(self):
+        self.assertIn("SEARCH_RESULTS_WAIT_SECONDS", self.body())
+        self.assertIn('SEARCH_RESULTS_WAIT_SECONDS:=10', script("_common.sh"))
+        config = ctrl.ControllerConfig(project_dir=BASE)
+        self.assertEqual(config.search_results_wait_seconds, 10.0)
+        self.assertEqual(
+            config.environment()["SEARCH_RESULTS_WAIT_SECONDS"], "10.0")
+
+    def test_the_identity_safeguards_downstream_are_untouched(self):
+        """Removing the search checks must not let wrong data into Excel."""
+        self.assertIn("--expect-url", script("save_page_source.sh"))
+        self.assertIn("EX_IDENTITY", code_of(script("save_page_source.sh")))
+        self.assertIn("selected_key", code_of(script("select_job_card.sh")))
+        source = open(os.path.join(BASE, "source_file", "indeed_source.py"),
+                      encoding="utf-8").read()
+        self.assertIn("job_card_for_key", source)
+
+    def test_the_input_guard_before_typing_is_untouched(self):
+        """Wrong-window protection is NOT part of what was removed."""
+        body = self.body()
+        self.assertIn("assert_input_lands", body)
+        self.assertIn("REFUSING to type", body)
 
 
 # ===========================================================================

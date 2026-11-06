@@ -169,6 +169,7 @@ class ControllerConfig(object):
                  xauth_copy=None,
                  search_mode="form",
                  search_field_delay_seconds=7.0,
+                 search_results_wait_seconds=10.0,
                  card_x=430, first_card_y=440, card_max_y=1000,
                  card_probe_step=55, card_probe_limit=12,
                  card_url_marker="vjk=",
@@ -193,6 +194,10 @@ class ControllerConfig(object):
         self.search_mode = search_mode
         # Settle time after Indeed loads, before its search boxes are clicked.
         self.search_field_delay_seconds = float(search_field_delay_seconds)
+        # Wait after Return, before the first job card is selected.  This is
+        # what replaced the post-search url/title verification: the search
+        # is given time to land and the run then goes straight to the card.
+        self.search_results_wait_seconds = float(search_results_wait_seconds)
         # Where the job cards are in the results column.
         #
         # NOTE WHAT IS NOT HERE ANY MORE: card_pitch.  Indeed's cards are
@@ -289,6 +294,7 @@ class ControllerConfig(object):
             "WINDOW_Y": str(self.window_pos[1]),
             "SEARCH_MODE": str(self.search_mode),
             "SEARCH_FIELD_DELAY_SECONDS": str(self.search_field_delay_seconds),
+            "SEARCH_RESULTS_WAIT_SECONDS": str(self.search_results_wait_seconds),
             "VERBOSE_SHELL": "1" if self.verbose else "0",
         })
         if self.display:
@@ -460,8 +466,15 @@ class IndeedController(object):
         break.
 
         Returns the shell's RESULT map, which now carries:
-            results_ready    yes|no
+            results_ready    yes|no   -- informational only
             preselected_key  the job Indeed auto-selected, if any
+
+        NO POST-SEARCH VERIFICATION.  The shell no longer checks that the
+        results url contains this keyword and city, and no longer waits for
+        a vjk= before returning.  Job identity is still guaranteed, but
+        further down: select_job_card.sh reads the key from the url,
+        save_page_source.sh refuses to save a page that does not carry it,
+        and indeed_source.py isolates that key out of the saved document.
         """
         args = [
             "--window", self.listing_window,

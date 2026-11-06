@@ -91,9 +91,19 @@ def main(log_path=DEFAULT_LOG):
         print("   %s  %-42s %s"
               % (key, str(row.get("job_title", ""))[:42],
                  str(row.get("company_name", ""))[:28]))
-    if len(set(titles)) < len(titles):
-        print("\n  WARNING: repeated titles mean the saved listing document was")
-        print("  parsed as a whole and the SELECTED job was not isolated.")
+    # Repeated TITLES are not contamination -- two employers may both post
+    # a "Python Developer". Contamination shows up as two different job keys
+    # resolving to the same employer+title pair, or as isolation failing.
+    pairs = [(t, c) for t, c in zip(titles, companies)]
+    isolations = [r.isolation for _k, _row, r in rows]
+    if len(set(pairs)) < len(pairs):
+        print("\n  WARNING: two jobs share BOTH title and company -- the")
+        print("  selected job may not have been isolated.")
+    if "NONE" in isolations:
+        print("\n  WARNING: %d row(s) could not be isolated from a multi-job"
+              % isolations.count("NONE"))
+        print("  document; their fields may belong to another job.")
+    print("  isolation: %s" % ", ".join(isolations))
 
     print("\n  schema: %d columns, order preserved: %s"
           % (len(DETAIL_COLUMNS),

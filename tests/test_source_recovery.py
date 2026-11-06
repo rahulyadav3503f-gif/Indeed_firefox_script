@@ -222,5 +222,58 @@ class TestSavedFileEndToEnd(unittest.TestCase):
             os.unlink(handle.name)
 
 
+class TestJobIsolation(unittest.TestCase):
+    """Taking ONE job out of a multi-job listing document.
+
+    Written against three real captures of an Indeed results page, each of
+    which described 16 jobs and carried no JSON-LD at all.
+    """
+
+    def test_a_multi_job_document_is_counted(self):
+        html = '<a href="/x?jk=aaaaaaaaaaaaaaaa">a</a> <a href="?vjk=bbbbbbbbbbbbbbbb">b</a>'
+        self.assertEqual(src.count_jobs(html), 2)
+
+    def test_the_description_comes_from_the_pane_not_the_snippet(self):
+        """The card's snippet is a teaser; the pane has the real text.
+
+        Measured on a real capture: snippet 135 chars, pane 4,319. First
+        source wins in fields_from_source(), so the pane must be adopted
+        first or every row gets the teaser.
+        """
+        source = open(os.path.join(BASE, "source_file", "indeed_source.py"),
+                      encoding="utf-8").read()
+        block = source.split("if card is not None:")[1].split("isolation =")[0]
+        self.assertLess(block.index("job-pane"), block.index("job-card"))
+
+    def test_the_pane_description_is_tied_to_the_selected_job(self):
+        """It is only used when autoOpenJobAttributes.jobKey matches."""
+        html = ('<script>window._initialData={"autoOpenJobAttributes":'
+                '{"jobKey":"1111111111111111"},'
+                '"sanitizedJobDescription":"' + ("x" * 500) + '"}</script>')
+        self.assertTrue(src.selected_job_description(html, "1111111111111111"))
+        self.assertEqual(src.selected_job_description(html, "2222222222222222"), "")
+
+    def test_visible_text_is_not_used_once_a_job_is_isolated(self):
+        """It would read the other 15 jobs' text. See the module comment."""
+        source = open(os.path.join(BASE, "source_file", "indeed_source.py"),
+                      encoding="utf-8").read()
+        self.assertIn('if isolation == "job-card":', source)
+        self.assertIn("visible-text parsing skipped", source)
+
+    def test_a_currency_is_not_recorded_without_a_salary(self):
+        self.assertEqual(src.fields_from_job_card(
+            {"salarySnippet": {"currency": "INR"}}).get("salary_currency"),
+            None)
+        full = src.fields_from_job_card(
+            {"salarySnippet": {"currency": "INR", "text": "Rs 20,000 a month"}})
+        self.assertEqual(full.get("salary_currency"), "INR")
+
+    def test_employment_type_comes_from_the_taxonomy_block(self):
+        card = {"taxonomyAttributes": [
+            {"label": "job-types", "attributes": [{"label": "Full-time"}]}]}
+        self.assertEqual(src.fields_from_job_card(card)["employment_type"],
+                         "Full-time")
+
+
 if __name__ == "__main__":
     unittest.main(verbosity=2)

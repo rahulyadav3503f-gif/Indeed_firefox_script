@@ -218,13 +218,23 @@ Return -- on this desktop it would be delivered to whatever currently has \
 focus (see FACT 4 in _common.sh). Nothing was submitted."
     fi
 
-    # And re-prove focus immediately before the Return, because the gap
-    # between typing and submitting is long enough for focus to move.
-    assert_input_lands "$WINDOW_ID" "" \
-        || fail "$EX_FOCUS" "input guard before submit: $GUARD_REASON. \
-Nothing was submitted."
-
-    note "both fields confirmed; submitting"
+    # NO ADDRESS-BAR GUARD HERE, DELIBERATELY.
+    #
+    # There used to be a second assert_input_lands() at this point, to
+    # re-prove focus before Return. It did the opposite of its job: the
+    # guard reads the address bar with Ctrl+L, which moves the caret OUT of
+    # the city box and INTO the address bar. The Return that followed was
+    # therefore delivered to the address bar and merely re-loaded the page
+    # that was already open. Measured live: both boxes read back correctly,
+    # then the url stayed at https://in.indeed.com/ and no search ran.
+    #
+    # The guard is also redundant here. Reading a field back with
+    # Ctrl+A/Ctrl+C is itself proof that keystrokes reach our window -- it
+    # returned the exact text we typed -- and unlike Ctrl+L it leaves the
+    # caret where it is. So the read-backs above ARE the guard, and Return
+    # is pressed with focus still in the location box, which is what
+    # submits an Indeed search.
+    note "both fields confirmed; submitting (focus is still in the city box)"
     xdotool key --clearmodifiers Return >/dev/null 2>&1
     ;;
 url)
@@ -244,80 +254,79 @@ url)
 esac
 
 # ---------------------------------------------------------------------------
-# VERIFY -- WITHOUT COPYING THE PAGE
+# AFTER PRESSING ENTER: WAIT, THEN GO
 # ---------------------------------------------------------------------------
-sleep "$PAGE_SETTLE_SECONDS"
+# WHAT USED TO BE HERE, AND WHY IT IS GONE
+#
+# This script used to refuse to finish unless, after Return:
+#   * the address bar matched  host...q=<keyword>...l=<city>  exactly, and
+#   * a vjk= parameter had appeared within 20s.
+#
+# Both were removed deliberately. They blocked progression to the first job
+# card on searches that had in fact loaded perfectly, and the identity of
+# the job being saved is guaranteed further down the pipeline anyway:
+# select_job_card.sh reads the job key from the url, save_page_source.sh
+# refuses to save unless the page still carries that key (--expect-url),
+# and indeed_source.py isolates that key out of the saved document. So a
+# wrong page cannot put wrong data in Excel; it simply fails later, which
+# is where it belongs.
+#
+# WHAT IS DELIBERATELY KEPT
+#   * The ACCESS REFUSAL check. It is not a "did my search work" test -- it
+#     is how this project notices the site has said no, and it must keep
+#     stopping the run rather than pressing on.
+#   * Reading the url once, opportunistically, to hand select_job_card.sh
+#     the job Indeed pre-selected. It is a HINT now, never a gate: an empty
+#     result is fine and the next step just clicks instead.
+# ---------------------------------------------------------------------------
+note "waiting ${SEARCH_RESULTS_WAIT_SECONDS}s for the results to load"
+sleep "$SEARCH_RESULTS_WAIT_SECONDS"
 require_window_ready "$WINDOW_ID"
 
-# 1. A refusal or a dead page announces itself in the title.
-PAGE_TITLE=$(wait_for_title_to_settle "$WINDOW_ID" 20)
+# -- access refusal: still a hard stop --------------------------------------
+PAGE_TITLE=$(window_name "$WINDOW_ID")
 emit "title=$PAGE_TITLE"
 note "window title: ${PAGE_TITLE:-<none>}"
 
 if title_says_access_denied "$PAGE_TITLE"; then
     emit "access_denied=yes"
-    emit "verified=no"
     fail "$EX_ACCESS_DENIED" \
         "the results page is an access refusal (title: '$PAGE_TITLE'). \
 Stopping this search. No retry, no identity change, no session cycling."
 fi
 emit "access_denied=no"
 
+# A dead page is REPORTED but no longer blocks: there will be no job card to
+# select, and card selection will say so in its own terms.
 if title_says_error_page "$PAGE_TITLE"; then
-    emit "verified=no"
-    fail "$EX_NAVIGATION" \
-        "the browser is showing an error page (title: '$PAGE_TITLE'), not a listing."
+    emit "error_page=yes"
+    warn "the window title looks like a browser error page ('$PAGE_TITLE'); \
+continuing to card selection anyway, which will report what it finds"
+else
+    emit "error_page=no"
 fi
 
-# 2. The address bar must show OUR search.  Indeed percent-encodes spaces as
-#    '+' in the query it builds from the form, so both encodings are
-#    accepted; everything else must match exactly.
-KEYWORD_PATTERN=$(printf '%s' "$KEYWORD" | sed 's/[][\.*^$(){}?+|/]/\\&/g; s/ /[+%%]/g')
-CITY_PATTERN=$(printf '%s' "$CITY" | sed 's/[][\.*^$(){}?+|/]/\\&/g; s/ /[+%%]/g')
-URL_PATTERN="$HOST_PART.*[?&]q=${KEYWORD_PATTERN}.*[&]l=${CITY_PATTERN}"
-
-ACTUAL_URL=$(wait_for_url_match "$WINDOW_ID" "$URL_PATTERN" 25) || ACTUAL_URL="$ACTUAL_URL"
+# -- one opportunistic read, purely to hand over the pre-selected job -------
+ACTUAL_URL=$(copy_address_bar_retry "$WINDOW_ID" "$CLIPBOARD_TIMEOUT") || ACTUAL_URL=""
 emit "url=$ACTUAL_URL"
 note "address bar after search: ${ACTUAL_URL:-<unreadable>}"
 
-VERIFIED="no"
-case "$ACTUAL_URL" in
-    file://*) VERIFIED="yes" ;;                      # fixture runs
-    *)
-        if printf '%s' "$ACTUAL_URL" | grep -qE "$URL_PATTERN"; then
-            VERIFIED="yes"
-        fi ;;
-esac
-emit "verified=$VERIFIED"
+# No keyword/city/url matching, and no verified=yes|no gate any more.
+emit "verified=not_checked"
 
-if [ "$VERIFIED" != "yes" ]; then
-    fail "$EX_NAVIGATION" \
-        "the search was submitted but the results url does not match the \
-keyword and city asked for. Wanted something matching '$URL_PATTERN', the \
-address bar says '${ACTUAL_URL:-<unreadable>}'. Refusing to read job cards \
-from a page that is not this search."
-fi
-
-# 3. READY FOR CARD SELECTION?
-#    Indeed appends vjk=<job key> once the results pane has populated with
-#    its automatically-selected first job.  Its presence means the cards are
-#    rendered -- a far better readiness test than a character count, and it
-#    hands the first job's identity straight to select_job_card.sh.
 PRESELECTED=""
-READY_URL=$(wait_for_url_match "$WINDOW_ID" "[?&]vjk=[A-Za-z0-9]" 20) \
-    && PRESELECTED="${READY_URL##*vjk=}" && PRESELECTED="${PRESELECTED%%&*}"
+case "$ACTUAL_URL" in
+    *vjk=*) PRESELECTED="${ACTUAL_URL##*vjk=}"; PRESELECTED="${PRESELECTED%%&*}" ;;
+esac
 
 if [ -n "$PRESELECTED" ]; then
     emit "preselected_key=$PRESELECTED"
     emit "results_ready=yes"
-    emit "url=$READY_URL"
-    note "results ready; Indeed pre-selected job $PRESELECTED"
+    note "Indeed pre-selected job $PRESELECTED"
 else
-    # Not fatal: a search with no results, or a layout without the pane,
-    # still leaves a verified results page. Python decides what to do.
     emit "results_ready=no"
-    note "no vjk= appeared within 20s -- either no results, or no detail pane"
+    note "no vjk= in the url -- select_job_card.sh will click for the first card"
 fi
 
-note "search ready: $KEYWORD @ $CITY"
+note "search submitted: $KEYWORD @ $CITY -- going to the first job card"
 exit "$EX_OK"

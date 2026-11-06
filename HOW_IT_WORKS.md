@@ -194,11 +194,19 @@ Limits per keyword+city: `MAX_LISTING_PAGES = 4`,
    for. An empty read-back means the keystrokes never arrived, and pressing
    Return then would deliver it to whatever has focus.
 8. Re-prove focus, then press Return.
-9. Verify **without copying the page**:
-   - window title is not a refusal or an error page,
-   - the URL matches `in.indeed.com…q=<keyword>…l=<city>`,
-   - a `vjk=` parameter appears, which is Indeed saying "the results pane is
-     populated" — and which hands over the pre-selected first job.
+9. **No post-search verification.** The script waits
+   `SEARCH_RESULTS_WAIT_SECONDS = 10` and goes straight to the first job
+   card. It no longer requires the url to contain `q=<keyword>` and
+   `l=<city>`, and no longer waits for `vjk=` before declaring the search
+   done — both used to block searches that had in fact loaded. What
+   remains is: an **access refusal** still stops the run, a browser error
+   page is reported as a warning, and the url is read once to pass the
+   pre-selected job key on as a *hint*.
+
+   Job identity is still guaranteed, further down: `select_job_card.sh`
+   reads the key from the url, `save_page_source.sh --expect-url` refuses
+   to save a page that no longer carries it, and `indeed_source.py`
+   isolates that key out of the saved document.
 
 `url` mode (building `…/jobs?q=…&l=…` in the address bar) still exists as a
 fallback and is used automatically for `file://` fixture runs, which have no

@@ -523,16 +523,14 @@ def job_card_for_key(original_html, job_key):
 #: time; the first one actually present wins, and anything absent STAYS
 #: absent (the blank-cell rule applies here exactly as everywhere else).
 _CARD_FIELD_MAP = (
-    ("job_title",        ("title", "jobTitle", "displayTitle", "normTitle")),
+    ("job_title",        ("title", "displayTitle", "normTitle", "jobTitle")),
     ("company_name",     ("company", "companyName", "truncatedCompany")),
-    ("location",         ("formattedLocation", "jobLocationCity",
-                          "formattedLocationFull", "locationName")),
+    ("location",         ("formattedLocation", "formattedLocationFull",
+                          "locationName")),
     ("salary_text",      ("salarySnippet", "extractedSalary",
                           "estimatedSalary", "salaryText")),
-    ("employment_type",  ("jobTypes", "jobType", "employmentType")),
     ("description",      ("snippet", "jobDescription", "descriptionHtml")),
-    ("posted_date",      ("pubDate", "formattedRelativeTime", "datePublished")),
-    ("company_website",  ("companyOverviewLink", "companyUrl")),
+    ("posted_date",      ("pubDate", "datePublished", "createDate")),
 )
 
 
@@ -549,7 +547,65 @@ def fields_from_job_card(card):
             if value:
                 found[raw_key] = value
                 break
+
+    # Fields that need more than a name lookup.
+    salary = card.get("salarySnippet")
+    if isinstance(salary, dict):
+        currency = _text_of(salary.get("currency"))
+        # Only record a currency when there is a salary for it to describe:
+        # "INR" against two blank salary columns states nothing.
+        if currency and found.get("salary_text"):
+            found["salary_currency"] = currency
+
+    employment = _job_types_of(card)
+    if employment:
+        found["employment_type"] = employment
+
     return found
+
+
+def selected_job_description(original_html, job_key):
+    """The full description of the job the document has OPEN, or "".
+
+    MEASURED on three real captures: an Indeed results page embeds the
+    right-hand pane's full text as ``sanitizedJobDescription`` inside
+    ``window._initialData``, and names the job it belongs to as
+    ``autoOpenJobAttributes.jobKey``.
+
+    That key is checked against the job we selected before the description
+    is used. Without the check this would be "whatever job the page happened
+    to open", which on a 16-job document is exactly how one job's
+    description gets written under another job's name.
+    """
+    if not job_key:
+        return ""
+    for _hint, document in _iter_json_blobs(original_html):
+        opened = None
+        description = ""
+        for candidate in _iter_dicts(document):
+            attributes = candidate.get("autoOpenJobAttributes")
+            if opened is None and isinstance(attributes, dict):
+                opened = str(attributes.get("jobKey", ""))
+            value = candidate.get("sanitizedJobDescription")
+            if not description and isinstance(value, str) and value.strip():
+                description = value
+        if description and opened == job_key:
+            return description
+    return ""
+
+
+def _job_types_of(card):
+    """Employment type from Indeed's taxonomy block, or ""."""
+    for group in card.get("taxonomyAttributes") or []:
+        if not isinstance(group, dict) or group.get("label") != "job-types":
+            continue
+        labels = [_text_of(item.get("label"))
+                  for item in group.get("attributes") or []
+                  if isinstance(item, dict)]
+        labels = [label for label in labels if label]
+        if labels:
+            return ", ".join(labels)
+    return ""
 
 
 def count_jobs(original_html):
@@ -626,6 +682,14 @@ def fields_from_source(original_html, apply_url="", input_row=None,
     if total_jobs > 1:
         card = job_card_for_key(original_html, job_key) if job_key else None
         if card is not None:
+            # ORDER MATTERS: adopt() is first-source-wins, and the card
+            # carries a SHORT `snippet` while the open job pane carries the
+            # full text. Measured: snippet 135 chars vs pane 4,319 chars for
+            # the same job. So the pane goes first, or the row gets a teaser
+            # where the description belongs.
+            description = selected_job_description(original_html, job_key)
+            if description:
+                adopt({"description": description}, "job-pane")
             adopt(fields_from_job_card(card), "job-card")
             isolation = "job-card"
             notes.append("isolated job %s from a document describing %d jobs"
@@ -646,12 +710,36 @@ def fields_from_source(original_html, apply_url="", input_row=None,
 
     adopt(fields_from_meta(original_html), "meta")
 
-    # The visible-text parser runs last and fills only what is still unknown.
+    # THE VISIBLE-TEXT PARSER IS NOT USED ON AN ISOLATED JOB.
+    #
+    # parse_job_text() was written for the clipboard text of ONE job page.
+    # A saved Indeed results document is not that: it is 16 jobs, and the
+    # parser's label matching happily reads another job's lines. Measured
+    # on a real capture, with the parser allowed to fill the gaps:
+    #
+    #   experience_required = "Junior Python Developer - Data Digitization
+    #                          & Automation The Night Marketer | Full-time"
+    #   skills_required     = "and experience"
+    #
+    # Neither is an experience level or a skill. They are fragments of
+    # prose that happened to sit near a word the parser was looking for,
+    # and writing them to Excel would be exactly the "incorrect job data"
+    # this project must not produce.
+    #
+    # So when the job HAS been isolated from Indeed's own JSON, that JSON
+    # and the job pane's own description are the only sources. The text
+    # parser still runs for single-job documents and for fixtures, where
+    # the whole document really is the one job.
     text = html_to_visible_text(original_html)
     parsed = parse_job_text(text, apply_url=apply_url, input_row=input_row,
                             expected_title=expected_title)
-    adopt(parsed.raw, "visible-text")
-    notes.extend(parsed.notes)
+    if isolation == "job-card":
+        notes.append("visible-text parsing skipped: the job was isolated "
+                     "from a %d-job document, so page text belongs to "
+                     "other jobs too" % total_jobs)
+    else:
+        adopt(parsed.raw, "visible-text")
+        notes.extend(parsed.notes)
 
     if apply_url:
         raw.setdefault("source_url", apply_url)
@@ -718,5 +806,6 @@ __all__ = [
     "document_title", "fields_from_meta", "html_to_visible_text",
     "fields_from_source", "blank_columns", "build_row_from_html",
     "job_card_for_key", "fields_from_job_card", "count_jobs",
+    "selected_job_description",
     "build_row_from_file", "SourceReport",
 ]

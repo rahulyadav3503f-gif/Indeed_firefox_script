@@ -86,6 +86,11 @@ EX_SAVE_FILE=14        # the dialog ran but no usable file arrived
 # sent too early lands on the page background, the keyword goes nowhere,
 # and the Return that follows is delivered to whatever has focus.
 : "${SEARCH_FIELD_DELAY_SECONDS:=7}"
+# How long to let the results page load after Return, before the first job
+# card is selected.  This REPLACED a set of post-search verifications (url
+# must contain q= and l=, vjk= must appear) that blocked progression; a
+# plain wait is what was asked for instead.
+: "${SEARCH_RESULTS_WAIT_SECONDS:=10}"
 : "${CLIPBOARD_TIMEOUT:=8}"        # how long to wait for Ctrl+C to land
 : "${FOCUS_TIMEOUT:=10}"
 : "${FULLSCREEN_TIMEOUT:=10}"
