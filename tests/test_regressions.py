@@ -629,6 +629,99 @@ class TestExcelDependencies(unittest.TestCase):
         self.assertIn("pip install", block)
 
 
+class TestApplyAndSourceUrl(unittest.TestCase):
+    """apply_url is the job's permalink; source_url is the site constant."""
+
+    def setUp(self):
+        from source_file import indeed_extractor as ex
+        self.ex = ex
+        self.card = ("https://in.indeed.com/jobs?q=full+stack+developer"
+                     "&l=Delhi&from=searchOnHP%2Cwhatautocomplete"
+                     "&vjk=cba10d8415b155ab")
+
+    def test_the_card_vjk_becomes_a_viewjob_jk_url(self):
+        self.assertEqual(self.ex.canonical_job_url(self.card),
+                         "https://in.indeed.com/viewjob?jk=cba10d8415b155ab")
+
+    def test_a_bare_job_key_also_works(self):
+        self.assertEqual(self.ex.canonical_job_url("d23d5a42e76c50dd"),
+                         "https://in.indeed.com/viewjob?jk=d23d5a42e76c50dd")
+
+    def test_nothing_is_invented_without_a_job_key(self):
+        self.assertEqual(self.ex.canonical_job_url("https://in.indeed.com/"), "")
+        self.assertEqual(self.ex.canonical_job_url(""), "")
+
+    def test_the_row_gets_both_values(self):
+        row = {"apply_url": "old", "source_url": "old"}
+        out = self.ex.apply_the_window_url(row, self.card)
+        self.assertEqual(out["apply_url"],
+                         "https://in.indeed.com/viewjob?jk=cba10d8415b155ab")
+        self.assertEqual(out["source_url"], "https://in.indeed.com/")
+
+    def test_a_card_url_without_a_key_leaves_the_row_alone(self):
+        row = {"apply_url": "kept", "source_url": "kept"}
+        out = self.ex.apply_the_window_url(row, "https://in.indeed.com/")
+        self.assertEqual(out["apply_url"], "kept")
+        self.assertEqual(out["source_url"], "kept")
+
+
+class TestConstantSourceUrlDoesNotBreakDedup(unittest.TestCase):
+    """source_url is the SAME on every row now.
+
+    Both duplicate checks used to compare it, so every job after the first
+    collided with it: identity_keys() produced url:https://in.indeed.com/
+    for everything, and _already_in_frame() matched the source_url column.
+    Measured on ten real captures with ten distinct job keys -- one row was
+    written and nine were refused as duplicates of it.
+    """
+
+    def rows(self):
+        from source_file.indeed_extractor import DETAIL_COLUMNS
+        out = []
+        for key, title in (("aaaaaaaaaaaaaaa1", "Python Developer"),
+                           ("bbbbbbbbbbbbbbb2", "Java Developer"),
+                           ("ccccccccccccccc3", "Cloud Engineer")):
+            row = {c: "x" for c in DETAIL_COLUMNS}
+            row.update(internal_job_id=key, job_id="id-" + key,
+                       job_title=title, company_name="Co " + title,
+                       apply_url="https://in.indeed.com/viewjob?jk=" + key,
+                       source_url="https://in.indeed.com/")
+            out.append(row)
+        return out
+
+    def test_the_site_constant_is_not_an_identity_key(self):
+        from source_file.indeed_validator import identity_keys
+        keys = identity_keys(self.rows()[0])
+        self.assertNotIn("url:https://in.indeed.com/", keys)
+        self.assertIn("url:https://in.indeed.com/viewjob?jk=aaaaaaaaaaaaaaa1",
+                      keys)
+
+    def test_different_jobs_are_not_duplicates_of_each_other(self):
+        from source_file.indeed_validator import DuplicateIndex, decide
+        index = DuplicateIndex()
+        for row in self.rows():
+            decision = decide(row, index)
+            self.assertTrue(decision.should_save,
+                            "%s was refused: %s" % (row["job_title"], decision))
+            index.mark_saved(row)
+
+    def test_the_same_job_twice_IS_a_duplicate(self):
+        from source_file.indeed_validator import DuplicateIndex, decide
+        index = DuplicateIndex()
+        first = self.rows()[0]
+        index.mark_saved(first)
+        self.assertFalse(decide(first, index).should_save)
+
+    def test_the_workbook_guard_ignores_a_keyless_url(self):
+        import pandas as pd
+        from source_file.indeed_excel import _already_in_frame
+        rows = self.rows()
+        frame = pd.DataFrame([rows[0]])
+        self.assertTrue(_already_in_frame(rows[0], frame))   # same job
+        self.assertFalse(_already_in_frame(rows[1], frame),  # different job
+                         "a shared source_url must not make these duplicates")
+
+
 # ===========================================================================
 # PROBLEMS 5, 6, 7 -- what the terminal says
 # ===========================================================================

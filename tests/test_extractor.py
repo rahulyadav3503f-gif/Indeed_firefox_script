@@ -135,17 +135,27 @@ class TestParsing(unittest.TestCase):
     def test_the_job_key_comes_out_of_the_url(self):
         self.assertEqual(self.row["internal_job_id"], "abc123def456")
 
-    def test_source_url_is_the_job_s_own_url(self):
-        self.assertEqual(self.row["source_url"], JOB_URL)
+    def test_source_url_is_the_site_constant(self):
+        """One value for every row, by request.
 
-    def test_apply_url_is_the_copied_window_url(self):
-        """Brief section 13: save the copied address as the Apply URL.
-
-        A documented divergence from the original project, which blanks an
-        Indeed-hosted url here.  See ex.APPLY_URL_FROM_WINDOW.
+        It used to be the job's own url. It is now the site, and the job's
+        identity lives in apply_url and internal_job_id instead -- see
+        TestConstantSourceUrlDoesNotBreakDedup in test_regressions.py for
+        why that distinction matters to duplicate detection.
         """
-        self.assertEqual(self.row["apply_url"], JOB_URL)
-        self.assertEqual(self.row["_apply_url_kind"], "job_detail_window")
+        self.assertEqual(self.row["source_url"], "https://in.indeed.com/")
+
+    def test_apply_url_is_the_jobs_indeed_permalink(self):
+        """https://in.indeed.com/viewjob?jk=<key>, built from the card.
+
+        The card url on a results page carries the selected job as
+        vjk=<key>; dropping the leading "v" gives Indeed's own permalink
+        for that job. A documented divergence from the original project,
+        which blanks an Indeed-hosted url here. See ex.APPLY_URL_FROM_WINDOW.
+        """
+        self.assertEqual(self.row["apply_url"],
+                         "https://in.indeed.com/viewjob?jk=abc123def456")
+        self.assertEqual(self.row["_apply_url_kind"], "indeed_job_permalink")
 
     def test_description_survives_with_its_shape(self):
         description = self.row["job_description"]

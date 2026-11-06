@@ -1,6 +1,6 @@
 {
-  "firefox_pid": 5246,
-  "window_id": "65011735",
+  "firefox_pid": 11298,
+  "window_id": "71303191",
   "profile_dir": "/home/ubuntu/new_indeed_script/config/firefox_profile/rank_1",
   "download_dir": "/home/ubuntu/new_indeed_script/Temp_Data/rank_1",
   "url": "https://in.indeed.com/",
@@ -8,5 +8,5 @@
   "fullscreen": "no",
   "display": ":0",
   "xauthority": "/home/ubuntu/new_indeed_script/config/xauth_xwayland",
-  "started_at": "2026-11-06T14:01:56+05:30"
+  "started_at": "2026-11-06T20:31:32+05:30"
 }

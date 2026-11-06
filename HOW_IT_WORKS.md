@@ -326,6 +326,34 @@ Note which columns are *not* covered by that rule: `country`,
 `fetched_at` and `job_id` are filled by the existing approved builder from
 constants and provenance, not from the advert.
 
+### Step 6b — the two URL columns
+
+```
+card url    https://in.indeed.com/jobs?q=full+stack+developer&l=Delhi&...&vjk=cba10d8415b155ab
+                                                                          ^^^^
+apply_url   https://in.indeed.com/viewjob?jk=cba10d8415b155ab
+                                          ^^^
+source_url  https://in.indeed.com/          (the same on every row)
+```
+
+`apply_url` is Indeed's own permalink for the job, built from the selected
+card's `vjk=` key — drop the leading `v` and it is the `jk=` the permalink
+wants. It is **not** the results-page url the card was selected on: that
+carries the search terms and tracking parameters and is the same page for
+sixteen different jobs. With no job key in the card url, nothing is
+invented and the column stays blank.
+
+> **This change had a trap in it.** Both duplicate checks compared
+> `source_url`. Once it became a constant, every job after the first
+> collided with it: `identity_keys()` produced `url:https://in.indeed.com/`
+> for everything, and `_already_in_frame()` matched the `source_url`
+> column. Measured on ten real captures with ten distinct keys — one row
+> written, nine refused as duplicates of it.
+>
+> Both now treat **a url as an identity only when it carries a job key**,
+> and prefer `internal_job_id` (the job's own key) first. After the fix the
+> same ten captures wrote 9 rows with 0 false duplicates.
+
 ### Step 7 — validate and de-duplicate  (`indeed_validator.py`)
 In this order, deliberately:
 1. `validate_row()` — no title or no stable URL ⇒ **INVALID**.

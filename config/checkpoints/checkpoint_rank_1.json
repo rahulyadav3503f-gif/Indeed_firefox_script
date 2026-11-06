@@ -5116,16 +5116,17 @@
     "https://in.indeed.com/jobs?vjk=a5f7ce31feefc2e1",
     "https://in.indeed.com/jobs?vjk=ac42d4972becfcc5",
     "https://in.indeed.com/jobs?vjk=8f0d580c6e08b7c2",
-    "https://in.indeed.com/jobs?vjk=2f2be02728297526"
+    "https://in.indeed.com/jobs?vjk=2f2be02728297526",
+    "https://in.indeed.com/"
   ],
   "completed_cities": [],
   "total_complete_cycle": 0,
-  "last_completed_job_id": "4e9c21994d94980227b3f75b7ab8e410",
-  "saved_jobs": 8,
-  "duplicate_jobs": 8,
-  "rejected_jobs": 4,
+  "last_completed_job_id": "e918049324ea8927901b6488d1d7fa91",
+  "saved_jobs": 9,
+  "duplicate_jobs": 15,
+  "rejected_jobs": 5,
   "failed_jobs": 20,
-  "examined_jobs": 16,
+  "examined_jobs": 18,
   "failure_state": {
     "at": "2026-11-06 14:20:49",
     "stage": "search",
@@ -5136,7 +5137,7 @@
     "page": 3
   },
   "cycle_complete": false,
-  "updated_at": "2026-11-06 14:21:04",
+  "updated_at": "2026-11-06 20:42:05",
   "recent_failures": [
     {
       "at": "2026-11-05 20:16:29",

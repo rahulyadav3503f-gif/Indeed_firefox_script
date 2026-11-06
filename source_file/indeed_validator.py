@@ -108,10 +108,26 @@ def identity_keys(row):
     job_key = job_key_of(row)
     if job_key:
         keys.append("jk:%s" % job_key.lower())
-    url = normalise_job_url(row.get("source_url") if isinstance(row, dict)
-                            else row)
-    if url:
-        keys.append("url:%s" % url)
+
+    # A URL IS ONLY AN IDENTITY IF IT IDENTIFIES A JOB.
+    #
+    # source_url is now the site constant "https://in.indeed.com/" for every
+    # row. Using it as a recognition key would mean every job after the
+    # first collided with it and was thrown away as a duplicate -- the whole
+    # crawl would save exactly one row. So a url is only taken as a key when
+    # it actually carries a job key; apply_url (the job's own permalink,
+    # .../viewjob?jk=<key>) is preferred, and source_url is used only if it
+    # happens to identify a job too.
+    candidates = []
+    if isinstance(row, dict):
+        candidates = [row.get("apply_url"), row.get("source_url")]
+    else:
+        candidates = [row]
+    for candidate in candidates:
+        url = normalise_job_url(candidate)
+        if url and _JK_IN_URL.search(url):
+            keys.append("url:%s" % url)
+            break
     if isinstance(row, dict):
         job_id = clean_value(row.get("job_id"))
         if job_id:

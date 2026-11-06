@@ -553,28 +553,78 @@ def title_matches(parsed_title, expected_title, min_overlap=0.5):
 # inference, and APPLY_URL_FROM_WINDOW makes it switchable rather than
 # silent.  What lands in the column is the url of the window the data was
 # read from -- an Indeed-hosted job page, not an employer's ATS.  The
-# column structure is untouched; only this one value's policy differs, and
+# column structure is untouched; only these two values' policy differs, and
 # the row carries `_apply_url_kind` so the difference is auditable.
 APPLY_URL_FROM_WINDOW = True
 
+#: The canonical job page. Indeed's own permalink for a job is
+#: https://in.indeed.com/viewjob?jk=<key>, and the key is exactly what the
+#: results page carries as vjk=<key> for the selected card. So a card url
+#:     https://in.indeed.com/jobs?q=full+stack+developer&l=Delhi&...&vjk=cba10d8415b155ab
+#: becomes
+#:     https://in.indeed.com/viewjob?jk=cba10d8415b155ab
+#: The leading "v" is the only difference between the two parameter names.
+INDEED_JOB_URL_TEMPLATE = "https://in.indeed.com/viewjob?jk=%s"
+
+#: The site every row came from. One constant for every job, by request.
+#: See the WARNING in identity_keys(): because this no longer identifies a
+#: job, it must not be used to recognise one.
+INDEED_SOURCE_URL = "https://in.indeed.com/"
+
+#: vjk= (a card selected on a results page) or jk= (a job page).
+_JOB_KEY_IN_URL = re.compile(r"[?&](?:vjk|jk|jobkey)=([A-Za-z0-9_-]+)",
+                             re.IGNORECASE)
+
+
+def job_key_from_url(url):
+    """Indeed's job key out of any of its urls, or "" when there is none."""
+    match = _JOB_KEY_IN_URL.search(str(url or ""))
+    return match.group(1) if match else ""
+
+
+def canonical_job_url(url_or_key):
+    """https://in.indeed.com/viewjob?jk=<key>, or "" when there is no key.
+
+    Never invents: given a url with no job key in it, the answer is blank
+    and the apply_url column stays empty.
+    """
+    text = str(url_or_key or "").strip()
+    if not text:
+        return ""
+    key = job_key_from_url(text)
+    if not key and re.fullmatch(r"[A-Za-z0-9_-]{8,}", text):
+        key = text                       # already a bare job key
+    if not key:
+        return ""
+    return INDEED_JOB_URL_TEMPLATE % key
+
 
 def apply_the_window_url(row, apply_url):
-    """Put the copied window url in the apply_url column (brief section 13).
+    """Set apply_url and source_url from the card url.
 
-    Returns the row.  Never invents a url: with an empty ``apply_url`` the
-    original extractor's own decision is left exactly as it was.
+    apply_url   the job's own Indeed permalink, built from the card's
+                vjk= key -- NOT the results-page url the card was selected
+                on, which carries the search terms and tracking parameters
+                and is the same page for sixteen different jobs.
+    source_url  the site constant, the same for every row.
+
+    Returns the row.  With no job key in ``apply_url`` nothing is invented:
+    the existing values are left exactly as the original extractor set them.
     """
     if not APPLY_URL_FROM_WINDOW:
         return row
-    url = clean_value(apply_url)
-    if not url:
+
+    canonical = canonical_job_url(apply_url)
+    if not canonical:
         return row
-    row["apply_url"] = url
-    row["_apply_url_kind"] = "job_detail_window"
+
+    row["apply_url"] = canonical
+    row["source_url"] = INDEED_SOURCE_URL
+    row["_apply_url_kind"] = "indeed_job_permalink"
     row["_apply_url_reason"] = (
-        "copied from the job-detail window's address bar (brief section 13); "
-        "this is the Indeed job page, not necessarily the employer's "
-        "external application destination")
+        "built from the selected card's job key (vjk -> jk); this is the "
+        "Indeed job page, not necessarily the employer's external "
+        "application destination")
     return row
 
 
@@ -603,5 +653,7 @@ __all__ = [
     "looks_like_employment_type", "looks_like_location", "tidy_company",
     "title_matches", "extract_job_details", "row_for_excel", "validate_row",
     "apply_the_window_url", "APPLY_URL_FROM_WINDOW",
+    "canonical_job_url", "job_key_from_url",
+    "INDEED_JOB_URL_TEMPLATE", "INDEED_SOURCE_URL",
     "clean_description", "clean_value", "now_utc", "extract_internal_job_id",
 ]

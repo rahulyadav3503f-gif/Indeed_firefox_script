@@ -54,7 +54,8 @@ from datetime import datetime
 
 import pandas as pd
 
-from .indeed_extractor import DETAIL_COLUMNS, row_for_excel
+from .indeed_extractor import (DETAIL_COLUMNS, job_key_from_url,
+                               row_for_excel)
 
 # openpyxl refuses these; the original project strips the same set.
 _ILLEGAL_EXCEL_CHARS = __import__("re").compile(r"[\x00-\x08\x0b\x0c\x0e-\x1f]")
@@ -365,18 +366,34 @@ class ExcelStore(object):
         return True, info
 
 
-def _already_in_frame(row, frame):
-    """The original project's ``is_duplicate_row``, with jk added.
+#: Columns that can identify a row, strongest first.  apply_url and
+#: source_url are urls and are only trusted when they carry a job key.
+_IDENTITY_COLUMNS = ("internal_job_id", "job_id", "apply_url", "source_url")
+_URL_COLUMNS = ("apply_url", "source_url")
 
-    source_url and job_id are what the original compares.  internal_job_id
-    is added because a clipboard-built row always has one when the url
-    carried a ``jk``, and it survives url rewrites that source_url does not.
+
+def _already_in_frame(row, frame):
+    """The original project's ``is_duplicate_row``, made url-aware.
+
+    A URL IS ONLY A DUPLICATE SIGNAL IF IT IDENTIFIES A JOB.
+
+    The original compared source_url and job_id.  source_url is now the
+    site constant "https://in.indeed.com/" on every row, so comparing it
+    matched EVERY row against the first one already in the workbook: a run
+    wrote one job and then refused the next nine as duplicates of it.
+    Measured on ten real captures with ten distinct job keys.
+
+    So url columns are skipped unless they carry a job key, and
+    internal_job_id -- the job's own key, which no rewrite touches -- is
+    checked first.
     """
     if frame is None or frame.empty:
         return False
-    for column in ("source_url", "job_id", "internal_job_id"):
+    for column in _IDENTITY_COLUMNS:
         value = str(row.get(column) or "").strip()
         if not value or column not in frame.columns:
+            continue
+        if column in _URL_COLUMNS and not job_key_from_url(value):
             continue
         if (frame[column].astype(str).str.strip() == value).any():
             return True
