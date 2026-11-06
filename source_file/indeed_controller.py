@@ -172,6 +172,7 @@ class ControllerConfig(object):
                  search_results_wait_seconds=10.0,
                  card_x=430, first_card_y=440, card_max_y=1000,
                  card_probe_step=55, card_probe_limit=12,
+                 card_scroll_rounds=6,
                  card_url_marker="vjk=",
                  window_size=(1845, 1046), window_pos=(0, 34),
                  what_xy=(700, 240), where_xy=(1100, 240),
@@ -211,6 +212,9 @@ class ControllerConfig(object):
         self.card_max_y = int(card_max_y)
         self.card_probe_step = int(card_probe_step)
         self.card_probe_limit = int(card_probe_limit)
+        # How many times to scroll the results list looking for more cards
+        # before accepting that the page is finished.
+        self.card_scroll_rounds = int(card_scroll_rounds)
         # The query parameter Indeed puts the selected job's key in.
         self.card_url_marker = card_url_marker
         # NORMAL WINDOW (not fullscreen), sized to the supplied screenshot.
@@ -288,6 +292,7 @@ class ControllerConfig(object):
             "CARD_MAX_Y": str(self.card_max_y),
             "PROBE_STEP": str(self.card_probe_step),
             "PROBE_LIMIT": str(self.card_probe_limit),
+            "SCROLL_ROUNDS": str(self.card_scroll_rounds),
             "WINDOW_WIDTH": str(self.window_size[0]),
             "WINDOW_HEIGHT": str(self.window_size[1]),
             "WINDOW_X": str(self.window_pos[0]),
@@ -324,6 +329,8 @@ class JobWindow(object):
         #: a probe found it.  Worth logging: an all-"click" run means the
         #: pre-selection detection is not firing.
         self.selection_method = ""
+        #: Whether the results list was scrolled to reach this card.
+        self.scrolled = False
         #: The y a probe actually landed on, so the caller can start the
         #: next card's probe below it instead of guessing a pitch.
         self.learned_card_y = 0
@@ -520,6 +527,7 @@ class IndeedController(object):
             "--max-y", str(self.config.card_max_y),
             "--probe-step", str(self.config.card_probe_step),
             "--probe-limit", str(self.config.card_probe_limit),
+            "--scroll-rounds", str(self.config.card_scroll_rounds),
             "--marker", self.config.card_url_marker,
         ]
         if seen_keys:
@@ -538,6 +546,10 @@ class IndeedController(object):
         window = JobWindow(self.listing_window, url, False,
                            job_key=results.get("selected_key", ""))
         window.selection_method = results.get("selection_method", "")
+        #: True when select_job_card.sh scrolled the list to find this card.
+        #: The caller must then stop aiming at the y it learned BEFORE the
+        #: scroll -- those coordinates describe a view that no longer exists.
+        window.scrolled = results.get("scrolled") == "yes"
         try:
             window.learned_card_y = int(results.get("learned_card_y") or 0)
         except (TypeError, ValueError):

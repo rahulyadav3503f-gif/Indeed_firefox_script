@@ -127,7 +127,7 @@ class TestCardSelection(unittest.TestCase):
         youtube.com and wikipedia.org.
         """
         body = code_of(script("select_job_card.sh"))
-        loop = body.split("while [ \"$PROBES\" -lt")[1].split("\ndone")[0]
+        loop = body.split("PROBES_THIS_ROUND=0\nwhile :;")[1].split("\ndone")[0]
         dismiss_at = loop.index("dismiss_url_dropdown")
         click_at = loop.index("xdotool click 1")
         self.assertLess(dismiss_at, click_at,
@@ -139,6 +139,47 @@ class TestCardSelection(unittest.TestCase):
         recovery = body.split("alt+Left")[1].split("continue")[0]
         self.assertIn("url_is_listing", recovery)
         self.assertIn("fail", recovery)
+
+    def test_the_list_is_scrolled_instead_of_giving_up(self):
+        """The column shows 3-4 cards; without scrolling the run stops there.
+
+        Symptom: three cards were collected, then "no more cards", then the
+        loop moved on and searched again -- never reaching the rest of the
+        page.
+        """
+        body = code_of(script("select_job_card.sh"))
+        self.assertIn("scroll_results_column", body)
+        self.assertIn("SCROLL_ROUNDS", body)
+        # and the give-up must come AFTER scrolling is exhausted
+        giveup = body.split('no_more_cards=yes')[0]
+        self.assertIn("SCROLLS -ge", giveup.replace('"', ''))
+
+    def test_the_probe_budget_is_per_scroll_round(self):
+        """A total budget defeats scrolling.
+
+        Measured: PROBE_LIMIT=12 was spent on the first screenful, so only
+        ONE scroll ever happened and the page was called exhausted with
+        most of its cards still below the fold.
+        """
+        body = code_of(script("select_job_card.sh"))
+        self.assertIn("PROBES_THIS_ROUND", body)
+        self.assertIn("PROBES_THIS_ROUND=0", body)
+        self.assertNotIn('while [ "$PROBES" -lt "$PROBE_LIMIT" ]', body)
+
+    def test_scrolling_uses_the_wheel_over_the_card_column(self):
+        body = code_of(script("select_job_card.sh"))
+        fn = body.split("scroll_results_column() {")[1].split("\n}")[0]
+        self.assertIn("mousemove", fn)
+        self.assertIn("click --clearmodifiers 5", fn)   # wheel down
+        self.assertIn("dismiss_url_dropdown", fn)
+
+    def test_a_scroll_resets_the_callers_probe_start(self):
+        """A y learned before a scroll describes a view that is gone."""
+        source = open(os.path.join(BASE, "find_indeed_job.py"),
+                      encoding="utf-8").read()
+        self.assertIn('getattr(window, "scrolled", False)', source)
+        block = source.split('getattr(window, "scrolled", False)')[1][:300]
+        self.assertIn("FIRST_CARD_Y", block)
 
     def test_the_main_loop_is_zero_based(self):
         source = open(os.path.join(BASE, "find_indeed_job.py"),
@@ -220,6 +261,22 @@ class TestCardSelectionCalls(unittest.TestCase):
         self.assertEqual(window.selection_method, "click")
         args = controller.calls[0][1]
         self.assertEqual(args[args.index("--start-y") + 1], "600")
+
+
+class TestSaveDialogRetry(unittest.TestCase):
+    """One card in eight left the dialog open with nothing typed in it."""
+
+    def test_the_dialog_is_re_driven_once_if_no_file_arrives(self):
+        body = code_of(script("save_page_source.sh"))
+        self.assertIn("drive_save_dialog", body)
+        self.assertEqual(body.count("drive_save_dialog\n"), 2,
+                         "expected the initial drive plus exactly one retry")
+
+    def test_the_retry_only_happens_while_the_dialog_is_still_open(self):
+        """If the dialog has gone, something else happened -- do not guess."""
+        body = code_of(script("save_page_source.sh"))
+        retry = body.split("SAVED=$(wait_for_saved_file) || SAVED=\"\"")[1]
+        self.assertIn("window_exists \"$DIALOG\"", retry)
 
 
 # ===========================================================================
@@ -531,6 +588,45 @@ class TestInlineExtraction(unittest.TestCase):
             body = source.split("def %s(" % function)[1].split("\ndef ")[0]
             self.assertIn("autoOpenJobAttributes", body)
             self.assertIn("opened == job_key", body)
+
+
+class TestExcelDependencies(unittest.TestCase):
+    """saved_jobs stayed 0 while every job logged
+       "Excel Save: FAILED (ModuleNotFoundError: No module named 'openpyxl')"
+
+    Cause: a venv with include-system-site-packages=false that had pandas
+    but not openpyxl. pandas imports fine, so nothing complained until
+    to_excel ran -- once per job, after all the work was already done.
+    """
+
+    def test_the_check_exists_and_names_both_requirements(self):
+        import find_indeed_job as collector
+        source = open(os.path.join(BASE, "find_indeed_job.py"),
+                      encoding="utf-8").read()
+        body = source.split("def check_excel_dependencies(")[1].split("\ndef ")[0]
+        self.assertIn("pandas", body)
+        self.assertIn("openpyxl", body)
+
+    def test_it_reports_nothing_missing_when_both_are_present(self):
+        import find_indeed_job as collector
+        self.assertEqual(collector.check_excel_dependencies(), [])
+
+    def test_the_run_stops_before_opening_a_browser(self):
+        """Fail fast: no point driving Firefox if nothing can be saved."""
+        source = open(os.path.join(BASE, "find_indeed_job.py"),
+                      encoding="utf-8").read()
+        run = source.split("check_excel_dependencies()")[2]
+        stop_at = run.index("[STOP] Excel cannot be written")
+        browser_at = run.index("build_controller_config(")
+        self.assertLess(stop_at, browser_at)
+
+    def test_the_message_names_the_interpreter_to_fix(self):
+        """A venv problem is invisible unless the message says which python."""
+        source = open(os.path.join(BASE, "find_indeed_job.py"),
+                      encoding="utf-8").read()
+        block = source.split("[STOP] Excel cannot be written")[1][:600]
+        self.assertIn("sys.executable", block)
+        self.assertIn("pip install", block)
 
 
 # ===========================================================================

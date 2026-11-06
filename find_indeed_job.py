@@ -121,6 +121,10 @@ CARD_MAX_Y = 1000                # below this is off the results column
 CARD_PROBE_STEP = 55             # how far down to step when a probe misses
 CARD_PROBE_LIMIT = 12            # probes before declaring "no more cards"
 MIN_CARD_GAP = 60                # shortest plausible gap to the next card
+# The results column shows only 3-4 cards at a time. When the probe window
+# reaches the bottom, select_job_card.sh scrolls and keeps looking; this is
+# how many times it may do so before the page is accepted as finished.
+CARD_SCROLL_ROUNDS = 6
 CARD_URL_MARKER = "vjk="         # the query parameter holding the job key
 
 # NOTE: there is deliberately NO CARD_PITCH any more.  Indeed's job cards
@@ -610,6 +614,33 @@ def _plan_department_count(plan_pairs):
         return 0
 
 
+
+def check_excel_dependencies():
+    """Refuse to start if the workbook cannot be written.
+
+    WHY THIS IS A STARTUP CHECK AND NOT A try/except AT THE WRITE.
+    pandas imports fine on its own, so the collector used to start happily,
+    drive the browser, save a page, extract all 32 fields -- and only then
+    discover that `to_excel` needs openpyxl, which was not installed. It
+    then did that for EVERY job: the log filled with
+        Excel Save: FAILED (ModuleNotFoundError: No module named 'openpyxl')
+    and `saved_jobs` stayed at 0 while the run looked like it was working.
+
+    The cause was a virtualenv (venv/, include-system-site-packages=false)
+    that had pandas but not openpyxl, so the packages installed for the
+    user account were invisible to it.
+
+    Returns a list of missing module names; empty means ready.
+    """
+    missing = []
+    for module in ("pandas", "openpyxl"):
+        try:
+            __import__(module)
+        except ImportError:
+            missing.append(module)
+    return missing
+
+
 def show_banner(cities, plan_pairs, checkpoint):
     target, other, percent = role_plan_split()
     log("=" * 72)
@@ -672,6 +703,7 @@ def build_controller_config(which_rank=None, base_url=None, logger=None):
         card_max_y=CARD_MAX_Y,
         card_probe_step=CARD_PROBE_STEP,
         card_probe_limit=CARD_PROBE_LIMIT,
+        card_scroll_rounds=CARD_SCROLL_ROUNDS,
         card_url_marker=CARD_URL_MARKER,
         window_size=WINDOW_SIZE,
         window_pos=WINDOW_POS,
@@ -812,10 +844,16 @@ def process_one_card(controller, store, checkpoint, index, card_index,
     if getattr(window, "job_key", ""):
         if window.job_key not in seen_keys:
             seen_keys.append(window.job_key)
-    if getattr(window, "learned_card_y", 0):
+    if getattr(window, "scrolled", False):
+        # The list moved under us: a y learned before the scroll points at
+        # a view that no longer exists. Start the next probe at the top of
+        # the card area instead. seen_keys stops anything being taken twice.
+        page_state["next_start_y"] = FIRST_CARD_Y
+    elif getattr(window, "learned_card_y", 0):
         page_state["next_start_y"] = window.learned_card_y + MIN_CARD_GAP
-    log("      selected job %s (%s)"
-        % (window.job_key or "?", window.selection_method or "?"))
+    log("      selected job %s (%s%s)"
+        % (window.job_key or "?", window.selection_method or "?",
+           ", after scrolling" if getattr(window, "scrolled", False) else ""))
 
     job_url = window.url
     normalised = normalise_job_url(job_url)
@@ -1370,6 +1408,19 @@ def collect(args):
     if fixture:
         log("  MODE: FIXTURE -- %s" % base_url)
         log("  No request reaches Indeed in this mode.")
+
+    missing = check_excel_dependencies()
+    if missing:
+        log("")
+        log("[STOP] Excel cannot be written: %s not installed."
+            % ", ".join(missing))
+        log("  Interpreter : %s" % sys.executable)
+        log("  Install with: %s -m pip install %s"
+            % (sys.executable, " ".join(missing)))
+        log("  Without this every job would extract correctly and then fail")
+        log("  at the Excel step, leaving saved_jobs at 0.")
+        log("")
+        return 5
 
     config = build_controller_config(base_url=base_url)
 

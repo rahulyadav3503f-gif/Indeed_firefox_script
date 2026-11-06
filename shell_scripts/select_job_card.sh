@@ -16,6 +16,8 @@
 #   RESULT:clicked_at=X,Y            (click method only)
 #   RESULT:learned_card_y=PX         (the y that worked -- Python learns from it)
 #   RESULT:probes=N
+#   RESULT:scrolls=N                 (how many times the list was scrolled)
+#   RESULT:scrolled=yes|no           (caller must reset its start-y if yes)
 #   RESULT:no_more_cards=yes         (nothing selectable below --start-y)
 #
 # ===========================================================================
@@ -78,6 +80,12 @@ LISTING_PATTERN="${LISTING_PATTERN:-/jobs\?|/jobs$|[?&]q=}"
 : "${CARD_MAX_Y:=1000}"
 : "${PROBE_STEP:=55}"        # smaller than the shortest card seen (~170px)
 : "${PROBE_LIMIT:=12}"
+# When the probe window reaches the bottom of the results column, SCROLL
+# and keep looking instead of declaring the page finished. Without this the
+# run stops after the three or four cards that happen to fit on screen.
+: "${SCROLL_ROUNDS:=6}"       # how many times to scroll before giving up
+: "${SCROLL_STEPS:=3}"        # wheel clicks per scroll
+: "${AFTER_SCROLL_Y:=320}"    # where the card area starts after scrolling
 
 while [ $# -gt 0 ]; do
     case "$1" in
@@ -90,6 +98,9 @@ while [ $# -gt 0 ]; do
         --max-y)            CARD_MAX_Y="$2";      shift 2 ;;
         --probe-step)       PROBE_STEP="$2";      shift 2 ;;
         --probe-limit)      PROBE_LIMIT="$2";     shift 2 ;;
+        --scroll-rounds)    SCROLL_ROUNDS="$2";   shift 2 ;;
+        --scroll-steps)     SCROLL_STEPS="$2";    shift 2 ;;
+        --after-scroll-y)   AFTER_SCROLL_Y="$2";  shift 2 ;;
         --marker)           MARKER="$2";          shift 2 ;;
         --listing-pattern)  LISTING_PATTERN="$2"; shift 2 ;;
         *) fail "$EX_USAGE" "unknown argument: $1" ;;
@@ -164,9 +175,55 @@ Y="$START_Y"
 SELECTED_URL=""
 SELECTED_KEY=""
 LANDED_Y=""
+SCROLLS=0
 
-while [ "$PROBES" -lt "$PROBE_LIMIT" ] && [ "$Y" -le "$CARD_MAX_Y" ]; do
+#: Scroll the RESULTS COLUMN, not the page: the wheel acts on whatever is
+#: under the pointer, so the pointer is parked in the card column first.
+#: The dropdown is dismissed here too -- a wheel event over an open
+#: suggestion panel scrolls the panel, not the jobs.
+scroll_results_column() {
+    local step
+    dismiss_url_dropdown
+    xdotool mousemove --sync "$CARD_X" "$SCROLL_AT_Y" >/dev/null 2>&1
+    sleep 0.2
+    for (( step = 0; step < SCROLL_STEPS; step++ )); do
+        xdotool click --clearmodifiers 5 >/dev/null 2>&1    # wheel down
+        sleep 0.25
+    done
+    sleep 1.2
+}
+SCROLL_AT_Y=$(( (START_Y + CARD_MAX_Y) / 2 ))
+
+# PROBE_LIMIT is PER SCROLL ROUND, not for the whole search.
+#
+# It used to bound the total, which quietly defeated scrolling: twelve
+# probes were spent walking the first screenful, so only ONE scroll ever
+# happened no matter what SCROLL_ROUNDS said, and the page was declared
+# exhausted while most of its cards were still below the fold.
+PROBES_THIS_ROUND=0
+while :; do
+    # OUT OF SCREEN? SCROLL, DON'T GIVE UP.
+    #
+    # The results column holds three or four cards at a time. Probing only
+    # between --start-y and --max-y therefore finds three or four jobs and
+    # then reports "no more cards", and the caller moves on to the next
+    # search -- which is exactly the "it cannot scroll down" symptom. When
+    # the window is exhausted the list is scrolled and probing restarts at
+    # the top of the card area; --seen-keys stops the cards that scrolled
+    # up from being collected twice.
+    if [ "$Y" -gt "$CARD_MAX_Y" ] || [ "$PROBES_THIS_ROUND" -ge "$PROBE_LIMIT" ]; then
+        if [ "$SCROLLS" -ge "$SCROLL_ROUNDS" ]; then
+            break
+        fi
+        SCROLLS=$((SCROLLS + 1))
+        note "nothing new above y=$Y -- scrolling the results list (round $SCROLLS/$SCROLL_ROUNDS)"
+        scroll_results_column
+        Y="$AFTER_SCROLL_Y"
+        PROBES_THIS_ROUND=0
+    fi
+
     PROBES=$((PROBES + 1))
+    PROBES_THIS_ROUND=$((PROBES_THIS_ROUND + 1))
 
     # CLOSE THE ADDRESS-BAR PANEL BEFORE EVERY CLICK.
     #
@@ -231,16 +288,18 @@ the job list."
 done
 
 emit "probes=$PROBES"
+emit "scrolls=$SCROLLS"
+[ "$SCROLLS" -gt 0 ] && emit "scrolled=yes" || emit "scrolled=no"
 
 if [ -z "$SELECTED_KEY" ]; then
-    # Nothing new below --start-y. For the caller this is the normal end of
-    # a page's cards; it is reported as such rather than as a fault, and
-    # the wording is what find_indeed_job.py matches on.
+    # Only NOW is the page really finished: the probe window was exhausted
+    # and the list was scrolled $SCROLL_ROUNDS times with nothing new
+    # appearing. The caller reads this as the end of the page's cards.
     emit "no_more_cards=yes"
     fail "$EX_IDENTITY" \
-        "no new job card found: $PROBES probe(s) between y=$START_Y and \
-y=$CARD_MAX_Y changed nothing that had not already been handled. Either the \
-page's cards are exhausted or the list needs scrolling."
+        "no new job card found: $PROBES probe(s) and $SCROLLS scroll(s) \
+found nothing that had not already been handled. The page's cards are \
+exhausted."
 fi
 
 emit "selected_url=$SELECTED_URL"
@@ -248,6 +307,7 @@ emit "selected_key=$SELECTED_KEY"
 emit "selection_method=click"
 emit "clicked_at=${CARD_X},${LANDED_Y}"
 emit "learned_card_y=$LANDED_Y"
-note "card index $INDEX selected: job $SELECTED_KEY at y=$LANDED_Y after $PROBES probe(s)"
+note "card index $INDEX selected: job $SELECTED_KEY at y=$LANDED_Y after \
+$PROBES probe(s) and $SCROLLS scroll(s)"
 
 exit "$EX_OK"

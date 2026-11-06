@@ -223,12 +223,27 @@ The card index is **0-based**.
   835 — pitches of 259 and 191 — and the selected card is taller still
   because it expands. The script clicks at `CARD_X`, starting at `--start-y`,
   stepping down `CARD_PROBE_STEP = 55` px up to `CARD_PROBE_LIMIT = 12`
-  times, until `vjk=` changes to a key not already handled.
+  times **per scroll round**, until `vjk=` changes to a key not already
+  handled. The budget is per round on purpose: when it counted the whole
+  search, the first screenful consumed it and only one scroll ever
+  happened, so the page was declared exhausted with most of its cards
+  still below the fold.
 - It reports `learned_card_y`, and Python starts the next card's probe just
   below it (`MIN_CARD_GAP = 60`), so the spacing is **learned per page**.
 - `--seen-keys` stops a probe re-collecting a job already taken.
+- **When the probe window reaches the bottom, the list is SCROLLED** and
+  probing restarts at the top of the card area (`AFTER_SCROLL_Y`), up to
+  `CARD_SCROLL_ROUNDS = 6` times. Without this the run collected only the
+  three or four cards that fit on screen, reported "no more cards" and
+  moved on to the next search. Scrolling uses the wheel with the pointer
+  parked in the results column, so it moves the job list rather than the
+  page or an open suggestion panel.
+- A scroll is reported back as `scrolled=yes`, and the caller resets its
+  probe start to the top: a y learned *before* a scroll describes a view
+  that no longer exists.
 - If a click navigates away (some cards contain "View similar jobs" links),
-  it presses **Back** and carries on probing.
+  it presses **Back** and carries on probing — and if Back does not return
+  to the listing, it stops rather than clicking blind.
 - Nothing new below the limit ⇒ `no_more_cards=yes`, which the caller reads
   as the normal end of the page.
 
@@ -322,6 +337,21 @@ In this order, deliberately:
    duplicate non-IT row is reported as non-IT, the more useful fact.
 
 ### Step 8 — write Excel  (`indeed_excel.py`)
+
+> **The venv trap.** `pandas` imports without `openpyxl`, but `to_excel`
+> needs it at write time. A project venv with
+> `include-system-site-packages = false` had pandas and not openpyxl, so
+> every job extracted perfectly and then logged
+> `Excel Save: FAILED (ModuleNotFoundError: No module named 'openpyxl')`,
+> with `saved_jobs` stuck at 0 while the run looked healthy.
+> `check_excel_dependencies()` now refuses to start, naming
+> `sys.executable` and the exact `pip install` to run — because the whole
+> point is that the packages you have are not the packages the running
+> interpreter can see.
+>
+> Run the collector with the SAME interpreter the deps are installed in:
+> `venv/bin/python find_indeed_job.py`
+
 1. Append to `Excel_Data/rank_N/current_data.xlsx`.
 2. A **second** duplicate check against the workbook itself, independent of
    the in-memory index, so two processes or a resumed run cannot double-write.

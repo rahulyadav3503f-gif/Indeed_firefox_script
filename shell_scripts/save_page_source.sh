@@ -178,16 +178,23 @@ done
     "the Save As dialog did not appear within ${SAVE_DIALOG_TIMEOUT}s after Ctrl+S."
 
 note "save dialog window=$DIALOG name='$(window_name "$DIALOG")'"
-xdotool windowactivate "$DIALOG" >/dev/null 2>&1
-sleep 1
 
-# The GTK file chooser's name field takes a full absolute path: typing one
-# switches it to location mode and Return accepts it.
-xdotool key --clearmodifiers ctrl+a >/dev/null 2>&1
-sleep 0.4
-xdotool type --clearmodifiers --delay "$KEY_DELAY_MS" -- "$OUT_FILE"
-sleep 1.2
-xdotool key --clearmodifiers Return >/dev/null 2>&1
+#: Type the destination into the chooser and accept it.
+#: The GTK file chooser's name field takes a full absolute path: typing one
+#: switches it to location mode and Return accepts it.
+drive_save_dialog() {
+    xdotool windowactivate --sync "$DIALOG" >/dev/null 2>&1
+    # A freshly mapped GTK chooser is not ready for keystrokes immediately;
+    # typing into it too early produced "Ctrl+S ran but no file appeared".
+    sleep 1.5
+    xdotool key --clearmodifiers ctrl+a >/dev/null 2>&1
+    sleep 0.4
+    xdotool type --clearmodifiers --delay "$KEY_DELAY_MS" -- "$OUT_FILE"
+    sleep 1.2
+    xdotool key --clearmodifiers Return >/dev/null 2>&1
+}
+
+drive_save_dialog
 
 # ---------------------------------------------------------------------------
 # 4. PROVE A FILE ARRIVED  (quirk 1: Firefox renames)
@@ -203,13 +210,30 @@ find_saved() {
     return 1
 }
 
-SAVED=""
-waited=0
-while [ "$(printf '%.0f' "$waited")" -lt "$SAVE_FILE_TIMEOUT" ]; do
-    SAVED=$(find_saved) && [ -n "$SAVED" ] && break
-    sleep "$POLL_INTERVAL"
-    waited=$(awk "BEGIN{print $waited + $POLL_INTERVAL}")
-done
+wait_for_saved_file() {
+    local waited=0 found=""
+    while [ "$(printf '%.0f' "$waited")" -lt "$SAVE_FILE_TIMEOUT" ]; do
+        found=$(find_saved) && [ -n "$found" ] && { printf '%s' "$found"; return 0; }
+        sleep "$POLL_INTERVAL"
+        waited=$(awk "BEGIN{print $waited + $POLL_INTERVAL}")
+    done
+    return 1
+}
+
+SAVED=$(wait_for_saved_file) || SAVED=""
+
+# ONE RETRY, and only while the dialog is demonstrably still open.
+#
+# Measured: on a run of eight cards, one card's Ctrl+S left the dialog up
+# with nothing typed into it and no file ever arrived. Re-driving a dialog
+# that is still on screen is safe -- it is the same dialog, for the same
+# file -- and it turns a lost job into a one-attempt delay. If the dialog
+# has gone, something else happened and this does NOT guess: it fails.
+if [ -z "$SAVED" ] && window_exists "$DIALOG"; then
+    warn "no file appeared and the save dialog is still open -- re-entering the path once"
+    drive_save_dialog
+    SAVED=$(wait_for_saved_file) || SAVED=""
+fi
 
 if [ -z "$SAVED" ]; then
     # Leave the dialog alone if it is somehow still up -- a half-driven

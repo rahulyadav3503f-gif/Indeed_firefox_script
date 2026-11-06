@@ -148,7 +148,7 @@ for (( i = 0; i < COUNT; i++ )); do
 
     SEL_OUT=$(timeout 200 bash "$SHELL_DIR/select_job_card.sh" "${SELECT_ARGS[@]}" 2>&1)
     SEL_RC=$?
-    printf '%s\n' "$SEL_OUT" | grep -E "RESULT:(selected_key|selection_method|learned_card_y|probes|no_more_cards)|ERROR"
+    printf '%s\n' "$SEL_OUT" | grep -E "RESULT:(selected_key|selection_method|learned_card_y|probes|scrolls|scrolled|no_more_cards)|ERROR|scrolling the results"
     if [ $SEL_RC -ne 0 ]; then
         echo "card $i could not be selected -- stopping"
         break

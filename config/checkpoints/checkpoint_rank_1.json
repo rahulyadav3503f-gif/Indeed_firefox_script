@@ -5097,33 +5097,46 @@
   "total_keywords": 1264,
   "current_city_index": 0,
   "current_keyword_index": 0,
-  "current_page": 1,
+  "current_page": 3,
   "current_city": "Delhi",
   "current_keyword": "Social Media Designer",
   "done_job_urls": [
-    "https://in.indeed.com/jobs?vjk=7054e9285f86de31"
+    "https://in.indeed.com/jobs?vjk=7054e9285f86de31",
+    "https://in.indeed.com/jobs?vjk=64a602f0dbc2745d",
+    "https://in.indeed.com/jobs?vjk=f3be74d480da5ce1",
+    "https://in.indeed.com/jobs?vjk=0fca821785014a63",
+    "https://in.indeed.com/jobs?vjk=870252461021442f",
+    "https://in.indeed.com/jobs?vjk=e5eb3799b213b8b0",
+    "https://in.indeed.com/jobs?vjk=f3adbc1fc0659b30",
+    "https://in.indeed.com/jobs?vjk=08656ce8a6b73631",
+    "https://in.indeed.com/jobs?vjk=793b5152a2f831b3",
+    "https://in.indeed.com/jobs?vjk=645d9e64c26edab0",
+    "https://in.indeed.com/jobs?vjk=46c5474ce4f5d4e9",
+    "https://in.indeed.com/jobs?vjk=b822c08f29c10de4",
+    "https://in.indeed.com/jobs?vjk=a5f7ce31feefc2e1",
+    "https://in.indeed.com/jobs?vjk=ac42d4972becfcc5",
+    "https://in.indeed.com/jobs?vjk=8f0d580c6e08b7c2",
+    "https://in.indeed.com/jobs?vjk=2f2be02728297526"
   ],
   "completed_cities": [],
   "total_complete_cycle": 0,
-  "last_completed_job_id": "",
-  "saved_jobs": 0,
-  "duplicate_jobs": 0,
-  "rejected_jobs": 0,
-  "failed_jobs": 7,
-  "examined_jobs": 1,
+  "last_completed_job_id": "4e9c21994d94980227b3f75b7ab8e410",
+  "saved_jobs": 8,
+  "duplicate_jobs": 8,
+  "rejected_jobs": 4,
+  "failed_jobs": 20,
+  "examined_jobs": 16,
   "failure_state": {
-    "at": "2026-11-06 10:29:35",
-    "stage": "card",
-    "reason": "save",
+    "at": "2026-11-06 14:20:49",
+    "stage": "search",
+    "reason": "the keyword box holds ' | stage=search_jobs.sh | exit=7",
     "rank": 1,
     "city": "Delhi",
     "keyword": "Social Media Designer",
-    "page": 1,
-    "card": 0,
-    "job_url": "https://in.indeed.com/jobs?q=Social+Media+Designer&l=Delhi&from=searchOnHP&vjk=7054e9285f86de31"
+    "page": 3
   },
   "cycle_complete": false,
-  "updated_at": "2026-11-06 10:30:41",
+  "updated_at": "2026-11-06 14:21:04",
   "recent_failures": [
     {
       "at": "2026-11-05 20:16:29",
@@ -5197,6 +5210,141 @@
       "page": 1,
       "card": 0,
       "job_url": "https://in.indeed.com/jobs?q=Social+Media+Designer&l=Delhi&from=searchOnHP&vjk=7054e9285f86de31"
+    },
+    {
+      "at": "2026-11-06 11:20:03",
+      "stage": "open_firefox.sh",
+      "reason": "Firefox opened the 'Close Firefox' dialog instead of a browser window: another Firefox is already using the profile /home/ubuntu/new_indeed_script/config/firefox_profile/rank_1. Close that instance first, or reuse its window instead of launching a new one. | stage=open_firefox.sh | exit=3",
+      "rank": 1,
+      "city": "Delhi",
+      "keyword": "Social Media Designer",
+      "page": 1
+    },
+    {
+      "at": "2026-11-06 11:21:47",
+      "stage": "excel",
+      "reason": "ModuleNotFoundError: No module named 'openpyxl'",
+      "rank": 1,
+      "city": "Delhi",
+      "keyword": "Social Media Designer",
+      "page": 1,
+      "job_url": "https://in.indeed.com/jobs?q=Social+Media+Designer&l=Delhi&from=searchOnHP&vjk=64a602f0dbc2745d",
+      "job_title": "Creative Designer"
+    },
+    {
+      "at": "2026-11-06 11:22:12",
+      "stage": "card",
+      "reason": "save",
+      "rank": 1,
+      "city": "Delhi",
+      "keyword": "Social Media Designer",
+      "page": 1,
+      "card": 1,
+      "job_url": "https://in.indeed.com/jobs?q=Social+Media+Designer&l=Delhi&from=searchOnHP&vjk=64a602f0dbc2745d"
+    },
+    {
+      "at": "2026-11-06 11:22:40",
+      "stage": "excel",
+      "reason": "ModuleNotFoundError: No module named 'openpyxl'",
+      "rank": 1,
+      "city": "Delhi",
+      "keyword": "Social Media Designer",
+      "page": 1,
+      "job_url": "https://in.indeed.com/jobs?q=Social+Media+Designer&l=Delhi&from=searchOnHP&vjk=f3be74d480da5ce1",
+      "job_title": "Graphic Designer"
+    },
+    {
+      "at": "2026-11-06 11:23:05",
+      "stage": "card",
+      "reason": "save",
+      "rank": 1,
+      "city": "Delhi",
+      "keyword": "Social Media Designer",
+      "page": 1,
+      "card": 2,
+      "job_url": "https://in.indeed.com/jobs?q=Social+Media+Designer&l=Delhi&from=searchOnHP&vjk=f3be74d480da5ce1"
+    },
+    {
+      "at": "2026-11-06 11:23:17",
+      "stage": "card",
+      "reason": "no new job card found: 2 probe(s) between y=945 and y=1000 changed nothing that had not already been handled. Either the page's cards are exhausted or the list needs scrolling. | stage=select_job_card.sh | exit=11",
+      "rank": 1,
+      "city": "Delhi",
+      "keyword": "Social Media Designer",
+      "page": 1,
+      "card": 3,
+      "job_url": ""
+    },
+    {
+      "at": "2026-11-06 11:23:29",
+      "stage": "card",
+      "reason": "no new job card found: 2 probe(s) between y=945 and y=1000 changed nothing that had not already been handled. Either the page's cards are exhausted or the list needs scrolling. | stage=select_job_card.sh | exit=11",
+      "rank": 1,
+      "city": "Delhi",
+      "keyword": "Social Media Designer",
+      "page": 1,
+      "card": 4,
+      "job_url": ""
+    },
+    {
+      "at": "2026-11-06 11:23:42",
+      "stage": "card",
+      "reason": "no new job card found: 2 probe(s) between y=945 and y=1000 changed nothing that had not already been handled. Either the page's cards are exhausted or the list needs scrolling. | stage=select_job_card.sh | exit=11",
+      "rank": 1,
+      "city": "Delhi",
+      "keyword": "Social Media Designer",
+      "page": 1,
+      "card": 5,
+      "job_url": ""
+    },
+    {
+      "at": "2026-11-06 11:59:16",
+      "stage": "open_firefox.sh",
+      "reason": "Firefox opened the 'Close Firefox' dialog instead of a browser window: another Firefox is already using the profile /home/ubuntu/new_indeed_script/config/firefox_profile/rank_1. Close that instance first, or reuse its window instead of launching a new one. | stage=open_firefox.sh | exit=3",
+      "rank": 1,
+      "city": "Delhi",
+      "keyword": "Social Media Designer",
+      "page": 2
+    },
+    {
+      "at": "2026-11-06 12:01:47",
+      "stage": "excel",
+      "reason": "ModuleNotFoundError: No module named 'openpyxl'",
+      "rank": 1,
+      "city": "Delhi",
+      "keyword": "Social Media Designer",
+      "page": 2,
+      "job_url": "https://in.indeed.com/jobs?q=Social+Media+Designer&nl=&l=Delhi&radius=25&grpKey=8gcFdG5mZWy4D5O_tiyqECQKCW5vcm10aXRsZRoXc29jaWFsIG1lZGlhIHNwZWNpYWxpc3Q%3D&vjk=870252461021442f",
+      "job_title": "Social Media Executive"
+    },
+    {
+      "at": "2026-11-06 12:02:12",
+      "stage": "card",
+      "reason": "save",
+      "rank": 1,
+      "city": "Delhi",
+      "keyword": "Social Media Designer",
+      "page": 2,
+      "card": 2,
+      "job_url": "https://in.indeed.com/jobs?q=Social+Media+Designer&nl=&l=Delhi&radius=25&grpKey=8gcFdG5mZWy4D5O_tiyqECQKCW5vcm10aXRsZRoXc29jaWFsIG1lZGlhIHNwZWNpYWxpc3Q%3D&vjk=870252461021442f"
+    },
+    {
+      "at": "2026-11-06 14:20:08",
+      "stage": "search",
+      "reason": "the keyword box holds ' | stage=search_jobs.sh | exit=7",
+      "rank": 1,
+      "city": "Delhi",
+      "keyword": "Social Media Designer",
+      "page": 3
+    },
+    {
+      "at": "2026-11-06 14:20:49",
+      "stage": "search",
+      "reason": "the keyword box holds ' | stage=search_jobs.sh | exit=7",
+      "rank": 1,
+      "city": "Delhi",
+      "keyword": "Social Media Designer",
+      "page": 3
     }
   ]
 }
