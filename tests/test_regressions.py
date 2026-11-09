@@ -807,6 +807,101 @@ class TestIndeedLogin(unittest.TestCase):
         self.assertNotIn("value", body)   # names only, never cookie values
 
 
+class TestFixedPlan(unittest.TestCase):
+    """A fixed number of pages x a fixed number of cards."""
+
+    def test_both_numbers_exist_and_are_the_ones_used(self):
+        import find_indeed_job as collector
+        self.assertEqual(collector.MAX_LISTING_PAGES,
+                         collector.FIXED_LISTING_PAGES)
+        self.assertEqual(collector.MAX_CARDS_PER_PAGE,
+                         collector.FIXED_CARDS_PER_PAGE)
+
+    def test_the_unique_target_cannot_truncate_the_fixed_plan(self):
+        """A second budget smaller than the plan would silently cap it."""
+        import find_indeed_job as collector
+        self.assertGreaterEqual(
+            collector.TARGET_UNIQUE_JOBS,
+            collector.FIXED_LISTING_PAGES * collector.FIXED_CARDS_PER_PAGE)
+
+    def test_the_card_loop_runs_to_the_fixed_count(self):
+        source = open(os.path.join(BASE, "find_indeed_job.py"),
+                      encoding="utf-8").read()
+        self.assertIn("for card_index in range(0, MAX_CARDS_PER_PAGE)", source)
+
+
+class TestUrlPaging(unittest.TestCase):
+    """Page 2+ is page 1's url with vjk= dropped and start= set.
+
+    The bug this replaced: --start was only honoured in `url` mode, and
+    the default is `form` mode, so every "next page" re-ran the same form
+    search and came back with page 1.
+    """
+
+    FIRST = ("https://in.indeed.com/jobs?q=desktop+support+engineer"
+             "&l=Chennai%2C+Tamil+Nadu&radius=25"
+             "&from=searchOnDesktopSerp%2Cwhatautocomplete"
+             "&vjk=5a6f2e4d08b08903")
+
+    def url(self, page):
+        from source_file.indeed_controller import listing_page_url
+        return listing_page_url(self.FIRST, page)
+
+    def test_page_one_has_no_start(self):
+        self.assertNotIn("start=", self.url(1))
+
+    def test_later_pages_step_by_ten(self):
+        for page, offset in ((2, 10), (3, 20), (4, 30), (5, 40)):
+            with self.subTest(page=page):
+                self.assertTrue(self.url(page).endswith("&start=%d" % offset))
+
+    def test_vjk_is_dropped(self):
+        """It names a job on page 1, which is not on page 2."""
+        for page in (1, 2, 3):
+            self.assertNotIn("vjk=", self.url(page))
+
+    def test_the_searchs_own_parameters_survive(self):
+        """radius above all -- a different radius is a different search."""
+        page_two = self.url(2)
+        for fragment in ("q=desktop+support+engineer",
+                         "l=Chennai%2C+Tamil+Nadu",
+                         "radius=25",
+                         "from=searchOnDesktopSerp%2Cwhatautocomplete"):
+            self.assertIn(fragment, page_two)
+
+    def test_it_matches_the_example_exactly(self):
+        self.assertEqual(
+            self.url(2),
+            "https://in.indeed.com/jobs?q=desktop+support+engineer"
+            "&l=Chennai%2C+Tamil+Nadu&radius=25"
+            "&from=searchOnDesktopSerp%2Cwhatautocomplete&start=10")
+
+    def test_an_empty_first_page_url_yields_nothing(self):
+        """No page 1 url means no page 2 -- never a guessed one."""
+        from source_file.indeed_controller import listing_page_url
+        self.assertEqual(listing_page_url("", 2), "")
+        self.assertEqual(listing_page_url(None, 3), "")
+
+    def test_page_one_is_a_search_and_later_pages_are_urls(self):
+        source = open(os.path.join(BASE, "find_indeed_job.py"),
+                      encoding="utf-8").read()
+        loop = source.split("while page <= MAX_LISTING_PAGES")[1][:1400]
+        self.assertIn("if page == 1 or not first_page_url", loop)
+        self.assertIn("controller.search(", loop)
+        self.assertIn("controller.goto_listing_page(first_page_url, page)",
+                      loop)
+
+    def test_the_page_turn_is_verified(self):
+        """Landing on page 1 again would re-collect it under page 2's name."""
+        body = code_of(script("goto_listing_page.sh"))
+        self.assertIn("--expect-start", body)
+        self.assertIn("The page did not turn", script("goto_listing_page.sh"))
+
+    def test_turning_a_page_is_guarded_like_any_other_typing(self):
+        body = code_of(script("goto_listing_page.sh"))
+        self.assertIn("assert_input_lands", body)
+
+
 # ===========================================================================
 # PROBLEMS 5, 6, 7 -- what the terminal says
 # ===========================================================================

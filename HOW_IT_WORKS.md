@@ -140,8 +140,41 @@ City is the **outer** loop, keyword the inner. A city is only marked
 complete when every keyword has been attempted for it — and **never** when
 the run stopped because of an access refusal.
 
-Limits per keyword+city: `MAX_LISTING_PAGES = 4`,
-`MAX_CARDS_PER_PAGE = 15`, `TARGET_UNIQUE_JOBS = 100`.
+**The fixed plan.** How much of a search to take is two numbers in
+`find_indeed_job.py`:
+
+```python
+FIXED_LISTING_PAGES  = 5     # results pages per keyword+city
+FIXED_CARDS_PER_PAGE = 10    # job cards taken from each page
+```
+
+so one keyword+city yields at most 50 jobs. `TARGET_UNIQUE_JOBS` is
+*derived* from them (`5 x 10`) so a second budget can never silently cap
+the plan.
+
+**Turning the page.** Page 1 is the typed search. Page 2 onwards is page
+1's own url, edited:
+
+```
+page 1   …/jobs?q=desktop+support+engineer&l=Chennai%2C+Tamil+Nadu
+         &radius=25&from=searchOnDesktopSerp…&vjk=5a6f2e4d08b08903
+                                              ^^^^^^^^^^^^^^^^^^^^ dropped
+page 2   …/jobs?q=desktop+support+engineer&l=Chennai%2C+Tamil+Nadu
+         &radius=25&from=searchOnDesktopSerp…&start=10
+                                              ^^^^^^^^ added (20, 30, 40 …)
+```
+
+Two reasons it is derived rather than rebuilt from the keyword and city:
+`radius=25` and the other parameters the form added *are* the search, and
+dropping them gives a different result set; and `vjk=` names the job open
+in the detail pane, which is not on page 2.
+
+> **This replaced a bug.** Paging used to re-run the form search with
+> `--start`, which `form` mode ignores — only `url` mode read it. So every
+> "next page" ran the same search and came back with page 1.
+> `goto_listing_page.sh` now verifies the `start=` it landed on, because
+> silently getting page 1 again would collect it twice under page 2's name.
+
 
 ---
 

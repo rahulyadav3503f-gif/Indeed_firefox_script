@@ -21,6 +21,8 @@ import json
 import os
 import shlex
 import subprocess
+from urllib.parse import (parse_qsl, quote_plus, urlencode, urlparse,
+                          urlunparse)
 import time
 
 # ---------------------------------------------------------------------------
@@ -170,6 +172,7 @@ class ControllerConfig(object):
                  search_mode="form",
                  search_field_delay_seconds=7.0,
                  search_results_wait_seconds=10.0,
+                 page_step=10,
                  card_x=430, first_card_y=440, card_max_y=1000,
                  card_probe_step=55, card_probe_limit=12,
                  card_scroll_rounds=6,
@@ -199,6 +202,8 @@ class ControllerConfig(object):
         # what replaced the post-search url/title verification: the search
         # is given time to land and the run then goes straight to the card.
         self.search_results_wait_seconds = float(search_results_wait_seconds)
+        # Indeed pages its results in tens: start=0, 10, 20, ...
+        self.page_step = int(page_step)
         # Where the job cards are in the results column.
         #
         # NOTE WHAT IS NOT HERE ANY MORE: card_pitch.  Indeed's cards are
@@ -498,6 +503,30 @@ class IndeedController(object):
         self.preselected_key = results.get("preselected_key", "")
         return results
 
+    def goto_listing_page(self, first_page_url, page_number):
+        """Turn to results page ``page_number``.  Returns the shell results.
+
+        The url is derived from page 1's, so the search's own parameters
+        (radius above all) are carried forward instead of being rebuilt
+        from the keyword and city.
+        """
+        url = listing_page_url(first_page_url, page_number,
+                               self.config.page_step)
+        if not url:
+            raise NavigationFailed(
+                "cannot build a url for page %s: page 1's url is empty"
+                % page_number, stage="goto_listing_page.sh")
+
+        offset = (max(1, int(page_number)) - 1) * int(self.config.page_step)
+        args = ["--window", self.listing_window, "--url", url]
+        if offset:
+            args += ["--expect-start", str(offset)]
+
+        _, results, _ = self.run_script("goto_listing_page.sh", args,
+                                        timeout=max(self.config.script_timeout, 120))
+        self.preselected_key = results.get("preselected_key", "")
+        return results
+
     # -- 3. one job card ----------------------------------------------------
     def select_job_card(self, card_index, seen_keys=(), start_y=None,
                         expect_title="", detail_file=None):
@@ -743,6 +772,57 @@ def capture_metadata(path):
     except OSError:
         pass
     return meta
+
+
+def listing_page_url(first_page_url, page_number, page_step=10):
+    """The url of results page ``page_number``, derived from page 1's url.
+
+    Indeed pages a results list with ``start=``, in multiples of ten, and
+    the FIRST page's url is the one the search form produced -- which
+    carries everything that makes the search what it is:
+
+        https://in.indeed.com/jobs?q=desktop+support+engineer
+            &l=Chennai%2C+Tamil+Nadu&radius=25&from=searchOnDesktopSerp...
+            &vjk=5a6f2e4d08b08903
+
+    Page 2 is that same url with two edits:
+
+        * vjk= REMOVED. It names the job card currently open in the detail
+          pane. Carried onto page 2 it asks Indeed to re-open a job that is
+          not on page 2, which is not what a reader clicking "Next" sends.
+        * start=10 ADDED. Page 3 is start=20, page 4 start=30, and so on.
+
+        https://in.indeed.com/jobs?q=desktop+support+engineer
+            &l=Chennai%2C+Tamil+Nadu&radius=25&from=searchOnDesktopSerp...
+            &start=10
+
+    Everything else -- q, l, radius, from -- is preserved exactly, in its
+    original order, because those parameters ARE the search. Rebuilding a
+    url from the keyword and city alone would silently drop the radius and
+    give a different result set.
+
+    page_number is 1-based; page 1 comes back with no ``start`` at all.
+    """
+    text = str(first_page_url or "").strip()
+    if not text:
+        return ""
+
+    parts = urlparse(text)
+    # keep_blank_values so a parameter the site sent empty is not dropped
+    pairs = [(key, value) for key, value in
+             parse_qsl(parts.query, keep_blank_values=True)
+             if key.lower() not in ("vjk", "start")]
+
+    offset = (max(1, int(page_number)) - 1) * int(page_step)
+    if offset:
+        pairs.append(("start", str(offset)))
+
+    # quote_plus matches what Indeed itself emits: spaces as "+", commas
+    # as "%2C" -- so the url we navigate to is the one a click would make.
+    query = urlencode(pairs, quote_via=quote_plus)
+    return urlunparse((parts.scheme, parts.netloc, parts.path,
+                       parts.params, query, parts.fragment))
+
 
 
 def _identity_fragment(url, marker="vjk="):

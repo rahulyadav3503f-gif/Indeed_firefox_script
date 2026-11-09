@@ -174,10 +174,36 @@ MIN_DETAIL_CHARS = 400           # below this, it is furniture, not a job
 # combination -- not rows saved.  That is the original project's meaning,
 # preserved: a card filtered out as non-IT still counts as a unique job that
 # was seen.  Finishing the page that crosses the line is fine.
-TARGET_UNIQUE_JOBS = 100
+# ---------------------------------------------------------------------------
+# HOW MUCH TO FETCH -- the two fixed numbers
+# ---------------------------------------------------------------------------
+# A search can return far more than anyone wants to collect: "python
+# developer" in Delhi is pages of results. These two say how much of it to
+# take, and they are a FIXED plan rather than "keep going until something
+# stops us":
+#
+#     FIXED_LISTING_PAGES   results pages per keyword+city
+#     FIXED_CARDS_PER_PAGE  job cards taken from each of those pages
+#
+# so one keyword+city yields at most FIXED_LISTING_PAGES x
+# FIXED_CARDS_PER_PAGE jobs. Page 2 onwards is reached by url -- see
+# listing_page_url() in indeed_controller.py.
+FIXED_LISTING_PAGES = 5
+FIXED_CARDS_PER_PAGE = 10
+
+# Kept as the names the rest of the file already uses.
+MAX_LISTING_PAGES = FIXED_LISTING_PAGES
+MAX_CARDS_PER_PAGE = FIXED_CARDS_PER_PAGE
 MIN_LISTING_PAGES = 1
-MAX_LISTING_PAGES = 4
-MAX_CARDS_PER_PAGE = 15          # how many cards to try per results page
+
+# The ceiling on DISTINCT jobs examined per keyword+city. Derived from the
+# two fixed numbers so it can never cut the fixed plan short -- it is a
+# backstop against a pathological page, not a second budget.
+TARGET_UNIQUE_JOBS = FIXED_LISTING_PAGES * FIXED_CARDS_PER_PAGE
+
+# A page that yields nothing new has nothing more to give: the list has
+# ended, or every card on it was already collected. Set False to keep
+# paging to FIXED_LISTING_PAGES regardless.
 STOP_ON_PAGE_WITH_NO_NEW_JOBS = True
 
 # -- Excel -----------------------------------------------------------------
@@ -701,6 +727,11 @@ def show_banner(cities, plan_pairs, checkpoint):
     log("  work period     : %.1f-%.1f h, then a %d-%d min break"
         % (WORK_PERIOD_MIN_HOURS, WORK_PERIOD_MAX_HOURS,
            WORK_BREAK_MIN_MINUTES, WORK_BREAK_MAX_MINUTES))
+    log("  fixed plan      : %d page(s) x %d card(s) = up to %d jobs per "
+        "keyword+city" % (FIXED_LISTING_PAGES, FIXED_CARDS_PER_PAGE,
+                          FIXED_LISTING_PAGES * FIXED_CARDS_PER_PAGE))
+    log("  paging          : page 1 = typed search, page 2+ = start=%d,%d,..."
+        % (INDEED_PAGE_STEP, INDEED_PAGE_STEP * 2))
     log("  page ceiling    : %d listing page(s) per keyword+city"
         % MAX_LISTING_PAGES)
     log("  unique target   : %d distinct jobs EXAMINED per keyword+city"
@@ -728,6 +759,7 @@ def build_controller_config(which_rank=None, base_url=None, logger=None):
         search_mode=SEARCH_MODE,
         search_field_delay_seconds=SEARCH_FIELD_DELAY_SECONDS,
         search_results_wait_seconds=SEARCH_RESULTS_WAIT_SECONDS,
+        page_step=INDEED_PAGE_STEP,
         card_x=CARD_X,
         first_card_y=FIRST_CARD_Y,
         card_max_y=CARD_MAX_Y,
@@ -1052,6 +1084,10 @@ def run_combo(controller, store, checkpoint, index, keyword, city,
 
     page = max(1, int(start_page))
     consecutive_failures = 0
+    # Page 1's url, as the search form actually produced it. Every later
+    # page is derived from this, so it must be the real thing and not a
+    # url rebuilt from the keyword and city.
+    first_page_url = ""
 
     while page <= MAX_LISTING_PAGES:
         pacing_gate()
@@ -1060,10 +1096,22 @@ def run_combo(controller, store, checkpoint, index, keyword, city,
 
         start_at = (page - 1) * INDEED_PAGE_STEP
         log("\n  [page %d/%d] %s @ %s  (start=%d)"
-            % (page, MAX_LISTING_PAGES, keyword, city, start_at))
+            % (page, FIXED_LISTING_PAGES, keyword, city, start_at))
 
         try:
-            controller.search(keyword, city, start=start_at)
+            if page == 1 or not first_page_url:
+                # PAGE 1 IS A SEARCH: typed into Indeed's own boxes.
+                results = controller.search(keyword, city, start=start_at)
+                first_page_url = results.get("url", "") or first_page_url
+            else:
+                # PAGE 2+ IS A URL, derived from page 1's.
+                #
+                # It used to re-run the form search with --start, which
+                # form mode ignores -- so every "next page" ran the same
+                # search and came back with page 1. Deriving the url from
+                # page 1's keeps q, l, radius and from exactly as the form
+                # built them, drops vjk=, and sets start=.
+                controller.goto_listing_page(first_page_url, page)
         except AccessDenied as error:
             log("  [STOP] the source refused this search: %s" % error.detail())
             checkpoint.note_failure("search_access_denied", error.detail(),
@@ -1071,8 +1119,10 @@ def run_combo(controller, store, checkpoint, index, keyword, city,
             return "access_denied"
         except BrowserError as error:
             consecutive_failures += 1
-            log("  [WARN] the search failed (%s)" % error.detail())
-            checkpoint.note_failure("search", error.detail(), {"page": page})
+            what = "the search" if page == 1 else "the page turn"
+            log("  [WARN] %s failed (%s)" % (what, error.detail()))
+            checkpoint.note_failure("search" if page == 1 else "page_turn",
+                                    error.detail(), {"page": page})
             if consecutive_failures >= MAX_CONSECUTIVE_SEARCH_FAILURES:
                 log("  [STOP] %d searches in a row failed -- giving up on "
                     "this keyword." % consecutive_failures)
