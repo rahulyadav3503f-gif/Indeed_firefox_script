@@ -47,7 +47,9 @@ import argparse
 import json
 import os
 import random
+import shutil
 import signal
+import subprocess
 import sys
 import time
 from datetime import datetime, timedelta
@@ -72,7 +74,7 @@ if BASE_DIR not in sys.path:
 # The contract is the original project's, including the slicing algorithm
 # (see get_cities_by_rank).  Override from the command line with
 # --rank / --num-sys; these are the defaults.
-rank = 1
+rank = 3
 num_sys = 5
 
 # -- the source ------------------------------------------------------------
@@ -87,11 +89,50 @@ LIVE_APPROVAL_VALUE = "yes"
 # -- the browser -----------------------------------------------------------
 FIREFOX_BINARY = "firefox"
 DISPLAY_OVERRIDE = ""            # "" = inherit DISPLAY; ":99" for an Xvfb
+
+# -- THE HEADLESS FRAMEBUFFER (Xvfb) ---------------------------------------
+# An ssh session inherits no DISPLAY, and shell_scripts/_common.sh
+# require_display() correctly refuses to drive a display that is not there
+# (FACT 1) -- that is the "DISPLAY is not set" failure.  Rather than require
+# the laptop to be logged in at its own panel, the collector brings up its
+# OWN X server on XVFB_DISPLAY when nothing was inherited, so a run started
+# over ssh is watched from the terminal and never touches the operator's
+# desktop (see _common.sh FACT 4, where an XTEST Ctrl+C aimed at our Firefox
+# came back holding the operator's own browser content).
+#
+# The geometry is 1920x1080 and NOT the laptop's 1366x768 panel because
+# WINDOW_SIZE and every CARD_* coordinate below were calibrated at that
+# size; on a narrower screen Indeed re-flows and the clicks land on
+# furniture instead of on the search boxes and the cards.
+#
+# :105 is used because the Naukri collectors on this host already hold
+# :77, :99 and :100.
+#
+# Set XVFB_ENABLED = False to go back to requiring a real, inherited
+# display.  An inherited DISPLAY is always left alone, so a desktop session
+# and run_collector.sh keep behaving exactly as before.
+XVFB_ENABLED = True
+XVFB_DISPLAY = ":105"
+XVFB_GEOMETRY = "1920x1080x24"
+# A bare Xvfb has no window manager, and set_window_geometry() and
+# require_focus() in _common.sh need somebody to honour the resize and the
+# focus request -- without one the window keeps Firefox's own default size
+# and the calibrated coordinates are wrong again.
+XVFB_WINDOW_MANAGER = "xfwm4"
+XVFB_START_TIMEOUT_SECONDS = 15
 # An XAUTHORITY file the Firefox SNAP can read.  The live mutter cookie in
 # /run/user/<uid>/ is not always readable from inside the snap, and Firefox
 # then exits with "cannot open display".  "" uses XAUTHORITY as inherited.
 # See shell_scripts/_common.sh, FACT 2.
-FIREFOX_XAUTH_COPY = os.path.join(BASE_DIR, "config", "xauth_xwayland")
+# THIS HOST: kali, lightdm + Xorg :0, and the DEB firefox (128.4.0esr),
+# not the snap -- so the snap-confinement workaround described above does
+# not apply here, and the shipped copy actively BREAKS the launch. The
+# cookie in config/xauth_xwayland is for "ubuntu-Inspiron-3593/unix:",
+# the machine this clone was authored on; Firefox on this display
+# ("kali/unix:0") cannot use it and exits "cannot open display".
+# "" makes firefox_xauthority() fall back to the inherited XAUTHORITY,
+# which tracks the live session instead of a snapshot of it.
+FIREFOX_XAUTH_COPY = ""
 # "form" = click Indeed's own search boxes and type into them (what was
 # asked for). "url" = build a search url in the address bar; kept as a
 # fallback and used automatically for file:// fixture runs, which have no
@@ -680,6 +721,135 @@ def show_banner(cities, plan_pairs, checkpoint):
         "%d/%d)" % (summary["total_complete_cycle"],
                     summary["completed_cities"], summary["total_cities"]))
     log("=" * 72)
+
+
+# ===========================================================================
+# THE DISPLAY
+# ===========================================================================
+
+def _display_answers(display):
+    """True when something on `display` actually answers an X request.
+
+    A socket in /tmp/.X11-unix is not proof: a dead Xvfb leaves its socket
+    behind.  xdotool is what the shell layer uses, so it is what gets asked.
+    XAUTHORITY is dropped because our Xvfb is started without -auth; a
+    cookie inherited from an ssh session points at :0 and would be refused.
+    """
+    env = dict(os.environ, DISPLAY=display)
+    env.pop("XAUTHORITY", None)
+    try:
+        return subprocess.call(
+            ["xdotool", "getdisplaygeometry"], env=env,
+            stdout=subprocess.DEVNULL, stderr=subprocess.DEVNULL) == 0
+    except OSError:
+        return False
+
+
+def _spawn_detached(argv, log_path):
+    """Start a long-lived X helper that must outlive this call, not this run.
+
+    Its own session, so Ctrl+C in the collector's terminal does not take the
+    framebuffer down with it, and the next run finds it already up.
+    """
+    with open(log_path, "ab") as sink:
+        subprocess.Popen(argv, stdout=sink, stderr=subprocess.STDOUT,
+                         stdin=subprocess.DEVNULL, start_new_session=True)
+
+
+def ensure_display():
+    """Make sure there is an X display to drive; start Xvfb if there is not.
+
+    Returns True when DISPLAY is usable by the time this returns.  See the
+    XVFB_* block at the top of this file for why a framebuffer and not the
+    laptop's own screen.
+    """
+    if os.environ.get("DISPLAY"):
+        log("  display         : %s (inherited)" % os.environ["DISPLAY"])
+        return True
+    if not XVFB_ENABLED:
+        return True                  # let _common.sh report the real reason
+
+    env_display = XVFB_DISPLAY
+    if not _display_answers(env_display):
+        if not shutil.which("Xvfb"):
+            log("[xvfb] Xvfb is not installed. Install it with:")
+            log("         sudo apt install xvfb")
+            return False
+        log("[xvfb] starting Xvfb %s (%s)" % (env_display, XVFB_GEOMETRY))
+        _spawn_detached(
+            ["Xvfb", env_display, "-screen", "0", XVFB_GEOMETRY,
+             "-nolisten", "tcp"],
+            "/tmp/xvfb%s.log" % env_display.lstrip(":"))
+        deadline = time.time() + XVFB_START_TIMEOUT_SECONDS
+        while time.time() < deadline and not _display_answers(env_display):
+            time.sleep(0.5)
+        if not _display_answers(env_display):
+            log("[xvfb] %s did not come up within %ds -- see /tmp/xvfb%s.log"
+                % (env_display, XVFB_START_TIMEOUT_SECONDS,
+                   env_display.lstrip(":")))
+            return False
+    else:
+        log("[xvfb] %s is already up" % env_display)
+
+    os.environ["DISPLAY"] = env_display
+    # Our Xvfb has no -auth cookie; an XAUTHORITY left over from the ssh
+    # session names :0 and makes Firefox exit "cannot open display".
+    os.environ.pop("XAUTHORITY", None)
+
+    if XVFB_WINDOW_MANAGER:
+        if not shutil.which(XVFB_WINDOW_MANAGER):
+            log("[xvfb] WARNING: %s is not installed. Without a window "
+                "manager the Firefox window keeps its own default size and "
+                "the calibrated card coordinates will miss."
+                % XVFB_WINDOW_MANAGER)
+        elif not _window_manager_present(env_display):
+            log("[xvfb] starting %s on %s"
+                % (XVFB_WINDOW_MANAGER, env_display))
+            # "--display=:105", not "--display :105 --daemon": THIS xfwm4
+            # (4.20.0) has no --daemon option and exits immediately with
+            # "xfwm4: Unknown option --daemon" when given one.  Compositing
+            # is turned off because nobody is looking at this framebuffer
+            # and it costs a redraw per frame.  It warns once about having
+            # no session manager, which is expected and harmless.
+            _spawn_detached(
+                [XVFB_WINDOW_MANAGER, "--display=%s" % env_display,
+                 "--compositor=off"],
+                "/tmp/xvfb-wm%s.log" % env_display.lstrip(":"))
+            deadline = time.time() + XVFB_START_TIMEOUT_SECONDS
+            while (time.time() < deadline
+                   and not _window_manager_present(env_display)):
+                time.sleep(0.5)
+            if not _window_manager_present(env_display):
+                log("[xvfb] WARNING: no window manager took %s -- see "
+                    "/tmp/xvfb-wm%s.log. The Firefox window will keep its "
+                    "own default size and the card coordinates will miss."
+                    % (env_display, env_display.lstrip(":")))
+
+    log("  display         : %s (Xvfb, %s)" % (env_display, XVFB_GEOMETRY))
+    return True
+
+
+def _window_manager_present(display):
+    """True when a window manager is actually MANAGING `display`.
+
+    _NET_SUPPORTING_WM_CHECK on the root window is the thing that matters,
+    and it is set by whichever WM owns the display -- so this stays true if
+    the WM is started by hand or by run_collector.sh, and goes false again
+    the moment it dies.  A live process name would not prove either.
+
+    MEASURED: xprop exits 0 even when the property is absent -- it prints
+    "no such atom on any window" and succeeds -- so the OUTPUT is what gets
+    tested, not the exit status.
+    """
+    env = dict(os.environ, DISPLAY=display)
+    env.pop("XAUTHORITY", None)
+    try:
+        out = subprocess.run(
+            ["xprop", "-root", "_NET_SUPPORTING_WM_CHECK"], env=env,
+            stdout=subprocess.PIPE, stderr=subprocess.DEVNULL).stdout
+    except OSError:
+        return False
+    return b"window id #" in out
 
 
 # ===========================================================================
@@ -1393,6 +1563,12 @@ def collect(args):
     open_log()
     signal.signal(signal.SIGINT, handle_signal)
     signal.signal(signal.SIGTERM, handle_signal)
+
+    # Before anything is opened or written: there has to be a display to
+    # drive.  Over ssh there is none, so one is created -- see the XVFB_*
+    # block at the top of this file.
+    if not ensure_display():
+        return 11                    # EX_NO_DISPLAY, as indeed_controller.py
 
     cities = rank_cities()
     plan = keyword_plan_pairs()

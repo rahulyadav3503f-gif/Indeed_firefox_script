@@ -19,9 +19,13 @@ reported as the thing that actually went wrong -- which is brief section
 
 import json
 import os
+import re
 import shlex
 import subprocess
 import time
+
+#: "1845x1046+10+96" as open_firefox.sh reports it.
+_GEOMETRY_RE = re.compile(r"^(\d+)x(\d+)\+(-?\d+)\+(-?\d+)$")
 
 # ---------------------------------------------------------------------------
 # EXIT CODES -- these mirror shell_scripts/_common.sh exactly.
@@ -350,6 +354,10 @@ class IndeedController(object):
         self.listing_window = None
         self.open_job_windows = []
         self._last_results = {}
+        #: How far the window actually sits from config.window_pos.  Learned
+        #: in open_browser(); see _learn_click_offset().
+        self.click_dx = 0
+        self.click_dy = 0
 
     # -- logging ------------------------------------------------------------
     def log(self, message):
@@ -441,10 +449,43 @@ class IndeedController(object):
             raise BrowserLaunchFailed(
                 "open_firefox.sh exited 0 but reported no pid/window id",
                 stage="open_firefox.sh", results=results)
+        self._learn_click_offset(results.get("window_geometry", ""))
         self.log("   browser ready: pid=%s window=%s fullscreen=%s"
                  % (self.firefox_pid, self.listing_window,
                     results.get("fullscreen")))
         return results
+
+    def _learn_click_offset(self, geometry):
+        """Teach the click coordinates where the window ACTUALLY landed.
+
+        Every coordinate in this project is a SCREEN coordinate, calibrated
+        with the browser's client area at ``config.window_pos``.  A
+        reparenting window manager does not have to grant that position:
+        xfwm4 on the headless :105 framebuffer will not lift a decorated
+        window above y=62, so with window_pos=(0,34) the page sits 28px
+        lower than every calibrated number assumes -- and the click meant
+        for Indeed's "what" box lands in the header strip above it, which
+        search_jobs.sh then reports as "the keyword box holds <page text>".
+
+        open_firefox.sh reports where the window really is, so the
+        correction is MEASURED, not assumed, and it is (0,0) on any host
+        that honours the requested position -- including a desktop :0 and
+        any future WM that does not clamp.
+        """
+        self.click_dx = 0
+        self.click_dy = 0
+        match = _GEOMETRY_RE.match((geometry or "").strip())
+        if not match:
+            return
+        actual_x, actual_y = int(match.group(3)), int(match.group(4))
+        self.click_dx = actual_x - int(self.config.window_pos[0])
+        self.click_dy = actual_y - int(self.config.window_pos[1])
+        if self.click_dx or self.click_dy:
+            self.log("   window landed at +%d+%d, not the +%d+%d it was "
+                     "asked for: clicks shifted by (%+d,%+d) to match"
+                     % (actual_x, actual_y, self.config.window_pos[0],
+                        self.config.window_pos[1],
+                        self.click_dx, self.click_dy))
 
     def browser_is_alive(self):
         if not self.listing_window:
@@ -489,8 +530,10 @@ class IndeedController(object):
             "--city", city,
             "--base-url", self.config.base_url,
             "--mode", self.config.search_mode,
-            "--what-xy", "%d,%d" % (self.config.what_xy[0], self.config.what_xy[1]),
-            "--where-xy", "%d,%d" % (self.config.where_xy[0], self.config.where_xy[1]),
+            "--what-xy", "%d,%d" % (self.config.what_xy[0] + self.click_dx,
+                                    self.config.what_xy[1] + self.click_dy),
+            "--where-xy", "%d,%d" % (self.config.where_xy[0] + self.click_dx,
+                                     self.config.where_xy[1] + self.click_dy),
         ]
         if start:
             args += ["--start", str(start)]
@@ -522,9 +565,14 @@ class IndeedController(object):
         args = [
             "--window", self.listing_window,
             "--index", str(int(card_index)),
-            "--card-x", str(self.config.card_x),
-            "--start-y", str(int(start_y)),
-            "--max-y", str(self.config.card_max_y),
+            # start_y is kept in CALIBRATION space by the caller (it feeds
+            # learned_card_y back in), so the offset is added here on the way
+            # out and taken off learned_card_y on the way back.  Shifting in
+            # one place only would make the probe creep down the page by
+            # click_dy per card.
+            "--card-x", str(self.config.card_x + self.click_dx),
+            "--start-y", str(int(start_y) + self.click_dy),
+            "--max-y", str(self.config.card_max_y + self.click_dy),
             "--probe-step", str(self.config.card_probe_step),
             "--probe-limit", str(self.config.card_probe_limit),
             "--scroll-rounds", str(self.config.card_scroll_rounds),
@@ -551,7 +599,9 @@ class IndeedController(object):
         #: scroll -- those coordinates describe a view that no longer exists.
         window.scrolled = results.get("scrolled") == "yes"
         try:
-            window.learned_card_y = int(results.get("learned_card_y") or 0)
+            # Back into calibration space -- see the note on --start-y above.
+            learned = int(results.get("learned_card_y") or 0)
+            window.learned_card_y = learned - self.click_dy if learned else 0
         except (TypeError, ValueError):
             window.learned_card_y = 0
         return window

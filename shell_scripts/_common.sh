@@ -120,6 +120,32 @@ fail() {
 }
 
 # ---------------------------------------------------------------------------
+# TIMED WAITING
+# ---------------------------------------------------------------------------
+#: FACT 0.  BASH'S BUILTIN `printf '%.0f'` RETURNS "nan" ON THIS HOST.
+#:
+#:   MEASURED (kali, bash 5.2.32):
+#:       $ printf '%.0f' 0.25            -> nan
+#:       $ LC_ALL=C printf '%.0f' 0.25   -> nan
+#:       $ /usr/bin/printf '%.0f' 0.25   -> 0        (coreutils is fine)
+#:
+#:   Every wait loop in this project used to round its fractional
+#:   accumulator with that builtin and compare it with `-lt`.  On the SECOND
+#:   turn the test became `[ nan -lt 30 ]`: bash printed "integer expression
+#:   expected", the condition evaluated FALSE, and the loop ended.  A
+#:   Firefox that was still starting was reported as "no window appeared
+#:   within 30s" -- after 1.2 seconds.  Nothing in the symptom pointed at
+#:   printf, which is why this is written down here.
+#:
+#:   awk is already doing the accumulation, so it does the comparison too:
+#:   no rounding, no builtin, and fractional timeouts work as written.
+#:   Values are passed with -v rather than interpolated, so an empty or
+#:   non-numeric timeout degrades to 0 instead of an awk syntax error.
+waited_under() {
+    awk -v a="${1:-0}" -v b="${2:-0}" 'BEGIN{exit !(a + 0 < b + 0)}'
+}
+
+# ---------------------------------------------------------------------------
 # PRECONDITIONS
 # ---------------------------------------------------------------------------
 require_tools() {
@@ -157,7 +183,7 @@ window_id() {
 
 wait_for_window_of_pid() {
     local pid="$1" timeout="${2:-$WINDOW_TIMEOUT}" waited=0 win="" child
-    while [ "$(printf '%.0f' "$waited")" -lt "$timeout" ]; do
+    while waited_under "$waited" "$timeout"; do
         win=$(window_id "$pid")
         if [ -n "$win" ]; then printf '%s' "$win"; return 0; fi
         for child in $(pgrep -P "$pid" 2>/dev/null); do
@@ -192,7 +218,7 @@ window_has_focus() {
 require_focus() {
     local win="$1" waited=0
     xdotool windowactivate --sync "$win" >/dev/null 2>&1
-    while [ "$(printf '%.0f' "$waited")" -lt "$FOCUS_TIMEOUT" ]; do
+    while waited_under "$waited" "$FOCUS_TIMEOUT"; do
         window_has_focus "$win" && return 0
         xdotool windowactivate "$win" >/dev/null 2>&1
         sleep "$POLL_INTERVAL"
@@ -284,7 +310,7 @@ exit_fullscreen_if_set() {
     focus_page_content "$win"
     xdotool key --clearmodifiers F11 >/dev/null 2>&1
     local waited=0
-    while [ "$(printf '%.0f' "$waited")" -lt 6 ]; do
+    while waited_under "$waited" 6; do
         is_fullscreen "$win" || { note "left fullscreen"; return 0; }
         sleep "$POLL_INTERVAL"
         waited=$(awk "BEGIN{print $waited + $POLL_INTERVAL}")
@@ -402,7 +428,7 @@ not found|network protocol error|secure connection failed"
 #: loading keeps retitling.  Returns the settled title.
 wait_for_title_to_settle() {
     local win="$1" timeout="${2:-15}" previous="" current="" stable=0 waited=0
-    while [ "$(printf '%.0f' "$waited")" -lt "$timeout" ]; do
+    while waited_under "$waited" "$timeout"; do
         current=$(window_name "$win")
         if [ -n "$current" ] && [ "$current" = "$previous" ]; then
             stable=$((stable + 1))
@@ -421,7 +447,7 @@ wait_for_title_to_settle() {
 #: Uses the quiet read, so it never cancels a load in progress.
 wait_for_url_match() {
     local win="$1" pattern="$2" timeout="${3:-20}" url="" waited=0
-    while [ "$(printf '%.0f' "$waited")" -lt "$timeout" ]; do
+    while waited_under "$waited" "$timeout"; do
         url=$(copy_address_bar_quiet "$win" 5) || url=""
         if [ -n "$url" ] && printf '%s' "$url" | grep -qE "$pattern"; then
             printf '%s' "$url"
@@ -466,7 +492,7 @@ _copy_with_nonce() {
         xdotool key --clearmodifiers "$key" >/dev/null 2>&1
         sleep 0.25
     done
-    while [ "$(printf '%.0f' "$waited")" -lt "$timeout" ]; do
+    while waited_under "$waited" "$timeout"; do
         current=$(_get_clipboard)
         if [ "$current" != "$nonce" ]; then
             printf '%s' "$current"

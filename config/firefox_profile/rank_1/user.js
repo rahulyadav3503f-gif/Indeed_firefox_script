@@ -26,4 +26,4 @@ user_pref("browser.cache.memory.enable", true);
 user_pref("browser.cache.memory.capacity", 65536);
 user_pref("browser.sessionstore.interval", 600000);
 user_pref("places.history.enabled", false);
-user_pref("browser.download.dir", "/home/ubuntu/new_indeed_script/Temp_Data/rank_1");
+user_pref("browser.download.dir", "/home/abhinav/rahul1/rahul_new_indeed_script/Indeed_firefox_script/Temp_Data/rank_1");

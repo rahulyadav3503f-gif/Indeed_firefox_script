@@ -1,0 +1,1143 @@
+2026-11-09 20:49:33 [xvfb] :105 is already up
+2026-11-09 20:49:33   display         : :105 (Xvfb, 1920x1080x24)
+2026-11-09 20:49:33 ========================================================================
+2026-11-09 20:49:33 NEW INDEED COLLECTOR -- Firefox / xdotool / xclip
+2026-11-09 20:49:33 ========================================================================
+2026-11-09 20:49:33   roles+cities : vendor/ (local, authoritative) -- new_mylib.py md5 5e06a7d1, target_audience_roles.py md5 54b25400
+  row builder  : /home/abhinav/rahul1/indeed_scrapper (read-only, 32-column schema)  [stand-ins: gtts, psutil]
+2026-11-09 20:49:33   rank            : 3 of 5
+2026-11-09 20:49:33   keywords        : 1264
+2026-11-09 20:49:33     target-audience : 200  (15.8% of the plan)
+2026-11-09 20:49:33     fresher/other   : 1064  (84.2%)
+2026-11-09 20:49:33     departments     : 116
+2026-11-09 20:49:33   cities (all)    : 110
+2026-11-09 20:49:33   cities (rank 3) : 23  -> Vapi, Bharuch, Kochi, Cochin ...
+2026-11-09 20:49:33   excel columns   : 32
+2026-11-09 20:49:33   output          : /home/abhinav/rahul1/rahul_new_indeed_script/Indeed_firefox_script/Excel_Data/rank_3
+2026-11-09 20:49:33   temp            : /home/abhinav/rahul1/rahul_new_indeed_script/Indeed_firefox_script/Temp_Data/rank_3
+2026-11-09 20:49:33   checkpoint      : /home/abhinav/rahul1/rahul_new_indeed_script/Indeed_firefox_script/config/checkpoints/checkpoint_rank_3.json
+2026-11-09 20:49:33   loop            : city-outer, keyword-inner (brief section 8)
+2026-11-09 20:49:33   delays          : 10s before close, 10s before next card
+2026-11-09 20:49:33   night rest      : disabled
+2026-11-09 20:49:33   work period     : 3.7-4.2 h, then a 30-60 min break
+2026-11-09 20:49:33   page ceiling    : 4 listing page(s) per keyword+city
+2026-11-09 20:49:33   unique target   : 100 distinct jobs EXAMINED per keyword+city
+2026-11-09 20:49:33   TOTAL COMPLETE CYCLE : 0   (cities finished this crawl cycle: 0/23)
+2026-11-09 20:49:33 ========================================================================
+2026-11-09 20:49:33   search mode    : form
+2026-11-09 20:49:33       $ /home/abhinav/rahul1/rahul_new_indeed_script/Indeed_firefox_script/shell_scripts/open_firefox.sh --profile /home/abhinav/rahul1/rahul_new_indeed_script/Indeed_firefox_script/config/firefox_profile/rank_3 --url https://in.indeed.com --state-file /home/abhinav/rahul1/rahul_new_indeed_script/Indeed_firefox_script/Temp_Data/rank_3/browser_window.json --expect-host indeed --download-dir /home/abhinav/rahul1/rahul_new_indeed_script/Indeed_firefox_script/Temp_Data/rank_3 --window-size 1845x1046 --window-pos 0,34
+2026-11-09 20:49:42         [open_firefox] pre-existing Firefox windows (never touched): none
+2026-11-09 20:49:42         [open_firefox] display=:105 xauthority=unset
+2026-11-09 20:49:42         [open_firefox] launch mode: direct (firefox)
+2026-11-09 20:49:42         [open_firefox] firefox pid=67825
+2026-11-09 20:49:42         [open_firefox] window_id=6291499 name=Mozilla Firefox
+2026-11-09 20:49:42         [open_firefox] window geometry set on attempt 1: 1845x1046+10+96
+2026-11-09 20:49:42         [open_firefox] normal window: 1845x1046+10+96 (asked for 1845x1046+0+34)
+2026-11-09 20:49:42         [open_firefox] address bar: https://in.indeed.com/
+2026-11-09 20:49:42         [open_firefox] ready
+2026-11-09 20:49:42         -> exit 0 in 8.8s (window_id=6291499 fullscreen=no access_denied=no verified=yes)
+2026-11-09 20:49:42    window landed at +10+96, not the +0+34 it was asked for: clicks shifted by (+10,+62) to match
+2026-11-09 20:49:42    browser ready: pid=67825 window=6291499 fullscreen=no
+2026-11-09 20:49:42 
+========================================================================
+2026-11-09 20:49:42 CRAWL CYCLE 1 | CITY 1/23: Vapi   (keywords 1..1264)
+2026-11-09 20:49:42 TOTAL COMPLETE CYCLE SO FAR: 0
+2026-11-09 20:49:42 ========================================================================
+2026-11-09 20:49:42 
+  [cycle 1 | city 1/23 Vapi | keyword 1/1264 Product Consultant | worked 8s]
+2026-11-09 20:49:42 
+  [page 1/4] Product Consultant @ Vapi  (start=0)
+2026-11-09 20:49:42       $ /home/abhinav/rahul1/rahul_new_indeed_script/Indeed_firefox_script/shell_scripts/search_jobs.sh --window 6291499 --keyword 'Product Consultant' --city Vapi --base-url https://in.indeed.com --mode form --what-xy 710,302 --where-xy 1110,302
+2026-11-09 20:50:11         [search_jobs] input guard passed; address bar reads: https://in.indeed.com/
+2026-11-09 20:50:11         [search_jobs] waiting 7.0s for the page to settle before typing
+2026-11-09 20:50:11         [search_jobs] form search: 'Product Consultant' in 'Vapi'
+2026-11-09 20:50:11         [search_jobs] clicking the keyword box at 710,302
+2026-11-09 20:50:11         [search_jobs] clicking the city box at 1110,302
+2026-11-09 20:50:11         [search_jobs] both fields confirmed; submitting (focus is still in the city box)
+2026-11-09 20:50:11         [search_jobs] waiting 10.0s for the results to load
+2026-11-09 20:50:11         [search_jobs] window title: 7 Product Consultant Jobs and Vacancies in Vapi, Gujarat - 9 November 2026 | Indeed — Mozilla Firefox
+2026-11-09 20:50:11         [search_jobs] address bar after search: https://in.indeed.com/jobs?q=Product+Consultant&l=Vapi&from=searchOnHP&vjk=09af3effa4a6c678
+2026-11-09 20:50:11         [search_jobs] Indeed pre-selected job 09af3effa4a6c678
+2026-11-09 20:50:11         [search_jobs] search submitted: Product Consultant @ Vapi -- going to the first job card
+2026-11-09 20:50:11         -> exit 0 in 28.6s (access_denied=no verified=not_checked)
+2026-11-09 20:50:11       $ /home/abhinav/rahul1/rahul_new_indeed_script/Indeed_firefox_script/shell_scripts/select_job_card.sh --window 6291499 --index 0 --card-x 440 --start-y 502 --max-y 1062 --probe-step 55 --probe-limit 12 --scroll-rounds 6 --marker vjk= --preselected-key 09af3effa4a6c678
+2026-11-09 20:50:12         [select_job_card] before selection: key='09af3effa4a6c678'
+2026-11-09 20:50:12         [select_job_card] job 09af3effa4a6c678 is already selected by Indeed -- taking it without clicking
+2026-11-09 20:50:12         -> exit 0 in 1.9s 
+2026-11-09 20:50:12       selected job 09af3effa4a6c678 (preselected)
+2026-11-09 20:50:12       $ /home/abhinav/rahul1/rahul_new_indeed_script/Indeed_firefox_script/shell_scripts/save_page_source.sh --window 6291499 --out /home/abhinav/rahul1/rahul_new_indeed_script/Indeed_firefox_script/Temp_Data/rank_3/job_3_0000.html --expect-url vjk=09af3effa4a6c678
+2026-11-09 20:50:24         [save_page_source] source will be taken from: https://in.indeed.com/jobs?q=Product+Consultant&l=Vapi&from=searchOnHP&vjk=09af3effa4a6c678
+2026-11-09 20:50:24         [save_page_source] page identity confirmed against --expect-url
+2026-11-09 20:50:24         [save_page_source] pressing Ctrl+U
+2026-11-09 20:50:24         [save_page_source] view-source tab confirmed: view-source:https://in.indeed.com/jobs?q=Product+Consultant&l=Vapi&from=searchOnHP&vjk=09af3effa4a6c678
+2026-11-09 20:50:24         [save_page_source] pressing Ctrl+S
+2026-11-09 20:50:24         [save_page_source] save dialog window=6291559 name='Save As'
+2026-11-09 20:50:24         [save_page_source] saved 885829 bytes to /home/abhinav/rahul1/rahul_new_indeed_script/Indeed_firefox_script/Temp_Data/rank_3/job_3_0000.html
+2026-11-09 20:50:24         -> exit 0 in 11.7s 
+2026-11-09 20:50:24    saved source: /home/abhinav/rahul1/rahul_new_indeed_script/Indeed_firefox_script/Temp_Data/rank_3/job_3_0000.html (885829 bytes)
+2026-11-09 20:50:24       [fields] 24 of 32 columns filled   (isolation: job-card, 8 job(s) in the document)
+2026-11-09 20:50:24          job_id                 c6b0601821477f87df6250303168c5d4
+2026-11-09 20:50:24          internal_job_id        09af3effa4a6c678
+2026-11-09 20:50:24          job_title              Industrial Safety & Instrumentation – Sales & Application Eng...   [job-pane]
+2026-11-09 20:50:24          company_name           Innovative Engineering Products   [job-pane]
+2026-11-09 20:50:24          company_website        (blank -- not stated in the saved page)
+2026-11-09 20:50:24          job_description        Job Type: Full Time  Job Location: Vapi Mumbai Jamnagar Mundr...
+2026-11-09 20:50:24          skills_required        (blank -- not stated in the saved page)
+2026-11-09 20:50:24          experience_required    Job Type: Full Time Job Location: Vapi Mumbai Jamnagar Mundra...
+2026-11-09 20:50:24          experience_min_years   2
+2026-11-09 20:50:24          experience_max_years   3
+2026-11-09 20:50:24          salary_min             (blank -- not stated in the saved page)
+2026-11-09 20:50:24          salary_max             (blank -- not stated in the saved page)
+2026-11-09 20:50:24          salary_currency        (blank -- not stated in the saved page)
+2026-11-09 20:50:24          location               Vapi, Gujarat   [job-pane]
+2026-11-09 20:50:24          city                   Vapi
+2026-11-09 20:50:24          state                  Gujarat
+2026-11-09 20:50:24          country                India
+2026-11-09 20:50:24          remote_type            Onsite
+2026-11-09 20:50:24          employment_type        Full-time   [job-card]
+2026-11-09 20:50:24          job_category           IT Department
+2026-11-09 20:50:24          posted_date            2026-09-01 05:00:00   [job-card]
+2026-11-09 20:50:24          expiry_date            (blank -- not stated in the saved page)
+2026-11-09 20:50:24          application_deadline   (blank -- not stated in the saved page)
+2026-11-09 20:50:24          apply_url              https://in.indeed.com/jobs?q=Product+Consultant&l=Vapi&from=s...   [address-bar]
+2026-11-09 20:50:24          updated_at             2026-09-01 05:00:00
+2026-11-09 20:50:24          fetched_at             2026-11-09 15:20:24
+2026-11-09 20:50:24          is_fake                (blank -- not stated in the saved page)
+2026-11-09 20:50:24          is_active              True
+2026-11-09 20:50:24          source_url             https://in.indeed.com/jobs?q=Product+Consultant&l=Vapi&from=s...   [address-bar]
+2026-11-09 20:50:24          source_type            job_portal
+2026-11-09 20:50:24          source_platform        Indeed
+2026-11-09 20:50:24          score                  30
+2026-11-09 20:50:24       [note] isolated job 09af3effa4a6c678 from a document describing 8 jobs
+2026-11-09 20:50:24       [note] no JSON-LD JobPosting in the source
+2026-11-09 20:50:24       [note] visible-text parsing skipped: the job was isolated from a 8-job document, so page text belongs to other jobs too
+2026-11-09 20:50:24       [parse] not stated by the page: experience_required, skills_required
+2026-11-09 20:50:24 
+2026-11-09 20:50:24 [Rank 3/5]
+2026-11-09 20:50:24 
+2026-11-09 20:50:24 City: Vapi   (1/23)
+2026-11-09 20:50:24 Keyword: Product Consultant   (1/1264)
+2026-11-09 20:50:24 
+2026-11-09 20:50:24 Page: 1
+2026-11-09 20:50:24 Job: 0
+2026-11-09 20:50:24 
+2026-11-09 20:50:24 Job Title: Industrial Safety & Instrumentation – Sales & Application Engineer
+2026-11-09 20:50:24 Company: Innovative Engineering Products
+2026-11-09 20:50:24 
+2026-11-09 20:50:24 Extraction: SUCCESS (4778 chars of description)
+2026-11-09 20:50:24 Duplicate: NO
+2026-11-09 20:50:24 Excel Save: SUCCESS (current_data.xlsx rows=1)
+2026-11-09 20:50:24 
+2026-11-09 20:50:24 Jobs Examined: 1   Extracted: 1   Saved: 1   Duplicates: 0   Rejected: 0   Failures: 0
+2026-11-09 20:50:24 
+2026-11-09 20:50:24 Total Complete Cycle: 0
+2026-11-09 20:50:24 
+2026-11-09 20:50:24 Next: Job Card 1
+2026-11-09 20:50:24 ------------------------------------------------------------
+2026-11-09 20:50:24    waiting 10.0s before closing the source tab
+2026-11-09 20:50:34       $ /home/abhinav/rahul1/rahul_new_indeed_script/Indeed_firefox_script/shell_scripts/close_source_tab.sh --window 6291499
+2026-11-09 20:50:39         [close_source_tab] address bar before closing: view-source:https://in.indeed.com/jobs?q=Product+Consultant&l=Vapi&from=searchOnHP&vjk=09af3effa4a6c678
+2026-11-09 20:50:39         [close_source_tab] closing the view-source tab
+2026-11-09 20:50:39         [close_source_tab] back on: https://in.indeed.com/jobs?q=Product+Consultant&l=Vapi&from=searchOnHP&vjk=09af3effa4a6c678
+2026-11-09 20:50:39         -> exit 0 in 4.6s (closed=yes)
+2026-11-09 20:50:39    waiting 10.0s before the next job card
+2026-11-09 20:50:49       $ /home/abhinav/rahul1/rahul_new_indeed_script/Indeed_firefox_script/shell_scripts/select_job_card.sh --window 6291499 --index 1 --card-x 440 --start-y 502 --max-y 1062 --probe-step 55 --probe-limit 12 --scroll-rounds 6 --marker vjk= --seen-keys 09af3effa4a6c678
+2026-11-09 20:51:22         [select_job_card] before selection: key='09af3effa4a6c678'
+2026-11-09 20:51:22         [select_job_card] probe 1: clicking 440,502
+2026-11-09 20:51:22         [select_job_card]    same job still selected -- the click was inside the current card
+2026-11-09 20:51:22         [select_job_card] probe 2: clicking 440,557
+2026-11-09 20:51:22         [select_job_card]    same job still selected -- the click was inside the current card
+2026-11-09 20:51:22         [select_job_card] probe 3: clicking 440,612
+2026-11-09 20:51:22         [select_job_card]    same job still selected -- the click was inside the current card
+2026-11-09 20:51:22         [select_job_card] probe 4: clicking 440,667
+2026-11-09 20:51:22         [select_job_card]    same job still selected -- the click was inside the current card
+2026-11-09 20:51:22         [select_job_card] probe 5: clicking 440,722
+2026-11-09 20:51:22         [select_job_card]    same job still selected -- the click was inside the current card
+2026-11-09 20:51:22         [select_job_card] probe 6: clicking 440,777
+2026-11-09 20:51:22         [select_job_card] card index 1 selected: job 5808f173973339e5 at y=777 after 6 probe(s) and 0 scroll(s)
+2026-11-09 20:51:22         -> exit 0 in 33.2s 
+2026-11-09 20:51:22       selected job 5808f173973339e5 (click)
+2026-11-09 20:51:22       $ /home/abhinav/rahul1/rahul_new_indeed_script/Indeed_firefox_script/shell_scripts/save_page_source.sh --window 6291499 --out /home/abhinav/rahul1/rahul_new_indeed_script/Indeed_firefox_script/Temp_Data/rank_3/job_3_0001.html --expect-url vjk=5808f173973339e5
+2026-11-09 20:51:34         [save_page_source] source will be taken from: https://in.indeed.com/jobs?q=Product+Consultant&l=Vapi&from=searchOnHP&vjk=5808f173973339e5
+2026-11-09 20:51:34         [save_page_source] page identity confirmed against --expect-url
+2026-11-09 20:51:34         [save_page_source] pressing Ctrl+U
+2026-11-09 20:51:34         [save_page_source] view-source tab confirmed: view-source:https://in.indeed.com/jobs?q=Product+Consultant&l=Vapi&from=searchOnHP&vjk=5808f173973339e5
+2026-11-09 20:51:34         [save_page_source] pressing Ctrl+S
+2026-11-09 20:51:34         [save_page_source] save dialog window=6294724 name='Save As'
+2026-11-09 20:51:34         [save_page_source] saved 856927 bytes to /home/abhinav/rahul1/rahul_new_indeed_script/Indeed_firefox_script/Temp_Data/rank_3/job_3_0001.html
+2026-11-09 20:51:34         -> exit 0 in 11.8s 
+2026-11-09 20:51:34    saved source: /home/abhinav/rahul1/rahul_new_indeed_script/Indeed_firefox_script/Temp_Data/rank_3/job_3_0001.html (856927 bytes)
+2026-11-09 20:51:34       [fields] 22 of 32 columns filled   (isolation: job-card, 8 job(s) in the document)
+2026-11-09 20:51:34          job_id                 d92eb23f8046ccf2b1fade0c7fb0df87
+2026-11-09 20:51:34          internal_job_id        5808f173973339e5
+2026-11-09 20:51:34          job_title              Resident Sales Engineer   [job-pane]
+2026-11-09 20:51:34          company_name           PRANAM Engineering   [job-pane]
+2026-11-09 20:51:34          company_website        (blank -- not stated in the saved page)
+2026-11-09 20:51:34          job_description        The Resident Sales Engineer is embedded with a strategic cust...
+2026-11-09 20:51:34          skills_required        (blank -- not stated in the saved page)
+2026-11-09 20:51:34          experience_required    The Resident Sales Engineer is embedded with a strategic cust...
+2026-11-09 20:51:34          experience_min_years   (blank -- not stated in the saved page)
+2026-11-09 20:51:34          experience_max_years   (blank -- not stated in the saved page)
+2026-11-09 20:51:34          salary_min             (blank -- not stated in the saved page)
+2026-11-09 20:51:34          salary_max             (blank -- not stated in the saved page)
+2026-11-09 20:51:34          salary_currency        (blank -- not stated in the saved page)
+2026-11-09 20:51:34          location               Vapi, Gujarat   [job-pane]
+2026-11-09 20:51:34          city                   Vapi
+2026-11-09 20:51:34          state                  Gujarat
+2026-11-09 20:51:34          country                India
+2026-11-09 20:51:34          remote_type            Onsite
+2026-11-09 20:51:34          employment_type        Full-time
+2026-11-09 20:51:34          job_category           IT Department
+2026-11-09 20:51:34          posted_date            2022-07-11 05:00:00   [job-card]
+2026-11-09 20:51:34          expiry_date            (blank -- not stated in the saved page)
+2026-11-09 20:51:34          application_deadline   (blank -- not stated in the saved page)
+2026-11-09 20:51:34          apply_url              https://in.indeed.com/jobs?q=Product+Consultant&l=Vapi&from=s...   [address-bar]
+2026-11-09 20:51:34          updated_at             2022-07-11 05:00:00
+2026-11-09 20:51:34          fetched_at             2026-11-09 15:21:34
+2026-11-09 20:51:34          is_fake                (blank -- not stated in the saved page)
+2026-11-09 20:51:34          is_active              True
+2026-11-09 20:51:34          source_url             https://in.indeed.com/jobs?q=Product+Consultant&l=Vapi&from=s...   [address-bar]
+2026-11-09 20:51:34          source_type            job_portal
+2026-11-09 20:51:34          source_platform        Indeed
+2026-11-09 20:51:34          score                  30
+2026-11-09 20:51:34       [note] isolated job 5808f173973339e5 from a document describing 8 jobs
+2026-11-09 20:51:34       [note] no JSON-LD JobPosting in the source
+2026-11-09 20:51:34       [note] visible-text parsing skipped: the job was isolated from a 8-job document, so page text belongs to other jobs too
+2026-11-09 20:51:34       [parse] not stated by the page: experience_required, skills_required
+2026-11-09 20:51:34 
+2026-11-09 20:51:34 [Rank 3/5]
+2026-11-09 20:51:34 
+2026-11-09 20:51:34 City: Vapi   (1/23)
+2026-11-09 20:51:34 Keyword: Product Consultant   (1/1264)
+2026-11-09 20:51:34 
+2026-11-09 20:51:34 Page: 1
+2026-11-09 20:51:34 Job: 1
+2026-11-09 20:51:34 
+2026-11-09 20:51:34 Job Title: Resident Sales Engineer
+2026-11-09 20:51:34 Company: PRANAM Engineering
+2026-11-09 20:51:34 
+2026-11-09 20:51:34 Extraction: SUCCESS (1118 chars of description)
+2026-11-09 20:51:34 Duplicate: NO
+2026-11-09 20:51:34 Excel Save: SUCCESS (current_data.xlsx rows=2)
+2026-11-09 20:51:34 
+2026-11-09 20:51:34 Jobs Examined: 2   Extracted: 2   Saved: 2   Duplicates: 0   Rejected: 0   Failures: 0
+2026-11-09 20:51:34 
+2026-11-09 20:51:34 Total Complete Cycle: 0
+2026-11-09 20:51:34 
+2026-11-09 20:51:34 Next: Job Card 2
+2026-11-09 20:51:34 ------------------------------------------------------------
+2026-11-09 20:51:34    waiting 10.0s before closing the source tab
+2026-11-09 20:51:44       $ /home/abhinav/rahul1/rahul_new_indeed_script/Indeed_firefox_script/shell_scripts/close_source_tab.sh --window 6291499
+2026-11-09 20:51:49         [close_source_tab] address bar before closing: view-source:https://in.indeed.com/jobs?q=Product+Consultant&l=Vapi&from=searchOnHP&vjk=5808f173973339e5
+2026-11-09 20:51:49         [close_source_tab] closing the view-source tab
+2026-11-09 20:51:49         [close_source_tab] back on: https://in.indeed.com/jobs?q=Product+Consultant&l=Vapi&from=searchOnHP&vjk=5808f173973339e5
+2026-11-09 20:51:49         -> exit 0 in 4.7s (closed=yes)
+2026-11-09 20:51:49    waiting 10.0s before the next job card
+2026-11-09 20:51:59       $ /home/abhinav/rahul1/rahul_new_indeed_script/Indeed_firefox_script/shell_scripts/select_job_card.sh --window 6291499 --index 2 --card-x 440 --start-y 837 --max-y 1062 --probe-step 55 --probe-limit 12 --scroll-rounds 6 --marker vjk= --seen-keys 09af3effa4a6c678,5808f173973339e5
+2026-11-09 20:52:11         [select_job_card] before selection: key='5808f173973339e5'
+2026-11-09 20:52:11         [select_job_card] probe 1: clicking 440,837
+2026-11-09 20:52:11         [select_job_card]    same job still selected -- the click was inside the current card
+2026-11-09 20:52:11         [select_job_card] probe 2: clicking 440,892
+2026-11-09 20:52:11         [select_job_card] card index 2 selected: job ab2a7cd954d011e7 at y=892 after 2 probe(s) and 0 scroll(s)
+2026-11-09 20:52:11         -> exit 0 in 12.3s 
+2026-11-09 20:52:11       selected job ab2a7cd954d011e7 (click)
+2026-11-09 20:52:11       $ /home/abhinav/rahul1/rahul_new_indeed_script/Indeed_firefox_script/shell_scripts/save_page_source.sh --window 6291499 --out /home/abhinav/rahul1/rahul_new_indeed_script/Indeed_firefox_script/Temp_Data/rank_3/job_3_0002.html --expect-url vjk=ab2a7cd954d011e7
+2026-11-09 20:52:23         [save_page_source] source will be taken from: https://in.indeed.com/jobs?q=Product+Consultant&l=Vapi&from=searchOnHP&vjk=ab2a7cd954d011e7
+2026-11-09 20:52:23         [save_page_source] page identity confirmed against --expect-url
+2026-11-09 20:52:23         [save_page_source] pressing Ctrl+U
+2026-11-09 20:52:23         [save_page_source] view-source tab confirmed: view-source:https://in.indeed.com/jobs?q=Product+Consultant&l=Vapi&from=searchOnHP&vjk=ab2a7cd954d011e7
+2026-11-09 20:52:23         [save_page_source] pressing Ctrl+S
+2026-11-09 20:52:23         [save_page_source] save dialog window=6299160 name='Save As'
+2026-11-09 20:52:23         [save_page_source] saved 864983 bytes to /home/abhinav/rahul1/rahul_new_indeed_script/Indeed_firefox_script/Temp_Data/rank_3/job_3_0002.html
+2026-11-09 20:52:23         -> exit 0 in 12.1s 
+2026-11-09 20:52:23    saved source: /home/abhinav/rahul1/rahul_new_indeed_script/Indeed_firefox_script/Temp_Data/rank_3/job_3_0002.html (864983 bytes)
+2026-11-09 20:52:23       [fields] 25 of 32 columns filled   (isolation: job-card, 8 job(s) in the document)
+2026-11-09 20:52:23          job_id                 05fa3305ecc15e878d88b805dd0370e9
+2026-11-09 20:52:23          internal_job_id        ab2a7cd954d011e7
+2026-11-09 20:52:23          job_title              Sr. Sales Engineer   [job-pane]
+2026-11-09 20:52:23          company_name           Chilton Refrigeration Pvt. Ltd   [job-pane]
+2026-11-09 20:52:23          company_website        (blank -- not stated in the saved page)
+2026-11-09 20:52:23          job_description        Company Description Chilton Refrigeration Pvt Ltd is a Kochi,...
+2026-11-09 20:52:23          skills_required        (blank -- not stated in the saved page)
+2026-11-09 20:52:23          experience_required    Company Description Chilton Refrigeration Pvt Ltd is a Kochi,...
+2026-11-09 20:52:23          experience_min_years   (blank -- not stated in the saved page)
+2026-11-09 20:52:23          experience_max_years   (blank -- not stated in the saved page)
+2026-11-09 20:52:23          salary_min             40000
+2026-11-09 20:52:23          salary_max             60000
+2026-11-09 20:52:23          salary_currency        INR   [job-card]
+2026-11-09 20:52:23          location               Vapi, Gujarat   [job-pane]
+2026-11-09 20:52:23          city                   Vapi
+2026-11-09 20:52:23          state                  Gujarat
+2026-11-09 20:52:23          country                India
+2026-11-09 20:52:23          remote_type            Onsite
+2026-11-09 20:52:23          employment_type        Full-time   [job-card]
+2026-11-09 20:52:23          job_category           IT Department
+2026-11-09 20:52:23          posted_date            2026-10-13 05:00:00   [job-card]
+2026-11-09 20:52:23          expiry_date            (blank -- not stated in the saved page)
+2026-11-09 20:52:23          application_deadline   (blank -- not stated in the saved page)
+2026-11-09 20:52:23          apply_url              https://in.indeed.com/jobs?q=Product+Consultant&l=Vapi&from=s...   [address-bar]
+2026-11-09 20:52:23          updated_at             2026-10-13 05:00:00
+2026-11-09 20:52:23          fetched_at             2026-11-09 15:22:23
+2026-11-09 20:52:23          is_fake                (blank -- not stated in the saved page)
+2026-11-09 20:52:23          is_active              True
+2026-11-09 20:52:23          source_url             https://in.indeed.com/jobs?q=Product+Consultant&l=Vapi&from=s...   [address-bar]
+2026-11-09 20:52:23          source_type            job_portal
+2026-11-09 20:52:23          source_platform        Indeed
+2026-11-09 20:52:23          score                  30
+2026-11-09 20:52:23       [note] isolated job ab2a7cd954d011e7 from a document describing 8 jobs
+2026-11-09 20:52:23       [note] no JSON-LD JobPosting in the source
+2026-11-09 20:52:23       [note] visible-text parsing skipped: the job was isolated from a 8-job document, so page text belongs to other jobs too
+2026-11-09 20:52:23       [parse] not stated by the page: experience_required, skills_required
+2026-11-09 20:52:23 
+2026-11-09 20:52:23 [Rank 3/5]
+2026-11-09 20:52:23 
+2026-11-09 20:52:23 City: Vapi   (1/23)
+2026-11-09 20:52:23 Keyword: Product Consultant   (1/1264)
+2026-11-09 20:52:23 
+2026-11-09 20:52:23 Page: 1
+2026-11-09 20:52:23 Job: 2
+2026-11-09 20:52:23 
+2026-11-09 20:52:23 Job Title: Sr. Sales Engineer
+2026-11-09 20:52:23 Company: Chilton Refrigeration Pvt. Ltd
+2026-11-09 20:52:23 
+2026-11-09 20:52:23 Extraction: SUCCESS (2339 chars of description)
+2026-11-09 20:52:23 Duplicate: NO
+2026-11-09 20:52:23 Excel Save: SKIPPED (non_it (non-IT title: Sr. Sales Engineer))
+2026-11-09 20:52:23 
+2026-11-09 20:52:23 Jobs Examined: 3   Extracted: 3   Saved: 2   Duplicates: 0   Rejected: 1   Failures: 0
+2026-11-09 20:52:23 
+2026-11-09 20:52:23 Total Complete Cycle: 0
+2026-11-09 20:52:23 
+2026-11-09 20:52:23 Next: Job Card 3
+2026-11-09 20:52:23 ------------------------------------------------------------
+2026-11-09 20:52:23    waiting 10.0s before closing the source tab
+2026-11-09 20:52:33       $ /home/abhinav/rahul1/rahul_new_indeed_script/Indeed_firefox_script/shell_scripts/close_source_tab.sh --window 6291499
+2026-11-09 20:52:38         [close_source_tab] address bar before closing: view-source:https://in.indeed.com/jobs?q=Product+Consultant&l=Vapi&from=searchOnHP&vjk=ab2a7cd954d011e7
+2026-11-09 20:52:38         [close_source_tab] closing the view-source tab
+2026-11-09 20:52:38         [close_source_tab] back on: https://in.indeed.com/jobs?q=Product+Consultant&l=Vapi&from=searchOnHP&vjk=ab2a7cd954d011e7
+2026-11-09 20:52:38         -> exit 0 in 4.9s (closed=yes)
+2026-11-09 20:52:38    waiting 10.0s before the next job card
+2026-11-09 20:52:48       $ /home/abhinav/rahul1/rahul_new_indeed_script/Indeed_firefox_script/shell_scripts/select_job_card.sh --window 6291499 --index 3 --card-x 440 --start-y 952 --max-y 1062 --probe-step 55 --probe-limit 12 --scroll-rounds 6 --marker vjk= --seen-keys 09af3effa4a6c678,5808f173973339e5,ab2a7cd954d011e7
+2026-11-09 20:53:51         [select_job_card] before selection: key='ab2a7cd954d011e7'
+2026-11-09 20:53:51         [select_job_card] probe 1: clicking 440,952
+2026-11-09 20:53:51         [select_job_card]    same job still selected -- the click was inside the current card
+2026-11-09 20:53:51         [select_job_card] probe 2: clicking 440,1007
+2026-11-09 20:53:51         [select_job_card]    same job still selected -- the click was inside the current card
+2026-11-09 20:53:51         [select_job_card] probe 3: clicking 440,1062
+2026-11-09 20:53:51         [select_job_card]    same job still selected -- the click was inside the current card
+2026-11-09 20:53:51         [select_job_card] nothing new above y=1117 -- scrolling the results list (round 1/6)
+2026-11-09 20:53:51         [select_job_card] probe 4: clicking 440,320
+2026-11-09 20:53:51         [select_job_card]    job 09af3effa4a6c678 has already been handled -- probing past it
+2026-11-09 20:53:51         [select_job_card] probe 5: clicking 440,375
+2026-11-09 20:53:51         [select_job_card]    job 5808f173973339e5 has already been handled -- probing past it
+2026-11-09 20:53:51         [select_job_card] probe 6: clicking 440,430
+2026-11-09 20:53:51         [select_job_card]    same job still selected -- the click was inside the current card
+2026-11-09 20:53:51         [select_job_card] probe 7: clicking 440,485
+2026-11-09 20:53:51         [select_job_card]    job ab2a7cd954d011e7 has already been handled -- probing past it
+2026-11-09 20:53:51         [select_job_card] probe 8: clicking 440,540
+2026-11-09 20:53:51         [select_job_card]    same job still selected -- the click was inside the current card
+2026-11-09 20:53:51         [select_job_card] probe 9: clicking 440,595
+2026-11-09 20:53:51         [select_job_card]    same job still selected -- the click was inside the current card
+2026-11-09 20:53:51         [select_job_card] probe 10: clicking 440,650
+2026-11-09 20:53:51         [select_job_card]    same job still selected -- the click was inside the current card
+2026-11-09 20:53:51         [select_job_card] probe 11: clicking 440,705
+2026-11-09 20:53:51         [select_job_card] card index 3 selected: job c9e3292a4cd96c94 at y=705 after 11 probe(s) and 1 scroll(s)
+2026-11-09 20:53:51         -> exit 0 in 62.4s 
+2026-11-09 20:53:51       selected job c9e3292a4cd96c94 (click, after scrolling)
+2026-11-09 20:53:51       $ /home/abhinav/rahul1/rahul_new_indeed_script/Indeed_firefox_script/shell_scripts/save_page_source.sh --window 6291499 --out /home/abhinav/rahul1/rahul_new_indeed_script/Indeed_firefox_script/Temp_Data/rank_3/job_3_0003.html --expect-url vjk=c9e3292a4cd96c94
+2026-11-09 20:54:03         [save_page_source] source will be taken from: https://in.indeed.com/jobs?q=Product+Consultant&l=Vapi&from=searchOnHP&vjk=c9e3292a4cd96c94
+2026-11-09 20:54:03         [save_page_source] page identity confirmed against --expect-url
+2026-11-09 20:54:03         [save_page_source] pressing Ctrl+U
+2026-11-09 20:54:03         [save_page_source] view-source tab confirmed: view-source:https://in.indeed.com/jobs?q=Product+Consultant&l=Vapi&from=searchOnHP&vjk=c9e3292a4cd96c94
+2026-11-09 20:54:03         [save_page_source] pressing Ctrl+S
+2026-11-09 20:54:03         [save_page_source] save dialog window=6302925 name='Save As'
+2026-11-09 20:54:03         [save_page_source] saved 872350 bytes to /home/abhinav/rahul1/rahul_new_indeed_script/Indeed_firefox_script/Temp_Data/rank_3/job_3_0003.html
+2026-11-09 20:54:03         -> exit 0 in 12.1s 
+2026-11-09 20:54:03    saved source: /home/abhinav/rahul1/rahul_new_indeed_script/Indeed_firefox_script/Temp_Data/rank_3/job_3_0003.html (872350 bytes)
+2026-11-09 20:54:03       [fields] 27 of 32 columns filled   (isolation: job-card, 8 job(s) in the document)
+2026-11-09 20:54:03          job_id                 fdc06a5ae0f3b21ae001b722a31a2501
+2026-11-09 20:54:03          internal_job_id        c9e3292a4cd96c94
+2026-11-09 20:54:03          job_title              Sales & Application Engineer   [job-pane]
+2026-11-09 20:54:03          company_name           IMPETUS TECHNO SOLUTIONS LLP   [job-pane]
+2026-11-09 20:54:03          company_website        (blank -- not stated in the saved page)
+2026-11-09 20:54:03          job_description        Job Type: On-Field Sales Role — Daily Customer Visits Require...
+2026-11-09 20:54:03          skills_required        (blank -- not stated in the saved page)
+2026-11-09 20:54:03          experience_required    Job Type: On-Field Sales Role — Daily Customer Visits Require...
+2026-11-09 20:54:03          experience_min_years   1
+2026-11-09 20:54:03          experience_max_years   2
+2026-11-09 20:54:03          salary_min             20000
+2026-11-09 20:54:03          salary_max             25000
+2026-11-09 20:54:03          salary_currency        INR   [job-card]
+2026-11-09 20:54:03          location               Vapi, Gujarat   [job-pane]
+2026-11-09 20:54:03          city                   Vapi
+2026-11-09 20:54:03          state                  Gujarat
+2026-11-09 20:54:03          country                India
+2026-11-09 20:54:03          remote_type            Onsite
+2026-11-09 20:54:03          employment_type        Full-time   [job-card]
+2026-11-09 20:54:03          job_category           IT Department
+2026-11-09 20:54:03          posted_date            2026-08-05 05:00:00   [job-card]
+2026-11-09 20:54:03          expiry_date            (blank -- not stated in the saved page)
+2026-11-09 20:54:03          application_deadline   (blank -- not stated in the saved page)
+2026-11-09 20:54:03          apply_url              https://in.indeed.com/jobs?q=Product+Consultant&l=Vapi&from=s...   [address-bar]
+2026-11-09 20:54:03          updated_at             2026-08-05 05:00:00
+2026-11-09 20:54:03          fetched_at             2026-11-09 15:24:03
+2026-11-09 20:54:03          is_fake                (blank -- not stated in the saved page)
+2026-11-09 20:54:03          is_active              True
+2026-11-09 20:54:03          source_url             https://in.indeed.com/jobs?q=Product+Consultant&l=Vapi&from=s...   [address-bar]
+2026-11-09 20:54:03          source_type            job_portal
+2026-11-09 20:54:03          source_platform        Indeed
+2026-11-09 20:54:03          score                  30
+2026-11-09 20:54:03       [note] isolated job c9e3292a4cd96c94 from a document describing 8 jobs
+2026-11-09 20:54:03       [note] no JSON-LD JobPosting in the source
+2026-11-09 20:54:03       [note] visible-text parsing skipped: the job was isolated from a 8-job document, so page text belongs to other jobs too
+2026-11-09 20:54:03 
+2026-11-09 20:54:03 [Rank 3/5]
+2026-11-09 20:54:03 
+2026-11-09 20:54:03 City: Vapi   (1/23)
+2026-11-09 20:54:03 Keyword: Product Consultant   (1/1264)
+2026-11-09 20:54:03 
+2026-11-09 20:54:03 Page: 1
+2026-11-09 20:54:03 Job: 3
+2026-11-09 20:54:03 
+2026-11-09 20:54:03 Job Title: Sales & Application Engineer
+2026-11-09 20:54:03 Company: IMPETUS TECHNO SOLUTIONS LLP
+2026-11-09 20:54:03 
+2026-11-09 20:54:03 Extraction: SUCCESS (1897 chars of description)
+2026-11-09 20:54:03 Duplicate: NO
+2026-11-09 20:54:03 Excel Save: SUCCESS (current_data.xlsx rows=3)
+2026-11-09 20:54:03 
+2026-11-09 20:54:03 Jobs Examined: 4   Extracted: 4   Saved: 3   Duplicates: 0   Rejected: 1   Failures: 0
+2026-11-09 20:54:03 
+2026-11-09 20:54:03 Total Complete Cycle: 0
+2026-11-09 20:54:03 
+2026-11-09 20:54:03 Next: Job Card 4
+2026-11-09 20:54:03 ------------------------------------------------------------
+2026-11-09 20:54:03    waiting 10.0s before closing the source tab
+2026-11-09 20:54:13       $ /home/abhinav/rahul1/rahul_new_indeed_script/Indeed_firefox_script/shell_scripts/close_source_tab.sh --window 6291499
+2026-11-09 20:54:18         [close_source_tab] address bar before closing: view-source:https://in.indeed.com/jobs?q=Product+Consultant&l=Vapi&from=searchOnHP&vjk=c9e3292a4cd96c94
+2026-11-09 20:54:18         [close_source_tab] closing the view-source tab
+2026-11-09 20:54:18         [close_source_tab] back on: https://in.indeed.com/jobs?q=Product+Consultant&l=Vapi&from=searchOnHP&vjk=c9e3292a4cd96c94
+2026-11-09 20:54:18         -> exit 0 in 4.8s (closed=yes)
+2026-11-09 20:54:18    waiting 10.0s before the next job card
+2026-11-09 20:54:28       $ /home/abhinav/rahul1/rahul_new_indeed_script/Indeed_firefox_script/shell_scripts/select_job_card.sh --window 6291499 --index 4 --card-x 440 --start-y 502 --max-y 1062 --probe-step 55 --probe-limit 12 --scroll-rounds 6 --marker vjk= --seen-keys 09af3effa4a6c678,5808f173973339e5,ab2a7cd954d011e7,c9e3292a4cd96c94
+2026-11-09 20:55:12         [select_job_card] before selection: key='c9e3292a4cd96c94'
+2026-11-09 20:55:12         [select_job_card] probe 1: clicking 440,502
+2026-11-09 20:55:12         [select_job_card]    job ab2a7cd954d011e7 has already been handled -- probing past it
+2026-11-09 20:55:12         [select_job_card] probe 2: clicking 440,557
+2026-11-09 20:55:12         [select_job_card]    same job still selected -- the click was inside the current card
+2026-11-09 20:55:12         [select_job_card] probe 3: clicking 440,612
+2026-11-09 20:55:12         [select_job_card]    same job still selected -- the click was inside the current card
+2026-11-09 20:55:12         [select_job_card] probe 4: clicking 440,667
+2026-11-09 20:55:12         [select_job_card]    job c9e3292a4cd96c94 has already been handled -- probing past it
+2026-11-09 20:55:12         [select_job_card] probe 5: clicking 440,722
+2026-11-09 20:55:12         [select_job_card]    same job still selected -- the click was inside the current card
+2026-11-09 20:55:12         [select_job_card] probe 6: clicking 440,777
+2026-11-09 20:55:12         [select_job_card]    same job still selected -- the click was inside the current card
+2026-11-09 20:55:12         [select_job_card] probe 7: clicking 440,832
+2026-11-09 20:55:12         [select_job_card]    same job still selected -- the click was inside the current card
+2026-11-09 20:55:12         [select_job_card] probe 8: clicking 440,887
+2026-11-09 20:55:12         [select_job_card] card index 4 selected: job ebadf68aa5a23bcd at y=887 after 8 probe(s) and 0 scroll(s)
+2026-11-09 20:55:12         -> exit 0 in 43.8s 
+2026-11-09 20:55:12       selected job ebadf68aa5a23bcd (click)
+2026-11-09 20:55:12       $ /home/abhinav/rahul1/rahul_new_indeed_script/Indeed_firefox_script/shell_scripts/save_page_source.sh --window 6291499 --out /home/abhinav/rahul1/rahul_new_indeed_script/Indeed_firefox_script/Temp_Data/rank_3/job_3_0004.html --expect-url vjk=ebadf68aa5a23bcd
+2026-11-09 20:55:24         [save_page_source] source will be taken from: https://in.indeed.com/jobs?q=Product+Consultant&l=Vapi&from=searchOnHP&vjk=ebadf68aa5a23bcd
+2026-11-09 20:55:24         [save_page_source] page identity confirmed against --expect-url
+2026-11-09 20:55:24         [save_page_source] pressing Ctrl+U
+2026-11-09 20:55:24         [save_page_source] view-source tab confirmed: view-source:https://in.indeed.com/jobs?q=Product+Consultant&l=Vapi&from=searchOnHP&vjk=ebadf68aa5a23bcd
+2026-11-09 20:55:24         [save_page_source] pressing Ctrl+S
+2026-11-09 20:55:24         [save_page_source] save dialog window=6306986 name='Save As'
+2026-11-09 20:55:24         [save_page_source] saved 875031 bytes to /home/abhinav/rahul1/rahul_new_indeed_script/Indeed_firefox_script/Temp_Data/rank_3/job_3_0004.html
+2026-11-09 20:55:24         -> exit 0 in 11.9s 
+2026-11-09 20:55:24    saved source: /home/abhinav/rahul1/rahul_new_indeed_script/Indeed_firefox_script/Temp_Data/rank_3/job_3_0004.html (875031 bytes)
+2026-11-09 20:55:24       [fields] 26 of 32 columns filled   (isolation: job-card, 8 job(s) in the document)
+2026-11-09 20:55:24          job_id                 b01dd41edf10d60f2492f504d2e6c943
+2026-11-09 20:55:24          internal_job_id        ebadf68aa5a23bcd
+2026-11-09 20:55:24          job_title              Sales Engineer   [job-pane]
+2026-11-09 20:55:24          company_name           BNB Industries pvt ltd   [job-pane]
+2026-11-09 20:55:24          company_website        (blank -- not stated in the saved page)
+2026-11-09 20:55:24          job_description        Sales Engineer Experience: 1–5 Years Qualification: B.E./B.Te...
+2026-11-09 20:55:24          skills_required        (blank -- not stated in the saved page)
+2026-11-09 20:55:24          experience_required    Sales Engineer Experience: 1–5 Years Qualification: B.E./B.Te...
+2026-11-09 20:55:24          experience_min_years   1
+2026-11-09 20:55:24          experience_max_years   5
+2026-11-09 20:55:24          salary_min             400000
+2026-11-09 20:55:24          salary_max             600000
+2026-11-09 20:55:24          salary_currency        INR   [job-card]
+2026-11-09 20:55:24          location               Silvassa, Daman and Diu   [job-pane]
+2026-11-09 20:55:24          city                   Silvassa
+2026-11-09 20:55:24          state                  (blank -- not stated in the saved page)
+2026-11-09 20:55:24          country                India
+2026-11-09 20:55:24          remote_type            Onsite
+2026-11-09 20:55:24          employment_type        Full-time   [job-card]
+2026-11-09 20:55:24          job_category           IT Department
+2026-11-09 20:55:24          posted_date            2026-10-29 05:00:00   [job-card]
+2026-11-09 20:55:24          expiry_date            (blank -- not stated in the saved page)
+2026-11-09 20:55:24          application_deadline   (blank -- not stated in the saved page)
+2026-11-09 20:55:24          apply_url              https://in.indeed.com/jobs?q=Product+Consultant&l=Vapi&from=s...   [address-bar]
+2026-11-09 20:55:24          updated_at             2026-10-29 05:00:00
+2026-11-09 20:55:24          fetched_at             2026-11-09 15:25:24
+2026-11-09 20:55:24          is_fake                (blank -- not stated in the saved page)
+2026-11-09 20:55:24          is_active              True
+2026-11-09 20:55:24          source_url             https://in.indeed.com/jobs?q=Product+Consultant&l=Vapi&from=s...   [address-bar]
+2026-11-09 20:55:24          source_type            job_portal
+2026-11-09 20:55:24          source_platform        Indeed
+2026-11-09 20:55:24          score                  30
+2026-11-09 20:55:24       [note] isolated job ebadf68aa5a23bcd from a document describing 8 jobs
+2026-11-09 20:55:24       [note] no JSON-LD JobPosting in the source
+2026-11-09 20:55:24       [note] visible-text parsing skipped: the job was isolated from a 8-job document, so page text belongs to other jobs too
+2026-11-09 20:55:24       [parse] not stated by the page: skills_required
+2026-11-09 20:55:24 
+2026-11-09 20:55:24 [Rank 3/5]
+2026-11-09 20:55:24 
+2026-11-09 20:55:24 City: Vapi   (1/23)
+2026-11-09 20:55:24 Keyword: Product Consultant   (1/1264)
+2026-11-09 20:55:24 
+2026-11-09 20:55:24 Page: 1
+2026-11-09 20:55:24 Job: 4
+2026-11-09 20:55:24 
+2026-11-09 20:55:24 Job Title: Sales Engineer
+2026-11-09 20:55:24 Company: BNB Industries pvt ltd
+2026-11-09 20:55:24 
+2026-11-09 20:55:24 Extraction: SUCCESS (2259 chars of description)
+2026-11-09 20:55:24 Duplicate: NO
+2026-11-09 20:55:24 Excel Save: SUCCESS (current_data.xlsx rows=4)
+2026-11-09 20:55:24 
+2026-11-09 20:55:24 Jobs Examined: 5   Extracted: 5   Saved: 4   Duplicates: 0   Rejected: 1   Failures: 0
+2026-11-09 20:55:24 
+2026-11-09 20:55:24 Total Complete Cycle: 0
+2026-11-09 20:55:24 
+2026-11-09 20:55:24 Next: Job Card 5
+2026-11-09 20:55:24 ------------------------------------------------------------
+2026-11-09 20:55:24    waiting 10.0s before closing the source tab
+2026-11-09 20:55:34       $ /home/abhinav/rahul1/rahul_new_indeed_script/Indeed_firefox_script/shell_scripts/close_source_tab.sh --window 6291499
+2026-11-09 20:55:38         [close_source_tab] address bar before closing: view-source:https://in.indeed.com/jobs?q=Product+Consultant&l=Vapi&from=searchOnHP&vjk=ebadf68aa5a23bcd
+2026-11-09 20:55:38         [close_source_tab] closing the view-source tab
+2026-11-09 20:55:38         [close_source_tab] back on: https://in.indeed.com/jobs?q=Product+Consultant&l=Vapi&from=searchOnHP&vjk=ebadf68aa5a23bcd
+2026-11-09 20:55:38         -> exit 0 in 4.6s (closed=yes)
+2026-11-09 20:55:38    waiting 10.0s before the next job card
+2026-11-09 20:55:48       $ /home/abhinav/rahul1/rahul_new_indeed_script/Indeed_firefox_script/shell_scripts/select_job_card.sh --window 6291499 --index 5 --card-x 440 --start-y 947 --max-y 1062 --probe-step 55 --probe-limit 12 --scroll-rounds 6 --marker vjk= --seen-keys 09af3effa4a6c678,5808f173973339e5,ab2a7cd954d011e7,c9e3292a4cd96c94,ebadf68aa5a23bcd
+2026-11-09 20:56:06         [select_job_card] before selection: key='ebadf68aa5a23bcd'
+2026-11-09 20:56:06         [select_job_card] probe 1: clicking 440,947
+2026-11-09 20:56:06         [select_job_card]    same job still selected -- the click was inside the current card
+2026-11-09 20:56:06         [select_job_card] probe 2: clicking 440,1002
+2026-11-09 20:56:06         [select_job_card]    same job still selected -- the click was inside the current card
+2026-11-09 20:56:06         [select_job_card] probe 3: clicking 440,1057
+2026-11-09 20:56:06         [select_job_card] card index 5 selected: job cc135b9c5d4bd391 at y=1057 after 3 probe(s) and 0 scroll(s)
+2026-11-09 20:56:06         -> exit 0 in 17.6s 
+2026-11-09 20:56:06       selected job cc135b9c5d4bd391 (click)
+2026-11-09 20:56:06       $ /home/abhinav/rahul1/rahul_new_indeed_script/Indeed_firefox_script/shell_scripts/save_page_source.sh --window 6291499 --out /home/abhinav/rahul1/rahul_new_indeed_script/Indeed_firefox_script/Temp_Data/rank_3/job_3_0005.html --expect-url vjk=cc135b9c5d4bd391
+2026-11-09 20:56:18         [save_page_source] source will be taken from: https://in.indeed.com/jobs?q=Product+Consultant&l=Vapi&from=searchOnHP&vjk=cc135b9c5d4bd391
+2026-11-09 20:56:18         [save_page_source] page identity confirmed against --expect-url
+2026-11-09 20:56:18         [save_page_source] pressing Ctrl+U
+2026-11-09 20:56:18         [save_page_source] view-source tab confirmed: view-source:https://in.indeed.com/jobs?q=Product+Consultant&l=Vapi&from=searchOnHP&vjk=cc135b9c5d4bd391
+2026-11-09 20:56:18         [save_page_source] pressing Ctrl+S
+2026-11-09 20:56:18         [save_page_source] save dialog window=6310760 name='Save As'
+2026-11-09 20:56:18         [save_page_source] saved 863299 bytes to /home/abhinav/rahul1/rahul_new_indeed_script/Indeed_firefox_script/Temp_Data/rank_3/job_3_0005.html
+2026-11-09 20:56:18         -> exit 0 in 12.0s 
+2026-11-09 20:56:18    saved source: /home/abhinav/rahul1/rahul_new_indeed_script/Indeed_firefox_script/Temp_Data/rank_3/job_3_0005.html (863299 bytes)
+2026-11-09 20:56:18       [fields] 25 of 32 columns filled   (isolation: job-card, 8 job(s) in the document)
+2026-11-09 20:56:18          job_id                 df5abfd4c34b0ff40ceb812fc8208656
+2026-11-09 20:56:18          internal_job_id        cc135b9c5d4bd391
+2026-11-09 20:56:18          job_title              Sales Engineer Trainee   [job-pane]
+2026-11-09 20:56:18          company_name           AIC TECHNIK PVT LTD   [job-pane]
+2026-11-09 20:56:18          company_website        (blank -- not stated in the saved page)
+2026-11-09 20:56:18          job_description        Excellent verbal and written communication skills are a must....
+2026-11-09 20:56:18          skills_required        (blank -- not stated in the saved page)
+2026-11-09 20:56:18          experience_required    Excellent verbal and written communication skills are a must....
+2026-11-09 20:56:18          experience_min_years   (blank -- not stated in the saved page)
+2026-11-09 20:56:18          experience_max_years   (blank -- not stated in the saved page)
+2026-11-09 20:56:18          salary_min             13000
+2026-11-09 20:56:18          salary_max             40000
+2026-11-09 20:56:18          salary_currency        INR   [job-card]
+2026-11-09 20:56:18          location               Vapi, Gujarat   [job-pane]
+2026-11-09 20:56:18          city                   Vapi
+2026-11-09 20:56:18          state                  Gujarat
+2026-11-09 20:56:18          country                India
+2026-11-09 20:56:18          remote_type            Onsite
+2026-11-09 20:56:18          employment_type        Full-time   [job-card]
+2026-11-09 20:56:18          job_category           IT Department
+2026-11-09 20:56:18          posted_date            2026-10-16 05:00:00   [job-card]
+2026-11-09 20:56:18          expiry_date            (blank -- not stated in the saved page)
+2026-11-09 20:56:18          application_deadline   (blank -- not stated in the saved page)
+2026-11-09 20:56:18          apply_url              https://in.indeed.com/jobs?q=Product+Consultant&l=Vapi&from=s...   [address-bar]
+2026-11-09 20:56:18          updated_at             2026-10-16 05:00:00
+2026-11-09 20:56:18          fetched_at             2026-11-09 15:26:18
+2026-11-09 20:56:18          is_fake                (blank -- not stated in the saved page)
+2026-11-09 20:56:18          is_active              True
+2026-11-09 20:56:18          source_url             https://in.indeed.com/jobs?q=Product+Consultant&l=Vapi&from=s...   [address-bar]
+2026-11-09 20:56:18          source_type            job_portal
+2026-11-09 20:56:18          source_platform        Indeed
+2026-11-09 20:56:18          score                  30
+2026-11-09 20:56:18       [note] isolated job cc135b9c5d4bd391 from a document describing 8 jobs
+2026-11-09 20:56:18       [note] no JSON-LD JobPosting in the source
+2026-11-09 20:56:18       [note] visible-text parsing skipped: the job was isolated from a 8-job document, so page text belongs to other jobs too
+2026-11-09 20:56:18       [parse] not stated by the page: skills_required
+2026-11-09 20:56:18 
+2026-11-09 20:56:18 [Rank 3/5]
+2026-11-09 20:56:18 
+2026-11-09 20:56:18 City: Vapi   (1/23)
+2026-11-09 20:56:18 Keyword: Product Consultant   (1/1264)
+2026-11-09 20:56:18 
+2026-11-09 20:56:18 Page: 1
+2026-11-09 20:56:18 Job: 5
+2026-11-09 20:56:18 
+2026-11-09 20:56:18 Job Title: Sales Engineer Trainee
+2026-11-09 20:56:18 Company: AIC TECHNIK PVT LTD
+2026-11-09 20:56:18 
+2026-11-09 20:56:18 Extraction: SUCCESS (987 chars of description)
+2026-11-09 20:56:18 Duplicate: NO
+2026-11-09 20:56:18 Excel Save: SUCCESS (current_data.xlsx rows=5)
+2026-11-09 20:56:18 
+2026-11-09 20:56:18 Jobs Examined: 6   Extracted: 6   Saved: 5   Duplicates: 0   Rejected: 1   Failures: 0
+2026-11-09 20:56:18 
+2026-11-09 20:56:18 Total Complete Cycle: 0
+2026-11-09 20:56:18 
+2026-11-09 20:56:18 Next: Job Card 6
+2026-11-09 20:56:18 ------------------------------------------------------------
+2026-11-09 20:56:18    waiting 10.0s before closing the source tab
+2026-11-09 20:56:28       $ /home/abhinav/rahul1/rahul_new_indeed_script/Indeed_firefox_script/shell_scripts/close_source_tab.sh --window 6291499
+2026-11-09 20:56:33         [close_source_tab] address bar before closing: view-source:https://in.indeed.com/jobs?q=Product+Consultant&l=Vapi&from=searchOnHP&vjk=cc135b9c5d4bd391
+2026-11-09 20:56:33         [close_source_tab] closing the view-source tab
+2026-11-09 20:56:33         [close_source_tab] back on: https://in.indeed.com/jobs?q=Product+Consultant&l=Vapi&from=searchOnHP&vjk=cc135b9c5d4bd391
+2026-11-09 20:56:33         -> exit 0 in 4.8s (closed=yes)
+2026-11-09 20:56:33    waiting 10.0s before the next job card
+2026-11-09 20:56:43       $ /home/abhinav/rahul1/rahul_new_indeed_script/Indeed_firefox_script/shell_scripts/select_job_card.sh --window 6291499 --index 6 --card-x 440 --start-y 1117 --max-y 1062 --probe-step 55 --probe-limit 12 --scroll-rounds 6 --marker vjk= --seen-keys 09af3effa4a6c678,5808f173973339e5,ab2a7cd954d011e7,c9e3292a4cd96c94,ebadf68aa5a23bcd,cc135b9c5d4bd391
+2026-11-09 20:57:45         [select_job_card] before selection: key='cc135b9c5d4bd391'
+2026-11-09 20:57:45         [select_job_card] nothing new above y=1117 -- scrolling the results list (round 1/6)
+2026-11-09 20:57:45         [select_job_card] probe 1: clicking 440,320
+2026-11-09 20:57:45         [select_job_card]    job c9e3292a4cd96c94 has already been handled -- probing past it
+2026-11-09 20:57:45         [select_job_card] probe 2: clicking 440,375
+2026-11-09 20:57:45         [select_job_card]    same job still selected -- the click was inside the current card
+2026-11-09 20:57:45         [select_job_card] probe 3: clicking 440,430
+2026-11-09 20:57:45         [select_job_card]    same job still selected -- the click was inside the current card
+2026-11-09 20:57:45         [select_job_card] probe 4: clicking 440,485
+2026-11-09 20:57:45         [select_job_card]    job ebadf68aa5a23bcd has already been handled -- probing past it
+2026-11-09 20:57:45         [select_job_card] probe 5: clicking 440,540
+2026-11-09 20:57:45         [select_job_card]    same job still selected -- the click was inside the current card
+2026-11-09 20:57:45         [select_job_card] probe 6: clicking 440,595
+2026-11-09 20:57:45         [select_job_card]    same job still selected -- the click was inside the current card
+2026-11-09 20:57:45         [select_job_card] probe 7: clicking 440,650
+2026-11-09 20:57:45         [select_job_card]    job cc135b9c5d4bd391 has already been handled -- probing past it
+2026-11-09 20:57:45         [select_job_card] probe 8: clicking 440,705
+2026-11-09 20:57:45         [select_job_card]    same job still selected -- the click was inside the current card
+2026-11-09 20:57:45         [select_job_card] probe 9: clicking 440,760
+2026-11-09 20:57:45         [select_job_card]    same job still selected -- the click was inside the current card
+2026-11-09 20:57:45         [select_job_card] probe 10: clicking 440,815
+2026-11-09 20:57:45         [select_job_card]    same job still selected -- the click was inside the current card
+2026-11-09 20:57:45         [select_job_card] probe 11: clicking 440,870
+2026-11-09 20:57:45         [select_job_card] card index 6 selected: job 84c8f40078f062f0 at y=870 after 11 probe(s) and 1 scroll(s)
+2026-11-09 20:57:45         -> exit 0 in 62.1s 
+2026-11-09 20:57:45       selected job 84c8f40078f062f0 (click, after scrolling)
+2026-11-09 20:57:45       $ /home/abhinav/rahul1/rahul_new_indeed_script/Indeed_firefox_script/shell_scripts/save_page_source.sh --window 6291499 --out /home/abhinav/rahul1/rahul_new_indeed_script/Indeed_firefox_script/Temp_Data/rank_3/job_3_0006.html --expect-url vjk=84c8f40078f062f0
+2026-11-09 20:57:57         [save_page_source] source will be taken from: https://in.indeed.com/jobs?q=Product+Consultant&l=Vapi&from=searchOnHP&vjk=84c8f40078f062f0
+2026-11-09 20:57:57         [save_page_source] page identity confirmed against --expect-url
+2026-11-09 20:57:57         [save_page_source] pressing Ctrl+U
+2026-11-09 20:57:57         [save_page_source] view-source tab confirmed: view-source:https://in.indeed.com/jobs?q=Product+Consultant&l=Vapi&from=searchOnHP&vjk=84c8f40078f062f0
+2026-11-09 20:57:57         [save_page_source] pressing Ctrl+S
+2026-11-09 20:57:57         [save_page_source] save dialog window=6316766 name='Save As'
+2026-11-09 20:57:57         [save_page_source] saved 866673 bytes to /home/abhinav/rahul1/rahul_new_indeed_script/Indeed_firefox_script/Temp_Data/rank_3/job_3_0006.html
+2026-11-09 20:57:57         -> exit 0 in 11.9s 
+2026-11-09 20:57:57    saved source: /home/abhinav/rahul1/rahul_new_indeed_script/Indeed_firefox_script/Temp_Data/rank_3/job_3_0006.html (866673 bytes)
+2026-11-09 20:57:57       [fields] 27 of 32 columns filled   (isolation: job-card, 8 job(s) in the document)
+2026-11-09 20:57:57          job_id                 9e6ccce982c605d800f8fc1a84ccf789
+2026-11-09 20:57:57          internal_job_id        84c8f40078f062f0
+2026-11-09 20:57:57          job_title              Sales Engineer-Electrical & Power-Vapi-4.8 LPA   [job-pane]
+2026-11-09 20:57:57          company_name           RISHI JOBS   [job-pane]
+2026-11-09 20:57:57          company_website        (blank -- not stated in the saved page)
+2026-11-09 20:57:57          job_description        Profile: Sales Engineer  Experience:  2-4 years of experience...
+2026-11-09 20:57:57          skills_required        (blank -- not stated in the saved page)
+2026-11-09 20:57:57          experience_required    Profile: Sales Engineer Experience: 2-4 years of experience i...
+2026-11-09 20:57:57          experience_min_years   2
+2026-11-09 20:57:57          experience_max_years   4
+2026-11-09 20:57:57          salary_min             3
+2026-11-09 20:57:57          salary_max             4
+2026-11-09 20:57:57          salary_currency        INR   [job-card]
+2026-11-09 20:57:57          location               Vapi, Gujarat   [job-pane]
+2026-11-09 20:57:57          city                   Vapi
+2026-11-09 20:57:57          state                  Gujarat
+2026-11-09 20:57:57          country                India
+2026-11-09 20:57:57          remote_type            Onsite
+2026-11-09 20:57:57          employment_type        Full-time
+2026-11-09 20:57:57          job_category           IT Department
+2026-11-09 20:57:57          posted_date            2026-08-13 05:00:00   [job-card]
+2026-11-09 20:57:57          expiry_date            (blank -- not stated in the saved page)
+2026-11-09 20:57:57          application_deadline   (blank -- not stated in the saved page)
+2026-11-09 20:57:57          apply_url              https://in.indeed.com/jobs?q=Product+Consultant&l=Vapi&from=s...   [address-bar]
+2026-11-09 20:57:57          updated_at             2026-08-13 05:00:00
+2026-11-09 20:57:57          fetched_at             2026-11-09 15:27:57
+2026-11-09 20:57:57          is_fake                (blank -- not stated in the saved page)
+2026-11-09 20:57:57          is_active              True
+2026-11-09 20:57:57          source_url             https://in.indeed.com/jobs?q=Product+Consultant&l=Vapi&from=s...   [address-bar]
+2026-11-09 20:57:57          source_type            job_portal
+2026-11-09 20:57:57          source_platform        Indeed
+2026-11-09 20:57:57          score                  30
+2026-11-09 20:57:57       [note] isolated job 84c8f40078f062f0 from a document describing 8 jobs
+2026-11-09 20:57:57       [note] no JSON-LD JobPosting in the source
+2026-11-09 20:57:57       [note] visible-text parsing skipped: the job was isolated from a 8-job document, so page text belongs to other jobs too
+2026-11-09 20:57:57       [parse] not stated by the page: skills_required
+2026-11-09 20:57:57 
+2026-11-09 20:57:57 [Rank 3/5]
+2026-11-09 20:57:57 
+2026-11-09 20:57:57 City: Vapi   (1/23)
+2026-11-09 20:57:57 Keyword: Product Consultant   (1/1264)
+2026-11-09 20:57:57 
+2026-11-09 20:57:57 Page: 1
+2026-11-09 20:57:57 Job: 6
+2026-11-09 20:57:57 
+2026-11-09 20:57:57 Job Title: Sales Engineer-Electrical & Power-Vapi-4.8 LPA
+2026-11-09 20:57:57 Company: RISHI JOBS
+2026-11-09 20:57:57 
+2026-11-09 20:57:57 Extraction: SUCCESS (1695 chars of description)
+2026-11-09 20:57:57 Duplicate: NO
+2026-11-09 20:57:57 Excel Save: SUCCESS (current_data.xlsx rows=6)
+2026-11-09 20:57:57 
+2026-11-09 20:57:57 Jobs Examined: 7   Extracted: 7   Saved: 6   Duplicates: 0   Rejected: 1   Failures: 0
+2026-11-09 20:57:57 
+2026-11-09 20:57:57 Total Complete Cycle: 0
+2026-11-09 20:57:57 
+2026-11-09 20:57:57 Next: Job Card 7
+2026-11-09 20:57:57 ------------------------------------------------------------
+2026-11-09 20:57:57    waiting 10.0s before closing the source tab
+2026-11-09 20:58:07       $ /home/abhinav/rahul1/rahul_new_indeed_script/Indeed_firefox_script/shell_scripts/close_source_tab.sh --window 6291499
+2026-11-09 20:58:12         [close_source_tab] address bar before closing: view-source:https://in.indeed.com/jobs?q=Product+Consultant&l=Vapi&from=searchOnHP&vjk=84c8f40078f062f0
+2026-11-09 20:58:12         [close_source_tab] closing the view-source tab
+2026-11-09 20:58:12         [close_source_tab] back on: https://in.indeed.com/jobs?q=Product+Consultant&l=Vapi&from=searchOnHP&vjk=84c8f40078f062f0
+2026-11-09 20:58:12         -> exit 0 in 4.8s (closed=yes)
+2026-11-09 20:58:12    waiting 10.0s before the next job card
+2026-11-09 20:58:22       $ /home/abhinav/rahul1/rahul_new_indeed_script/Indeed_firefox_script/shell_scripts/select_job_card.sh --window 6291499 --index 7 --card-x 440 --start-y 502 --max-y 1062 --probe-step 55 --probe-limit 12 --scroll-rounds 6 --marker vjk= --seen-keys 09af3effa4a6c678,5808f173973339e5,ab2a7cd954d011e7,c9e3292a4cd96c94,ebadf68aa5a23bcd,cc135b9c5d4bd391,84c8f40078f062f0
+2026-11-09 21:01:22   [WARN] card 7 failed: select_job_card.sh did not finish within 180s. The desktop may be blocked by a modal dialog or a pointer grab. | stage=select_job_card.sh
+2026-11-09 21:01:22       $ /home/abhinav/rahul1/rahul_new_indeed_script/Indeed_firefox_script/shell_scripts/select_job_card.sh --window 6291499 --index 8 --card-x 440 --start-y 502 --max-y 1062 --probe-step 55 --probe-limit 12 --scroll-rounds 6 --marker vjk= --seen-keys 09af3effa4a6c678,5808f173973339e5,ab2a7cd954d011e7,c9e3292a4cd96c94,ebadf68aa5a23bcd,cc135b9c5d4bd391,84c8f40078f062f0
+2026-11-09 21:04:22   [WARN] card 8 failed: select_job_card.sh did not finish within 180s. The desktop may be blocked by a modal dialog or a pointer grab. | stage=select_job_card.sh
+2026-11-09 21:04:22       $ /home/abhinav/rahul1/rahul_new_indeed_script/Indeed_firefox_script/shell_scripts/select_job_card.sh --window 6291499 --index 9 --card-x 440 --start-y 502 --max-y 1062 --probe-step 55 --probe-limit 12 --scroll-rounds 6 --marker vjk= --seen-keys 09af3effa4a6c678,5808f173973339e5,ab2a7cd954d011e7,c9e3292a4cd96c94,ebadf68aa5a23bcd,cc135b9c5d4bd391,84c8f40078f062f0
+2026-11-09 21:07:22 
+[STOP] signal 2. Checkpoint saved -- re-run to continue from here.
+2026-11-09 22:46:54 [xvfb] :105 is already up
+2026-11-09 22:46:54   display         : :105 (Xvfb, 1920x1080x24)
+2026-11-09 22:46:54 ========================================================================
+2026-11-09 22:46:54 NEW INDEED COLLECTOR -- Firefox / xdotool / xclip
+2026-11-09 22:46:54 ========================================================================
+2026-11-09 22:46:54   roles+cities : vendor/ (local, authoritative) -- new_mylib.py md5 5e06a7d1, target_audience_roles.py md5 54b25400
+  row builder  : /home/abhinav/rahul1/indeed_scrapper (read-only, 32-column schema)  [stand-ins: gtts, psutil]
+2026-11-09 22:46:54   rank            : 3 of 5
+2026-11-09 22:46:54   keywords        : 1264
+2026-11-09 22:46:54     target-audience : 200  (15.8% of the plan)
+2026-11-09 22:46:54     fresher/other   : 1064  (84.2%)
+2026-11-09 22:46:54     departments     : 116
+2026-11-09 22:46:54   cities (all)    : 110
+2026-11-09 22:46:54   cities (rank 3) : 23  -> Vapi, Bharuch, Kochi, Cochin ...
+2026-11-09 22:46:54   excel columns   : 32
+2026-11-09 22:46:54   output          : /home/abhinav/rahul1/rahul_new_indeed_script/Indeed_firefox_script/Excel_Data/rank_3
+2026-11-09 22:46:54   temp            : /home/abhinav/rahul1/rahul_new_indeed_script/Indeed_firefox_script/Temp_Data/rank_3
+2026-11-09 22:46:54   checkpoint      : /home/abhinav/rahul1/rahul_new_indeed_script/Indeed_firefox_script/config/checkpoints/checkpoint_rank_3.json
+2026-11-09 22:46:54   loop            : city-outer, keyword-inner (brief section 8)
+2026-11-09 22:46:54   delays          : 10s before close, 10s before next card
+2026-11-09 22:46:54   night rest      : disabled
+2026-11-09 22:46:54   work period     : 3.7-4.2 h, then a 30-60 min break
+2026-11-09 22:46:54   page ceiling    : 4 listing page(s) per keyword+city
+2026-11-09 22:46:54   unique target   : 100 distinct jobs EXAMINED per keyword+city
+2026-11-09 22:46:54   TOTAL COMPLETE CYCLE : 0   (cities finished this crawl cycle: 0/23)
+2026-11-09 22:46:54 ========================================================================
+2026-11-09 22:46:54   search mode    : form
+2026-11-09 22:46:54       $ /home/abhinav/rahul1/rahul_new_indeed_script/Indeed_firefox_script/shell_scripts/open_firefox.sh --profile /home/abhinav/rahul1/rahul_new_indeed_script/Indeed_firefox_script/config/firefox_profile/rank_3 --url https://in.indeed.com --state-file /home/abhinav/rahul1/rahul_new_indeed_script/Indeed_firefox_script/Temp_Data/rank_3/browser_window.json --expect-host indeed --download-dir /home/abhinav/rahul1/rahul_new_indeed_script/Indeed_firefox_script/Temp_Data/rank_3 --window-size 1845x1046 --window-pos 0,34
+2026-11-09 22:47:03         [open_firefox] pre-existing Firefox windows (never touched): none
+2026-11-09 22:47:03         [open_firefox] display=:105 xauthority=unset
+2026-11-09 22:47:03         [open_firefox] launch mode: direct (firefox)
+2026-11-09 22:47:03         [open_firefox] firefox pid=86496
+2026-11-09 22:47:03         [open_firefox] window_id=4194347 name=Mozilla Firefox
+2026-11-09 22:47:03         [open_firefox] window geometry set on attempt 1: 1845x1046+10+96
+2026-11-09 22:47:03         [open_firefox] normal window: 1845x1046+10+96 (asked for 1845x1046+0+34)
+2026-11-09 22:47:03         [open_firefox] address bar: https://in.indeed.com/
+2026-11-09 22:47:03         [open_firefox] ERROR(10): the first page is an access refusal (title: 'Just a moment... — Mozilla Firefox'). Stopping: no retry, no identity change.
+2026-11-09 22:47:03         -> exit 10 in 8.4s (window_id=4194347 fullscreen=no access_denied=yes verified=yes)
+2026-11-09 22:47:03 
+[FAIL] the first page is an access refusal (title: 'Just a moment... — Mozilla Firefox'). Stopping: no retry, no identity change. | stage=open_firefox.sh | exit=10
+2026-11-09 22:47:03 
+2026-11-09 22:47:03 ========================================================================
+2026-11-09 22:47:03 RUN SUMMARY -- rank 3/5
+2026-11-09 22:47:03   examined 7 | saved 6 | duplicates 0 | rejected 1 | failures 3
+2026-11-09 22:47:03   TOTAL COMPLETE CYCLE : 0
+2026-11-09 22:47:03   cities finished this crawl cycle : 0/23
+2026-11-09 22:47:03   checkpoint : /home/abhinav/rahul1/rahul_new_indeed_script/Indeed_firefox_script/config/checkpoints/checkpoint_rank_3.json
+2026-11-09 22:47:03   excel      : /home/abhinav/rahul1/rahul_new_indeed_script/Indeed_firefox_script/Excel_Data/rank_3
+2026-11-09 22:47:03 ========================================================================
+2026-11-09 22:58:48 [xvfb] :105 is already up
+2026-11-09 22:58:48   display         : :105 (Xvfb, 1920x1080x24)
+2026-11-09 22:58:48 ========================================================================
+2026-11-09 22:58:48 NEW INDEED COLLECTOR -- Firefox / xdotool / xclip
+2026-11-09 22:58:48 ========================================================================
+2026-11-09 22:58:48   roles+cities : vendor/ (local, authoritative) -- new_mylib.py md5 5e06a7d1, target_audience_roles.py md5 54b25400
+  row builder  : /home/abhinav/rahul1/indeed_scrapper (read-only, 32-column schema)  [stand-ins: gtts, psutil]
+2026-11-09 22:58:48   rank            : 3 of 5
+2026-11-09 22:58:48   keywords        : 1264
+2026-11-09 22:58:48     target-audience : 200  (15.8% of the plan)
+2026-11-09 22:58:48     fresher/other   : 1064  (84.2%)
+2026-11-09 22:58:48     departments     : 116
+2026-11-09 22:58:48   cities (all)    : 110
+2026-11-09 22:58:48   cities (rank 3) : 23  -> Vapi, Bharuch, Kochi, Cochin ...
+2026-11-09 22:58:48   excel columns   : 32
+2026-11-09 22:58:48   output          : /home/abhinav/rahul1/rahul_new_indeed_script/Indeed_firefox_script/Excel_Data/rank_3
+2026-11-09 22:58:48   temp            : /home/abhinav/rahul1/rahul_new_indeed_script/Indeed_firefox_script/Temp_Data/rank_3
+2026-11-09 22:58:48   checkpoint      : /home/abhinav/rahul1/rahul_new_indeed_script/Indeed_firefox_script/config/checkpoints/checkpoint_rank_3.json
+2026-11-09 22:58:48   loop            : city-outer, keyword-inner (brief section 8)
+2026-11-09 22:58:48   delays          : 10s before close, 10s before next card
+2026-11-09 22:58:48   night rest      : disabled
+2026-11-09 22:58:48   work period     : 3.7-4.2 h, then a 30-60 min break
+2026-11-09 22:58:48   page ceiling    : 4 listing page(s) per keyword+city
+2026-11-09 22:58:48   unique target   : 100 distinct jobs EXAMINED per keyword+city
+2026-11-09 22:58:48   TOTAL COMPLETE CYCLE : 0   (cities finished this crawl cycle: 0/23)
+2026-11-09 22:58:48 ========================================================================
+2026-11-09 22:58:48   search mode    : form
+2026-11-09 22:58:48       $ /home/abhinav/rahul1/rahul_new_indeed_script/Indeed_firefox_script/shell_scripts/open_firefox.sh --profile /home/abhinav/rahul1/rahul_new_indeed_script/Indeed_firefox_script/config/firefox_profile/rank_3 --url https://in.indeed.com --state-file /home/abhinav/rahul1/rahul_new_indeed_script/Indeed_firefox_script/Temp_Data/rank_3/browser_window.json --expect-host indeed --download-dir /home/abhinav/rahul1/rahul_new_indeed_script/Indeed_firefox_script/Temp_Data/rank_3 --window-size 1845x1046 --window-pos 0,34
+2026-11-09 22:58:55         [open_firefox] pre-existing Firefox windows (never touched): 4194347 
+2026-11-09 22:58:55         [open_firefox] display=:105 xauthority=unset
+2026-11-09 22:58:55         [open_firefox] launch mode: direct (firefox)
+2026-11-09 22:58:55         [open_firefox] firefox pid=88913
+2026-11-09 22:58:55         [open_firefox] ERROR(3): Firefox opened the 'Close Firefox' dialog instead of a browser window: another Firefox is already using the profile /home/abhinav/rahul1/rahul_new_indeed_script/Indeed_firefox_script/config/firefox_profile/rank_3. Close that instance first, or reuse its window instead of launching a new one.
+2026-11-09 22:58:55         -> exit 3 in 6.9s 
+2026-11-09 22:58:55 
+[FAIL] Firefox opened the 'Close Firefox' dialog instead of a browser window: another Firefox is already using the profile /home/abhinav/rahul1/rahul_new_indeed_script/Indeed_firefox_script/config/firefox_profile/rank_3. Close that instance first, or reuse its window instead of launching a new one. | stage=open_firefox.sh | exit=3
+2026-11-09 22:58:55 
+2026-11-09 22:58:55 ========================================================================
+2026-11-09 22:58:55 RUN SUMMARY -- rank 3/5
+2026-11-09 22:58:55   examined 7 | saved 6 | duplicates 0 | rejected 1 | failures 4
+2026-11-09 22:58:55   TOTAL COMPLETE CYCLE : 0
+2026-11-09 22:58:55   cities finished this crawl cycle : 0/23
+2026-11-09 22:58:55   checkpoint : /home/abhinav/rahul1/rahul_new_indeed_script/Indeed_firefox_script/config/checkpoints/checkpoint_rank_3.json
+2026-11-09 22:58:55   excel      : /home/abhinav/rahul1/rahul_new_indeed_script/Indeed_firefox_script/Excel_Data/rank_3
+2026-11-09 22:58:55 ========================================================================
+2026-11-09 22:59:38 [xvfb] :105 is already up
+2026-11-09 22:59:38   display         : :105 (Xvfb, 1920x1080x24)
+2026-11-09 22:59:38 ========================================================================
+2026-11-09 22:59:38 NEW INDEED COLLECTOR -- Firefox / xdotool / xclip
+2026-11-09 22:59:38 ========================================================================
+2026-11-09 22:59:38   roles+cities : vendor/ (local, authoritative) -- new_mylib.py md5 5e06a7d1, target_audience_roles.py md5 54b25400
+  row builder  : /home/abhinav/rahul1/indeed_scrapper (read-only, 32-column schema)  [stand-ins: gtts, psutil]
+2026-11-09 22:59:38   rank            : 3 of 5
+2026-11-09 22:59:38   keywords        : 1264
+2026-11-09 22:59:38     target-audience : 200  (15.8% of the plan)
+2026-11-09 22:59:38     fresher/other   : 1064  (84.2%)
+2026-11-09 22:59:38     departments     : 116
+2026-11-09 22:59:38   cities (all)    : 110
+2026-11-09 22:59:38   cities (rank 3) : 23  -> Vapi, Bharuch, Kochi, Cochin ...
+2026-11-09 22:59:38   excel columns   : 32
+2026-11-09 22:59:38   output          : /home/abhinav/rahul1/rahul_new_indeed_script/Indeed_firefox_script/Excel_Data/rank_3
+2026-11-09 22:59:38   temp            : /home/abhinav/rahul1/rahul_new_indeed_script/Indeed_firefox_script/Temp_Data/rank_3
+2026-11-09 22:59:38   checkpoint      : /home/abhinav/rahul1/rahul_new_indeed_script/Indeed_firefox_script/config/checkpoints/checkpoint_rank_3.json
+2026-11-09 22:59:38   loop            : city-outer, keyword-inner (brief section 8)
+2026-11-09 22:59:38   delays          : 10s before close, 10s before next card
+2026-11-09 22:59:38   night rest      : disabled
+2026-11-09 22:59:38   work period     : 3.7-4.2 h, then a 30-60 min break
+2026-11-09 22:59:38   page ceiling    : 4 listing page(s) per keyword+city
+2026-11-09 22:59:38   unique target   : 100 distinct jobs EXAMINED per keyword+city
+2026-11-09 22:59:38   TOTAL COMPLETE CYCLE : 0   (cities finished this crawl cycle: 0/23)
+2026-11-09 22:59:38 ========================================================================
+2026-11-09 22:59:38   search mode    : form
+2026-11-09 22:59:38       $ /home/abhinav/rahul1/rahul_new_indeed_script/Indeed_firefox_script/shell_scripts/open_firefox.sh --profile /home/abhinav/rahul1/rahul_new_indeed_script/Indeed_firefox_script/config/firefox_profile/rank_3 --url https://in.indeed.com --state-file /home/abhinav/rahul1/rahul_new_indeed_script/Indeed_firefox_script/Temp_Data/rank_3/browser_window.json --expect-host indeed --download-dir /home/abhinav/rahul1/rahul_new_indeed_script/Indeed_firefox_script/Temp_Data/rank_3 --window-size 1845x1046 --window-pos 0,34
+2026-11-09 22:59:45         [open_firefox] pre-existing Firefox windows (never touched): 4194347 6291459 
+2026-11-09 22:59:45         [open_firefox] display=:105 xauthority=unset
+2026-11-09 22:59:45         [open_firefox] launch mode: direct (firefox)
+2026-11-09 22:59:45         [open_firefox] firefox pid=89294
+2026-11-09 22:59:45         [open_firefox] ERROR(3): Firefox opened the 'Close Firefox' dialog instead of a browser window: another Firefox is already using the profile /home/abhinav/rahul1/rahul_new_indeed_script/Indeed_firefox_script/config/firefox_profile/rank_3. Close that instance first, or reuse its window instead of launching a new one.
+2026-11-09 22:59:45         -> exit 3 in 6.2s 
+2026-11-09 22:59:45 
+[FAIL] Firefox opened the 'Close Firefox' dialog instead of a browser window: another Firefox is already using the profile /home/abhinav/rahul1/rahul_new_indeed_script/Indeed_firefox_script/config/firefox_profile/rank_3. Close that instance first, or reuse its window instead of launching a new one. | stage=open_firefox.sh | exit=3
+2026-11-09 22:59:45 
+2026-11-09 22:59:45 ========================================================================
+2026-11-09 22:59:45 RUN SUMMARY -- rank 3/5
+2026-11-09 22:59:45   examined 7 | saved 6 | duplicates 0 | rejected 1 | failures 5
+2026-11-09 22:59:45   TOTAL COMPLETE CYCLE : 0
+2026-11-09 22:59:45   cities finished this crawl cycle : 0/23
+2026-11-09 22:59:45   checkpoint : /home/abhinav/rahul1/rahul_new_indeed_script/Indeed_firefox_script/config/checkpoints/checkpoint_rank_3.json
+2026-11-09 22:59:45   excel      : /home/abhinav/rahul1/rahul_new_indeed_script/Indeed_firefox_script/Excel_Data/rank_3
+2026-11-09 22:59:45 ========================================================================
+2026-11-09 23:06:02 [xvfb] :105 is already up
+2026-11-09 23:06:02   display         : :105 (Xvfb, 1920x1080x24)
+2026-11-09 23:06:02 ========================================================================
+2026-11-09 23:06:02 NEW INDEED COLLECTOR -- Firefox / xdotool / xclip
+2026-11-09 23:06:02 ========================================================================
+2026-11-09 23:06:02   roles+cities : vendor/ (local, authoritative) -- new_mylib.py md5 5e06a7d1, target_audience_roles.py md5 54b25400
+  row builder  : /home/abhinav/rahul1/indeed_scrapper (read-only, 32-column schema)  [stand-ins: gtts, psutil]
+2026-11-09 23:06:02   rank            : 3 of 5
+2026-11-09 23:06:02   keywords        : 1264
+2026-11-09 23:06:02     target-audience : 200  (15.8% of the plan)
+2026-11-09 23:06:02     fresher/other   : 1064  (84.2%)
+2026-11-09 23:06:02     departments     : 116
+2026-11-09 23:06:02   cities (all)    : 110
+2026-11-09 23:06:02   cities (rank 3) : 23  -> Vapi, Bharuch, Kochi, Cochin ...
+2026-11-09 23:06:02   excel columns   : 32
+2026-11-09 23:06:02   output          : /home/abhinav/rahul1/rahul_new_indeed_script/Indeed_firefox_script/Excel_Data/rank_3
+2026-11-09 23:06:02   temp            : /home/abhinav/rahul1/rahul_new_indeed_script/Indeed_firefox_script/Temp_Data/rank_3
+2026-11-09 23:06:02   checkpoint      : /home/abhinav/rahul1/rahul_new_indeed_script/Indeed_firefox_script/config/checkpoints/checkpoint_rank_3.json
+2026-11-09 23:06:02   loop            : city-outer, keyword-inner (brief section 8)
+2026-11-09 23:06:02   delays          : 3s before close, 3s before next card
+2026-11-09 23:06:02   night rest      : disabled
+2026-11-09 23:06:02   work period     : 3.7-4.2 h, then a 30-60 min break
+2026-11-09 23:06:02   page ceiling    : 1 listing page(s) per keyword+city
+2026-11-09 23:06:02   unique target   : 100 distinct jobs EXAMINED per keyword+city
+2026-11-09 23:06:02   TOTAL COMPLETE CYCLE : 0   (cities finished this crawl cycle: 0/23)
+2026-11-09 23:06:02 ========================================================================
+2026-11-09 23:06:02   search mode    : form
+2026-11-09 23:06:02       $ /home/abhinav/rahul1/rahul_new_indeed_script/Indeed_firefox_script/shell_scripts/open_firefox.sh --profile /home/abhinav/rahul1/rahul_new_indeed_script/Indeed_firefox_script/config/firefox_profile/rank_3 --url https://in.indeed.com --state-file /home/abhinav/rahul1/rahul_new_indeed_script/Indeed_firefox_script/Temp_Data/rank_3/browser_window.json --expect-host indeed --download-dir /home/abhinav/rahul1/rahul_new_indeed_script/Indeed_firefox_script/Temp_Data/rank_3 --window-size 1845x1046 --window-pos 0,34
+2026-11-09 23:06:12         [open_firefox] WARNING: a previous Firefox still holds /home/abhinav/rahul1/rahul_new_indeed_script/Indeed_firefox_script/config/firefox_profile/rank_3 (pid 91501 ); it is an orphan of an interrupted run and is being closed so this one can start
+2026-11-09 23:06:12         [open_firefox] pre-existing Firefox windows (never touched): none
+2026-11-09 23:06:12         [open_firefox] display=:105 xauthority=unset
+2026-11-09 23:06:12         [open_firefox] launch mode: direct (firefox)
+2026-11-09 23:06:12         [open_firefox] firefox pid=91991
+2026-11-09 23:06:12         [open_firefox] window_id=4194347 name=Mozilla Firefox
+2026-11-09 23:06:12         [open_firefox] window geometry set on attempt 1: 1845x1046+10+96
+2026-11-09 23:06:12         [open_firefox] normal window: 1845x1046+10+96 (asked for 1845x1046+0+34)
+2026-11-09 23:06:12         [open_firefox] address bar: https://in.indeed.com/
+2026-11-09 23:06:12         [open_firefox] ready
+2026-11-09 23:06:12         -> exit 0 in 9.9s (window_id=4194347 fullscreen=no access_denied=no verified=yes)
+2026-11-09 23:06:12    window landed at +10+96, not the +0+34 it was asked for: clicks shifted by (+10,+62) to match
+2026-11-09 23:06:12    browser ready: pid=91991 window=4194347 fullscreen=no
+2026-11-09 23:06:12 
+========================================================================
+2026-11-09 23:06:12 CRAWL CYCLE 1 | CITY 1/23: Vapi   (keywords 1..1264)
+2026-11-09 23:06:12 TOTAL COMPLETE CYCLE SO FAR: 0
+2026-11-09 23:06:12 ========================================================================
+2026-11-09 23:06:12 
+  [cycle 1 | city 1/23 Vapi | keyword 1/1264 Product Consultant | worked 9s]
+2026-11-09 23:06:12 
+  [page 1/1] Product Consultant @ Vapi  (start=0)
+2026-11-09 23:06:12       $ /home/abhinav/rahul1/rahul_new_indeed_script/Indeed_firefox_script/shell_scripts/search_jobs.sh --window 4194347 --keyword 'Product Consultant' --city Vapi --base-url https://in.indeed.com --mode form --what-xy 710,302 --where-xy 1110,302
+2026-11-09 23:06:40         [search_jobs] input guard passed; address bar reads: https://in.indeed.com/
+2026-11-09 23:06:40         [search_jobs] waiting 7.0s for the page to settle before typing
+2026-11-09 23:06:40         [search_jobs] form search: 'Product Consultant' in 'Vapi'
+2026-11-09 23:06:40         [search_jobs] clicking the keyword box at 710,302
+2026-11-09 23:06:40         [search_jobs] clicking the city box at 1110,302
+2026-11-09 23:06:40         [search_jobs] both fields confirmed; submitting (focus is still in the city box)
+2026-11-09 23:06:40         [search_jobs] waiting 10.0s for the results to load
+2026-11-09 23:06:40         [search_jobs] window title: 7 Product Consultant Jobs and Vacancies in Vapi, Gujarat - 9 November 2026 | Indeed — Mozilla Firefox
+2026-11-09 23:06:40         [search_jobs] address bar after search: https://in.indeed.com/jobs?q=Product+Consultant&l=Vapi&from=searchOnHP&vjk=c9e3292a4cd96c94
+2026-11-09 23:06:40         [search_jobs] Indeed pre-selected job c9e3292a4cd96c94
+2026-11-09 23:06:40         [search_jobs] search submitted: Product Consultant @ Vapi -- going to the first job card
+2026-11-09 23:06:40         -> exit 0 in 28.7s (access_denied=no verified=not_checked)
+2026-11-09 23:06:40       $ /home/abhinav/rahul1/rahul_new_indeed_script/Indeed_firefox_script/shell_scripts/select_job_card.sh --window 4194347 --index 0 --card-x 440 --start-y 502 --max-y 1062 --probe-step 55 --probe-limit 12 --scroll-rounds 6 --marker vjk= --preselected-key c9e3292a4cd96c94
+2026-11-09 23:06:42         [select_job_card] before selection: key='c9e3292a4cd96c94'
+2026-11-09 23:06:42         [select_job_card] job c9e3292a4cd96c94 is already selected by Indeed -- taking it without clicking
+2026-11-09 23:06:42         -> exit 0 in 1.9s 
+2026-11-09 23:06:42       selected job c9e3292a4cd96c94 (preselected)
+2026-11-09 23:06:42       [dup] card 0 is a job this combination already handled (https://in.indeed.com/jobs?vjk=c9e3292a4cd96c94)
+2026-11-09 23:06:42       $ /home/abhinav/rahul1/rahul_new_indeed_script/Indeed_firefox_script/shell_scripts/close_source_tab.sh --window 4194347
+2026-11-09 23:06:44         [close_source_tab] address bar before closing: https://in.indeed.com/jobs?q=Product+Consultant&l=Vapi&from=searchOnHP&vjk=c9e3292a4cd96c94
+2026-11-09 23:06:44         [close_source_tab] WARNING: the front tab is not a view-source tab ('https://in.indeed.com/jobs?q=Product+Consultant&l=Vapi&from=searchOnHP&vjk=c9e3292a4cd96c94'); NOT pressing Ctrl+W, because that would close the listing.
+2026-11-09 23:06:44         -> exit 0 in 1.5s (closed=no_tab)
+2026-11-09 23:06:44       $ /home/abhinav/rahul1/rahul_new_indeed_script/Indeed_firefox_script/shell_scripts/select_job_card.sh --window 4194347 --index 1 --card-x 440 --start-y 502 --max-y 1062 --probe-step 55 --probe-limit 12 --scroll-rounds 6 --marker vjk= --seen-keys c9e3292a4cd96c94
+2026-11-09 23:06:52 
+[STOP] signal 2. Checkpoint saved -- re-run to continue from here.
+2026-11-09 23:09:01 [xvfb] :105 is already up
+2026-11-09 23:09:01   display         : :105 (Xvfb, 1920x1080x24)
+2026-11-09 23:09:01 ========================================================================
+2026-11-09 23:09:01 NEW INDEED COLLECTOR -- Firefox / xdotool / xclip
+2026-11-09 23:09:01 ========================================================================
+2026-11-09 23:09:01   roles+cities : vendor/ (local, authoritative) -- new_mylib.py md5 5e06a7d1, target_audience_roles.py md5 54b25400
+  row builder  : /home/abhinav/rahul1/indeed_scrapper (read-only, 32-column schema)  [stand-ins: gtts, psutil]
+2026-11-09 23:09:01   rank            : 3 of 5
+2026-11-09 23:09:01   keywords        : 1264
+2026-11-09 23:09:01     target-audience : 200  (15.8% of the plan)
+2026-11-09 23:09:01     fresher/other   : 1064  (84.2%)
+2026-11-09 23:09:01     departments     : 116
+2026-11-09 23:09:01   cities (all)    : 110
+2026-11-09 23:09:01   cities (rank 3) : 23  -> Vapi, Bharuch, Kochi, Cochin ...
+2026-11-09 23:09:01   excel columns   : 32
+2026-11-09 23:09:01   output          : /home/abhinav/rahul1/rahul_new_indeed_script/Indeed_firefox_script/Excel_Data/rank_3
+2026-11-09 23:09:01   temp            : /home/abhinav/rahul1/rahul_new_indeed_script/Indeed_firefox_script/Temp_Data/rank_3
+2026-11-09 23:09:01   checkpoint      : /home/abhinav/rahul1/rahul_new_indeed_script/Indeed_firefox_script/config/checkpoints/checkpoint_rank_3.json
+2026-11-09 23:09:01   loop            : city-outer, keyword-inner (brief section 8)
+2026-11-09 23:09:01   delays          : 10s before close, 10s before next card
+2026-11-09 23:09:01   night rest      : disabled
+2026-11-09 23:09:01   work period     : 3.7-4.2 h, then a 30-60 min break
+2026-11-09 23:09:01   page ceiling    : 4 listing page(s) per keyword+city
+2026-11-09 23:09:01   unique target   : 100 distinct jobs EXAMINED per keyword+city
+2026-11-09 23:09:01   TOTAL COMPLETE CYCLE : 0   (cities finished this crawl cycle: 0/23)
+2026-11-09 23:09:01 ========================================================================
+2026-11-09 23:09:01   search mode    : form
+2026-11-09 23:09:01       $ /home/abhinav/rahul1/rahul_new_indeed_script/Indeed_firefox_script/shell_scripts/open_firefox.sh --profile /home/abhinav/rahul1/rahul_new_indeed_script/Indeed_firefox_script/config/firefox_profile/rank_3 --url https://in.indeed.com --state-file /home/abhinav/rahul1/rahul_new_indeed_script/Indeed_firefox_script/Temp_Data/rank_3/browser_window.json --expect-host indeed --download-dir /home/abhinav/rahul1/rahul_new_indeed_script/Indeed_firefox_script/Temp_Data/rank_3 --window-size 1845x1046 --window-pos 0,34
+2026-11-09 23:09:10         [open_firefox] pre-existing Firefox windows (never touched): none
+2026-11-09 23:09:10         [open_firefox] display=:105 xauthority=unset
+2026-11-09 23:09:10         [open_firefox] launch mode: direct (firefox)
+2026-11-09 23:09:10         [open_firefox] firefox pid=93809
+2026-11-09 23:09:10         [open_firefox] window_id=6291499 name=Mozilla Firefox
+2026-11-09 23:09:10         [open_firefox] window geometry set on attempt 1: 1845x1046+10+96
+2026-11-09 23:09:10         [open_firefox] normal window: 1845x1046+10+96 (asked for 1845x1046+0+34)
+2026-11-09 23:09:10         [open_firefox] address bar: https://in.indeed.com/
+2026-11-09 23:09:10         [open_firefox] ready
+2026-11-09 23:09:10         -> exit 0 in 8.6s (window_id=6291499 fullscreen=no access_denied=no verified=yes)
+2026-11-09 23:09:10    window landed at +10+96, not the +0+34 it was asked for: clicks shifted by (+10,+62) to match
+2026-11-09 23:09:10    browser ready: pid=93809 window=6291499 fullscreen=no
+2026-11-09 23:09:10 
+========================================================================
+2026-11-09 23:09:10 CRAWL CYCLE 1 | CITY 1/23: Vapi   (keywords 1..1264)
+2026-11-09 23:09:10 TOTAL COMPLETE CYCLE SO FAR: 0
+2026-11-09 23:09:10 ========================================================================
+2026-11-09 23:09:10 
+  [cycle 1 | city 1/23 Vapi | keyword 1/1264 Product Consultant | worked 8s]
+2026-11-09 23:09:10 
+  [page 1/4] Product Consultant @ Vapi  (start=0)
+2026-11-09 23:09:10       $ /home/abhinav/rahul1/rahul_new_indeed_script/Indeed_firefox_script/shell_scripts/search_jobs.sh --window 6291499 --keyword 'Product Consultant' --city Vapi --base-url https://in.indeed.com --mode form --what-xy 710,302 --where-xy 1110,302
+2026-11-09 23:09:38         [search_jobs] input guard passed; address bar reads: https://in.indeed.com/
+2026-11-09 23:09:38         [search_jobs] waiting 7.0s for the page to settle before typing
+2026-11-09 23:09:38         [search_jobs] form search: 'Product Consultant' in 'Vapi'
+2026-11-09 23:09:38         [search_jobs] clicking the keyword box at 710,302
+2026-11-09 23:09:38         [search_jobs] clicking the city box at 1110,302
+2026-11-09 23:09:38         [search_jobs] both fields confirmed; submitting (focus is still in the city box)
+2026-11-09 23:09:38         [search_jobs] waiting 10.0s for the results to load
+2026-11-09 23:09:38         [search_jobs] window title: 7 Product Consultant Jobs and Vacancies in Vapi, Gujarat - 9 November 2026 | Indeed — Mozilla Firefox
+2026-11-09 23:09:38         [search_jobs] address bar after search: https://in.indeed.com/jobs?q=Product+Consultant&l=Vapi&from=searchOnHP&vjk=c9e3292a4cd96c94
+2026-11-09 23:09:38         [search_jobs] Indeed pre-selected job c9e3292a4cd96c94
+2026-11-09 23:09:38         [search_jobs] search submitted: Product Consultant @ Vapi -- going to the first job card
+2026-11-09 23:09:38         -> exit 0 in 28.5s (access_denied=no verified=not_checked)
+2026-11-09 23:09:38       $ /home/abhinav/rahul1/rahul_new_indeed_script/Indeed_firefox_script/shell_scripts/select_job_card.sh --window 6291499 --index 0 --card-x 440 --start-y 502 --max-y 1062 --probe-step 55 --probe-limit 12 --scroll-rounds 6 --marker vjk= --preselected-key c9e3292a4cd96c94
+2026-11-09 23:09:40         [select_job_card] before selection: key='c9e3292a4cd96c94'
+2026-11-09 23:09:40         [select_job_card] job c9e3292a4cd96c94 is already selected by Indeed -- taking it without clicking
+2026-11-09 23:09:40         -> exit 0 in 1.9s 
+2026-11-09 23:09:40       selected job c9e3292a4cd96c94 (preselected)
+2026-11-09 23:09:40       [dup] card 0 is a job this combination already handled (https://in.indeed.com/jobs?vjk=c9e3292a4cd96c94)
+2026-11-09 23:09:40       $ /home/abhinav/rahul1/rahul_new_indeed_script/Indeed_firefox_script/shell_scripts/close_source_tab.sh --window 6291499
+2026-11-09 23:09:42         [close_source_tab] address bar before closing: https://in.indeed.com/jobs?q=Product+Consultant&l=Vapi&from=searchOnHP&vjk=c9e3292a4cd96c94
+2026-11-09 23:09:42         [close_source_tab] WARNING: the front tab is not a view-source tab ('https://in.indeed.com/jobs?q=Product+Consultant&l=Vapi&from=searchOnHP&vjk=c9e3292a4cd96c94'); NOT pressing Ctrl+W, because that would close the listing.
+2026-11-09 23:09:42         -> exit 0 in 1.4s (closed=no_tab)
+2026-11-09 23:09:42       $ /home/abhinav/rahul1/rahul_new_indeed_script/Indeed_firefox_script/shell_scripts/select_job_card.sh --window 6291499 --index 1 --card-x 440 --start-y 502 --max-y 1062 --probe-step 55 --probe-limit 12 --scroll-rounds 6 --marker vjk= --seen-keys c9e3292a4cd96c94
+2026-11-09 23:10:15         [select_job_card] before selection: key='c9e3292a4cd96c94'
+2026-11-09 23:10:15         [select_job_card] probe 1: clicking 440,502
+2026-11-09 23:10:15         [select_job_card]    same job still selected -- the click was inside the current card
+2026-11-09 23:10:15         [select_job_card] probe 2: clicking 440,557
+2026-11-09 23:10:15         [select_job_card]    same job still selected -- the click was inside the current card
+2026-11-09 23:10:15         [select_job_card] probe 3: clicking 440,612
+2026-11-09 23:10:15         [select_job_card]    same job still selected -- the click was inside the current card
+2026-11-09 23:10:15         [select_job_card] probe 4: clicking 440,667
+2026-11-09 23:10:15         [select_job_card]    same job still selected -- the click was inside the current card
+2026-11-09 23:10:15         [select_job_card] probe 5: clicking 440,722
+2026-11-09 23:10:15         [select_job_card]    same job still selected -- the click was inside the current card
+2026-11-09 23:10:15         [select_job_card] probe 6: clicking 440,777
+2026-11-09 23:10:15         [select_job_card] card index 1 selected: job 09af3effa4a6c678 at y=777 after 6 probe(s) and 0 scroll(s)
+2026-11-09 23:10:15         -> exit 0 in 33.3s 
+2026-11-09 23:10:15       selected job 09af3effa4a6c678 (click)
+2026-11-09 23:10:15       [dup] card 1 is a job this combination already handled (https://in.indeed.com/jobs?vjk=09af3effa4a6c678)
+2026-11-09 23:10:15       $ /home/abhinav/rahul1/rahul_new_indeed_script/Indeed_firefox_script/shell_scripts/close_source_tab.sh --window 6291499
+2026-11-09 23:10:16         [close_source_tab] address bar before closing: https://in.indeed.com/jobs?q=Product+Consultant&l=Vapi&from=searchOnHP&vjk=09af3effa4a6c678
+2026-11-09 23:10:16         [close_source_tab] WARNING: the front tab is not a view-source tab ('https://in.indeed.com/jobs?q=Product+Consultant&l=Vapi&from=searchOnHP&vjk=09af3effa4a6c678'); NOT pressing Ctrl+W, because that would close the listing.
+2026-11-09 23:10:16         -> exit 0 in 1.5s (closed=no_tab)
+2026-11-09 23:10:16       $ /home/abhinav/rahul1/rahul_new_indeed_script/Indeed_firefox_script/shell_scripts/select_job_card.sh --window 6291499 --index 2 --card-x 440 --start-y 837 --max-y 1062 --probe-step 55 --probe-limit 12 --scroll-rounds 6 --marker vjk= --seen-keys c9e3292a4cd96c94,09af3effa4a6c678
+2026-11-09 23:10:34         [select_job_card] before selection: key='09af3effa4a6c678'
+2026-11-09 23:10:34         [select_job_card] probe 1: clicking 440,837
+2026-11-09 23:10:34         [select_job_card]    same job still selected -- the click was inside the current card
+2026-11-09 23:10:34         [select_job_card] probe 2: clicking 440,892
+2026-11-09 23:10:34         [select_job_card]    same job still selected -- the click was inside the current card
+2026-11-09 23:10:34         [select_job_card] probe 3: clicking 440,947
+2026-11-09 23:10:34         [select_job_card] card index 2 selected: job cc135b9c5d4bd391 at y=947 after 3 probe(s) and 0 scroll(s)
+2026-11-09 23:10:34         -> exit 0 in 17.6s 
+2026-11-09 23:10:34       selected job cc135b9c5d4bd391 (click)
+2026-11-09 23:10:34       [dup] card 2 is a job this combination already handled (https://in.indeed.com/jobs?vjk=cc135b9c5d4bd391)
+2026-11-09 23:10:34       $ /home/abhinav/rahul1/rahul_new_indeed_script/Indeed_firefox_script/shell_scripts/close_source_tab.sh --window 6291499
+2026-11-09 23:10:35         [close_source_tab] address bar before closing: https://in.indeed.com/jobs?q=Product+Consultant&l=Vapi&from=searchOnHP&vjk=cc135b9c5d4bd391
+2026-11-09 23:10:35         [close_source_tab] WARNING: the front tab is not a view-source tab ('https://in.indeed.com/jobs?q=Product+Consultant&l=Vapi&from=searchOnHP&vjk=cc135b9c5d4bd391'); NOT pressing Ctrl+W, because that would close the listing.
+2026-11-09 23:10:35         -> exit 0 in 1.5s (closed=no_tab)
+2026-11-09 23:10:35       $ /home/abhinav/rahul1/rahul_new_indeed_script/Indeed_firefox_script/shell_scripts/select_job_card.sh --window 6291499 --index 3 --card-x 440 --start-y 1007 --max-y 1062 --probe-step 55 --probe-limit 12 --scroll-rounds 6 --marker vjk= --seen-keys c9e3292a4cd96c94,09af3effa4a6c678,cc135b9c5d4bd391
+2026-11-09 23:11:38         [select_job_card] before selection: key='cc135b9c5d4bd391'
+2026-11-09 23:11:38         [select_job_card] probe 1: clicking 440,1007
+2026-11-09 23:11:38         [select_job_card]    same job still selected -- the click was inside the current card
+2026-11-09 23:11:38         [select_job_card] probe 2: clicking 440,1062
+2026-11-09 23:11:38         [select_job_card]    same job still selected -- the click was inside the current card
+2026-11-09 23:11:38         [select_job_card] nothing new above y=1117 -- scrolling the results list (round 1/6)
+2026-11-09 23:11:38         [select_job_card] probe 3: clicking 440,320
+2026-11-09 23:11:38         [select_job_card]    job c9e3292a4cd96c94 has already been handled -- probing past it
+2026-11-09 23:11:38         [select_job_card] probe 4: clicking 440,375
+2026-11-09 23:11:38         [select_job_card]    job 09af3effa4a6c678 has already been handled -- probing past it
+2026-11-09 23:11:38         [select_job_card] probe 5: clicking 440,430
+2026-11-09 23:11:38         [select_job_card]    same job still selected -- the click was inside the current card
+2026-11-09 23:11:38         [select_job_card] probe 6: clicking 440,485
+2026-11-09 23:11:38         [select_job_card]    same job still selected -- the click was inside the current card
+2026-11-09 23:11:38         [select_job_card] probe 7: clicking 440,540
+2026-11-09 23:11:38         [select_job_card]    job cc135b9c5d4bd391 has already been handled -- probing past it
+2026-11-09 23:11:38         [select_job_card] probe 8: clicking 440,595
+2026-11-09 23:11:38         [select_job_card]    same job still selected -- the click was inside the current card
+2026-11-09 23:11:38         [select_job_card] probe 9: clicking 440,650
+2026-11-09 23:11:38         [select_job_card]    same job still selected -- the click was inside the current card
+2026-11-09 23:11:38         [select_job_card] probe 10: clicking 440,705
+2026-11-09 23:11:38         [select_job_card]    same job still selected -- the click was inside the current card
+2026-11-09 23:11:38         [select_job_card] probe 11: clicking 440,760
+2026-11-09 23:11:38         [select_job_card] card index 3 selected: job 5808f173973339e5 at y=760 after 11 probe(s) and 1 scroll(s)
+2026-11-09 23:11:38         -> exit 0 in 62.2s 
+2026-11-09 23:11:38       selected job 5808f173973339e5 (click, after scrolling)
+2026-11-09 23:11:38       [dup] card 3 is a job this combination already handled (https://in.indeed.com/jobs?vjk=5808f173973339e5)
+2026-11-09 23:11:38       $ /home/abhinav/rahul1/rahul_new_indeed_script/Indeed_firefox_script/shell_scripts/close_source_tab.sh --window 6291499
+2026-11-09 23:11:39         [close_source_tab] address bar before closing: https://in.indeed.com/jobs?q=Product+Consultant&l=Vapi&from=searchOnHP&vjk=5808f173973339e5
+2026-11-09 23:11:39         [close_source_tab] WARNING: the front tab is not a view-source tab ('https://in.indeed.com/jobs?q=Product+Consultant&l=Vapi&from=searchOnHP&vjk=5808f173973339e5'); NOT pressing Ctrl+W, because that would close the listing.
+2026-11-09 23:11:39         -> exit 0 in 1.5s (closed=no_tab)
+2026-11-09 23:11:39       $ /home/abhinav/rahul1/rahul_new_indeed_script/Indeed_firefox_script/shell_scripts/select_job_card.sh --window 6291499 --index 4 --card-x 440 --start-y 502 --max-y 1062 --probe-step 55 --probe-limit 12 --scroll-rounds 6 --marker vjk= --seen-keys c9e3292a4cd96c94,09af3effa4a6c678,cc135b9c5d4bd391,5808f173973339e5
+2026-11-09 23:12:23         [select_job_card] before selection: key='5808f173973339e5'
+2026-11-09 23:12:23         [select_job_card] probe 1: clicking 440,502
+2026-11-09 23:12:23         [select_job_card]    job 09af3effa4a6c678 has already been handled -- probing past it
+2026-11-09 23:12:23         [select_job_card] probe 2: clicking 440,557
+2026-11-09 23:12:23         [select_job_card]    job cc135b9c5d4bd391 has already been handled -- probing past it
+2026-11-09 23:12:23         [select_job_card] probe 3: clicking 440,612
+2026-11-09 23:12:23         [select_job_card]    same job still selected -- the click was inside the current card
+2026-11-09 23:12:23         [select_job_card] probe 4: clicking 440,667
+2026-11-09 23:12:23         [select_job_card]    same job still selected -- the click was inside the current card
+2026-11-09 23:12:23         [select_job_card] probe 5: clicking 440,722
+2026-11-09 23:12:23         [select_job_card]    same job still selected -- the click was inside the current card
+2026-11-09 23:12:23         [select_job_card] probe 6: clicking 440,777
+2026-11-09 23:12:23         [select_job_card]    job 5808f173973339e5 has already been handled -- probing past it
+2026-11-09 23:12:23         [select_job_card] probe 7: clicking 440,832
+2026-11-09 23:12:23         [select_job_card]    same job still selected -- the click was inside the current card
+2026-11-09 23:12:23         [select_job_card] probe 8: clicking 440,887
+2026-11-09 23:12:23         [select_job_card] card index 4 selected: job ebadf68aa5a23bcd at y=887 after 8 probe(s) and 0 scroll(s)
+2026-11-09 23:12:23         -> exit 0 in 43.6s 
+2026-11-09 23:12:23       selected job ebadf68aa5a23bcd (click)
+2026-11-09 23:12:23       [dup] card 4 is a job this combination already handled (https://in.indeed.com/jobs?vjk=ebadf68aa5a23bcd)
+2026-11-09 23:12:23       $ /home/abhinav/rahul1/rahul_new_indeed_script/Indeed_firefox_script/shell_scripts/close_source_tab.sh --window 6291499
+2026-11-09 23:12:24         [close_source_tab] address bar before closing: https://in.indeed.com/jobs?q=Product+Consultant&l=Vapi&from=searchOnHP&vjk=ebadf68aa5a23bcd
+2026-11-09 23:12:24         [close_source_tab] WARNING: the front tab is not a view-source tab ('https://in.indeed.com/jobs?q=Product+Consultant&l=Vapi&from=searchOnHP&vjk=ebadf68aa5a23bcd'); NOT pressing Ctrl+W, because that would close the listing.
+2026-11-09 23:12:24         -> exit 0 in 1.4s (closed=no_tab)
+2026-11-09 23:12:24       $ /home/abhinav/rahul1/rahul_new_indeed_script/Indeed_firefox_script/shell_scripts/select_job_card.sh --window 6291499 --index 5 --card-x 440 --start-y 947 --max-y 1062 --probe-step 55 --probe-limit 12 --scroll-rounds 6 --marker vjk= --seen-keys c9e3292a4cd96c94,09af3effa4a6c678,cc135b9c5d4bd391,5808f173973339e5,ebadf68aa5a23bcd
+2026-11-09 23:12:42         [select_job_card] before selection: key='ebadf68aa5a23bcd'
+2026-11-09 23:12:42         [select_job_card] probe 1: clicking 440,947
+2026-11-09 23:12:42         [select_job_card]    same job still selected -- the click was inside the current card
+2026-11-09 23:12:42         [select_job_card] probe 2: clicking 440,1002
+2026-11-09 23:12:42         [select_job_card]    same job still selected -- the click was inside the current card
+2026-11-09 23:12:42         [select_job_card] probe 3: clicking 440,1057
+2026-11-09 23:12:42         [select_job_card] card index 5 selected: job ab2a7cd954d011e7 at y=1057 after 3 probe(s) and 0 scroll(s)
+2026-11-09 23:12:42         -> exit 0 in 17.5s 
+2026-11-09 23:12:42       selected job ab2a7cd954d011e7 (click)
+2026-11-09 23:12:42       [dup] card 5 is a job this combination already handled (https://in.indeed.com/jobs?vjk=ab2a7cd954d011e7)
+2026-11-09 23:12:42       $ /home/abhinav/rahul1/rahul_new_indeed_script/Indeed_firefox_script/shell_scripts/close_source_tab.sh --window 6291499
+2026-11-09 23:12:43         [close_source_tab] address bar before closing: https://in.indeed.com/jobs?q=Product+Consultant&l=Vapi&from=searchOnHP&vjk=ab2a7cd954d011e7
+2026-11-09 23:12:43         [close_source_tab] WARNING: the front tab is not a view-source tab ('https://in.indeed.com/jobs?q=Product+Consultant&l=Vapi&from=searchOnHP&vjk=ab2a7cd954d011e7'); NOT pressing Ctrl+W, because that would close the listing.
+2026-11-09 23:12:43         -> exit 0 in 1.5s (closed=no_tab)
+2026-11-09 23:12:43       $ /home/abhinav/rahul1/rahul_new_indeed_script/Indeed_firefox_script/shell_scripts/select_job_card.sh --window 6291499 --index 6 --card-x 440 --start-y 1117 --max-y 1062 --probe-step 55 --probe-limit 12 --scroll-rounds 6 --marker vjk= --seen-keys c9e3292a4cd96c94,09af3effa4a6c678,cc135b9c5d4bd391,5808f173973339e5,ebadf68aa5a23bcd,ab2a7cd954d011e7
+2026-11-09 23:13:45         [select_job_card] before selection: key='ab2a7cd954d011e7'
+2026-11-09 23:13:45         [select_job_card] nothing new above y=1117 -- scrolling the results list (round 1/6)
+2026-11-09 23:13:45         [select_job_card] probe 1: clicking 440,320
+2026-11-09 23:13:45         [select_job_card]    job 5808f173973339e5 has already been handled -- probing past it
+2026-11-09 23:13:45         [select_job_card] probe 2: clicking 440,375
+2026-11-09 23:13:45         [select_job_card]    same job still selected -- the click was inside the current card
+2026-11-09 23:13:45         [select_job_card] probe 3: clicking 440,430
+2026-11-09 23:13:45         [select_job_card]    same job still selected -- the click was inside the current card
+2026-11-09 23:13:45         [select_job_card] probe 4: clicking 440,485
+2026-11-09 23:13:45         [select_job_card]    job ebadf68aa5a23bcd has already been handled -- probing past it
+2026-11-09 23:13:45         [select_job_card] probe 5: clicking 440,540
+2026-11-09 23:13:45         [select_job_card]    same job still selected -- the click was inside the current card
+2026-11-09 23:13:45         [select_job_card] probe 6: clicking 440,595
+2026-11-09 23:13:45         [select_job_card]    same job still selected -- the click was inside the current card
+2026-11-09 23:13:45         [select_job_card] probe 7: clicking 440,650
+2026-11-09 23:13:45         [select_job_card]    job ab2a7cd954d011e7 has already been handled -- probing past it
+2026-11-09 23:13:45         [select_job_card] probe 8: clicking 440,705
+2026-11-09 23:13:45         [select_job_card]    same job still selected -- the click was inside the current card
+2026-11-09 23:13:45         [select_job_card] probe 9: clicking 440,760
+2026-11-09 23:13:45         [select_job_card]    same job still selected -- the click was inside the current card
+2026-11-09 23:13:45         [select_job_card] probe 10: clicking 440,815
+2026-11-09 23:13:45         [select_job_card]    same job still selected -- the click was inside the current card
+2026-11-09 23:13:45         [select_job_card] probe 11: clicking 440,870
+2026-11-09 23:13:45         [select_job_card] card index 6 selected: job 84c8f40078f062f0 at y=870 after 11 probe(s) and 1 scroll(s)
+2026-11-09 23:13:45         -> exit 0 in 62.4s 
+2026-11-09 23:13:45       selected job 84c8f40078f062f0 (click, after scrolling)
+2026-11-09 23:13:45       [dup] card 6 is a job this combination already handled (https://in.indeed.com/jobs?vjk=84c8f40078f062f0)
+2026-11-09 23:13:45       $ /home/abhinav/rahul1/rahul_new_indeed_script/Indeed_firefox_script/shell_scripts/close_source_tab.sh --window 6291499
+2026-11-09 23:13:47         [close_source_tab] address bar before closing: https://in.indeed.com/jobs?q=Product+Consultant&l=Vapi&from=searchOnHP&vjk=84c8f40078f062f0
+2026-11-09 23:13:47         [close_source_tab] WARNING: the front tab is not a view-source tab ('https://in.indeed.com/jobs?q=Product+Consultant&l=Vapi&from=searchOnHP&vjk=84c8f40078f062f0'); NOT pressing Ctrl+W, because that would close the listing.
+2026-11-09 23:13:47         -> exit 0 in 1.5s (closed=no_tab)
+2026-11-09 23:13:47       $ /home/abhinav/rahul1/rahul_new_indeed_script/Indeed_firefox_script/shell_scripts/select_job_card.sh --window 6291499 --index 7 --card-x 440 --start-y 502 --max-y 1062 --probe-step 55 --probe-limit 12 --scroll-rounds 6 --marker vjk= --seen-keys c9e3292a4cd96c94,09af3effa4a6c678,cc135b9c5d4bd391,5808f173973339e5,ebadf68aa5a23bcd,ab2a7cd954d011e7,84c8f40078f062f0
+2026-11-09 23:15:41 
+[STOP] signal 2. Checkpoint saved -- re-run to continue from here.

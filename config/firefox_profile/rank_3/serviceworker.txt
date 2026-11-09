@@ -1,0 +1,13 @@
+9
+
+https://sgtm.indeed.com/_/service_worker
+https://sgtm.indeed.com/_/service_worker/6al0/sw.js?origin=https%3A%2F%2Fin.indeed.com
+false
+{33563d23-e04d-4057-acb3-5c7a3376adaa}
+1
+1794237579976734
+1794237579978132
+1794237579953038
+0
+true
+#
