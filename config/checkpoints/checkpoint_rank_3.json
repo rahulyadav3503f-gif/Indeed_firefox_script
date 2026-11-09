@@ -1,0 +1,5182 @@
+{
+  "schema_version": 2,
+  "nesting": "city_outer_keyword_inner",
+  "rank": 3,
+  "num_sys": 5,
+  "crawl_cycle_number": 1,
+  "cycle_started_at": "2026-11-09 20:49:33",
+  "cities": [
+    "Vapi",
+    "Bharuch",
+    "Kochi",
+    "Cochin",
+    "Thiruvananthapuram",
+    "Kozhikode",
+    "Thrissur",
+    "Kottayam",
+    "Ernakulam",
+    "Kollam",
+    "Indore",
+    "Bhopal",
+    "Gwalior",
+    "Jabalpur",
+    "Jaipur",
+    "Jodhpur",
+    "Udaipur",
+    "Kota",
+    "Ajmer",
+    "Lucknow",
+    "Kanpur",
+    "Ghaziabad",
+    "Meerut"
+  ],
+  "cities_fingerprint": "9f0af52fb1c1e333",
+  "total_assigned_cities": 23,
+  "keyword_order": [
+    [
+      "IT Department",
+      "Product Consultant"
+    ],
+    [
+      "IT Department",
+      "Gameplay Programmer"
+    ],
+    [
+      "IT Department",
+      "Ramp Officer"
+    ],
+    [
+      "IT Department",
+      "MIS Executive"
+    ],
+    [
+      "IT Department",
+      "Advertising Copywriter"
+    ],
+    [
+      "IT Department",
+      "Draftsman"
+    ],
+    [
+      "IT Department",
+      "Room Attendant"
+    ],
+    [
+      "IT Department",
+      "Cloud Support Engineer"
+    ],
+    [
+      "IT Department",
+      "JavaScript Developer"
+    ],
+    [
+      "IT Department",
+      "Customer Calling Executive"
+    ],
+    [
+      "IT Department",
+      "Lab Technician"
+    ],
+    [
+      "IT Department",
+      "Surveillance Operator"
+    ],
+    [
+      "IT Department",
+      "Printing Operator"
+    ],
+    [
+      "IT Department",
+      "L1 Support Engineer"
+    ],
+    [
+      "IT Department",
+      "IT Operations Executive"
+    ],
+    [
+      "IT Department",
+      "Angular Full Stack Developer"
+    ],
+    [
+      "IT Department",
+      "API Documentation Writer"
+    ],
+    [
+      "IT Department",
+      "ERP Analyst"
+    ],
+    [
+      "IT Department",
+      "BD Executive"
+    ],
+    [
+      "IT Department",
+      "Game Developer"
+    ],
+    [
+      "IT Department",
+      "Inventory Executive"
+    ],
+    [
+      "IT Department",
+      "Documentation Specialist"
+    ],
+    [
+      "IT Department",
+      "Jewellery Designer"
+    ],
+    [
+      "IT Department",
+      "Security Consultant"
+    ],
+    [
+      "IT Department",
+      "Student Coordinator"
+    ],
+    [
+      "IT Department",
+      "Bank Officer"
+    ],
+    [
+      "IT Department",
+      "3D Interior Visualizer"
+    ],
+    [
+      "IT Department",
+      "Public Relations Officer"
+    ],
+    [
+      "IT Department",
+      "Stock Broker"
+    ],
+    [
+      "IT Department",
+      "Wellness Consultant"
+    ],
+    [
+      "IT Department",
+      "Credit Officer"
+    ],
+    [
+      "IT Department",
+      "Outreach Worker"
+    ],
+    [
+      "IT Department",
+      "3D Animator"
+    ],
+    [
+      "IT Department",
+      "Wedding Planner"
+    ],
+    [
+      "IT Department",
+      "Operations Executive"
+    ],
+    [
+      "IT Department",
+      "Healthcare Consultant"
+    ],
+    [
+      "IT Department",
+      "Soil Scientist"
+    ],
+    [
+      "IT Department",
+      "BI Developer"
+    ],
+    [
+      "IT Department",
+      "CRM Consultant"
+    ],
+    [
+      "IT Department",
+      "Client Servicing Executive"
+    ],
+    [
+      "IT Department",
+      "Quality Analyst Textile"
+    ],
+    [
+      "IT Department",
+      "Designer"
+    ],
+    [
+      "IT Department",
+      "Knowledge Analyst"
+    ],
+    [
+      "IT Department",
+      "CRM Support Executive"
+    ],
+    [
+      "IT Department",
+      "Oracle DBA"
+    ],
+    [
+      "IT Department",
+      "Pharma Executive"
+    ],
+    [
+      "IT Department",
+      "R&D Executive"
+    ],
+    [
+      "IT Department",
+      "Sports Trainer"
+    ],
+    [
+      "IT Department",
+      "Catalog Executive"
+    ],
+    [
+      "IT Department",
+      "Fashion Merchandiser"
+    ],
+    [
+      "IT Department",
+      "Research Associate"
+    ],
+    [
+      "IT Department",
+      "Service Desk Executive"
+    ],
+    [
+      "IT Department",
+      "Maintenance Supervisor"
+    ],
+    [
+      "IT Department",
+      "Sales Executive"
+    ],
+    [
+      "IT Department",
+      "Supervisor"
+    ],
+    [
+      "IT Department",
+      "Book Editor"
+    ],
+    [
+      "IT Department",
+      "Social Media Designer"
+    ],
+    [
+      "IT Department",
+      "Looker Developer"
+    ],
+    [
+      "IT Department",
+      "Odoo Developer"
+    ],
+    [
+      "IT Department",
+      "Manufacturing Executive"
+    ],
+    [
+      "IT Department",
+      "Game Artist"
+    ],
+    [
+      "IT Department",
+      "Loan Processor"
+    ],
+    [
+      "IT Department",
+      "Java Developer"
+    ],
+    [
+      "IT Department",
+      "Payroll Analyst"
+    ],
+    [
+      "IT Department",
+      "Stock Controller"
+    ],
+    [
+      "IT Department",
+      "Plant Engineer"
+    ],
+    [
+      "IT Department",
+      "Creative Writer"
+    ],
+    [
+      "IT Department",
+      "Hardware Engineer"
+    ],
+    [
+      "IT Department",
+      "Product Analyst"
+    ],
+    [
+      "IT Department",
+      "Risk Insurance Analyst"
+    ],
+    [
+      "IT Department",
+      "Proofreader"
+    ],
+    [
+      "IT Department",
+      "Engineering Supervisor"
+    ],
+    [
+      "IT Department",
+      "CRM Administrator"
+    ],
+    [
+      "IT Department",
+      "Electronics Technician"
+    ],
+    [
+      "IT Department",
+      "Network Engineer"
+    ],
+    [
+      "IT Department",
+      "Performance Automation Tester"
+    ],
+    [
+      "IT Department",
+      "Quality Lab Analyst"
+    ],
+    [
+      "IT Department",
+      "AWS DevOps Engineer"
+    ],
+    [
+      "IT Department",
+      "Field Worker"
+    ],
+    [
+      "IT Department",
+      "UI Designer"
+    ],
+    [
+      "IT Department",
+      "Logistics Executive"
+    ],
+    [
+      "IT Department",
+      "Retail Sales Executive"
+    ],
+    [
+      "IT Department",
+      "Video Production Executive"
+    ],
+    [
+      "IT Department",
+      "SOC Analyst"
+    ],
+    [
+      "IT Department",
+      "Risk Consultant"
+    ],
+    [
+      "IT Department",
+      "Nursing Assistant"
+    ],
+    [
+      "IT Department",
+      "Endpoint Management Engineer"
+    ],
+    [
+      "IT Department",
+      "Construction Engineer"
+    ],
+    [
+      "IT Department",
+      "Insurance Sales Executive"
+    ],
+    [
+      "IT Department",
+      "Azure Cloud Administrator"
+    ],
+    [
+      "IT Department",
+      "Talent Acquisition Specialist"
+    ],
+    [
+      "IT Department",
+      "Azure Platform Engineer"
+    ],
+    [
+      "IT Department",
+      "ERP Developer"
+    ],
+    [
+      "IT Department",
+      "AWS Engineer"
+    ],
+    [
+      "IT Department",
+      "Online Data Entry Operator"
+    ],
+    [
+      "IT Department",
+      "Material Controller"
+    ],
+    [
+      "IT Department",
+      "Airport Operations Executive"
+    ],
+    [
+      "IT Department",
+      "Mechanical Design Engineer"
+    ],
+    [
+      "IT Department",
+      "Academic Counselor"
+    ],
+    [
+      "IT Department",
+      "Go Developer"
+    ],
+    [
+      "IT Department",
+      "Cloud Support Specialist"
+    ],
+    [
+      "IT Department",
+      "Routing and Switching Engineer"
+    ],
+    [
+      "IT Department",
+      "Home Care Nurse"
+    ],
+    [
+      "IT Department",
+      "Ethical Hacker"
+    ],
+    [
+      "IT Department",
+      "Procurement Officer"
+    ],
+    [
+      "IT Department",
+      "SAP ABAP Developer"
+    ],
+    [
+      "IT Department",
+      "Desktop Support Technician"
+    ],
+    [
+      "IT Department",
+      "Patient Care Executive"
+    ],
+    [
+      "IT Department",
+      "Azure Virtual Desktop Engineer"
+    ],
+    [
+      "IT Department",
+      "Cyber Security Analyst"
+    ],
+    [
+      "IT Department",
+      "Goldsmith"
+    ],
+    [
+      "IT Department",
+      "ML Engineer"
+    ],
+    [
+      "IT Department",
+      "Insurance Agent"
+    ],
+    [
+      "IT Department",
+      "Blockchain Developer"
+    ],
+    [
+      "IT Department",
+      "Credit Analyst"
+    ],
+    [
+      "IT Department",
+      "Article Writer"
+    ],
+    [
+      "IT Department",
+      "Testing Engineer"
+    ],
+    [
+      "IT Department",
+      "PHP Backend Developer"
+    ],
+    [
+      "IT Department",
+      "SAP HCM Consultant"
+    ],
+    [
+      "IT Department",
+      "Research Scientist"
+    ],
+    [
+      "IT Department",
+      "Node.js Developer"
+    ],
+    [
+      "IT Department",
+      "IT Specialist"
+    ],
+    [
+      "IT Department",
+      "System Engineer"
+    ],
+    [
+      "IT Department",
+      "Mobile App Developer"
+    ],
+    [
+      "IT Department",
+      "Customer Support Representative"
+    ],
+    [
+      "IT Department",
+      "System Support Engineer"
+    ],
+    [
+      "IT Department",
+      "Compliance Executive"
+    ],
+    [
+      "IT Department",
+      "Full Stack Developer"
+    ],
+    [
+      "IT Department",
+      "Mechanical Maintenance Engineer"
+    ],
+    [
+      "IT Department",
+      "Junior Graphic Designer"
+    ],
+    [
+      "IT Department",
+      "Salesforce Developer"
+    ],
+    [
+      "IT Department",
+      "Office 365 Administrator"
+    ],
+    [
+      "IT Department",
+      "Infrastructure Administrator"
+    ],
+    [
+      "IT Department",
+      "NOC Engineer Telecom"
+    ],
+    [
+      "IT Department",
+      "Kitchen Supervisor"
+    ],
+    [
+      "IT Department",
+      "VLSI Engineer"
+    ],
+    [
+      "IT Department",
+      "Junior Data Analyst"
+    ],
+    [
+      "IT Department",
+      "Cloud Operations Engineer"
+    ],
+    [
+      "IT Department",
+      "HTML CSS Developer"
+    ],
+    [
+      "IT Department",
+      "Underwriter"
+    ],
+    [
+      "IT Department",
+      "Content Journalist"
+    ],
+    [
+      "IT Department",
+      "Product Listing Executive"
+    ],
+    [
+      "IT Department",
+      "Technical Support Engineer"
+    ],
+    [
+      "IT Department",
+      "Security Operations Analyst"
+    ],
+    [
+      "IT Department",
+      "Junior Designer"
+    ],
+    [
+      "IT Department",
+      "Quality Control Executive"
+    ],
+    [
+      "IT Department",
+      "Cloud Operations Administrator"
+    ],
+    [
+      "IT Department",
+      "Buying Merchandiser"
+    ],
+    [
+      "IT Department",
+      "Assistant"
+    ],
+    [
+      "IT Department",
+      "Pre Sales Executive"
+    ],
+    [
+      "IT Department",
+      "Clinical Pharmacist"
+    ],
+    [
+      "IT Department",
+      "Recruiter"
+    ],
+    [
+      "IT Department",
+      "Marine Surveyor"
+    ],
+    [
+      "IT Department",
+      "Cleaner"
+    ],
+    [
+      "IT Department",
+      "Company Secretary"
+    ],
+    [
+      "IT Department",
+      "Physical Education Teacher"
+    ],
+    [
+      "IT Department",
+      "Network Support Engineer"
+    ],
+    [
+      "IT Department",
+      "Application Operations Engineer"
+    ],
+    [
+      "IT Department",
+      "Risk and Security Analyst"
+    ],
+    [
+      "IT Department",
+      "PSU Engineer"
+    ],
+    [
+      "IT Department",
+      "SEO Specialist"
+    ],
+    [
+      "IT Department",
+      "Compliance Auditor"
+    ],
+    [
+      "IT Department",
+      "Automobile Sales Executive"
+    ],
+    [
+      "IT Department",
+      "Journalist"
+    ],
+    [
+      "IT Department",
+      "SQL Analyst"
+    ],
+    [
+      "IT Department",
+      "HR Assistant"
+    ],
+    [
+      "IT Department",
+      "Vehicle Mechanic"
+    ],
+    [
+      "IT Department",
+      "Outbound Calling Executive"
+    ],
+    [
+      "IT Department",
+      "Technical Trainer"
+    ],
+    [
+      "IT Department",
+      "Business Development Associate"
+    ],
+    [
+      "IT Department",
+      "Film Editor"
+    ],
+    [
+      "IT Department",
+      "Financial Planner"
+    ],
+    [
+      "IT Department",
+      "Data Visualization Analyst"
+    ],
+    [
+      "IT Department",
+      "IT Support Executive"
+    ],
+    [
+      "IT Department",
+      "Lab QC Analyst"
+    ],
+    [
+      "IT Department",
+      "Cloud Operations Analyst"
+    ],
+    [
+      "IT Department",
+      "Cook"
+    ],
+    [
+      "IT Department",
+      "Webmaster"
+    ],
+    [
+      "IT Department",
+      "Product Designer"
+    ],
+    [
+      "IT Department",
+      "L2 Technical Support"
+    ],
+    [
+      "IT Department",
+      "C++ Developer"
+    ],
+    [
+      "IT Department",
+      "Nurse"
+    ],
+    [
+      "IT Department",
+      "Agriculture Officer"
+    ],
+    [
+      "IT Department",
+      "Motion Graphics Designer"
+    ],
+    [
+      "IT Department",
+      "IT Support Specialist"
+    ],
+    [
+      "IT Department",
+      "Character Animator"
+    ],
+    [
+      "IT Department",
+      "Primary Teacher"
+    ],
+    [
+      "IT Department",
+      "Systems Engineer"
+    ],
+    [
+      "IT Department",
+      "Retail Associate"
+    ],
+    [
+      "IT Department",
+      "Test Engineer"
+    ],
+    [
+      "IT Department",
+      "Level Designer"
+    ],
+    [
+      "IT Department",
+      "Equity Research Analyst"
+    ],
+    [
+      "IT Department",
+      "QA Manual Tester"
+    ],
+    [
+      "IT Department",
+      "Marine Engineer"
+    ],
+    [
+      "IT Department",
+      "Education Consultant"
+    ],
+    [
+      "IT Department",
+      "Maya Artist"
+    ],
+    [
+      "IT Department",
+      "Hair Stylist"
+    ],
+    [
+      "IT Department",
+      "Structural Engineer"
+    ],
+    [
+      "IT Department",
+      "Production Engineer Automobile"
+    ],
+    [
+      "IT Department",
+      "QMS Executive"
+    ],
+    [
+      "IT Department",
+      "Healthcare Coordinator"
+    ],
+    [
+      "IT Department",
+      "IT Recruiter"
+    ],
+    [
+      "IT Department",
+      "AI Developer"
+    ],
+    [
+      "IT Department",
+      "Leasing Executive"
+    ],
+    [
+      "IT Department",
+      "Media Planner"
+    ],
+    [
+      "IT Department",
+      "CRM Real Estate Executive"
+    ],
+    [
+      "IT Department",
+      "Network Operations Center Engineer"
+    ],
+    [
+      "IT Department",
+      "SharePoint Developer"
+    ],
+    [
+      "IT Department",
+      "Node.js Backend Developer"
+    ],
+    [
+      "IT Department",
+      "Interior Design Consultant"
+    ],
+    [
+      "IT Department",
+      "Investment Advisor"
+    ],
+    [
+      "IT Department",
+      "Executive Assistant"
+    ],
+    [
+      "IT Department",
+      "Customer Sales Associate"
+    ],
+    [
+      "IT Department",
+      "Data Processing Executive"
+    ],
+    [
+      "IT Department",
+      "Media Executive"
+    ],
+    [
+      "IT Department",
+      "QC Analyst"
+    ],
+    [
+      "IT Department",
+      "Photoshop Designer"
+    ],
+    [
+      "IT Department",
+      "Finance Officer"
+    ],
+    [
+      "IT Department",
+      "Business Research Analyst"
+    ],
+    [
+      "IT Department",
+      "Animation Designer"
+    ],
+    [
+      "IT Department",
+      "Travel Consultant"
+    ],
+    [
+      "IT Department",
+      "Back Office Executive"
+    ],
+    [
+      "IT Department",
+      "IT Helpdesk Executive"
+    ],
+    [
+      "IT Department",
+      "Hospital Pharmacist"
+    ],
+    [
+      "IT Department",
+      "Network Operations Engineer"
+    ],
+    [
+      "IT Department",
+      "Graphic Designer"
+    ],
+    [
+      "IT Department",
+      "Creative Designer"
+    ],
+    [
+      "IT Department",
+      "ERP Functional Consultant"
+    ],
+    [
+      "IT Department",
+      "Marine Technician"
+    ],
+    [
+      "IT Department",
+      "Soft Skills Trainer"
+    ],
+    [
+      "IT Department",
+      "Sysadmin"
+    ],
+    [
+      "IT Department",
+      "Service Engineer"
+    ],
+    [
+      "IT Department",
+      "L2 Support Engineer"
+    ],
+    [
+      "IT Department",
+      "Personal Trainer"
+    ],
+    [
+      "IT Department",
+      "CCTV Operator"
+    ],
+    [
+      "IT Department",
+      "Electrical Energy Engineer"
+    ],
+    [
+      "IT Department",
+      "Academic Coordinator"
+    ],
+    [
+      "IT Department",
+      "Sales Consultant"
+    ],
+    [
+      "IT Department",
+      "Gym Trainer"
+    ],
+    [
+      "IT Department",
+      "Quality Assurance Specialist"
+    ],
+    [
+      "IT Department",
+      "Public Relations Executive"
+    ],
+    [
+      "IT Department",
+      "Sales Officer"
+    ],
+    [
+      "IT Department",
+      "Laboratory Assistant"
+    ],
+    [
+      "IT Department",
+      "Golang Developer"
+    ],
+    [
+      "IT Department",
+      "Market Risk Analyst"
+    ],
+    [
+      "IT Department",
+      "Ecommerce Coordinator"
+    ],
+    [
+      "IT Department",
+      "Spring Boot Developer"
+    ],
+    [
+      "IT Department",
+      "Electrical Project Engineer"
+    ],
+    [
+      "IT Department",
+      "Personal Assistant"
+    ],
+    [
+      "IT Department",
+      "Picker and Packer"
+    ],
+    [
+      "IT Department",
+      "AWS Support Engineer"
+    ],
+    [
+      "IT Department",
+      "Administrative Officer"
+    ],
+    [
+      "IT Department",
+      "ICU Nurse"
+    ],
+    [
+      "IT Department",
+      "Ecommerce Operations Executive"
+    ],
+    [
+      "IT Department",
+      "Import Executive"
+    ],
+    [
+      "IT Department",
+      "Compensation Executive"
+    ],
+    [
+      "IT Department",
+      "Chat Technical Support"
+    ],
+    [
+      "IT Department",
+      "Inside Sales Executive"
+    ],
+    [
+      "IT Department",
+      "C# Developer"
+    ],
+    [
+      "IT Department",
+      "AI Researcher"
+    ],
+    [
+      "IT Department",
+      "Client Relationship Executive"
+    ],
+    [
+      "IT Department",
+      "Development Engineer"
+    ],
+    [
+      "IT Department",
+      "Junior Software Developer"
+    ],
+    [
+      "IT Department",
+      "Quantity Surveyor"
+    ],
+    [
+      "IT Department",
+      "Security Officer"
+    ],
+    [
+      "IT Department",
+      "Administrative Executive"
+    ],
+    [
+      "IT Department",
+      "Marketing Officer"
+    ],
+    [
+      "IT Department",
+      "Hybrid App Developer"
+    ],
+    [
+      "IT Department",
+      "SAP Functional Consultant"
+    ],
+    [
+      "IT Department",
+      "Logo Designer"
+    ],
+    [
+      "IT Department",
+      "Agriculture Sales Executive"
+    ],
+    [
+      "IT Department",
+      "Google Ads Specialist"
+    ],
+    [
+      "IT Department",
+      "Web Developer"
+    ],
+    [
+      "IT Department",
+      "Sales Development Representative"
+    ],
+    [
+      "IT Department",
+      "Publishing Executive"
+    ],
+    [
+      "IT Department",
+      "Telemarketing Executive"
+    ],
+    [
+      "IT Department",
+      "Secondary Teacher"
+    ],
+    [
+      "IT Department",
+      "Jewellery Sales Executive"
+    ],
+    [
+      "IT Department",
+      "Editorial Assistant"
+    ],
+    [
+      "IT Department",
+      "QC Inspector"
+    ],
+    [
+      "IT Department",
+      "Ecommerce Analyst"
+    ],
+    [
+      "IT Department",
+      "Risk Analyst"
+    ],
+    [
+      "IT Department",
+      "Quality Engineer Mechanical"
+    ],
+    [
+      "IT Department",
+      "Pharmacovigilance Associate"
+    ],
+    [
+      "IT Department",
+      "Quality Analyst"
+    ],
+    [
+      "IT Department",
+      "Student Success Executive"
+    ],
+    [
+      "IT Department",
+      "PCB Design Engineer"
+    ],
+    [
+      "IT Department",
+      "2D Animator"
+    ],
+    [
+      "IT Department",
+      "Case Worker"
+    ],
+    [
+      "IT Department",
+      "Packaging Executive"
+    ],
+    [
+      "IT Department",
+      "Django Backend Developer"
+    ],
+    [
+      "IT Department",
+      "Junior Engineer"
+    ],
+    [
+      "IT Department",
+      "Housekeeping Executive"
+    ],
+    [
+      "IT Department",
+      "IT Support Engineer"
+    ],
+    [
+      "IT Department",
+      "Statistical Analyst"
+    ],
+    [
+      "IT Department",
+      "IT Security Analyst"
+    ],
+    [
+      "IT Department",
+      "Field Coordinator"
+    ],
+    [
+      "IT Department",
+      "M365 Engineer"
+    ],
+    [
+      "IT Department",
+      "Creative Graphic Designer"
+    ],
+    [
+      "IT Department",
+      "International Trade Executive"
+    ],
+    [
+      "IT Department",
+      "Endpoint Administrator"
+    ],
+    [
+      "IT Department",
+      "Pipeline Engineer"
+    ],
+    [
+      "IT Department",
+      "Solidity Developer"
+    ],
+    [
+      "IT Department",
+      "Line Supervisor"
+    ],
+    [
+      "IT Department",
+      "Compliance Officer"
+    ],
+    [
+      "IT Department",
+      "Visual Merchandiser"
+    ],
+    [
+      "IT Department",
+      "Reporting Developer"
+    ],
+    [
+      "IT Department",
+      "React Full Stack Developer"
+    ],
+    [
+      "IT Department",
+      "Endpoint Security Engineer"
+    ],
+    [
+      "IT Department",
+      "Infrastructure Support Specialist"
+    ],
+    [
+      "IT Department",
+      "Project Officer"
+    ],
+    [
+      "IT Department",
+      "Software Tester"
+    ],
+    [
+      "IT Department",
+      "Data Warehouse Administrator"
+    ],
+    [
+      "IT Department",
+      "Amazon Marketplace Executive"
+    ],
+    [
+      "IT Department",
+      "Ruby Developer"
+    ],
+    [
+      "IT Department",
+      "SCCM Administrator"
+    ],
+    [
+      "IT Department",
+      "Deep Learning Engineer"
+    ],
+    [
+      "IT Department",
+      "Mainframe Developer"
+    ],
+    [
+      "IT Department",
+      "Cloud Platform Administrator"
+    ],
+    [
+      "IT Department",
+      "SAP MM Consultant"
+    ],
+    [
+      "IT Department",
+      "QA Tester"
+    ],
+    [
+      "IT Department",
+      "Route Planner"
+    ],
+    [
+      "IT Department",
+      "Business Data Analyst"
+    ],
+    [
+      "IT Department",
+      "BPO Executive"
+    ],
+    [
+      "IT Department",
+      "IT Coordinator"
+    ],
+    [
+      "IT Department",
+      "Travel Coordinator"
+    ],
+    [
+      "IT Department",
+      "Knowledge Base Writer"
+    ],
+    [
+      "IT Department",
+      "Network Analyst"
+    ],
+    [
+      "IT Department",
+      "Seafarer"
+    ],
+    [
+      "IT Department",
+      "Data Center Engineer"
+    ],
+    [
+      "IT Department",
+      "Product Trainer"
+    ],
+    [
+      "IT Department",
+      "Big Data Engineer"
+    ],
+    [
+      "IT Department",
+      "Server Engineer"
+    ],
+    [
+      "IT Department",
+      "Voice Process Executive"
+    ],
+    [
+      "IT Department",
+      "ERP Support Executive"
+    ],
+    [
+      "IT Department",
+      "Azure Support Engineer"
+    ],
+    [
+      "IT Department",
+      "Drilling Engineer"
+    ],
+    [
+      "IT Department",
+      "Brand Designer"
+    ],
+    [
+      "IT Department",
+      "Customer Support Associate"
+    ],
+    [
+      "IT Department",
+      "Planning Engineer"
+    ],
+    [
+      "IT Department",
+      "Fraud Risk Analyst"
+    ],
+    [
+      "IT Department",
+      "Excel Data Entry Operator"
+    ],
+    [
+      "IT Department",
+      "Electrical Maintenance Engineer"
+    ],
+    [
+      "IT Department",
+      "Python Backend Developer"
+    ],
+    [
+      "IT Department",
+      "Production Planner"
+    ],
+    [
+      "IT Department",
+      "Marketing Data Analyst"
+    ],
+    [
+      "IT Department",
+      "Compliance Lawyer"
+    ],
+    [
+      "IT Department",
+      "IT Infrastructure Consultant"
+    ],
+    [
+      "IT Department",
+      "Design Engineer"
+    ],
+    [
+      "IT Department",
+      "Creative Copywriter"
+    ],
+    [
+      "IT Department",
+      "Computer Operator"
+    ],
+    [
+      "IT Department",
+      "Inventory Analyst"
+    ],
+    [
+      "IT Department",
+      "Clinical Research Scientist"
+    ],
+    [
+      "IT Department",
+      "Food Safety Officer"
+    ],
+    [
+      "IT Department",
+      "Sales Trainer"
+    ],
+    [
+      "IT Department",
+      "Payroll Executive"
+    ],
+    [
+      "IT Department",
+      "Surgeon"
+    ],
+    [
+      "IT Department",
+      "Public Sector Officer"
+    ],
+    [
+      "IT Department",
+      "IT Infrastructure Specialist"
+    ],
+    [
+      "IT Department",
+      "Cloud Support Associate"
+    ],
+    [
+      "IT Department",
+      "Computer Teacher"
+    ],
+    [
+      "IT Department",
+      "Application Security Engineer"
+    ],
+    [
+      "IT Department",
+      "Data Engineer"
+    ],
+    [
+      "IT Department",
+      "VFX Artist"
+    ],
+    [
+      "IT Department",
+      "Information Security Officer"
+    ],
+    [
+      "IT Department",
+      "Production Support Engineer"
+    ],
+    [
+      "IT Department",
+      "Backup Administrator"
+    ],
+    [
+      "IT Department",
+      "Vendor Coordinator"
+    ],
+    [
+      "IT Department",
+      "Social Media Executive"
+    ],
+    [
+      "IT Department",
+      "Mechanical Engineer"
+    ],
+    [
+      "IT Department",
+      "Bancassurance Executive"
+    ],
+    [
+      "IT Department",
+      "Facility Administrator"
+    ],
+    [
+      "IT Department",
+      "Process Associate"
+    ],
+    [
+      "IT Department",
+      "Datacenter Infrastructure Engineer"
+    ],
+    [
+      "IT Department",
+      "Junior Data Scientist"
+    ],
+    [
+      "IT Department",
+      "Crypto Developer"
+    ],
+    [
+      "IT Department",
+      "ERP Administrator"
+    ],
+    [
+      "IT Department",
+      "AI Engineer"
+    ],
+    [
+      "IT Department",
+      "Executive"
+    ],
+    [
+      "IT Department",
+      "Endpoint Engineer"
+    ],
+    [
+      "IT Department",
+      "Production Supervisor"
+    ],
+    [
+      "IT Department",
+      "Data Scientist"
+    ],
+    [
+      "IT Department",
+      "Customer Technical Support"
+    ],
+    [
+      "IT Department",
+      "Inventory Controller"
+    ],
+    [
+      "IT Department",
+      "Legal Advisor"
+    ],
+    [
+      "IT Department",
+      "Community Development Officer"
+    ],
+    [
+      "IT Department",
+      "Cabin Crew"
+    ],
+    [
+      "IT Department",
+      "Healthcare Administrator"
+    ],
+    [
+      "IT Department",
+      "Research Analyst"
+    ],
+    [
+      "IT Department",
+      "Photojournalist"
+    ],
+    [
+      "IT Department",
+      "Telesales Executive"
+    ],
+    [
+      "IT Department",
+      "Office 365 Engineer"
+    ],
+    [
+      "IT Department",
+      "Crop Advisor"
+    ],
+    [
+      "IT Department",
+      "Jewellery Merchandiser"
+    ],
+    [
+      "IT Department",
+      "Field Sales Officer"
+    ],
+    [
+      "IT Department",
+      "Plant Maintenance Engineer"
+    ],
+    [
+      "IT Department",
+      "SEM Executive"
+    ],
+    [
+      "IT Department",
+      "AutoCAD Interior Designer"
+    ],
+    [
+      "IT Department",
+      "Telecaller"
+    ],
+    [
+      "IT Department",
+      "Social Media Copywriter"
+    ],
+    [
+      "IT Department",
+      "Internal Auditor"
+    ],
+    [
+      "IT Department",
+      "Performance Test Engineer"
+    ],
+    [
+      "IT Department",
+      "MySQL DBA"
+    ],
+    [
+      "IT Department",
+      "Telecalling Executive"
+    ],
+    [
+      "IT Department",
+      "Fashion Consultant"
+    ],
+    [
+      "IT Department",
+      "Information Security Analyst"
+    ],
+    [
+      "IT Department",
+      "IT Service Desk Analyst"
+    ],
+    [
+      "IT Department",
+      "Junior Web Developer"
+    ],
+    [
+      "IT Department",
+      "Staffing Specialist"
+    ],
+    [
+      "IT Department",
+      "Office 365 Support Engineer"
+    ],
+    [
+      "IT Department",
+      "Product Owner"
+    ],
+    [
+      "IT Department",
+      "Database Engineer"
+    ],
+    [
+      "IT Department",
+      "AI Consultant"
+    ],
+    [
+      "IT Department",
+      "Teams Administrator"
+    ],
+    [
+      "IT Department",
+      "Infrastructure Engineer"
+    ],
+    [
+      "IT Department",
+      "Dyeing Master"
+    ],
+    [
+      "IT Department",
+      "Barista"
+    ],
+    [
+      "IT Department",
+      "Azure DevOps Engineer"
+    ],
+    [
+      "IT Department",
+      "Clerk"
+    ],
+    [
+      "IT Department",
+      "React Developer"
+    ],
+    [
+      "IT Department",
+      "Field Officer"
+    ],
+    [
+      "IT Department",
+      "Content Documentation Executive"
+    ],
+    [
+      "IT Department",
+      "IoT Engineer"
+    ],
+    [
+      "IT Department",
+      "IT Officer"
+    ],
+    [
+      "IT Department",
+      "SharePoint Administrator"
+    ],
+    [
+      "IT Department",
+      "Export Sales Executive"
+    ],
+    [
+      "IT Department",
+      "Office Assistant"
+    ],
+    [
+      "IT Department",
+      "Kubernetes Engineer"
+    ],
+    [
+      "IT Department",
+      "AWS Cloud Support Engineer"
+    ],
+    [
+      "IT Department",
+      "Software Developer"
+    ],
+    [
+      "IT Department",
+      "Linux Engineer"
+    ],
+    [
+      "IT Department",
+      "News Anchor"
+    ],
+    [
+      "IT Department",
+      "Marketing Coordinator"
+    ],
+    [
+      "IT Department",
+      "MEAN Stack Developer"
+    ],
+    [
+      "IT Department",
+      "Email Support Executive"
+    ],
+    [
+      "IT Department",
+      "Intern"
+    ],
+    [
+      "IT Department",
+      "UI UX Designer"
+    ],
+    [
+      "IT Department",
+      "Retail Store Executive"
+    ],
+    [
+      "IT Department",
+      "Facility Maintenance Executive"
+    ],
+    [
+      "IT Department",
+      "Typing Operator"
+    ],
+    [
+      "IT Department",
+      "Lead Generation Executive"
+    ],
+    [
+      "IT Department",
+      "Facility Supervisor"
+    ],
+    [
+      "IT Department",
+      "ISO Coordinator"
+    ],
+    [
+      "IT Department",
+      "iOS Developer"
+    ],
+    [
+      "IT Department",
+      "Salary Processing Executive"
+    ],
+    [
+      "IT Department",
+      "SAP Basis Administrator"
+    ],
+    [
+      "IT Department",
+      "Security Administrator"
+    ],
+    [
+      "IT Department",
+      "Clinical Research Associate"
+    ],
+    [
+      "IT Department",
+      "Embedded Software Engineer"
+    ],
+    [
+      "IT Department",
+      "Applied Data Scientist"
+    ],
+    [
+      "IT Department",
+      "Computer Vision Scientist"
+    ],
+    [
+      "IT Department",
+      "Dashboard Developer"
+    ],
+    [
+      "IT Department",
+      "Business Development Executive"
+    ],
+    [
+      "IT Department",
+      "CNC Operator"
+    ],
+    [
+      "IT Department",
+      "Warehouse Coordinator"
+    ],
+    [
+      "IT Department",
+      "Remote Support Engineer"
+    ],
+    [
+      "IT Department",
+      "Tower Technician"
+    ],
+    [
+      "IT Department",
+      "Investment Analyst"
+    ],
+    [
+      "IT Department",
+      "Regression Tester"
+    ],
+    [
+      "IT Department",
+      "Cloud Support Analyst"
+    ],
+    [
+      "IT Department",
+      "Intune Engineer"
+    ],
+    [
+      "IT Department",
+      "QC Engineer"
+    ],
+    [
+      "IT Department",
+      "Cybersecurity Analyst"
+    ],
+    [
+      "IT Department",
+      "Registered Nurse"
+    ],
+    [
+      "IT Department",
+      "Housekeeping Staff"
+    ],
+    [
+      "IT Department",
+      "Cloud Engineer"
+    ],
+    [
+      "IT Department",
+      "Project Engineer"
+    ],
+    [
+      "IT Department",
+      "Shipping Officer"
+    ],
+    [
+      "IT Department",
+      "Event Sales Executive"
+    ],
+    [
+      "IT Department",
+      ".NET Full Stack Developer"
+    ],
+    [
+      "IT Department",
+      "Print Designer"
+    ],
+    [
+      "IT Department",
+      "Athletic Trainer"
+    ],
+    [
+      "IT Department",
+      "Cloud Ops Engineer"
+    ],
+    [
+      "IT Department",
+      "RF Engineer"
+    ],
+    [
+      "IT Department",
+      "Print Production Executive"
+    ],
+    [
+      "IT Department",
+      "Energy Consultant"
+    ],
+    [
+      "IT Department",
+      "HR Recruiter"
+    ],
+    [
+      "IT Department",
+      "F&B Executive"
+    ],
+    [
+      "IT Department",
+      "IT Infrastructure Analyst"
+    ],
+    [
+      "IT Department",
+      "GST Accountant"
+    ],
+    [
+      "IT Department",
+      "Vendor Development Executive"
+    ],
+    [
+      "IT Department",
+      "NOC Engineer"
+    ],
+    [
+      "IT Department",
+      "Telecom Technician"
+    ],
+    [
+      "IT Department",
+      "Bouncer"
+    ],
+    [
+      "IT Department",
+      "IT Services Specialist"
+    ],
+    [
+      "IT Department",
+      "Compliance Analyst"
+    ],
+    [
+      "IT Department",
+      "Kotlin Developer"
+    ],
+    [
+      "IT Department",
+      "Shipping Executive"
+    ],
+    [
+      "IT Department",
+      "Business Analyst"
+    ],
+    [
+      "IT Department",
+      "Back Office Assistant"
+    ],
+    [
+      "IT Department",
+      "Accounts Assistant"
+    ],
+    [
+      "IT Department",
+      "Professor"
+    ],
+    [
+      "IT Department",
+      "Solar Engineer"
+    ],
+    [
+      "IT Department",
+      "UX Researcher"
+    ],
+    [
+      "IT Department",
+      "Direct Tax Consultant"
+    ],
+    [
+      "IT Department",
+      "Identity Access Management Analyst"
+    ],
+    [
+      "IT Department",
+      "Retail Supervisor"
+    ],
+    [
+      "IT Department",
+      "Web Application Developer"
+    ],
+    [
+      "IT Department",
+      "Intune Administrator"
+    ],
+    [
+      "IT Department",
+      "Content Producer"
+    ],
+    [
+      "IT Department",
+      "Supply Chain Executive"
+    ],
+    [
+      "IT Department",
+      "Azure Infrastructure Engineer"
+    ],
+    [
+      "IT Department",
+      "Business Operations Executive"
+    ],
+    [
+      "IT Department",
+      "Electrical Site Engineer"
+    ],
+    [
+      "IT Department",
+      "Financial Analyst"
+    ],
+    [
+      "IT Department",
+      "Architect"
+    ],
+    [
+      "IT Department",
+      "Doctor"
+    ],
+    [
+      "IT Department",
+      "Office Coordinator"
+    ],
+    [
+      "IT Department",
+      "Loan Officer"
+    ],
+    [
+      "IT Department",
+      "Data Entry Operator"
+    ],
+    [
+      "IT Department",
+      "Corporate Trainer"
+    ],
+    [
+      "IT Department",
+      "AI Trainer"
+    ],
+    [
+      "IT Department",
+      "Production Executive Food"
+    ],
+    [
+      "IT Department",
+      "Mobile UI Developer"
+    ],
+    [
+      "IT Department",
+      "Sourcing Specialist"
+    ],
+    [
+      "IT Department",
+      "Textile Designer"
+    ],
+    [
+      "IT Department",
+      "Energy Engineer"
+    ],
+    [
+      "IT Department",
+      "Credit Risk Analyst"
+    ],
+    [
+      "IT Department",
+      "OT Nurse"
+    ],
+    [
+      "IT Department",
+      "Selenium Tester"
+    ],
+    [
+      "IT Department",
+      "Business Sales Executive"
+    ],
+    [
+      "IT Department",
+      "Site Supervisor"
+    ],
+    [
+      "IT Department",
+      "Payroll Specialist"
+    ],
+    [
+      "IT Department",
+      "Customs Executive"
+    ],
+    [
+      "IT Department",
+      "Chef"
+    ],
+    [
+      "IT Department",
+      "Client Service Executive"
+    ],
+    [
+      "IT Department",
+      "QA Engineer"
+    ],
+    [
+      "IT Department",
+      "Space Planner"
+    ],
+    [
+      "IT Department",
+      "Technical Specialist"
+    ],
+    [
+      "IT Department",
+      "Driver"
+    ],
+    [
+      "IT Department",
+      "Copy Editor"
+    ],
+    [
+      "IT Department",
+      "Prototype Designer"
+    ],
+    [
+      "IT Department",
+      "Generative AI Engineer"
+    ],
+    [
+      "IT Department",
+      "Blender Artist"
+    ],
+    [
+      "IT Department",
+      "Network Field Engineer"
+    ],
+    [
+      "IT Department",
+      "VMware Administrator"
+    ],
+    [
+      "IT Department",
+      "News Reporter"
+    ],
+    [
+      "IT Department",
+      "Collection Executive"
+    ],
+    [
+      "IT Department",
+      "Helpdesk Support Executive"
+    ],
+    [
+      "IT Department",
+      "Junior Architect"
+    ],
+    [
+      "IT Department",
+      "Data Science Engineer"
+    ],
+    [
+      "IT Department",
+      "Sales Representative"
+    ],
+    [
+      "IT Department",
+      "Process Trainer"
+    ],
+    [
+      "IT Department",
+      "Civil Engineer"
+    ],
+    [
+      "IT Department",
+      "Taxation Officer"
+    ],
+    [
+      "IT Department",
+      "Ecommerce Executive"
+    ],
+    [
+      "IT Department",
+      "Unix System Administrator"
+    ],
+    [
+      "IT Department",
+      "Visa Executive"
+    ],
+    [
+      "IT Department",
+      "IT Systems Specialist"
+    ],
+    [
+      "IT Department",
+      "Microsoft 365 Administrator"
+    ],
+    [
+      "IT Department",
+      "Cloud Infrastructure Administrator"
+    ],
+    [
+      "IT Department",
+      "Automobile Engineer"
+    ],
+    [
+      "IT Department",
+      "Jewellery Production Executive"
+    ],
+    [
+      "IT Department",
+      "Admin Executive"
+    ],
+    [
+      "IT Department",
+      "Brand Creative Designer"
+    ],
+    [
+      "IT Department",
+      "Cloud Security Engineer"
+    ],
+    [
+      "IT Department",
+      "Welfare Officer"
+    ],
+    [
+      "IT Department",
+      "Tableau Developer"
+    ],
+    [
+      "IT Department",
+      "Java Full Stack Developer"
+    ],
+    [
+      "IT Department",
+      "Store Executive"
+    ],
+    [
+      "IT Department",
+      "Docker Engineer"
+    ],
+    [
+      "IT Department",
+      "Desktop Support Engineer"
+    ],
+    [
+      "IT Department",
+      "Mobile App Tester"
+    ],
+    [
+      "IT Department",
+      "Content Marketing Executive"
+    ],
+    [
+      "IT Department",
+      "Medical Representative"
+    ],
+    [
+      "IT Department",
+      "Database Analyst"
+    ],
+    [
+      "IT Department",
+      "Control Panel Engineer"
+    ],
+    [
+      "IT Department",
+      "Inside Sales Representative"
+    ],
+    [
+      "IT Department",
+      "Cloud DevOps Engineer"
+    ],
+    [
+      "IT Department",
+      "PHP Developer"
+    ],
+    [
+      "IT Department",
+      "Final Quality Inspector"
+    ],
+    [
+      "IT Department",
+      "Makeup Artist"
+    ],
+    [
+      "IT Department",
+      "AutoCAD Designer"
+    ],
+    [
+      "IT Department",
+      "Cloud Monitoring Engineer"
+    ],
+    [
+      "IT Department",
+      "Room Service Executive"
+    ],
+    [
+      "IT Department",
+      "Education Counselor"
+    ],
+    [
+      "IT Department",
+      "Transport Coordinator"
+    ],
+    [
+      "IT Department",
+      "Pharmacy Assistant"
+    ],
+    [
+      "IT Department",
+      "Testing Engineer Electronics"
+    ],
+    [
+      "IT Department",
+      "Sales Associate"
+    ],
+    [
+      "IT Department",
+      "Prepress Operator"
+    ],
+    [
+      "IT Department",
+      "Mortgage Executive"
+    ],
+    [
+      "IT Department",
+      "Procurement Specialist"
+    ],
+    [
+      "IT Department",
+      "MongoDB Administrator"
+    ],
+    [
+      "IT Department",
+      "Flask Developer"
+    ],
+    [
+      "IT Department",
+      "NLP Data Scientist"
+    ],
+    [
+      "IT Department",
+      "SQL Developer"
+    ],
+    [
+      "IT Department",
+      "Flutter Developer"
+    ],
+    [
+      "IT Department",
+      "Tour Guide"
+    ],
+    [
+      "IT Department",
+      "Science Teacher"
+    ],
+    [
+      "IT Department",
+      "L1 Technical Support"
+    ],
+    [
+      "IT Department",
+      "SQL DBA"
+    ],
+    [
+      "IT Department",
+      "Garment Technologist"
+    ],
+    [
+      "IT Department",
+      "Correspondent"
+    ],
+    [
+      "IT Department",
+      "Textile Merchandiser"
+    ],
+    [
+      "IT Department",
+      "Fashion Buyer"
+    ],
+    [
+      "IT Department",
+      "Marketplace Operations Analyst"
+    ],
+    [
+      "IT Department",
+      "Guest Relations Executive"
+    ],
+    [
+      "IT Department",
+      "Purchase Assistant"
+    ],
+    [
+      "IT Department",
+      "Technical Support Executive"
+    ],
+    [
+      "IT Department",
+      "DevOps Engineer"
+    ],
+    [
+      "IT Department",
+      "System Operations Engineer"
+    ],
+    [
+      "IT Department",
+      "Training Executive"
+    ],
+    [
+      "IT Department",
+      "Purchase Executive"
+    ],
+    [
+      "IT Department",
+      "Stock Auditor"
+    ],
+    [
+      "IT Department",
+      "SEO Copywriter"
+    ],
+    [
+      "IT Department",
+      "Cloud Migration Engineer"
+    ],
+    [
+      "IT Department",
+      "Inventory Store Executive"
+    ],
+    [
+      "IT Department",
+      "Swift Developer"
+    ],
+    [
+      "IT Department",
+      "Hyper V Administrator"
+    ],
+    [
+      "IT Department",
+      "Trainer"
+    ],
+    [
+      "IT Department",
+      "NGO Coordinator"
+    ],
+    [
+      "IT Department",
+      "Voice Support Executive"
+    ],
+    [
+      "IT Department",
+      "Skin Therapist"
+    ],
+    [
+      "IT Department",
+      "Packaging Designer"
+    ],
+    [
+      "IT Department",
+      "Animator"
+    ],
+    [
+      "IT Department",
+      "Financial Research Analyst"
+    ],
+    [
+      "IT Department",
+      "Student Counselor"
+    ],
+    [
+      "IT Department",
+      "WordPress Developer"
+    ],
+    [
+      "IT Department",
+      "Sports Coordinator"
+    ],
+    [
+      "IT Department",
+      "Electronics Engineer"
+    ],
+    [
+      "IT Department",
+      "React Native Developer"
+    ],
+    [
+      "IT Department",
+      "Employee Relations Executive"
+    ],
+    [
+      "IT Department",
+      "Public Service Officer"
+    ],
+    [
+      "IT Department",
+      "Chemist"
+    ],
+    [
+      "IT Department",
+      "Freight Forwarding Executive"
+    ],
+    [
+      "IT Department",
+      "Platform Engineer"
+    ],
+    [
+      "IT Department",
+      "Automotive Technician"
+    ],
+    [
+      "IT Department",
+      "PHP Web Developer"
+    ],
+    [
+      "IT Department",
+      "Brand Executive"
+    ],
+    [
+      "IT Department",
+      "DevOps Developer"
+    ],
+    [
+      "IT Department",
+      "Event Executive"
+    ],
+    [
+      "IT Department",
+      "API Automation Tester"
+    ],
+    [
+      "IT Department",
+      "Legal Officer"
+    ],
+    [
+      "IT Department",
+      "Application Support Engineer"
+    ],
+    [
+      "IT Department",
+      "Corporate Communication Executive"
+    ],
+    [
+      "IT Department",
+      "English Teacher"
+    ],
+    [
+      "IT Department",
+      "Medical Coordinator"
+    ],
+    [
+      "IT Department",
+      "Oracle ERP Consultant"
+    ],
+    [
+      "IT Department",
+      "Security Engineer"
+    ],
+    [
+      "IT Department",
+      "Windows Administrator"
+    ],
+    [
+      "IT Department",
+      "Seller Support Executive"
+    ],
+    [
+      "IT Department",
+      "MLOps Engineer"
+    ],
+    [
+      "IT Department",
+      "Weaving Supervisor"
+    ],
+    [
+      "IT Department",
+      "Logistics Supervisor"
+    ],
+    [
+      "IT Department",
+      "SAP Support Consultant"
+    ],
+    [
+      "IT Department",
+      "Press Officer"
+    ],
+    [
+      "IT Department",
+      "Software Quality Analyst"
+    ],
+    [
+      "IT Department",
+      "Pharmacist"
+    ],
+    [
+      "IT Department",
+      "Network Infrastructure Engineer"
+    ],
+    [
+      "IT Department",
+      "Purchase Analyst"
+    ],
+    [
+      "IT Department",
+      "Machine Operator"
+    ],
+    [
+      "IT Department",
+      "Publication Coordinator"
+    ],
+    [
+      "IT Department",
+      "Customer Success Executive"
+    ],
+    [
+      "IT Department",
+      "Agriculture Engineer"
+    ],
+    [
+      "IT Department",
+      "Retail Pharmacist"
+    ],
+    [
+      "IT Department",
+      "Azure Migration Engineer"
+    ],
+    [
+      "IT Department",
+      "HVAC Engineer"
+    ],
+    [
+      "IT Department",
+      "Layout Designer"
+    ],
+    [
+      "IT Department",
+      "Market Development Executive"
+    ],
+    [
+      "IT Department",
+      "Campaign Designer"
+    ],
+    [
+      "IT Department",
+      "Beauty Therapist"
+    ],
+    [
+      "IT Department",
+      "Quality Analyst Food"
+    ],
+    [
+      "IT Department",
+      "IT Infrastructure Administrator"
+    ],
+    [
+      "IT Department",
+      "Microsoft Intune Engineer"
+    ],
+    [
+      "IT Department",
+      "Tax Executive"
+    ],
+    [
+      "IT Department",
+      "Illustrator Designer"
+    ],
+    [
+      "IT Department",
+      "Telecom Engineer"
+    ],
+    [
+      "IT Department",
+      "Construction Worker"
+    ],
+    [
+      "IT Department",
+      "Instructional Writer"
+    ],
+    [
+      "IT Department",
+      "Android Developer"
+    ],
+    [
+      "IT Department",
+      "Port Operations Executive"
+    ],
+    [
+      "IT Department",
+      "Shopify Developer"
+    ],
+    [
+      "IT Department",
+      "Research Data Scientist"
+    ],
+    [
+      "IT Department",
+      "Manual Tester"
+    ],
+    [
+      "IT Department",
+      "Field Sales Executive"
+    ],
+    [
+      "IT Department",
+      "Active Directory Engineer"
+    ],
+    [
+      "IT Department",
+      "AWS Systems Administrator"
+    ],
+    [
+      "IT Department",
+      "Channel Sales Executive"
+    ],
+    [
+      "IT Department",
+      "Quality Engineer"
+    ],
+    [
+      "IT Department",
+      "Visual Designer"
+    ],
+    [
+      "IT Department",
+      "User Manual Writer"
+    ],
+    [
+      "IT Department",
+      "Medical Advisor"
+    ],
+    [
+      "IT Department",
+      "IT Executive"
+    ],
+    [
+      "IT Department",
+      "Plant Operator"
+    ],
+    [
+      "IT Department",
+      "TypeScript Developer"
+    ],
+    [
+      "IT Department",
+      "Insurance Advisor"
+    ],
+    [
+      "IT Department",
+      "Vendor Management Executive"
+    ],
+    [
+      "IT Department",
+      "Technical Support Specialist"
+    ],
+    [
+      "IT Department",
+      "Printing Supervisor"
+    ],
+    [
+      "IT Department",
+      "L2 System Engineer"
+    ],
+    [
+      "IT Department",
+      "Aircraft Maintenance Engineer"
+    ],
+    [
+      "IT Department",
+      "Investment Banking Analyst"
+    ],
+    [
+      "IT Department",
+      "Budget Analyst"
+    ],
+    [
+      "IT Department",
+      "Cashier"
+    ],
+    [
+      "IT Department",
+      "Food Technologist"
+    ],
+    [
+      "IT Department",
+      "Web Designer"
+    ],
+    [
+      "IT Department",
+      "DevOps Infrastructure Engineer"
+    ],
+    [
+      "IT Department",
+      "SCCM Engineer"
+    ],
+    [
+      "IT Department",
+      "Design Executive"
+    ],
+    [
+      "IT Department",
+      "IT Infrastructure Support Engineer"
+    ],
+    [
+      "IT Department",
+      "Manufacturing Engineer"
+    ],
+    [
+      "IT Department",
+      "Trainee"
+    ],
+    [
+      "IT Department",
+      "Administrative Assistant"
+    ],
+    [
+      "IT Department",
+      "Azure Infrastructure Administrator"
+    ],
+    [
+      "IT Department",
+      "Apparel Designer"
+    ],
+    [
+      "IT Department",
+      "Admin Facility Executive"
+    ],
+    [
+      "IT Department",
+      "Quality Inspector Packaging"
+    ],
+    [
+      "IT Department",
+      "Automation Test Engineer"
+    ],
+    [
+      "IT Department",
+      "Quality Analyst BPO"
+    ],
+    [
+      "IT Department",
+      "Exchange Online Administrator"
+    ],
+    [
+      "IT Department",
+      "ML Scientist"
+    ],
+    [
+      "IT Department",
+      "Supply Chain Analyst"
+    ],
+    [
+      "IT Department",
+      "Waiter"
+    ],
+    [
+      "IT Department",
+      "Server Support Engineer"
+    ],
+    [
+      "IT Department",
+      "Academic Content Writer"
+    ],
+    [
+      "IT Department",
+      "Back Office Data Entry Executive"
+    ],
+    [
+      "IT Department",
+      "Azure Cloud Infrastructure Engineer"
+    ],
+    [
+      "IT Department",
+      "Brand Copywriter"
+    ],
+    [
+      "IT Department",
+      "Shipping Documentation Executive"
+    ],
+    [
+      "IT Department",
+      "Store Supervisor"
+    ],
+    [
+      "IT Department",
+      "Horticulture Officer"
+    ],
+    [
+      "IT Department",
+      "M365 Administrator"
+    ],
+    [
+      "IT Department",
+      "Incoming Quality Inspector"
+    ],
+    [
+      "IT Department",
+      "Tax Consultant"
+    ],
+    [
+      "IT Department",
+      "Area Sales Executive"
+    ],
+    [
+      "IT Department",
+      "Prompt Engineer"
+    ],
+    [
+      "IT Department",
+      "SAP Developer"
+    ],
+    [
+      "IT Department",
+      "Interaction Designer"
+    ],
+    [
+      "IT Department",
+      "IT Support Technician"
+    ],
+    [
+      "IT Department",
+      "Infrastructure Technical Support Engineer"
+    ],
+    [
+      "IT Department",
+      "Marketplace Executive"
+    ],
+    [
+      "IT Department",
+      "GST Executive"
+    ],
+    [
+      "IT Department",
+      "Clinical Trial Assistant"
+    ],
+    [
+      "IT Department",
+      "Bookkeeper"
+    ],
+    [
+      "IT Department",
+      "Social Media Content Executive"
+    ],
+    [
+      "IT Department",
+      "Medical Records Executive"
+    ],
+    [
+      "IT Department",
+      "Sports Coach"
+    ],
+    [
+      "IT Department",
+      "Network Security Engineer"
+    ],
+    [
+      "IT Department",
+      "Django Developer"
+    ],
+    [
+      "IT Department",
+      "Unity Developer"
+    ],
+    [
+      "IT Department",
+      "Infrastructure Support Engineer"
+    ],
+    [
+      "IT Department",
+      "Supply Chain Coordinator"
+    ],
+    [
+      "IT Department",
+      "Reporter"
+    ],
+    [
+      "IT Department",
+      "Windows System Administrator"
+    ],
+    [
+      "IT Department",
+      "SAP SD Consultant"
+    ],
+    [
+      "IT Department",
+      "Warehouse Inventory Executive"
+    ],
+    [
+      "IT Department",
+      "Game Tester"
+    ],
+    [
+      "IT Department",
+      "Financial Data Analyst"
+    ],
+    [
+      "IT Department",
+      "Java Backend Developer"
+    ],
+    [
+      "IT Department",
+      "Windows System Engineer"
+    ],
+    [
+      "IT Department",
+      "News Producer"
+    ],
+    [
+      "IT Department",
+      "Merchandiser"
+    ],
+    [
+      "IT Department",
+      "Process Auditor"
+    ],
+    [
+      "IT Department",
+      "IT Administrator"
+    ],
+    [
+      "IT Department",
+      "R&D Engineer"
+    ],
+    [
+      "IT Department",
+      "Cloud Infrastructure Operations Engineer"
+    ],
+    [
+      "IT Department",
+      "Export Merchandiser"
+    ],
+    [
+      "IT Department",
+      "Vue.js Developer"
+    ],
+    [
+      "IT Department",
+      "Shipping Coordinator"
+    ],
+    [
+      "IT Department",
+      "Electrical Design Engineer"
+    ],
+    [
+      "IT Department",
+      "Research Officer"
+    ],
+    [
+      "IT Department",
+      "Wind Energy Engineer"
+    ],
+    [
+      "IT Department",
+      "Government Consultant"
+    ],
+    [
+      "IT Department",
+      "Non Voice Process Executive"
+    ],
+    [
+      "IT Department",
+      "Project Coordinator"
+    ],
+    [
+      "IT Department",
+      "Microsoft Azure Administrator"
+    ],
+    [
+      "IT Department",
+      "Infrastructure Support Administrator"
+    ],
+    [
+      "IT Department",
+      "Study Abroad Counselor"
+    ],
+    [
+      "IT Department",
+      "Nutrition Coach"
+    ],
+    [
+      "IT Department",
+      "BI Consultant"
+    ],
+    [
+      "IT Department",
+      "Flipkart Marketplace Executive"
+    ],
+    [
+      "IT Department",
+      "Hardware Support Engineer"
+    ],
+    [
+      "IT Department",
+      "Business Coordinator"
+    ],
+    [
+      "IT Department",
+      "IT Infrastructure Support Analyst"
+    ],
+    [
+      "IT Department",
+      "PostgreSQL DBA"
+    ],
+    [
+      "IT Department",
+      "Real Estate Broker"
+    ],
+    [
+      "IT Department",
+      "Embedded Engineer"
+    ],
+    [
+      "IT Department",
+      "Junior Accountant"
+    ],
+    [
+      "IT Department",
+      "Firewall Engineer"
+    ],
+    [
+      "IT Department",
+      "Procurement Executive"
+    ],
+    [
+      "IT Department",
+      "Student Relationship Executive"
+    ],
+    [
+      "IT Department",
+      "Digital Marketing Executive"
+    ],
+    [
+      "IT Department",
+      "PR Consultant"
+    ],
+    [
+      "IT Department",
+      "ServiceNow Developer"
+    ],
+    [
+      "IT Department",
+      "Gas Plant Operator"
+    ],
+    [
+      "IT Department",
+      "NFT Developer"
+    ],
+    [
+      "IT Department",
+      "Highway Engineer"
+    ],
+    [
+      "IT Department",
+      "Marketing Copywriter"
+    ],
+    [
+      "IT Department",
+      "Legal Associate"
+    ],
+    [
+      "IT Department",
+      "Technical Writer"
+    ],
+    [
+      "IT Department",
+      "Holiday Consultant"
+    ],
+    [
+      "IT Department",
+      "Benefits Executive"
+    ],
+    [
+      "IT Department",
+      "Graphic Prepress Designer"
+    ],
+    [
+      "IT Department",
+      "Legal Consultant"
+    ],
+    [
+      "IT Department",
+      "Language Trainer"
+    ],
+    [
+      "IT Department",
+      "Lecturer"
+    ],
+    [
+      "IT Department",
+      "Finance Executive"
+    ],
+    [
+      "IT Department",
+      "Coordinator"
+    ],
+    [
+      "IT Department",
+      "ERP Implementation Consultant"
+    ],
+    [
+      "IT Department",
+      "PHP Full Stack Developer"
+    ],
+    [
+      "IT Department",
+      "Regulatory Compliance Executive"
+    ],
+    [
+      "IT Department",
+      "UX Designer"
+    ],
+    [
+      "IT Department",
+      "Microbiologist"
+    ],
+    [
+      "IT Department",
+      "Recommendation System Engineer"
+    ],
+    [
+      "IT Department",
+      "Student Service Executive"
+    ],
+    [
+      "IT Department",
+      "Scrum Master"
+    ],
+    [
+      "IT Department",
+      "Event Coordinator"
+    ],
+    [
+      "IT Department",
+      "3D Game Artist"
+    ],
+    [
+      "IT Department",
+      "Computer Vision Engineer"
+    ],
+    [
+      "IT Department",
+      "Instructional Designer"
+    ],
+    [
+      "IT Department",
+      "User Researcher"
+    ],
+    [
+      "IT Department",
+      "Software Documentation Writer"
+    ],
+    [
+      "IT Department",
+      "Operations Supervisor"
+    ],
+    [
+      "IT Department",
+      "Warehouse Executive"
+    ],
+    [
+      "IT Department",
+      "IT Infrastructure Engineer"
+    ],
+    [
+      "IT Department",
+      "O365 Admin"
+    ],
+    [
+      "IT Department",
+      "Course Counselor"
+    ],
+    [
+      "IT Department",
+      "Mutual Fund Advisor"
+    ],
+    [
+      "IT Department",
+      "Client Coordinator"
+    ],
+    [
+      "IT Department",
+      "Python Developer"
+    ],
+    [
+      "IT Department",
+      "QA Analyst"
+    ],
+    [
+      "IT Department",
+      "Video Editor"
+    ],
+    [
+      "IT Department",
+      "Medical Officer"
+    ],
+    [
+      "IT Department",
+      "Admission Counselor"
+    ],
+    [
+      "IT Department",
+      "Inventory Planner"
+    ],
+    [
+      "IT Department",
+      "Electrical Engineer"
+    ],
+    [
+      "IT Department",
+      "Transport Executive"
+    ],
+    [
+      "IT Department",
+      "IT Operations Specialist"
+    ],
+    [
+      "IT Department",
+      "Modular Kitchen Designer"
+    ],
+    [
+      "IT Department",
+      "Fresher"
+    ],
+    [
+      "IT Department",
+      "Electronics Design Engineer"
+    ],
+    [
+      "IT Department",
+      "IT Systems Engineer"
+    ],
+    [
+      "IT Department",
+      "Machine Learning Developer"
+    ],
+    [
+      "IT Department",
+      "Windows Admin"
+    ],
+    [
+      "IT Department",
+      "Industrial Engineer"
+    ],
+    [
+      "IT Department",
+      "Counselor"
+    ],
+    [
+      "IT Department",
+      "Dentist"
+    ],
+    [
+      "IT Department",
+      "Online Sales Executive"
+    ],
+    [
+      "IT Department",
+      "Active Directory Administrator"
+    ],
+    [
+      "IT Department",
+      "IT Operations Support Engineer"
+    ],
+    [
+      "IT Department",
+      "Blockchain Engineer"
+    ],
+    [
+      "IT Department",
+      "Material Purchase Executive"
+    ],
+    [
+      "IT Department",
+      "Sourcing Executive"
+    ],
+    [
+      "IT Department",
+      "Security Incharge"
+    ],
+    [
+      "IT Department",
+      "Figma Designer"
+    ],
+    [
+      "IT Department",
+      "Network Engineer Telecom"
+    ],
+    [
+      "IT Department",
+      "Content Writer"
+    ],
+    [
+      "IT Department",
+      "Deck Officer"
+    ],
+    [
+      "IT Department",
+      "Account Executive"
+    ],
+    [
+      "IT Department",
+      "Data Analyst"
+    ],
+    [
+      "IT Department",
+      "Database Backend Developer"
+    ],
+    [
+      "IT Department",
+      "Frontend Developer"
+    ],
+    [
+      "IT Department",
+      "Electrical Supervisor"
+    ],
+    [
+      "IT Department",
+      "Export Executive"
+    ],
+    [
+      "IT Department",
+      "Chat Support Executive"
+    ],
+    [
+      "IT Department",
+      "Hospitality Executive"
+    ],
+    [
+      "IT Department",
+      "Manual Test Engineer"
+    ],
+    [
+      "IT Department",
+      "Azure Administrator"
+    ],
+    [
+      "IT Department",
+      "Vendor Onboarding Executive"
+    ],
+    [
+      "IT Department",
+      "Shift Incharge"
+    ],
+    [
+      "IT Department",
+      "Data Entry Executive"
+    ],
+    [
+      "IT Department",
+      "Onsite Support Engineer"
+    ],
+    [
+      "IT Department",
+      "Security Tester"
+    ],
+    [
+      "IT Department",
+      "Accounts Officer"
+    ],
+    [
+      "IT Department",
+      "Yoga Instructor"
+    ],
+    [
+      "IT Department",
+      "Resident Medical Officer"
+    ],
+    [
+      "IT Department",
+      "Quality Inspector"
+    ],
+    [
+      "IT Department",
+      "Community Mobilizer"
+    ],
+    [
+      "IT Department",
+      "Spa Therapist"
+    ],
+    [
+      "IT Department",
+      "Housekeeping Supervisor"
+    ],
+    [
+      "IT Department",
+      "Creative Associate"
+    ],
+    [
+      "IT Department",
+      "Site Reliability Engineer"
+    ],
+    [
+      "IT Department",
+      "Content Creator"
+    ],
+    [
+      "IT Department",
+      "CRM Executive"
+    ],
+    [
+      "IT Department",
+      "Process Analyst"
+    ],
+    [
+      "IT Department",
+      "Graduate Trainee"
+    ],
+    [
+      "IT Department",
+      "CloudOps Engineer"
+    ],
+    [
+      "IT Department",
+      "Customer Care Officer"
+    ],
+    [
+      "IT Department",
+      "Quality Assurance Engineer"
+    ],
+    [
+      "IT Department",
+      "Front Office Executive"
+    ],
+    [
+      "IT Department",
+      "Strength Coach"
+    ],
+    [
+      "IT Department",
+      "Game Designer"
+    ],
+    [
+      "IT Department",
+      "Frontend Engineer"
+    ],
+    [
+      "IT Department",
+      "Production Engineer"
+    ],
+    [
+      "IT Department",
+      "HR Operations Executive"
+    ],
+    [
+      "IT Department",
+      "Datacenter Engineer"
+    ],
+    [
+      "IT Department",
+      "Aviation Security Officer"
+    ],
+    [
+      "IT Department",
+      "External Auditor"
+    ],
+    [
+      "IT Department",
+      "Interior Architect"
+    ],
+    [
+      "IT Department",
+      "Marketing Analyst"
+    ],
+    [
+      "IT Department",
+      "Food Processing Executive"
+    ],
+    [
+      "IT Department",
+      "Flight Attendant"
+    ],
+    [
+      "IT Department",
+      "Customer Service Associate"
+    ],
+    [
+      "IT Department",
+      "Support Specialist"
+    ],
+    [
+      "IT Department",
+      "IT Operations Engineer"
+    ],
+    [
+      "IT Department",
+      "Civil Supervisor"
+    ],
+    [
+      "IT Department",
+      "Staff Nurse"
+    ],
+    [
+      "IT Department",
+      "YouTube Video Editor"
+    ],
+    [
+      "IT Department",
+      "Consultant"
+    ],
+    [
+      "IT Department",
+      "NOC Analyst"
+    ],
+    [
+      "IT Department",
+      "Sports Analyst"
+    ],
+    [
+      "IT Department",
+      "Warehouse Associate"
+    ],
+    [
+      "IT Department",
+      "Cypress Tester"
+    ],
+    [
+      "IT Department",
+      "DApp Developer"
+    ],
+    [
+      "IT Department",
+      "IT Security Engineer"
+    ],
+    [
+      "IT Department",
+      "Medical Writer"
+    ],
+    [
+      "IT Department",
+      "Database Administrator"
+    ],
+    [
+      "IT Department",
+      "Network Technician"
+    ],
+    [
+      "IT Department",
+      "HSE Officer"
+    ],
+    [
+      "IT Department",
+      "Software Programmer"
+    ],
+    [
+      "IT Department",
+      "Web Manual Tester"
+    ],
+    [
+      "IT Department",
+      "Backend Engineer"
+    ],
+    [
+      "IT Department",
+      "API Developer"
+    ],
+    [
+      "IT Department",
+      "Unreal Engine Developer"
+    ],
+    [
+      "IT Department",
+      "KPO Executive"
+    ],
+    [
+      "IT Department",
+      "Media Relations Executive"
+    ],
+    [
+      "IT Department",
+      "Infrastructure Support Analyst"
+    ],
+    [
+      "IT Department",
+      "Academic Advisor"
+    ],
+    [
+      "IT Department",
+      "Advertising Designer"
+    ],
+    [
+      "IT Department",
+      "Automation Tester"
+    ],
+    [
+      "IT Department",
+      "Power BI Developer"
+    ],
+    [
+      "IT Department",
+      "Bug Tester"
+    ],
+    [
+      "IT Department",
+      "Pattern Maker"
+    ],
+    [
+      "IT Department",
+      "Back Office Coordinator"
+    ],
+    [
+      "IT Department",
+      "Online Tutor"
+    ],
+    [
+      "IT Department",
+      "Zoho CRM Developer"
+    ],
+    [
+      "IT Department",
+      "Delivery Driver"
+    ],
+    [
+      "IT Department",
+      "Door to Door Sales Executive"
+    ],
+    [
+      "IT Department",
+      "Fashion Designer"
+    ],
+    [
+      "IT Department",
+      "Fashion Stylist"
+    ],
+    [
+      "IT Department",
+      "Finance Analyst"
+    ],
+    [
+      "IT Department",
+      "Customer Experience Executive"
+    ],
+    [
+      "IT Department",
+      "Smart Contract Developer"
+    ],
+    [
+      "IT Department",
+      "Career Counselor"
+    ],
+    [
+      "IT Department",
+      "Azure AD Administrator"
+    ],
+    [
+      "IT Department",
+      "Cloud Reliability Engineer"
+    ],
+    [
+      "IT Department",
+      "CAD Jewellery Designer"
+    ],
+    [
+      "IT Department",
+      "B2B Sales Executive"
+    ],
+    [
+      "IT Department",
+      "Machine Learning Engineer"
+    ],
+    [
+      "IT Department",
+      "Assistant Professor"
+    ],
+    [
+      "IT Department",
+      "MIS Analyst"
+    ],
+    [
+      "IT Department",
+      "Application Developer"
+    ],
+    [
+      "IT Department",
+      "Digital Media Executive"
+    ],
+    [
+      "IT Department",
+      "Server Administrator"
+    ],
+    [
+      "IT Department",
+      "Power Engineer"
+    ],
+    [
+      "IT Department",
+      "Import Export Executive"
+    ],
+    [
+      "IT Department",
+      "Export Documentation Executive"
+    ],
+    [
+      "IT Department",
+      "Student Helpdesk Executive"
+    ],
+    [
+      "IT Department",
+      "Reel Editor"
+    ],
+    [
+      "IT Department",
+      "Travel Executive"
+    ],
+    [
+      "IT Department",
+      "Warehouse Supervisor"
+    ],
+    [
+      "IT Department",
+      "Site Engineer"
+    ],
+    [
+      "IT Department",
+      "Business Intelligence Analyst"
+    ],
+    [
+      "IT Department",
+      "CRM Implementation Consultant"
+    ],
+    [
+      "IT Department",
+      "Loan Verification Executive"
+    ],
+    [
+      "IT Department",
+      "Performance Tester"
+    ],
+    [
+      "IT Department",
+      "IT Technician"
+    ],
+    [
+      "IT Department",
+      "Purchase Officer"
+    ],
+    [
+      "IT Department",
+      "Vendor Compliance Executive"
+    ],
+    [
+      "IT Department",
+      "Process Engineer"
+    ],
+    [
+      "IT Department",
+      "Product Researcher"
+    ],
+    [
+      "IT Department",
+      "O365 Administrator"
+    ],
+    [
+      "IT Department",
+      "IT Consultant"
+    ],
+    [
+      "IT Department",
+      "Landscape Architect"
+    ],
+    [
+      "IT Department",
+      "Database Developer"
+    ],
+    [
+      "IT Department",
+      "Field Support Engineer"
+    ],
+    [
+      "IT Department",
+      "Social Worker"
+    ],
+    [
+      "IT Department",
+      "Brand Strategist"
+    ],
+    [
+      "IT Department",
+      "Security Supervisor"
+    ],
+    [
+      "IT Department",
+      "Operations Analyst"
+    ],
+    [
+      "IT Department",
+      "Program Officer"
+    ],
+    [
+      "IT Department",
+      "Call Center Executive"
+    ],
+    [
+      "IT Department",
+      "Full Stack Engineer"
+    ],
+    [
+      "IT Department",
+      "Reporting Analyst"
+    ],
+    [
+      "IT Department",
+      "Financial Controller"
+    ],
+    [
+      "IT Department",
+      "End User Computing Engineer"
+    ],
+    [
+      "IT Department",
+      "Test Case Writer"
+    ],
+    [
+      "IT Department",
+      "Cargo Executive"
+    ],
+    [
+      "IT Department",
+      "Program Coordinator"
+    ],
+    [
+      "IT Department",
+      "Windows Server Administrator"
+    ],
+    [
+      "IT Department",
+      "Tally Operator"
+    ],
+    [
+      "IT Department",
+      "Claims Executive"
+    ],
+    [
+      "IT Department",
+      "Indirect Tax Consultant"
+    ],
+    [
+      "IT Department",
+      "Textile Engineer"
+    ],
+    [
+      "IT Department",
+      "Product Support Engineer"
+    ],
+    [
+      "IT Department",
+      "Government Officer"
+    ],
+    [
+      "IT Department",
+      "Interior Designer"
+    ],
+    [
+      "IT Department",
+      "UI Developer"
+    ],
+    [
+      "IT Department",
+      "Campus Recruiter"
+    ],
+    [
+      "IT Department",
+      "HR Payroll Executive"
+    ],
+    [
+      "IT Department",
+      "Testing and Commissioning Engineer"
+    ],
+    [
+      "IT Department",
+      "Ground Staff"
+    ],
+    [
+      "IT Department",
+      "Production Executive"
+    ],
+    [
+      "IT Department",
+      "Ticketing Executive"
+    ],
+    [
+      "IT Department",
+      "Accountant"
+    ],
+    [
+      "IT Department",
+      "Part Time Worker"
+    ],
+    [
+      "IT Department",
+      "Training Coordinator"
+    ],
+    [
+      "IT Department",
+      "Real Estate Executive"
+    ],
+    [
+      "IT Department",
+      "Cloud Infrastructure Engineer"
+    ],
+    [
+      "IT Department",
+      "PPC Specialist"
+    ],
+    [
+      "IT Department",
+      "Drug Safety Associate"
+    ],
+    [
+      "IT Department",
+      "BIM Architect"
+    ],
+    [
+      "IT Department",
+      "Beautician"
+    ],
+    [
+      "IT Department",
+      "Ledger Executive"
+    ],
+    [
+      "IT Department",
+      "Energy Analyst"
+    ],
+    [
+      "IT Department",
+      "Investigative Journalist"
+    ],
+    [
+      "IT Department",
+      "Learning and Development Executive"
+    ],
+    [
+      "IT Department",
+      "Safety Officer"
+    ],
+    [
+      "IT Department",
+      "Content Strategist"
+    ],
+    [
+      "IT Department",
+      "Network Implementation Engineer"
+    ],
+    [
+      "IT Department",
+      "Retail Merchandiser"
+    ],
+    [
+      "IT Department",
+      "Procurement Analyst"
+    ],
+    [
+      "IT Department",
+      "Infra Support Engineer"
+    ],
+    [
+      "IT Department",
+      "Fitness Trainer"
+    ],
+    [
+      "IT Department",
+      "Excel Analyst"
+    ],
+    [
+      "IT Department",
+      "Receptionist"
+    ],
+    [
+      "IT Department",
+      "Website Developer"
+    ],
+    [
+      "IT Department",
+      "KYC Officer"
+    ],
+    [
+      "IT Department",
+      "Admin Support Executive"
+    ],
+    [
+      "IT Department",
+      "Public Policy Executive"
+    ],
+    [
+      "IT Department",
+      "Quality Executive"
+    ],
+    [
+      "IT Department",
+      "Hotel Receptionist"
+    ],
+    [
+      "IT Department",
+      "Systems Administrator"
+    ],
+    [
+      "IT Department",
+      "HR Coordinator"
+    ],
+    [
+      "IT Department",
+      "Airline Ticketing Executive"
+    ],
+    [
+      "IT Department",
+      "Customer Support Executive"
+    ],
+    [
+      "IT Department",
+      "Motion Video Editor"
+    ],
+    [
+      "IT Department",
+      "Team Leader BPO"
+    ],
+    [
+      "IT Department",
+      "Mobile Manual Tester"
+    ],
+    [
+      "IT Department",
+      "Network Operations Analyst"
+    ],
+    [
+      "IT Department",
+      "SEO Executive"
+    ],
+    [
+      "IT Department",
+      "Security Guard"
+    ],
+    [
+      "IT Department",
+      "Fitness Coach"
+    ],
+    [
+      "IT Department",
+      "Healthcare Executive"
+    ],
+    [
+      "IT Department",
+      "Operations Officer"
+    ],
+    [
+      "IT Department",
+      "Cloud Technical Support Engineer"
+    ],
+    [
+      "IT Department",
+      "IT Support Analyst"
+    ],
+    [
+      "IT Department",
+      "Freelancer"
+    ],
+    [
+      "IT Department",
+      "Diamond Grader"
+    ],
+    [
+      "IT Department",
+      "CI CD Engineer"
+    ],
+    [
+      "IT Department",
+      "IT Asset Executive"
+    ],
+    [
+      "IT Department",
+      "CRM Developer"
+    ],
+    [
+      "IT Department",
+      "Copywriter"
+    ],
+    [
+      "IT Department",
+      "School Administrator"
+    ],
+    [
+      "IT Department",
+      "Furniture Designer"
+    ],
+    [
+      "IT Department",
+      "Media Analyst"
+    ],
+    [
+      "IT Department",
+      "Loan Sales Executive"
+    ],
+    [
+      "IT Department",
+      "Corporate Lawyer"
+    ],
+    [
+      "IT Department",
+      "Help Desk Engineer"
+    ],
+    [
+      "IT Department",
+      "PR Executive"
+    ],
+    [
+      "IT Department",
+      "Cloud Operations Specialist"
+    ],
+    [
+      "IT Department",
+      "KPO Team Leader"
+    ],
+    [
+      "IT Department",
+      "Renewable Energy Engineer"
+    ],
+    [
+      "IT Department",
+      "Dispatch Executive"
+    ],
+    [
+      "IT Department",
+      "Documentation Executive"
+    ],
+    [
+      "IT Department",
+      "Refinery Operator"
+    ],
+    [
+      "IT Department",
+      "Service Desk Analyst"
+    ],
+    [
+      "IT Department",
+      "Zumba Instructor"
+    ],
+    [
+      "IT Department",
+      "BI Engineer"
+    ],
+    [
+      "IT Department",
+      "SAP Consultant"
+    ],
+    [
+      "IT Department",
+      "Financial Auditor"
+    ],
+    [
+      "IT Department",
+      "IT Analyst"
+    ],
+    [
+      "IT Department",
+      "AI Scientist"
+    ],
+    [
+      "IT Department",
+      "Maintenance Technician"
+    ],
+    [
+      "IT Department",
+      "Infrastructure Operations Engineer"
+    ],
+    [
+      "IT Department",
+      "Research Lab Assistant"
+    ],
+    [
+      "IT Department",
+      "L2 Infrastructure Engineer"
+    ],
+    [
+      "IT Department",
+      "Architectural Designer"
+    ],
+    [
+      "IT Department",
+      "Oil Field Operator"
+    ],
+    [
+      "IT Department",
+      "Post Production Editor"
+    ],
+    [
+      "IT Department",
+      "Plant Supervisor"
+    ],
+    [
+      "IT Department",
+      "Service Coordinator"
+    ],
+    [
+      "IT Department",
+      "Quality Engineer Automobile"
+    ],
+    [
+      "IT Department",
+      "Physician"
+    ],
+    [
+      "IT Department",
+      "HR Generalist"
+    ],
+    [
+      "IT Department",
+      "Website Content Writer"
+    ],
+    [
+      "IT Department",
+      "Penetration Tester"
+    ],
+    [
+      "IT Department",
+      "Web Application Tester"
+    ],
+    [
+      "IT Department",
+      "Agronomist"
+    ],
+    [
+      "IT Department",
+      "ML Research Engineer"
+    ],
+    [
+      "IT Department",
+      "Information Technology Specialist"
+    ],
+    [
+      "IT Department",
+      "Security Analyst"
+    ],
+    [
+      "IT Department",
+      "Predictive Modeling Analyst"
+    ],
+    [
+      "IT Department",
+      "Data Visualization Developer"
+    ],
+    [
+      "IT Department",
+      ".NET Developer"
+    ],
+    [
+      "IT Department",
+      "Customer Care Executive"
+    ],
+    [
+      "IT Department",
+      "Buying Executive"
+    ],
+    [
+      "IT Department",
+      "Maintenance Engineer"
+    ],
+    [
+      "IT Department",
+      "Azure Infrastructure Support Engineer"
+    ],
+    [
+      "IT Department",
+      "Web UI Developer"
+    ],
+    [
+      "IT Department",
+      "Network Administrator"
+    ],
+    [
+      "IT Department",
+      "Backend Developer"
+    ],
+    [
+      "IT Department",
+      "Operations Coordinator"
+    ],
+    [
+      "IT Department",
+      "Playwright Tester"
+    ],
+    [
+      "IT Department",
+      "Wireframe Designer"
+    ],
+    [
+      "IT Department",
+      "Real Estate Agent"
+    ],
+    [
+      "IT Department",
+      "AutoCAD Design Engineer"
+    ],
+    [
+      "IT Department",
+      "Tutor"
+    ],
+    [
+      "IT Department",
+      "Marine Electrician"
+    ],
+    [
+      "IT Department",
+      "Microsoft 365 Engineer"
+    ],
+    [
+      "IT Department",
+      "Software Engineer"
+    ],
+    [
+      "IT Department",
+      "Voice Technical Support"
+    ],
+    [
+      "IT Department",
+      "Community Worker"
+    ],
+    [
+      "IT Department",
+      "Application Engineer"
+    ],
+    [
+      "IT Department",
+      "Design Engineer Mechanical"
+    ],
+    [
+      "IT Department",
+      "Mobile Game Developer"
+    ],
+    [
+      "IT Department",
+      "Service Desk Engineer"
+    ],
+    [
+      "IT Department",
+      "Azure Operations Engineer"
+    ],
+    [
+      "IT Department",
+      "Device Management Engineer"
+    ],
+    [
+      "IT Department",
+      "Risk Auditor"
+    ],
+    [
+      "IT Department",
+      "Banking Sales Executive"
+    ],
+    [
+      "IT Department",
+      "Hospital Administrator"
+    ],
+    [
+      "IT Department",
+      "Medical Lab Technician"
+    ],
+    [
+      "IT Department",
+      "Production Coordinator"
+    ],
+    [
+      "IT Department",
+      "Manufacturing Supervisor"
+    ],
+    [
+      "IT Department",
+      "Sub Editor"
+    ],
+    [
+      "IT Department",
+      "Server Side Developer"
+    ],
+    [
+      "IT Department",
+      "Windows Support Engineer"
+    ],
+    [
+      "IT Department",
+      "Digital Designer"
+    ],
+    [
+      "IT Department",
+      "Wireless Network Engineer"
+    ],
+    [
+      "IT Department",
+      "Build and Release Engineer"
+    ],
+    [
+      "IT Department",
+      "Income Tax Executive"
+    ],
+    [
+      "IT Department",
+      "Azure Engineer"
+    ],
+    [
+      "IT Department",
+      "Store Keeper"
+    ],
+    [
+      "IT Department",
+      "Test Analyst"
+    ],
+    [
+      "IT Department",
+      "Gemologist"
+    ],
+    [
+      "IT Department",
+      "Azure Cloud Engineer"
+    ],
+    [
+      "IT Department",
+      "Nail Artist"
+    ],
+    [
+      "IT Department",
+      "Customer Service Executive"
+    ],
+    [
+      "IT Department",
+      "Inbound Calling Executive"
+    ],
+    [
+      "IT Department",
+      "Assembly Operator"
+    ],
+    [
+      "IT Department",
+      "Logistics Coordinator"
+    ],
+    [
+      "IT Department",
+      "Audit Assistant"
+    ],
+    [
+      "IT Department",
+      "System Administrator"
+    ],
+    [
+      "IT Department",
+      "Functional Tester"
+    ],
+    [
+      "IT Department",
+      "Web3 Developer"
+    ],
+    [
+      "IT Department",
+      "Power Plant Engineer"
+    ],
+    [
+      "IT Department",
+      "Facility Executive"
+    ],
+    [
+      "IT Department",
+      "Media Buyer"
+    ],
+    [
+      "IT Department",
+      "Billing Executive"
+    ],
+    [
+      "IT Department",
+      "L2 Network Engineer"
+    ],
+    [
+      "IT Department",
+      "Pathology Technician"
+    ],
+    [
+      "IT Department",
+      "Quality Auditor"
+    ],
+    [
+      "IT Department",
+      "Angular Developer"
+    ],
+    [
+      "IT Department",
+      "Blog Writer"
+    ],
+    [
+      "IT Department",
+      "Field Officer Agriculture"
+    ],
+    [
+      "IT Department",
+      "Business Support Executive"
+    ],
+    [
+      "IT Department",
+      "Nursing Supervisor"
+    ],
+    [
+      "IT Department",
+      "Pilot"
+    ],
+    [
+      "IT Department",
+      "Cyber Security Engineer"
+    ],
+    [
+      "IT Department",
+      "Facility Coordinator"
+    ],
+    [
+      "IT Department",
+      "Teacher"
+    ],
+    [
+      "IT Department",
+      "HR Executive"
+    ],
+    [
+      "IT Department",
+      "L2 Desktop Support Engineer"
+    ],
+    [
+      "IT Department",
+      "Clinical Research Coordinator"
+    ],
+    [
+      "IT Department",
+      "Content Editor"
+    ],
+    [
+      "IT Department",
+      "Food Processing Supervisor"
+    ],
+    [
+      "IT Department",
+      "Email Marketing Executive"
+    ],
+    [
+      "IT Department",
+      "AWS Cloud Engineer"
+    ],
+    [
+      "IT Department",
+      "Oil and Gas Engineer"
+    ],
+    [
+      "IT Department",
+      "Petroleum Engineer"
+    ],
+    [
+      "IT Department",
+      "Email Copywriter"
+    ],
+    [
+      "IT Department",
+      "Manufacturing Technician"
+    ],
+    [
+      "IT Department",
+      "CRM Analyst"
+    ],
+    [
+      "IT Department",
+      "Tour Operator"
+    ],
+    [
+      "IT Department",
+      "Brand Analyst"
+    ],
+    [
+      "IT Department",
+      "Accounts Executive"
+    ],
+    [
+      "IT Department",
+      "Housekeeping Attendant"
+    ],
+    [
+      "IT Department",
+      "Client Acquisition Executive"
+    ],
+    [
+      "IT Department",
+      "Site Sales Executive"
+    ],
+    [
+      "IT Department",
+      "Property Consultant"
+    ],
+    [
+      "IT Department",
+      "Supply Planner"
+    ],
+    [
+      "IT Department",
+      "Exchange Administrator"
+    ],
+    [
+      "IT Department",
+      "IT System Administrator"
+    ],
+    [
+      "IT Department",
+      "Math Teacher"
+    ],
+    [
+      "IT Department",
+      "Customer Service Representative"
+    ],
+    [
+      "IT Department",
+      "Fundraising Executive"
+    ],
+    [
+      "IT Department",
+      "Software Support Engineer"
+    ],
+    [
+      "IT Department",
+      "Demand Planner"
+    ],
+    [
+      "IT Department",
+      "Level 2 Support Engineer"
+    ],
+    [
+      "IT Department",
+      "Audit Executive"
+    ],
+    [
+      "IT Department",
+      "End User Support Engineer"
+    ],
+    [
+      "IT Department",
+      "Help Desk Technician"
+    ],
+    [
+      "IT Department",
+      "ERP Technical Consultant"
+    ],
+    [
+      "IT Department",
+      "L1 L2 Support Engineer"
+    ],
+    [
+      "IT Department",
+      "MDM Engineer"
+    ],
+    [
+      "IT Department",
+      "Medical Consultant"
+    ],
+    [
+      "IT Department",
+      "Game Programmer"
+    ],
+    [
+      "IT Department",
+      "Cloud Administrator"
+    ],
+    [
+      "IT Department",
+      "Food and Beverage Executive"
+    ],
+    [
+      "IT Department",
+      "Emergency Nurse"
+    ],
+    [
+      "IT Department",
+      "Inside Sales Consultant"
+    ],
+    [
+      "IT Department",
+      "ERP Consultant"
+    ],
+    [
+      "IT Department",
+      "Team Leader"
+    ],
+    [
+      "IT Department",
+      "Cloud Consultant"
+    ],
+    [
+      "IT Department",
+      "Cloud Systems Administrator"
+    ],
+    [
+      "IT Department",
+      "SAP FICO Consultant"
+    ],
+    [
+      "IT Department",
+      "Academic Support Executive"
+    ],
+    [
+      "IT Department",
+      "Policy Servicing Executive"
+    ],
+    [
+      "IT Department",
+      "Process Executive"
+    ],
+    [
+      "IT Department",
+      "Google Cloud Engineer"
+    ],
+    [
+      "IT Department",
+      "Student Support Executive"
+    ],
+    [
+      "IT Department",
+      "Linux System Administrator"
+    ],
+    [
+      "IT Department",
+      "Non IT Recruiter"
+    ],
+    [
+      "IT Department",
+      "Management Trainee"
+    ],
+    [
+      "IT Department",
+      "Infrastructure Systems Engineer"
+    ],
+    [
+      "IT Department",
+      "Laravel Developer"
+    ],
+    [
+      "IT Department",
+      "IT Engineer"
+    ],
+    [
+      "IT Department",
+      "Office Administrator"
+    ],
+    [
+      "IT Department",
+      "Telecom Support Engineer"
+    ],
+    [
+      "IT Department",
+      "Mobile Application Engineer"
+    ],
+    [
+      "IT Department",
+      "UAT Tester"
+    ],
+    [
+      "IT Department",
+      "Product Merchandiser"
+    ],
+    [
+      "IT Department",
+      "NLP Engineer"
+    ],
+    [
+      "IT Department",
+      "Legal Executive"
+    ],
+    [
+      "IT Department",
+      "Event Planner"
+    ],
+    [
+      "IT Department",
+      "Risk Compliance Officer"
+    ],
+    [
+      "IT Department",
+      "Marketing Executive"
+    ],
+    [
+      "IT Department",
+      "Audit Compliance Executive"
+    ],
+    [
+      "IT Department",
+      "Azure Admin"
+    ],
+    [
+      "IT Department",
+      "Service Advisor"
+    ],
+    [
+      "IT Department",
+      "Vehicle Supervisor"
+    ],
+    [
+      "IT Department",
+      "Subject Teacher"
+    ],
+    [
+      "IT Department",
+      "KYC Compliance Officer"
+    ],
+    [
+      "IT Department",
+      "Project Civil Engineer"
+    ],
+    [
+      "IT Department",
+      "Recruitment Consultant"
+    ],
+    [
+      "IT Department",
+      "MERN Stack Developer"
+    ],
+    [
+      "IT Department",
+      "Service Technician"
+    ],
+    [
+      "IT Department",
+      "Layout Editor"
+    ],
+    [
+      "IT Department",
+      "Treasury Executive"
+    ],
+    [
+      "IT Department",
+      "Janitor"
+    ],
+    [
+      "IT Department",
+      "Salesforce Administrator"
+    ],
+    [
+      "IT Department",
+      "Payroll Officer"
+    ],
+    [
+      "IT Department",
+      "Engineer"
+    ],
+    [
+      "IT Department",
+      "Editor"
+    ],
+    [
+      "IT Department",
+      "Curriculum Developer"
+    ],
+    [
+      "IT Department",
+      "QA Automation Engineer"
+    ],
+    [
+      "IT Department",
+      "Business Process Analyst"
+    ],
+    [
+      "IT Department",
+      "LAN WAN Engineer"
+    ],
+    [
+      "IT Department",
+      "Territory Sales Executive"
+    ],
+    [
+      "IT Department",
+      "Sales Promoter"
+    ],
+    [
+      "IT Department",
+      "Cloud Services Administrator"
+    ],
+    [
+      "IT Department",
+      "Cloud Admin"
+    ],
+    [
+      "IT Department",
+      "Modern Workplace Engineer"
+    ],
+    [
+      "IT Department",
+      "Linux Administrator"
+    ],
+    [
+      "IT Department",
+      "Fiber Optic Technician"
+    ],
+    [
+      "IT Department",
+      "Vulnerability Analyst"
+    ],
+    [
+      "IT Department",
+      "Fitness Consultant"
+    ],
+    [
+      "IT Department",
+      "Technical Content Writer"
+    ],
+    [
+      "IT Department",
+      "Market Research Analyst"
+    ],
+    [
+      "IT Department",
+      "Storyboard Artist"
+    ],
+    [
+      "IT Department",
+      "Marketing Specialist"
+    ],
+    [
+      "IT Department",
+      "Blockchain Consultant"
+    ],
+    [
+      "IT Department",
+      "HR Officer"
+    ],
+    [
+      "IT Department",
+      "Junior Video Editor"
+    ],
+    [
+      "IT Department",
+      "Talent Acquisition Executive"
+    ],
+    [
+      "IT Department",
+      "Customs Clearance Executive"
+    ],
+    [
+      "IT Department",
+      "Systems Support Engineer"
+    ],
+    [
+      "IT Department",
+      "Python Full Stack Developer"
+    ],
+    [
+      "IT Department",
+      "SEO Content Writer"
+    ],
+    [
+      "IT Department",
+      "Tax Analyst"
+    ],
+    [
+      "IT Department",
+      "Pharmacy Sales Executive"
+    ],
+    [
+      "IT Department",
+      "Content Executive"
+    ]
+  ],
+  "keyword_plan_fingerprint": "712de6e93612ed9f",
+  "shuffle_seed": {
+    "IT Department": 30959061945590
+  },
+  "total_keywords": 1264,
+  "current_city_index": 0,
+  "current_keyword_index": 0,
+  "current_page": 1,
+  "current_city": "Vapi",
+  "current_keyword": "Product Consultant",
+  "done_job_urls": [
+    "https://in.indeed.com/jobs?vjk=09af3effa4a6c678",
+    "https://in.indeed.com/jobs?vjk=5808f173973339e5",
+    "https://in.indeed.com/jobs?vjk=ab2a7cd954d011e7",
+    "https://in.indeed.com/jobs?vjk=c9e3292a4cd96c94",
+    "https://in.indeed.com/jobs?vjk=ebadf68aa5a23bcd",
+    "https://in.indeed.com/jobs?vjk=cc135b9c5d4bd391",
+    "https://in.indeed.com/jobs?vjk=84c8f40078f062f0"
+  ],
+  "completed_cities": [],
+  "total_complete_cycle": 0,
+  "last_completed_job_id": "9e6ccce982c605d800f8fc1a84ccf789",
+  "saved_jobs": 6,
+  "duplicate_jobs": 8,
+  "rejected_jobs": 1,
+  "failed_jobs": 5,
+  "examined_jobs": 7,
+  "failure_state": {
+    "at": "2026-11-09 22:59:45",
+    "stage": "open_firefox.sh",
+    "reason": "Firefox opened the 'Close Firefox' dialog instead of a browser window: another Firefox is already using the profile /home/abhinav/rahul1/rahul_new_indeed_script/Indeed_firefox_script/config/firefox_profile/rank_3. Close that instance first, or reuse its window instead of launching a new one. | stage=open_firefox.sh | exit=3",
+    "rank": 3,
+    "city": "Vapi",
+    "keyword": "Product Consultant",
+    "page": 1
+  },
+  "cycle_complete": false,
+  "updated_at": "2026-11-09 23:15:41",
+  "recent_failures": [
+    {
+      "at": "2026-11-09 21:01:22",
+      "stage": "card",
+      "reason": "select_job_card.sh did not finish within 180s. The desktop may be blocked by a modal dialog or a pointer grab. | stage=select_job_card.sh",
+      "rank": 3,
+      "city": "Vapi",
+      "keyword": "Product Consultant",
+      "page": 1,
+      "card": 7,
+      "job_url": ""
+    },
+    {
+      "at": "2026-11-09 21:04:22",
+      "stage": "card",
+      "reason": "select_job_card.sh did not finish within 180s. The desktop may be blocked by a modal dialog or a pointer grab. | stage=select_job_card.sh",
+      "rank": 3,
+      "city": "Vapi",
+      "keyword": "Product Consultant",
+      "page": 1,
+      "card": 8,
+      "job_url": ""
+    },
+    {
+      "at": "2026-11-09 22:47:03",
+      "stage": "open_firefox.sh",
+      "reason": "the first page is an access refusal (title: 'Just a moment... — Mozilla Firefox'). Stopping: no retry, no identity change. | stage=open_firefox.sh | exit=10",
+      "rank": 3,
+      "city": "Vapi",
+      "keyword": "Product Consultant",
+      "page": 1
+    },
+    {
+      "at": "2026-11-09 22:58:55",
+      "stage": "open_firefox.sh",
+      "reason": "Firefox opened the 'Close Firefox' dialog instead of a browser window: another Firefox is already using the profile /home/abhinav/rahul1/rahul_new_indeed_script/Indeed_firefox_script/config/firefox_profile/rank_3. Close that instance first, or reuse its window instead of launching a new one. | stage=open_firefox.sh | exit=3",
+      "rank": 3,
+      "city": "Vapi",
+      "keyword": "Product Consultant",
+      "page": 1
+    },
+    {
+      "at": "2026-11-09 22:59:45",
+      "stage": "open_firefox.sh",
+      "reason": "Firefox opened the 'Close Firefox' dialog instead of a browser window: another Firefox is already using the profile /home/abhinav/rahul1/rahul_new_indeed_script/Indeed_firefox_script/config/firefox_profile/rank_3. Close that instance first, or reuse its window instead of launching a new one. | stage=open_firefox.sh | exit=3",
+      "rank": 3,
+      "city": "Vapi",
+      "keyword": "Product Consultant",
+      "page": 1
+    }
+  ]
+}

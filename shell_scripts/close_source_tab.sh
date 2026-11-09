@@ -69,7 +69,7 @@ xdotool key --clearmodifiers ctrl+w >/dev/null 2>&1
 
 AFTER=""
 waited=0
-while [ "$(printf '%.0f' "$waited")" -lt "$SOURCE_TAB_TIMEOUT" ]; do
+while waited_under "$waited" "$SOURCE_TAB_TIMEOUT"; do
     sleep 1
     waited=$(awk "BEGIN{print $waited + 1}")
     AFTER=$(copy_address_bar_quiet "$WINDOW_ID" 4) || AFTER=""

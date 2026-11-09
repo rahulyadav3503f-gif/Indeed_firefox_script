@@ -1,0 +1,10 @@
+{
+  "_comment": [
+    "Where the ORIGINAL Indeed project lives. Everything this project reuses",
+    "-- the 85-role plan, the 110-city list and the 32-column row builder --",
+    "is imported from there read-only, so there is exactly one definition of",
+    "each. See upstream.py. Resolution order: INDEED_UPSTREAM_DIR, then this",
+    "setting, then upstream.DEFAULT_UPSTREAM_DIR."
+  ],
+  "upstream_dir": "/home/ubuntu/check_indeed"
+}

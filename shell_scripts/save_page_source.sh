@@ -135,7 +135,7 @@ WANT_SOURCE_URL="view-source:$PAGE_URL"
 SOURCE_URL=""
 CURRENT=""
 waited=0
-while [ "$(printf '%.0f' "$waited")" -lt "$SOURCE_TAB_TIMEOUT" ]; do
+while waited_under "$waited" "$SOURCE_TAB_TIMEOUT"; do
     sleep 1
     waited=$(awk "BEGIN{print $waited + 1}")
     CURRENT=$(copy_address_bar_quiet "$WINDOW_ID" 4) || CURRENT=""
@@ -166,7 +166,7 @@ xdotool key --clearmodifiers ctrl+s >/dev/null 2>&1
 # display rather than by pid.
 DIALOG=""
 waited=0
-while [ "$(printf '%.0f' "$waited")" -lt "$SAVE_DIALOG_TIMEOUT" ]; do
+while waited_under "$waited" "$SAVE_DIALOG_TIMEOUT"; do
     DIALOG=$(xdotool search --name "^Save As" 2>/dev/null | tail -1)
     [ -z "$DIALOG" ] && DIALOG=$(xdotool search --name "Save Page As" 2>/dev/null | tail -1)
     [ -n "$DIALOG" ] && break
@@ -212,7 +212,7 @@ find_saved() {
 
 wait_for_saved_file() {
     local waited=0 found=""
-    while [ "$(printf '%.0f' "$waited")" -lt "$SAVE_FILE_TIMEOUT" ]; do
+    while waited_under "$waited" "$SAVE_FILE_TIMEOUT"; do
         found=$(find_saved) && [ -n "$found" ] && { printf '%s' "$found"; return 0; }
         sleep "$POLL_INTERVAL"
         waited=$(awk "BEGIN{print $waited + $POLL_INTERVAL}")
@@ -248,7 +248,7 @@ fi
 PREV=-1
 SIZE=$(stat -c%s "$SAVED" 2>/dev/null || echo 0)
 waited=0
-while [ "$SIZE" != "$PREV" ] && [ "$(printf '%.0f' "$waited")" -lt 10 ]; do
+while [ "$SIZE" != "$PREV" ] && waited_under "$waited" 10; do
     PREV="$SIZE"
     sleep 0.5
     waited=$(awk "BEGIN{print $waited + 0.5}")

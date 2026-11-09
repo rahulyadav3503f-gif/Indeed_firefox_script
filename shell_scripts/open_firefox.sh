@@ -136,8 +136,53 @@ if [ -n "$DOWNLOAD_DIR" ]; then
 fi
 
 # ---------------------------------------------------------------------------
-# 2. RECORD WHAT ALREADY EXISTS -- so it is left strictly alone
+# 2a. RECLAIM OUR OWN PROFILE  (the one exception to "never touch")
 # ---------------------------------------------------------------------------
+# FACT 3 says never adopt, focus or close a Firefox this project did not
+# start.  A process holding THIS --profile directory is not somebody else's
+# browser: the directory lives inside the project and nothing else opens it,
+# so it is OURS, left behind by a collector that died before
+# close_browser() ran -- Ctrl+C, a closed ssh session, a kill -9.
+#
+# MEASURED on 2026-11-09: an orphan from 22:46 held rank_3, and because
+# Firefox will not open a second window on a locked profile -- it shows the
+# "Close Firefox" dialog instead -- every later run failed with EX_LAUNCH
+# AND left another orphan behind.  Three had piled up.  On a headless Xvfb
+# nobody ever sees the stray window, so this has to be handled here.
+#
+# The match includes --new-instance, which only the browser command line
+# carries; this script's own "--profile $PROFILE_DIR" therefore does not
+# match itself.
+reclaim_profile() {
+    local pattern="--new-instance --profile $PROFILE_DIR" pids pid waited=0
+    pids=$(pgrep -f -- "$pattern" 2>/dev/null | grep -vx "$$")
+    [ -n "$pids" ] || return 0
+
+    warn "a previous Firefox still holds $PROFILE_DIR (pid $(echo $pids | tr '\n' ' ')); \
+it is an orphan of an interrupted run and is being closed so this one can start"
+    for pid in $pids; do kill "$pid" 2>/dev/null; done
+
+    while [ "$waited" -lt 10 ] \
+          && pgrep -f -- "$pattern" >/dev/null 2>&1; do
+        sleep 1
+        waited=$((waited + 1))
+    done
+    for pid in $(pgrep -f -- "$pattern" 2>/dev/null | grep -vx "$$"); do
+        warn "pid $pid ignored TERM after ${waited}s; sending KILL"
+        kill -9 "$pid" 2>/dev/null
+    done
+    sleep 1
+    emit "reclaimed_profile=yes"
+}
+reclaim_profile
+
+# ---------------------------------------------------------------------------
+# 2b. RECORD WHAT ALREADY EXISTS -- so it is left strictly alone
+# ---------------------------------------------------------------------------
+# AFTER the reclaim, never before it.  X reuses window ids: the id an orphan
+# of ours was holding is handed straight back to the Firefox started below,
+# and a list captured earlier would then contain our OWN new window and the
+# check further down would reject it as "somebody else's browser".
 PRE_EXISTING=$(xdotool search --onlyvisible --class firefox 2>/dev/null | tr '\n' ' ')
 note "pre-existing Firefox windows (never touched): ${PRE_EXISTING:-none}"
 emit "pre_existing_windows=${PRE_EXISTING// /,}"

@@ -1,0 +1,16 @@
+{
+  "_comment": [
+    "Records that an Indeed login was completed in the browser",
+    "profile named below. It holds NO credential and NO session:",
+    "the session lives in that profile's cookies.sqlite, which is",
+    "where Firefox keeps it and where the collector reads it from."
+  ],
+  "profile_dir": "/home/ubuntu/new_indeed_script/config/firefox_profile/rank_1",
+  "saved_at": "2026-11-09 11:22:12",
+  "login_cookies_found": [
+    "PPID",
+    "SOCK",
+    "SHOE"
+  ],
+  "indeed_cookies_total": 48
+}

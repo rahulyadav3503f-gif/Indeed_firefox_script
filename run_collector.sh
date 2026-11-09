@@ -1,0 +1,79 @@
+#!/usr/bin/env bash
+# Start the Firefox/xdotool Indeed collector on THIS host (.121, rank 1).
+#
+# WHY A DEDICATED Xvfb AND NOT THE DESKTOP'S :0
+# ---------------------------------------------
+# Every job-card and search-box coordinate in find_indeed_job.py was
+# calibrated on a 1920x1080 screen (CARD_MAX_Y is 1000, WINDOW_SIZE is
+# 1845x1046).  This laptop's panel is 1366x768, so on :0 the window is
+# clamped to ~1366x734, Indeed re-flows to a narrower layout, and the clicks
+# land on furniture instead of on the search boxes and the cards.
+#
+# A 1920x1080 Xvfb keeps the existing calibration valid AND keeps the
+# synthetic keystrokes away from the logged-in desktop -- see _common.sh
+# FACT 4, where an XTEST Ctrl+C aimed at the collector's Firefox came back
+# holding the operator's own browser content.
+#
+# :105 is used because the Naukri collectors already hold :77, :99 and :100.
+#
+# USAGE
+#   ./run_collector.sh                 # rank 1, foreground
+#   ./run_collector.sh --max-combos 1  # any find_indeed_job.py flag passes through
+set -u
+
+PROJECT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
+cd "$PROJECT_DIR" || exit 1
+
+XVFB_DISPLAY="${XVFB_DISPLAY:-:105}"
+XVFB_GEOMETRY="${XVFB_GEOMETRY:-1920x1080x24}"
+RANK="${RANK:-1}"
+NUM_SYS="${NUM_SYS:-5}"
+PYTHON="$PROJECT_DIR/venv/bin/python3"
+
+[ -x "$PYTHON" ] || { echo "no interpreter at $PYTHON" >&2; exit 1; }
+
+# -- the framebuffer -------------------------------------------------------
+if ! pgrep -f "Xvfb ${XVFB_DISPLAY} " >/dev/null 2>&1; then
+    echo "[run] starting Xvfb ${XVFB_DISPLAY} (${XVFB_GEOMETRY})"
+    setsid Xvfb "${XVFB_DISPLAY}" -screen 0 "${XVFB_GEOMETRY}" -nolisten tcp \
+        >"/tmp/xvfb${XVFB_DISPLAY#:}.log" 2>&1 &
+    sleep 3
+else
+    echo "[run] Xvfb ${XVFB_DISPLAY} already up"
+fi
+
+export DISPLAY="${XVFB_DISPLAY}"
+# Xvfb here is started without -auth, so it needs no cookie.  An XAUTHORITY
+# inherited from the ssh session would point at the :0 cookie and be refused.
+unset XAUTHORITY
+
+xdotool getdisplaygeometry >/dev/null 2>&1 \
+    || { echo "[run] ${XVFB_DISPLAY} is not answering" >&2; exit 1; }
+
+# -- a window manager -----------------------------------------------------
+# set_window_geometry() and require_focus() in _common.sh need someone to
+# honour the resize and the focus request; a bare Xvfb has no WM, so the
+# window would stay at Firefox's own default size and the coordinates would
+# again be wrong.
+# MEASURED: this xfwm4 (4.20.0) has NO --daemon option -- it exits at once
+# with "xfwm4: Unknown option --daemon", so the version of this script that
+# passed one started no window manager at all and the resize was silently
+# ignored.  It is detached with setsid instead.  Whether a WM is really
+# managing the display is read from the root window, not from a process
+# name, because a dead xfwm4 still matches pgrep for a moment.
+if ! xprop -root -display "${XVFB_DISPLAY}" _NET_SUPPORTING_WM_CHECK 2>/dev/null \
+        | grep -q 'window id #'; then
+    echo "[run] starting xfwm4 on ${XVFB_DISPLAY}"
+    setsid xfwm4 --display="${XVFB_DISPLAY}" --compositor=off \
+        >"/tmp/xfwm${XVFB_DISPLAY#:}.log" 2>&1 &
+    sleep 3
+else
+    echo "[run] a window manager already has ${XVFB_DISPLAY}"
+fi
+
+echo "[run] display ${DISPLAY} is $(xdotool getdisplaygeometry | tr '\n' 'x' | sed 's/x$//')"
+
+# -- the live gate (find_indeed_job.py, brief restriction 14) -------------
+export INDEED_LIVE_APPROVED=yes
+
+exec "$PYTHON" find_indeed_job.py --rank "$RANK" --num-sys "$NUM_SYS" "$@"
