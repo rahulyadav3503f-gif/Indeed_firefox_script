@@ -133,3 +133,44 @@ Exiting due to channel error.
 Exiting due to channel error.
 Exiting due to channel error.
 Exiting due to channel error.
+update.go:193: cannot change mount namespace according to change mount (/var/lib/snapd/hostfs/usr/share/gimp/2.0/help /usr/share/gimp/2.0/help none bind,ro 0 0): cannot write to "/var/lib/snapd/hostfs/usr/share/gimp/2.0/help" because it would affect the host in "/var/lib/snapd"
+update.go:193: cannot change mount namespace according to change mount (/var/lib/snapd/hostfs/usr/share/sphinx_rtd_theme /usr/share/sphinx_rtd_theme none bind,ro 0 0): cannot write to "/var/lib/snapd/hostfs/usr/share/sphinx_rtd_theme" because it would affect the host in "/var/lib/snapd"
+update.go:193: cannot change mount namespace according to change mount (/var/lib/snapd/hostfs/usr/share/xubuntu-docs /usr/share/xubuntu-docs none bind,ro 0 0): cannot write to "/var/lib/snapd/hostfs/usr/share/xubuntu-docs" because it would affect the host in "/var/lib/snapd"
+Gtk-Message: 10:34:41.504: Not loading module "atk-bridge": The functionality is provided by GTK natively. Please try to not load it.
+libva info: VA-API version 1.20.0
+libva info: Trying to open /snap/firefox/8995/gpu-2404/usr/lib/x86_64-linux-gnu/dri/iHD_drv_video.so
+libva info: Found init function __vaDriverInit_1_20
+libva info: va_openDriver() returns 0
+Exiting due to channel error.
+Exiting due to channel error.
+Exiting due to channel error.
+Exiting due to channel error.
+Exiting due to channel error.
+Exiting due to channel error.
+Exiting due to channel error.
+Gtk-Message: 10:37:08.984: Not loading module "atk-bridge": The functionality is provided by GTK natively. Please try to not load it.
+Exiting due to channel error.
+Exiting due to channel error.
+Exiting due to channel error.
+Exiting due to channel error.
+Exiting due to channel error.
+Exiting due to channel error.
+Exiting due to channel error.
+Gtk-Message: 15:29:22.494: Not loading module "atk-bridge": The functionality is provided by GTK natively. Please try to not load it.
+Gtk-Message: 15:31:18.204: Not loading module "atk-bridge": The functionality is provided by GTK natively. Please try to not load it.
+Exiting due to channel error.
+Exiting due to channel error.
+Exiting due to channel error.
+Exiting due to channel error.
+Exiting due to channel error.
+Exiting due to channel error.
+Exiting due to channel error.
+Gtk-Message: 10:04:17.961: Not loading module "atk-bridge": The functionality is provided by GTK natively. Please try to not load it.
+Gtk-Message: 10:08:07.884: Not loading module "atk-bridge": The functionality is provided by GTK natively. Please try to not load it.
+Exiting due to channel error.
+Exiting due to channel error.
+Exiting due to channel error.
+Exiting due to channel error.
+Exiting due to channel error.
+Exiting due to channel error.
+Exiting due to channel error.

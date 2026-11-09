@@ -722,6 +722,91 @@ class TestConstantSourceUrlDoesNotBreakDedup(unittest.TestCase):
                          "a shared source_url must not make these duplicates")
 
 
+class TestIndeedLogin(unittest.TestCase):
+    """save_indeed_login.py -- sign in once, in the collector's own profile.
+
+    Indeed asks for a login when paging deeper into results, so without a
+    session the run collects a page or two and then stops finding jobs.
+    """
+
+    def setUp(self):
+        import save_indeed_login as helper
+        self.helper = helper
+
+    def test_it_signs_in_to_the_profile_the_collector_opens(self):
+        """One profile, or the login lands where nothing will read it."""
+        import find_indeed_job as collector
+        self.assertEqual(self.helper.profile_dir_for(1),
+                         collector.build_controller_config(
+                             which_rank=1).profile_dir)
+
+    def imported_modules(self):
+        """Top-level module names this script imports.
+
+        Checked with ast, not by searching the text: the docstring says the
+        words "password" and "playwright" on purpose -- it explains what
+        the script does NOT do and how it differs from the Playwright
+        version -- and a text search cannot tell prose from code.
+        """
+        import ast
+        tree = ast.parse(open(os.path.join(BASE, "save_indeed_login.py"),
+                              encoding="utf-8").read())
+        names = set()
+        for node in ast.walk(tree):
+            if isinstance(node, ast.Import):
+                names.update(alias.name.split(".")[0] for alias in node.names)
+            elif isinstance(node, ast.ImportFrom) and node.module:
+                names.add(node.module.split(".")[0])
+        return names
+
+    def test_it_never_reads_a_credential(self):
+        """No getpass, no credential store -- the browser handles sign-in."""
+        self.assertNotIn("getpass", self.imported_modules())
+        self.assertNotIn("keyring", self.imported_modules())
+
+    def test_it_does_not_use_playwright(self):
+        """This project drives a real Firefox profile, not Playwright."""
+        self.assertNotIn("playwright", self.imported_modules())
+
+    def test_login_is_detected_from_the_session_cookies(self):
+        self.assertEqual(self.helper.login_evidence({"CTK": "x"}), [])
+        self.assertEqual(
+            self.helper.login_evidence({"CTK": "x", "PPID": "y", "SOCK": "z"}),
+            ["PPID", "SOCK"])
+
+    def test_reading_cookies_does_not_touch_the_live_database(self):
+        """It copies the db; Firefox holds a lock on the original."""
+        source = open(os.path.join(BASE, "save_indeed_login.py"),
+                      encoding="utf-8").read()
+        body = source.split("def indeed_cookies(")[1].split("\ndef ")[0]
+        self.assertIn("shutil.copy", body)
+        self.assertIn("-wal", body)      # uncheckpointed cookies live here
+
+    def test_firefox_is_asked_to_quit_not_killed(self):
+        """A killed Firefox can leave the new session unwritten."""
+        source = open(os.path.join(BASE, "save_indeed_login.py"),
+                      encoding="utf-8").read()
+        body = source.split("def close_firefox(")[1].split("\ndef ")[0]
+        self.assertIn("os.kill(pid, 15)", body)       # SIGTERM
+        self.assertNotIn(", 9)", body)                # never SIGKILL
+
+    def test_a_missing_session_is_reported_but_does_not_block(self):
+        """The first page reads fine signed out; say so, do not refuse."""
+        source = open(os.path.join(BASE, "find_indeed_job.py"),
+                      encoding="utf-8").read()
+        block = source.split("NOT SIGNED IN to Indeed")[1][:700]
+        self.assertNotIn("return", block.split("log(\"\")")[0])
+        self.assertIn("save_indeed_login.py", block)
+
+    def test_the_marker_records_no_session(self):
+        """The marker is a receipt, not a credential store."""
+        source = open(os.path.join(BASE, "save_indeed_login.py"),
+                      encoding="utf-8").read()
+        body = source.split("def write_marker(")[1].split("\ndef ")[0]
+        self.assertIn("login_cookies_found", body)
+        self.assertNotIn("value", body)   # names only, never cookie values
+
+
 # ===========================================================================
 # PROBLEMS 5, 6, 7 -- what the terminal says
 # ===========================================================================

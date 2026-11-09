@@ -1,0 +1,4 @@
+
+# Records that a login happened. Holds no credential and no session --
+# the session lives in the Firefox profile below.
+config/indeed_login.json

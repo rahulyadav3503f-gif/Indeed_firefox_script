@@ -641,6 +641,36 @@ def check_excel_dependencies():
     return missing
 
 
+
+def check_indeed_login(config):
+    """Is this rank's browser profile signed in to Indeed?
+
+    Returns (signed_in, detail).  Never blocks the run: Indeed's first page
+    of results is readable signed out, and the collector worked that way
+    for a long time.  What a session changes is PAGING -- Indeed asks for a
+    login when you go deeper into results -- so a run without one quietly
+    collects far less than it looks like it should.  Saying so at startup
+    is the difference between "it only found 15 jobs" and knowing why.
+
+    The session is Firefox's own, in the profile's cookies.sqlite. There is
+    no auth file: see save_indeed_login.py for why.
+    """
+    try:
+        import save_indeed_login as login_helper
+    except Exception as error:                       # pragma: no cover
+        return False, "could not check (%s)" % error
+
+    try:
+        cookies = login_helper.indeed_cookies(config.profile_dir)
+        evidence = login_helper.login_evidence(cookies)
+    except Exception as error:                       # pragma: no cover
+        return False, "could not read the profile's cookies (%s)" % error
+
+    if evidence:
+        return True, "session cookies: %s" % ", ".join(evidence)
+    return False, "no Indeed session cookie in %s" % config.profile_dir
+
+
 def show_banner(cities, plan_pairs, checkpoint):
     target, other, percent = role_plan_split()
     log("=" * 72)
@@ -1423,6 +1453,19 @@ def collect(args):
         return 5
 
     config = build_controller_config(base_url=base_url)
+
+    signed_in, detail = check_indeed_login(config)
+    if signed_in:
+        log("  indeed login   : signed in  (%s)" % detail)
+    elif not fixture:
+        log("")
+        log("  [WARN] NOT SIGNED IN to Indeed (%s)." % detail)
+        log("         Indeed asks for a login when paging deeper into")
+        log("         results, so this run will collect the first page or")
+        log("         two and then stop finding new jobs.")
+        log("         To sign in once, in this same browser profile:")
+        log("             %s save_indeed_login.py" % sys.executable)
+        log("")
 
     # A file:// fixture has no Indeed search form to click, so form mode
     # cannot work there.  Falling back is automatic rather than something

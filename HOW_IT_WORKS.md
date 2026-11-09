@@ -156,6 +156,47 @@ Limits per keyword+city: `MAX_LISTING_PAGES = 4`,
 5. Live collection requires `INDEED_LIVE_APPROVED=yes` in the environment.
    Without it the script refuses to touch the live site.
 
+### Step 0b — signing in (once)  (`save_indeed_login.py`)
+
+Indeed asks for a login when paging deeper into results, so a signed-out
+run reads the first page or two and then stops finding new jobs.
+
+```bash
+venv/bin/python save_indeed_login.py          # rank 1's profile
+venv/bin/python save_indeed_login.py --rank 2
+```
+
+It opens **the collector's own Firefox profile** on Indeed's sign-in page,
+you sign in by hand, and you press Enter. It then closes Firefox cleanly
+and checks the profile for Indeed's session cookies.
+
+Unlike `check_indeed/save_indeed_login.py`, there is **no `auth.json`**.
+That version drives Playwright and exports a `storage_state`; this project
+drives a real Firefox with its own `--profile`, and Firefox already keeps
+the session there in `cookies.sqlite`. Signing in once in that profile *is*
+the mechanism — nothing is passed to the collector, which opens the same
+profile and is simply already signed in.
+
+Three details that matter:
+
+- **It never types or stores a credential.** No password handling, no
+  `getpass`. You sign in; it only confirms afterwards.
+- **Firefox is asked to quit, not killed.** Cookies live in a write-ahead
+  log that is checkpointed on exit, so a killed browser can lose exactly
+  the session you just created.
+- **It will not claim success it cannot prove.** If none of Indeed's known
+  session cookies appear, it says so and lists the new cookies as evidence
+  rather than reporting a login that may not exist.
+
+The collector checks at startup and **warns without blocking** — the first
+page really does read signed out:
+
+```
+[WARN] NOT SIGNED IN to Indeed (no Indeed session cookie in …/rank_1).
+       Indeed asks for a login when paging deeper into results, so this
+       run will collect the first page or two and then stop finding jobs.
+```
+
 ### Step 1 — open Firefox  (`open_firefox.sh`)
 1. Record Firefox windows that already exist — they are **never** touched.
 2. Write `user.js` into `config/firefox_profile/rank_N/`:
