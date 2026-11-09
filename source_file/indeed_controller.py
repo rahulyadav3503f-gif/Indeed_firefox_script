@@ -616,6 +616,38 @@ class IndeedController(object):
                  % (saved, results.get("saved_bytes", "?")))
         return saved
 
+    def save_listing_source(self, page_number=1):
+        """Ctrl+U, Ctrl+S on the RESULTS page itself -- the page census.
+
+        Saved before any card is clicked, so the caller can read how many
+        job cards the page is actually showing before deciding how many to
+        take.  A search that returned five cards used to be probed ten
+        times; this is what replaced that guesswork.
+
+        No ``--expect-url`` identity check: the thing being saved is the
+        results page, whatever job Indeed happens to have pre-opened in the
+        detail pane.  The file is named per PAGE, not per card, so it can
+        never be mistaken for a job's own source.
+        """
+        name = "listing_%s_page%02d.html" % (self.config.rank,
+                                             int(page_number))
+        out_path = os.path.join(self.config.temp_dir, name)
+
+        _, results, _ = self.run_script(
+            "save_page_source.sh",
+            ["--window", self.listing_window, "--out", out_path],
+            timeout=max(self.config.script_timeout, 120))
+
+        saved = results.get("saved_file")
+        if not saved or not os.path.isfile(saved) or os.path.getsize(saved) == 0:
+            raise NavigationFailed(
+                "save_page_source.sh exited 0 but %s is missing or empty"
+                % saved, stage="save_page_source.sh", results=results)
+
+        self.log("   saved listing source: %s (%s bytes)"
+                 % (saved, results.get("saved_bytes", "?")))
+        return saved
+
     # -- 5. close the source tab, with BOTH mandated delays -----------------
     def close_source_tab(self, pre_delay=None, post_delay=None,
                          expect_listing=""):

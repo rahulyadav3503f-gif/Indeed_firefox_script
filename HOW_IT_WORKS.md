@@ -152,6 +152,61 @@ so one keyword+city yields at most 50 jobs. `TARGET_UNIQUE_JOBS` is
 *derived* from them (`5 x 10`) so a second budget can never silently cap
 the plan.
 
+**`FIXED_CARDS_PER_PAGE` is a ceiling, not a promise.** Before a single
+card is clicked, the results page's own source is saved and the card list
+read out of it — `page_cards()` in `indeed_source.py`, called through
+`read_page_census()`:
+
+```
+mosaic-provider-jobcards  ->  {"results": [{"jobkey": …}, …]}   the cards
+"jobCount": 5                                                   corroborates
+"totalJobCount": 0  /  <title>0 Mdm Engineer Jobs …</title>     the SEARCH
+```
+
+The card budget for the page is then `min(cards found, 10)`. A page with
+five cards is five iterations, not ten of which five fail.
+
+> **This replaced real waste.** "Mdm Engineer" in Madurai put **five**
+> cards on the page. The collector, told to take ten, clicked empty space
+> five times and reported "no more cards" each time.
+
+**Three signals, and they are not the same number.** The same measurement
+showed why this needs care:
+
+| Signal | Value | What it means |
+|---|---:|---|
+| `len(results)` | 5 | cards rendered on the page |
+| `"jobCount"` | 5 | Indeed's count of the same thing |
+| `"totalJobCount"`, and the `<title>` | **0** | **what the search matched** |
+
+The search matched *nothing*. The five cards were Indeed's **suggestions**,
+filling an empty page — and they **reshuffled on every reload**: five saved
+reloads of that one page drew from a pool of nine, with 0–40% of the cards
+new each time.
+
+They are still real jobs, so they are still collected. What stops is the
+paging: a search with 0 matches has no page 2.
+
+**When to stop paging.** Two signals, in this order:
+
+1. **The match count.** `start + cards_on_page >= matches` ⇒ this is the
+   last page. Arithmetic, not inference. Where the two count signals
+   disagree the **larger** wins — over-stating costs one wasted page turn,
+   under-stating throws real results away.
+2. **The card list**, as a backstop for when no count is available. If
+   half or fewer of this page's cards are new (`PAGE_REPEAT_NEW_CARD_FRACTION`),
+   `start=` served a page already collected: the search has one page, and
+   the next move is the next keyword.
+
+> **Exact card-list equality was the obvious test and it does not work.**
+> The cards rotate between loads, so two loads of one page are never
+> byte-identical — measured 0–40% new. A real page 2 shares *nothing*.
+> 0.5 sits in the middle of that gap rather than at the edge of a narrow
+> one.
+
+A census that cannot be read falls back to the fixed ten and disables the
+repeat check. **"Unknown" is never read as "the results ended."**
+
 **Turning the page.** Page 1 is the typed search. Page 2 onwards is page
 1's own url, edited:
 
@@ -582,7 +637,8 @@ failed_jobs, examined_jobs, failure_state, cycle_complete, updated_at
 | `Excel_Data/rank_N/current_data.xlsx` | the working 32-column workbook |
 | `Excel_Data/rank_N/current_data_cycleN.xlsx` | archives, every 100 rows |
 | `Backup/rank_N/` | pre-rollover backups, 20 kept |
-| `Temp_Data/rank_N/job_<rank>_<NNNN>.html` | saved page sources |
+| `Temp_Data/rank_N/job_<rank>_<NNNN>.html` | saved page sources, one per job |
+| `Temp_Data/rank_N/listing_<rank>_page<NN>.html` | the page census — one per results page |
 | `Temp_Data/rank_N/browser_window.json` | pid, window id, geometry |
 | `config/checkpoints/checkpoint_rank_N.json` | resume state |
 | `config/firefox_profile/rank_N/` | the dedicated browser profile |
@@ -649,9 +705,11 @@ python3 find_indeed_job.py --fixture-run
 INDEED_LIVE_APPROVED=yes python3 find_indeed_job.py
 ```
 
-Diagnostics in `tools/`: `capture_cards.sh` (capture N cards live),
-`extract_captured.py` (extract offline from the saved files),
-`inspect_source.py` (what is really inside a saved file),
+Diagnostics in `tools/`: `capture_cards.sh` (capture N cards live — it runs
+the page census first and lowers its own count to match),
+`page_cards.py` (the census for any saved page: cards shown, and what the
+search actually matched), `extract_captured.py` (extract offline from the
+saved files), `inspect_source.py` (what is really inside a saved file),
 `xwd_to_png.py` (turn a window capture into a viewable PNG — this machine
 has no screenshot tool).
 
@@ -659,8 +717,7 @@ has no screenshot tool).
 
 ## 14. What is proven, and what is not
 
-**Test suite: 140 tests, all passing** (role plan 20, cities 16, extractor
-39, source recovery 20, delays 7, regressions 38).
+**Test suite: 231 tests, all passing** under `venv/bin/python`.
 
 ### Verified live against real Indeed
 - Firefox opens in a **normal window** (1850×1053, title bar, not fullscreen).
@@ -679,20 +736,39 @@ has no screenshot tool).
   the dialog was also driven live).
 - View-source → original HTML recovery is **byte-for-byte exact**.
 
+Since that list was written, three more things became true, measured
+rather than assumed:
+
+- **Live rows exist.** `Excel_Data/rank_1/current_data.xlsx` holds 6 rows
+  and `rank_2` holds 2, all 32 columns, written by live runs.
+- **Job isolation works against real files.** `job_card_for_key()` resolves
+  the selected job out of a document describing the whole page; the
+  measured description went from a 135-character teaser to 3,846 characters
+  once the detail pane was preferred over the card snippet.
+- **Card probing and scrolling work past card 0** — 12 of 12 cards taken on
+  one page in a live run.
+
 ### Not yet proven end-to-end
-- **A complete 5-card capture has never finished.** The last attempt stopped
-  at the search step: the keyword box read back empty, so the script
-  correctly refused to submit. Three separate causes were found and fixed
-  along the way (address-bar dropdown covering the page, toothless input
-  guard, single-attempt clipboard reads); the remaining keyword read-back
-  failure was still being diagnosed when work paused.
-- **No row has been written to Excel from a live capture.** The Excel path
-  is exercised by tests, not by a live run.
-- **Job isolation from a listing document is written but unverified** — the
-  `job_card_for_key()` field mapping was authored against Indeed's expected
-  JSON shape and has not been run against a real saved file. Until it is,
-  `report.isolation == "NONE"` is the signal that a row may mix jobs.
-- Card-probe geometry beyond card 0 has not been exercised live.
+- **The page census has not run live.** `page_cards()` is verified against
+  the real saved pages in `Temp_Data/` (that is where the 0-match
+  measurement comes from), and `card_budget_for_page()` is unit-tested, but
+  the Ctrl+U/Ctrl+S that *produces* the census file has only been exercised
+  through the per-job path, not the per-page one. They call the same
+  `save_page_source.sh`.
+- **URL paging has not run live.** `start=10/20/30/40` is unit-tested
+  against the two worked examples and never driven in a browser.
+- `experience_required` mirrors the description text. That is the upstream
+  `parse_experience()` behaviour and was deliberately left alone.
+
+### A data question this exposed, for the operator to decide
+A search that matches **nothing** still shows cards, and those cards get
+collected with `search_keyword` set to the keyword that matched nothing.
+Two rows in `Excel_Data/rank_2/` are exactly this: *Computer Operator* and
+*Marketing and Social Media Intern*, stored under the keyword
+**"Mdm Engineer"**. They are real jobs and real adverts — but they are not
+Mdm Engineer jobs. Nothing in the code discards them, because discarding
+collected data is not a decision to make silently. The run now says so in
+the log every time it happens.
 
 ### The standing environmental risk
 On this Wayland desktop the automation only works while our window genuinely

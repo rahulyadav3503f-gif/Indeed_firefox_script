@@ -6,6 +6,7 @@ cheap -- static checks on the shell scripts and recorded calls against the
 controller -- so they run without a browser.
 """
 
+import glob
 import os
 import re
 import sys
@@ -16,6 +17,8 @@ if BASE not in sys.path:
     sys.path.insert(0, BASE)
 
 from source_file import indeed_controller as ctrl             # noqa: E402
+from source_file import indeed_source as src                  # noqa: E402
+import find_indeed_job as collector                           # noqa: E402
 
 SHELL = os.path.join(BASE, "shell_scripts")
 
@@ -182,11 +185,16 @@ class TestCardSelection(unittest.TestCase):
         self.assertIn("FIRST_CARD_Y", block)
 
     def test_the_main_loop_is_zero_based(self):
+        """Card 0 must be aimed at.  It used to start at 1 and be skipped.
+
+        The upper bound is now the page census (cards_this_page) rather
+        than MAX_CARDS_PER_PAGE -- see TestCardBudget -- but the lower
+        bound is the point of this test and is still 0.
+        """
         source = open(os.path.join(BASE, "find_indeed_job.py"),
                       encoding="utf-8").read()
-        self.assertIn("for card_index in range(0, MAX_CARDS_PER_PAGE)", source)
-        self.assertNotIn("for card_index in range(1, MAX_CARDS_PER_PAGE + 1)",
-                         source)
+        self.assertIn("for card_index in range(0, cards_this_page)", source)
+        self.assertNotIn("for card_index in range(1,", source)
 
 
 class TestCardSelectionCalls(unittest.TestCase):
@@ -874,10 +882,19 @@ class TestFixedPlan(unittest.TestCase):
             collector.TARGET_UNIQUE_JOBS,
             collector.FIXED_LISTING_PAGES * collector.FIXED_CARDS_PER_PAGE)
 
-    def test_the_card_loop_runs_to_the_fixed_count(self):
-        source = open(os.path.join(BASE, "find_indeed_job.py"),
-                      encoding="utf-8").read()
-        self.assertIn("for card_index in range(0, MAX_CARDS_PER_PAGE)", source)
+    def test_the_fixed_count_is_the_ceiling_on_one_page(self):
+        """A long page gives FIXED_CARDS_PER_PAGE and no more.
+
+        The loop is bounded by the page census now, so the fixed number is
+        a CAP rather than a target: a page with forty cards still yields
+        ten.  (A page with five yields five -- see TestCardBudget.)
+        """
+        import find_indeed_job as collector
+        census = collector.PageCensus(["%016x" % n for n in range(40)],
+                                      "results-array", 40, 400)
+        count, stop, _last = collector.card_budget_for_page(census, 1, 0, [])
+        self.assertEqual(count, collector.FIXED_CARDS_PER_PAGE)
+        self.assertEqual(stop, "")
 
 
 class TestUrlPaging(unittest.TestCase):
@@ -982,6 +999,267 @@ class TestBanner(unittest.TestCase):
         described = upstream.describe()
         self.assertIn("vendor/", described)
         self.assertIn("row builder", described)
+
+
+# ===========================================================================
+# THE PAGE CENSUS -- how many cards is this results page actually showing?
+# ===========================================================================
+# A live search returned FIVE job cards while FIXED_CARDS_PER_PAGE said ten,
+# so the collector probed empty space five times and called it "no more
+# cards".  And `start=10` on a one-page search serves page 1 again, which
+# was then collected a second time and discarded card by card as duplicates.
+#
+# The fix reads the card list out of the page's own saved source.  These
+# tests pin the three behaviours that matter: count what is there, take all
+# of it when it is short, and recognise a repeated page.
+
+def _mosaic(keys, job_count=None):
+    """A results page shaped like the real one, with `keys` as its cards."""
+    cards = ", ".join('{"jobkey": "%s", "title": "Job %d"}' % (key, n)
+                      for n, key in enumerate(keys))
+    count = '' if job_count is None else ', "jobCount": %d' % job_count
+    return ('<html><script>window.mosaic["mosaic-provider-jobcards"] = '
+            '{"metaData": {"mosaicProviderJobCardsModel": '
+            '{"results": [%s]}}%s};</script></html>' % (cards, count))
+
+
+class TestPageCards(unittest.TestCase):
+    """indeed_source.page_cards() -- the card list, read off the page."""
+
+    def test_the_cards_are_counted_in_page_order(self):
+        keys = ["%016x" % (0x1111111111111110 + n) for n in range(5)]
+        found = src.page_cards(_mosaic(keys, job_count=5))
+        self.assertEqual(found.keys, keys)
+        self.assertEqual(found.evidence, "results-array")
+        self.assertEqual(found.declared_count, 5)
+
+    def test_a_repeated_card_is_counted_once(self):
+        key = "a" * 16
+        found = src.page_cards(_mosaic([key, key]))
+        self.assertEqual(found.keys, [key])
+
+    def test_the_jobkey_scan_is_the_fallback(self):
+        """No results array -- the keys the json mentions are better than 0."""
+        html = '<html><script>x = {"jobkey":"%s"};y={"jobKey":"%s"}</script>' \
+            % ("c" * 16, "d" * 16)
+        found = src.page_cards(html)
+        self.assertEqual(found.keys, ["c" * 16, "d" * 16])
+        self.assertEqual(found.evidence, "jobkey-scan")
+
+    def test_an_unreadable_page_reports_unknown_not_zero_jobs(self):
+        """The whole safety of the feature rests on this distinction."""
+        for html in ("", "<html>no json here</html>", None):
+            found = src.page_cards(html)
+            self.assertEqual(found.keys, [])
+            self.assertEqual(found.evidence, "none")
+            self.assertIsNone(found.declared_count)
+
+    def test_it_agrees_with_the_real_saved_pages(self):
+        """MEASURED: these files carry 5 cards, and the page says jobCount 5."""
+        saved = sorted(glob.glob(os.path.join(BASE, "Temp_Data", "rank_*",
+                                              "job_*.html")))
+        if not saved:
+            self.skipTest("no saved listing sources in Temp_Data to check")
+        for path in saved:
+            found = src.page_cards(src.read_saved_source(path))
+            self.assertTrue(found.keys, "%s: no cards found" % path)
+            self.assertEqual(found.evidence, "results-array", path)
+            if found.declared_count is not None:
+                self.assertEqual(len(found.keys), found.declared_count,
+                                 "%s: %d cards but the page says %s"
+                                 % (path, len(found.keys),
+                                    found.declared_count))
+
+
+class TestCardBudget(unittest.TestCase):
+    """find_indeed_job.card_budget_for_page() -- what to do with the count."""
+
+    def budget(self, keys, page=1, seen=(), declared=None, matches=None,
+               start_at=None, evidence="results-array"):
+        """(count, stop_reason, last_page) for a page shaped like this."""
+        if matches is None:
+            # Enough matches that the match-count signal never fires, so a
+            # test can exercise the card-list backstop on its own.
+            matches = 10000
+        if start_at is None:
+            start_at = (page - 1) * collector.INDEED_PAGE_STEP
+        census = collector.PageCensus(keys, evidence if keys else "none",
+                                      declared, matches)
+        return collector.card_budget_for_page(census, page, start_at,
+                                              list(seen))
+
+    def test_a_short_page_is_taken_whole(self):
+        count, stop, _last = self.budget(["%016x" % n for n in range(5)],
+                                         declared=5)
+        self.assertEqual(count, 5)
+        self.assertEqual(stop, "")
+
+    def test_a_full_page_is_capped_at_the_fixed_number(self):
+        many = ["%016x" % n for n in range(40)]
+        count, stop, last = self.budget(many)
+        self.assertEqual(count, collector.FIXED_CARDS_PER_PAGE)
+        self.assertEqual(stop, "")
+        self.assertFalse(last)
+
+    def test_the_same_cards_as_an_earlier_page_stops_the_keyword(self):
+        keys = ["%016x" % n for n in range(5)]
+        count, stop, last = self.budget(keys, page=2, seen=keys)
+        self.assertEqual(count, 0)
+        self.assertIn("one results page", stop)
+        self.assertTrue(last)
+
+    def test_a_reshuffled_page_is_still_the_same_page(self):
+        """MEASURED: reloads of one page shared 60-100% of their cards.
+
+        Indeed rotates the cards between loads, so byte-equal card lists
+        are not what a repeated page looks like.
+        """
+        keys = ["%016x" % n for n in range(5)]
+        again = list(reversed(keys[:4])) + ["%016x" % 999]   # 1 of 5 new
+        count, stop, last = self.budget(again, page=2, seen=keys)
+        self.assertEqual(count, 0)
+        self.assertIn("one results page", stop)
+        self.assertTrue(last)
+
+    def test_a_different_page_2_is_collected(self):
+        page1 = ["%016x" % n for n in range(5)]
+        page2 = ["%016x" % (100 + n) for n in range(5)]
+        count, stop, last = self.budget(page2, page=2, seen=page1)
+        self.assertEqual(count, 5)
+        self.assertEqual(stop, "")
+        self.assertFalse(last)
+
+    def test_one_repeated_card_does_not_condemn_a_real_page_2(self):
+        """A sponsored card can appear on both pages. That is not a repeat."""
+        page1 = ["%016x" % n for n in range(5)]
+        page2 = [page1[0]] + ["%016x" % (100 + n) for n in range(4)]
+        count, stop, last = self.budget(page2, page=2, seen=page1)
+        self.assertEqual(count, 5)
+        self.assertEqual(stop, "")
+
+    def test_an_unreadable_census_falls_back_and_never_stops(self):
+        """"Unknown" must not be read as "the results ended"."""
+        count, stop, last = self.budget([], page=3, seen=["%016x" % 1])
+        self.assertEqual(count, collector.FIXED_CARDS_PER_PAGE)
+        self.assertEqual(stop, "")
+        self.assertFalse(last)
+
+    def test_a_page_that_says_zero_cards_is_believed(self):
+        count, stop, last = self.budget([], declared=0)
+        self.assertEqual(count, 0)
+        self.assertIn("0 cards", stop)
+        self.assertTrue(last)
+
+
+class TestMatchCountDecidesPaging(unittest.TestCase):
+    """The page states how many jobs the search matched; use it.
+
+    MEASURED: "Mdm Engineer" in Madurai matched NOTHING and Indeed still
+    rendered five suggestion cards, reshuffled on every reload. The
+    collector took those five cards and then asked for start=10, 20, 30
+    and 40 of a search with no results.
+    """
+
+    def budget(self, keys, matches, page=1, seen=()):
+        start_at = (page - 1) * collector.INDEED_PAGE_STEP
+        census = collector.PageCensus(keys, "results-array" if keys
+                                      else "none", len(keys) or None, matches)
+        return collector.card_budget_for_page(census, page, start_at,
+                                              list(seen))
+
+    def test_zero_matches_takes_the_cards_but_turns_no_page(self):
+        """The suggestions are still real jobs -- collect them, then stop."""
+        keys = ["%016x" % n for n in range(5)]
+        count, stop, last = self.budget(keys, matches=0)
+        self.assertEqual(count, 5, "the cards on the page are not discarded")
+        self.assertEqual(stop, "")
+        self.assertTrue(last, "a search with 0 matches has no second page")
+
+    def test_zero_matches_and_no_cards_stops_outright(self):
+        count, stop, last = self.budget([], matches=0)
+        self.assertEqual(count, 0)
+        self.assertIn("0 jobs", stop)
+        self.assertTrue(last)
+
+    def test_the_last_page_of_a_real_search_is_recognised(self):
+        """7 matches: page 1 takes 7, and there is no page 2."""
+        count, stop, last = self.budget(["%016x" % n for n in range(7)],
+                                        matches=7)
+        self.assertEqual(count, 7)
+        self.assertEqual(stop, "")
+        self.assertTrue(last)
+
+    def test_a_middle_page_keeps_paging(self):
+        """40 matches, 15 cards at start=10: pages remain."""
+        count, stop, last = self.budget(["%016x" % n for n in range(15)],
+                                        matches=40, page=2)
+        self.assertEqual(count, collector.FIXED_CARDS_PER_PAGE)
+        self.assertEqual(stop, "")
+        self.assertFalse(last)
+
+    def test_the_two_count_signals_disagree_in_favour_of_more_pages(self):
+        """Under-stating the count would throw real results away."""
+        html = ('<html><head><title>137 Python Developer Jobs in Delhi'
+                '</title></head><body>{"totalJobCount":0}</body></html>')
+        self.assertEqual(src.search_match_count(html), 137)
+
+    def test_the_count_is_read_from_the_real_saved_pages(self):
+        """MEASURED: that search matched 0 while the page showed 5 cards.
+
+        This is the case the whole feature turns on, so it is checked
+        against the actual files rather than a fixture.
+        """
+        paths = sorted(glob.glob(os.path.join(BASE, "Temp_Data", "rank_*",
+                                              "job_*.html")))
+        if not paths:
+            self.skipTest("no saved listing sources in Temp_Data to check")
+        for path in paths:
+            cards = src.page_cards(src.read_saved_source(path))
+            if cards.total_matches != 0:
+                continue
+            self.assertTrue(
+                cards.keys,
+                "%s: 0 matches and no cards -- then this file does not "
+                "show the case being guarded" % path)
+            self.assertEqual(
+                collector.card_budget_for_page(
+                    collector.PageCensus(cards.keys, cards.evidence,
+                                         cards.declared_count, 0),
+                    1, 0, [])[2],
+                True, "%s: a 0-match search must be its own last page"
+                % path)
+
+
+class TestCensusIsWiredIn(unittest.TestCase):
+    """The loop must USE the measured budget, not the fixed constant."""
+
+    def setUp(self):
+        self.source = open(os.path.join(BASE, "find_indeed_job.py"),
+                           encoding="utf-8").read()
+        self.combo = self.source.split("def run_combo(")[1].split("\ndef ")[0]
+
+    def test_the_card_loop_is_bounded_by_the_census(self):
+        self.assertIn("for card_index in range(0, cards_this_page):",
+                      self.combo)
+        self.assertNotIn("range(0, MAX_CARDS_PER_PAGE)", self.combo)
+
+    def test_the_census_runs_before_the_cards(self):
+        self.assertLess(self.combo.index("read_page_census"),
+                        self.combo.index("for card_index in range"))
+
+    def test_the_census_is_saved_per_page_not_per_card(self):
+        """A per-card name would overwrite a job's own source file."""
+        controller = open(os.path.join(BASE, "source_file",
+                                       "indeed_controller.py"),
+                          encoding="utf-8").read()
+        body = controller.split("def save_listing_source(")[1] \
+                         .split("\n    def ")[0]
+        self.assertIn('"listing_%s_page%02d.html"', body)
+
+    def test_an_access_refusal_during_the_census_stops_the_run(self):
+        """Not retried, not worked around -- stopped."""
+        self.assertIn("census_access_denied", self.combo)
+        self.assertIn('return "access_denied"', self.combo)
 
 
 if __name__ == "__main__":

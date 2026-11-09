@@ -5105,25 +5105,25 @@
   ],
   "completed_cities": [],
   "total_complete_cycle": 0,
-  "last_completed_job_id": "4adfba3f13d2b87118028fc5f76a1fed",
-  "saved_jobs": 1,
+  "last_completed_job_id": "2860c31fb7ab10e36f70a519a527e309",
+  "saved_jobs": 3,
   "duplicate_jobs": 0,
-  "rejected_jobs": 1,
-  "failed_jobs": 1,
-  "examined_jobs": 2,
+  "rejected_jobs": 4,
+  "failed_jobs": 3,
+  "examined_jobs": 7,
   "failure_state": {
-    "at": "2026-11-09 11:16:35",
+    "at": "2026-11-09 12:04:50",
     "stage": "card",
     "reason": "select_job_card.sh did not finish within 180s. The desktop may be blocked by a modal dialog or a pointer grab. | stage=select_job_card.sh",
     "rank": 2,
     "city": "Madurai",
     "keyword": "MDM Engineer",
     "page": 1,
-    "card": 2,
+    "card": 6,
     "job_url": ""
   },
   "cycle_complete": false,
-  "updated_at": "2026-11-09 11:22:25",
+  "updated_at": "2026-11-09 18:32:31",
   "recent_failures": [
     {
       "at": "2026-11-09 11:16:35",
@@ -5134,6 +5134,28 @@
       "keyword": "MDM Engineer",
       "page": 1,
       "card": 2,
+      "job_url": ""
+    },
+    {
+      "at": "2026-11-09 12:01:50",
+      "stage": "card",
+      "reason": "select_job_card.sh did not finish within 180s. The desktop may be blocked by a modal dialog or a pointer grab. | stage=select_job_card.sh",
+      "rank": 2,
+      "city": "Madurai",
+      "keyword": "MDM Engineer",
+      "page": 1,
+      "card": 5,
+      "job_url": ""
+    },
+    {
+      "at": "2026-11-09 12:04:50",
+      "stage": "card",
+      "reason": "select_job_card.sh did not finish within 180s. The desktop may be blocked by a modal dialog or a pointer grab. | stage=select_job_card.sh",
+      "rank": 2,
+      "city": "Madurai",
+      "keyword": "MDM Engineer",
+      "page": 1,
+      "card": 6,
       "job_url": ""
     }
   ]

@@ -72,7 +72,7 @@ if BASE_DIR not in sys.path:
 # The contract is the original project's, including the slicing algorithm
 # (see get_cities_by_rank).  Override from the command line with
 # --rank / --num-sys; these are the defaults.
-rank = 1
+rank = 2
 num_sys = 5
 
 # -- the source ------------------------------------------------------------
@@ -206,6 +206,41 @@ TARGET_UNIQUE_JOBS = FIXED_LISTING_PAGES * FIXED_CARDS_PER_PAGE
 # paging to FIXED_LISTING_PAGES regardless.
 STOP_ON_PAGE_WITH_NO_NEW_JOBS = True
 
+# ---------------------------------------------------------------------------
+# THE PAGE CENSUS -- how many cards is this page ACTUALLY showing?
+# ---------------------------------------------------------------------------
+# FIXED_CARDS_PER_PAGE is a ceiling, not a promise. A real search returned
+# FIVE cards and the collector, told to take ten, spent the rest of the page
+# clicking empty space and calling it "no more cards".
+#
+# So before any card is clicked, the results page's OWN source is saved and
+# the card list read out of it (page_cards() in indeed_source.py). That
+# gives two things no amount of probing can:
+#
+#   1. HOW MANY CARDS ARE THERE.  Take min(found, FIXED_CARDS_PER_PAGE) and
+#      a short page finishes cleanly instead of failing its way to the end.
+#   2. WHICH CARDS THEY ARE.  If page 2's card list is the SAME list as
+#      page 1's, then start=10 changed nothing: the search has only one
+#      page, and the right move is the next keyword, not four more pages of
+#      the same ten jobs.
+#
+# A census that cannot be read falls back to the fixed number and disables
+# the repeat check -- "unknown" must never be read as "the results ended".
+COUNT_CARDS_FROM_PAGE_SOURCE = True
+STOP_WHEN_PAGE_REPEATS = True
+
+# The census is not a job, so it does not get the two 10-second job delays
+# (those pace the job cards and are untouched). It still waits, briefly,
+# because it is a tab open and closed in a real browser.
+CENSUS_PRE_CLOSE_DELAY_SECONDS = 2.0
+CENSUS_POST_CLOSE_DELAY_SECONDS = 3.0
+
+# A page whose cards are this fraction new -- or less -- is the page before
+# it, served again. MEASURED on five saved reloads of one results page: the
+# cards reshuffled every time and 0.00-0.40 of them were new, while a real
+# next page shares nothing. 0.5 sits in the middle of that gap.
+PAGE_REPEAT_NEW_CARD_FRACTION = 0.5
+
 # -- Excel -----------------------------------------------------------------
 DETAIL_OUTPUT_FILE = "current_data.xlsx"
 EXCEL_BATCH_SIZE = 100           # rows per archived current_data_cycleN.xlsx
@@ -268,7 +303,8 @@ from source_file.indeed_controller import (                  # noqa: E402
 from source_file.indeed_excel import ExcelStore              # noqa: E402
 from source_file.indeed_extractor import (                   # noqa: E402
     DETAIL_COLUMNS, build_row)
-from source_file.indeed_source import build_row_from_file
+from source_file.indeed_source import (                      # noqa: E402
+    build_row_from_file, page_cards, read_saved_source)
 from source_file.indeed_validator import (                   # noqa: E402
     Decision, DuplicateIndex, decide, normalise_job_url)
 
@@ -732,6 +768,13 @@ def show_banner(cities, plan_pairs, checkpoint):
                           FIXED_LISTING_PAGES * FIXED_CARDS_PER_PAGE))
     log("  paging          : page 1 = typed search, page 2+ = start=%d,%d,..."
         % (INDEED_PAGE_STEP, INDEED_PAGE_STEP * 2))
+    log("  cards per page  : %s"
+        % ("counted from each page's own source, capped at %d"
+           % FIXED_CARDS_PER_PAGE if COUNT_CARDS_FROM_PAGE_SOURCE
+           else "%d, assumed" % FIXED_CARDS_PER_PAGE))
+    log("  repeated page   : %s"
+        % ("same card list as the previous page -> next keyword"
+           if STOP_WHEN_PAGE_REPEATS else "ignored"))
     log("  page ceiling    : %d listing page(s) per keyword+city"
         % MAX_LISTING_PAGES)
     log("  unique target   : %d distinct jobs EXAMINED per keyword+city"
@@ -1064,6 +1107,180 @@ def process_one_card(controller, store, checkpoint, index, card_index,
 
 
 # ===========================================================================
+# THE PAGE CENSUS
+# ===========================================================================
+
+class PageCensus(object):
+    """What the results page's own source says about its job cards.
+
+    ``keys``  the job keys on the page, in page order.  EMPTY MEANS
+              "UNKNOWN": the census could not be read.  It never means
+              "this page has no jobs" -- for that, see ``definitely_empty``.
+    """
+
+    __slots__ = ("keys", "evidence", "declared_count", "total_matches",
+                 "path", "error")
+
+    def __init__(self, keys, evidence, declared_count=None,
+                 total_matches=None, path="", error=""):
+        self.keys = list(keys)
+        self.evidence = evidence
+        self.declared_count = declared_count
+        #: How many jobs the SEARCH matched, per the page itself.  This is
+        #: NOT len(keys): a search that matched nothing still renders
+        #: suggestion cards.
+        self.total_matches = total_matches
+        self.path = path
+        self.error = error
+
+    @property
+    def known(self):
+        """True when the page's card list was actually read."""
+        return bool(self.keys)
+
+    @property
+    def definitely_empty(self):
+        """True only when the page itself said it has no jobs."""
+        return not self.keys and self.declared_count == 0
+
+
+def read_page_census(controller, page):
+    """Ctrl+U/Ctrl+S the results page and read every card off it.
+
+    Runs BEFORE the first card is clicked, so the card budget for this page
+    is a measured number rather than FIXED_CARDS_PER_PAGE assumed.
+
+    Raises AccessDenied -- a refusal stops the run and is not something to
+    paper over with a fallback.  Every other failure returns an unknown
+    census, and the caller falls back to the fixed plan.
+    """
+    if not COUNT_CARDS_FROM_PAGE_SOURCE:
+        return PageCensus([], "disabled")
+
+    try:
+        path = controller.save_listing_source(page)
+    except AccessDenied:
+        raise
+    except (ClipboardStale, ClipboardEmpty, WrongJobWindow,
+            NavigationFailed, BrowserError) as error:
+        controller.force_close_source_tab()
+        return PageCensus([], "unreadable", error=error.detail())
+
+    # The file is on disk now, so the tab has done its job. Close it before
+    # parsing: a view-source tab left open would be the tab the next Ctrl+U
+    # acts on.
+    try:
+        controller.close_source_tab(
+            pre_delay=CENSUS_PRE_CLOSE_DELAY_SECONDS,
+            post_delay=CENSUS_POST_CLOSE_DELAY_SECONDS)
+    except BrowserError as error:
+        log("  [census] the source tab would not close: %s" % error.detail())
+        controller.force_close_source_tab()
+
+    try:
+        cards = page_cards(read_saved_source(path))
+    except OSError as error:
+        return PageCensus([], "unreadable", path=path, error=str(error))
+
+    return PageCensus(cards.keys, cards.evidence, cards.declared_count,
+                      cards.total_matches, path)
+
+
+def card_budget_for_page(census, page, start_at=0, seen_keys=()):
+    """What to do with this page: how many cards, and whether to stop.
+
+    Returns ``(count, stop_reason, last_page)``.
+
+      ``count``        how many cards to take from this page.
+      ``stop_reason``  non-empty means take NOTHING and finish this
+                       keyword+city here.
+      ``last_page``    take the cards, then finish -- there is no page 2.
+
+    TWO SIGNALS, IN THIS ORDER.
+
+    1. THE SEARCH'S OWN MATCH COUNT.  The page states how many jobs the
+       search matched, and that is arithmetic, not inference: if the count
+       is 0, or if this page already reaches it, there is no next page.
+
+    2. THE CARD LIST, as a backstop for when the count is missing.  If
+       almost every card on this page was already on an earlier page, then
+       `start=` changed nothing and this is page 1 again.
+
+    WHY THE COUNT HAD TO COME FIRST.  Comparing card lists alone looked
+    sufficient and is not.  MEASURED on five saved reloads of one results
+    page: the card list CHANGED EVERY TIME -- 5 cards drawn from a pool of
+    9, between 0% and 40% of them new on each reload -- because that search
+    matched nothing and Indeed was filling the page with suggestions.
+    Exact equality would never have fired; the match count said 0 every
+    time.
+    """
+    fixed = MAX_CARDS_PER_PAGE
+    matches = census.total_matches
+
+    # -- 1. the match count ------------------------------------------------
+    if matches == 0:
+        # Nothing matched. Whatever cards are on the page are Indeed's
+        # suggestions, not results for this keyword -- but they are real
+        # jobs, so they are collected exactly as before. What changes is
+        # that we do not then ask for four more pages of a search that has
+        # none.
+        if census.known:
+            log("  [census] the search matched 0 jobs -- the %d card(s) on "
+                "this page are Indeed's suggestions, not results for this "
+                "keyword" % len(census.keys))
+            return min(fixed, len(census.keys)), "", True
+        return 0, "the search matched 0 jobs -- there is nothing to page to", True
+
+    if not census.known:
+        if census.definitely_empty:
+            return 0, ("the page reports 0 cards -- there is nothing on it "
+                        "to collect"), True
+        # Unknown. Fall back to the fixed plan: probing finds the end of the
+        # page the way it always did. A failed census must NEVER be read as
+        # "the results ended".
+        log("  [census] could not read this page's card list (%s%s) -- "
+            "falling back to the fixed %d cards"
+            % (census.evidence,
+               ": %s" % census.error if census.error else "", fixed))
+        return fixed, "", False
+
+    found = len(census.keys)
+    log("  [census] the page's own source lists %d job card(s)  "
+        "(evidence: %s%s%s)"
+        % (found, census.evidence,
+           ", page says %s" % census.declared_count
+           if census.declared_count is not None else "",
+           ", search matched %s" % matches if matches is not None else ""))
+
+    last_page = False
+    if matches is not None and start_at + found >= matches:
+        log("  [census] start=%d plus %d card(s) reaches the %d job(s) this "
+            "search matched -- this is its last page."
+            % (start_at, found, matches))
+        last_page = True
+
+    # -- 2. the card list, as a backstop ----------------------------------
+    # Only consulted when the match count did not already settle it.
+    seen = set(seen_keys or ())
+    if STOP_WHEN_PAGE_REPEATS and seen and not last_page:
+        fresh = [key for key in census.keys if key not in seen]
+        # MEASURED: reloads of ONE page shared at least 60% of their cards
+        # (0.00-0.40 new); a genuinely different page shares none. Half is
+        # the midpoint of a wide gap, not a guess at a narrow one.
+        if len(fresh) <= found * PAGE_REPEAT_NEW_CARD_FRACTION:
+            return 0, ("only %d of page %d's %d card(s) are new -- start=%d "
+                       "served a page already collected, so this search has "
+                       "one results page"
+                       % (len(fresh), page, found, start_at)), True
+
+    if found < fixed:
+        log("  [census] fewer than the fixed %d -- taking all %d%s."
+            % (fixed, found,
+               "" if last_page else ", then turning the page"))
+    return min(fixed, found), "", last_page
+
+
+# ===========================================================================
 # ONE KEYWORD + CITY COMBINATION
 # ===========================================================================
 
@@ -1088,6 +1305,10 @@ def run_combo(controller, store, checkpoint, index, keyword, city,
     # page is derived from this, so it must be the real thing and not a
     # url rebuilt from the keyword and city.
     first_page_url = ""
+    # Every job card seen on the pages of THIS keyword+city so far. A page
+    # whose cards are nearly all in here is a page already collected, which
+    # is what "start= did nothing" looks like.
+    combo_card_keys = []
 
     while page <= MAX_LISTING_PAGES:
         pacing_gate()
@@ -1132,6 +1353,29 @@ def run_combo(controller, store, checkpoint, index, keyword, city,
             continue
         consecutive_failures = 0
 
+        # -- WHAT IS ACTUALLY ON THIS PAGE --------------------------------
+        # Read the page's own source before clicking anything, so the card
+        # budget is measured rather than assumed, and so a page that is
+        # really page 1 again can be spotted before it is collected twice.
+        try:
+            census = read_page_census(controller, page)
+        except AccessDenied as error:
+            log("  [STOP] the source refused the results page: %s"
+                % error.detail())
+            checkpoint.note_failure("census_access_denied", error.detail(),
+                                    {"page": page})
+            return "access_denied"
+
+        cards_this_page, stop_reason, last_page = card_budget_for_page(
+            census, page, start_at, combo_card_keys)
+        for key in census.keys:
+            if key not in combo_card_keys:
+                combo_card_keys.append(key)
+        if stop_reason:
+            log("  [page %d] %s -- moving on to the next keyword."
+                % (page, stop_reason))
+            return "done"
+
         new_this_page = 0
         card_failures = 0
         seen_before_page = index.unique_seen
@@ -1150,7 +1394,10 @@ def run_combo(controller, store, checkpoint, index, keyword, city,
 
         # 0-BASED.  It used to start at 1, which -- on top of the pitch bug --
         # meant the first card was never even aimed at.
-        for card_index in range(0, MAX_CARDS_PER_PAGE):
+        #
+        # The upper bound is the CENSUS, not MAX_CARDS_PER_PAGE: a page with
+        # five cards is five iterations, not ten of which five fail.
+        for card_index in range(0, cards_this_page):
             if _SHUTDOWN_REQUESTED:
                 raise KeyboardInterrupt("shutdown requested")
 
@@ -1196,6 +1443,14 @@ def run_combo(controller, store, checkpoint, index, keyword, city,
         gained = index.unique_seen - seen_before_page
         log("  [page %d] %d distinct new jobs, %d saved."
             % (page, gained, new_this_page))
+
+        if last_page:
+            # The page itself said this is the end -- its cards have now
+            # been taken, so the keyword is finished. Asking for the next
+            # start= would only fetch this same page again.
+            log("  [page %d] this was the last page of this search -- "
+                "moving on to the next keyword." % page)
+            return "done"
 
         if STOP_ON_PAGE_WITH_NO_NEW_JOBS and page > MIN_LISTING_PAGES \
                 and gained == 0:

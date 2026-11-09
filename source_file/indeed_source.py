@@ -685,6 +685,166 @@ def count_jobs(original_html):
     return len(set(re.findall(r"(?:jk|vjk)=([a-f0-9]{16})",
                               original_html or "")))
 
+
+# ---------------------------------------------------------------------------
+# THE PAGE CENSUS: every job card a results page is showing
+# ---------------------------------------------------------------------------
+# A search does not always return a full page.  "Computer Operator" in one
+# city returned FIVE cards, and the collector -- told to take ten -- spent
+# the rest of the page probing empty space.  Reading the card list out of
+# the page's own source first turns that guesswork into a number.
+#
+# MEASURED on the saved results pages in Temp_Data: three independent
+# signals in the same document agreed exactly.
+#
+#     mosaic-provider-jobcards -> {"results": [{"jobkey": ...}, ...]}   5
+#     distinct "jobkey":"<16 hex>" anywhere in the document             5
+#     "jobCount": <n>                                                   5
+#
+# The `results` array is used because it is the list itself and it is in
+# the page's own display order; the other two corroborate it.
+
+#: `"jobkey":"<16 hex>"` as the page's own json spells it.
+_JOBKEY_IN_JSON = re.compile(r'"job[kK]ey"\s*:\s*"([a-f0-9]{16})"')
+
+#: Indeed's own count of the cards it put on the page.
+_JOB_COUNT = re.compile(r'"jobCount"\s*:\s*(\d+)')
+
+#: How many jobs the SEARCH matched -- a different number from jobCount.
+#: MEASURED: a search for "Mdm Engineer" in Madurai matched NOTHING, and
+#: the page still rendered five cards (Indeed's suggestions). jobCount said
+#: 5; totalJobCount said 0; the <title> said "0 Mdm Engineer Jobs and
+#: Vacancies in Madurai". The suggestions reshuffle on every reload, which
+#: is why "are these the same cards as last page?" cannot be the only test
+#: for "has this search got a second page?".
+_TOTAL_JOB_COUNT = re.compile(r'"totalJobCount"\s*:\s*(\d+)')
+
+#: The same number, as Indeed writes it in the page title:
+#:     "137 Python Developer Jobs and Vacancies in Delhi - 9 November 2026"
+_TITLE_JOB_COUNT = re.compile(r"^\s*([\d,]+)\s+\S.*\bJobs?\b",
+                              re.IGNORECASE)
+
+
+class PageCards(object):
+    """The job cards one results page is showing.
+
+    ``keys``           the job keys, in the page's order, deduplicated.
+    ``evidence``       which mechanism produced them -- "results-array",
+                       "jobkey-scan", or "none".
+    ``declared_count`` Indeed's own "jobCount" for the page, or None.
+
+    AN EMPTY ``keys`` MEANS "UNKNOWN", NOT "THIS PAGE HAS NO JOBS".
+    Nothing may conclude the results have ended from an empty census: the
+    document may simply not have parsed.  ``declared_count == 0`` is the
+    only positive evidence of an empty page.
+    """
+
+    __slots__ = ("keys", "evidence", "declared_count", "total_matches")
+
+    def __init__(self, keys, evidence, declared_count=None,
+                 total_matches=None):
+        self.keys = list(keys)
+        self.evidence = evidence
+        self.declared_count = declared_count
+        self.total_matches = total_matches
+
+    def __len__(self):
+        return len(self.keys)
+
+    def __repr__(self):                                  # pragma: no cover
+        return "PageCards(%d keys, %s, declared=%s, matches=%s)" % (
+            len(self.keys), self.evidence, self.declared_count,
+            self.total_matches)
+
+
+def _dedupe(keys):
+    """The keys with repeats removed, first occurrence wins, order kept."""
+    seen, ordered = set(), []
+    for key in keys:
+        if key and key not in seen:
+            seen.add(key)
+            ordered.append(key)
+    return ordered
+
+
+def _results_arrays(original_html):
+    """Every embedded `results` array that is a list of job cards."""
+    for _hint, document in _iter_json_blobs(original_html):
+        for candidate in _iter_dicts(document):
+            array = candidate.get("results")
+            if not isinstance(array, list) or not array:
+                continue
+            keys = []
+            for item in array:
+                if not isinstance(item, dict):
+                    keys = []
+                    break
+                key = item.get("jobkey") or item.get("jobKey") or ""
+                if not isinstance(key, str) or len(key) != 16:
+                    keys = []
+                    break
+                keys.append(key)
+            if keys:
+                yield keys
+
+
+def search_match_count(original_html):
+    """How many jobs the SEARCH matched, or None if the page did not say.
+
+    Two independent signals, and the LARGER wins when they disagree.  That
+    is deliberate: this number decides whether there is another page, and
+    over-stating it costs one wasted page turn while under-stating it
+    throws away real results.
+    """
+    original_html = original_html or ""
+
+    found = []
+    for digits in _TOTAL_JOB_COUNT.findall(original_html):
+        found.append(int(digits))
+
+    title = document_title(original_html)
+    in_title = _TITLE_JOB_COUNT.match(title or "")
+    if in_title:
+        found.append(int(in_title.group(1).replace(",", "")))
+
+    return max(found) if found else None
+
+
+def page_cards(original_html):
+    """Every job card on a results page -- see PageCards."""
+    original_html = original_html or ""
+
+    declared = None
+    counts = [int(found) for found in _JOB_COUNT.findall(original_html)]
+    if counts:
+        # More than one would mean more than one card provider on the page;
+        # the largest is the whole list rather than a section of it.
+        declared = max(counts)
+    matches = search_match_count(original_html)
+
+    best = []
+    for keys in _results_arrays(original_html):
+        if len(keys) > len(best):
+            best = keys
+    if best:
+        return PageCards(_dedupe(best), "results-array", declared, matches)
+
+    # FALLBACK: every job key the page's json mentions.  This can only
+    # over-count (it also sees the key of the job open in the detail pane
+    # and anything "similar"), and over-counting is the safe direction: a
+    # probe for a card that is not there ends the page, where under-counting
+    # would silently skip real jobs.
+    scanned = _dedupe(_JOBKEY_IN_JSON.findall(original_html))
+    if scanned:
+        return PageCards(scanned, "jobkey-scan", declared, matches)
+
+    return PageCards([], "none", declared, matches)
+
+
+def job_keys_on_page(original_html):
+    """Just the job keys of the cards on a results page, in page order."""
+    return page_cards(original_html).keys
+
 # ===========================================================================
 # 3. PUTTING IT TOGETHER
 # ===========================================================================
@@ -883,6 +1043,8 @@ __all__ = [
     "document_title", "fields_from_meta", "html_to_visible_text",
     "fields_from_source", "blank_columns", "build_row_from_html",
     "job_card_for_key", "fields_from_job_card", "count_jobs",
+    "page_cards", "job_keys_on_page", "PageCards",
+    "search_match_count",
     "selected_job_description", "selected_job_header",
     "fields_from_job_header",
     "build_row_from_file", "SourceReport",

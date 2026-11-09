@@ -133,6 +133,36 @@ PRESELECTED=$(value_of "$SEARCH_OUT" preselected_key)
 LISTING_URL=$(value_of "$SEARCH_OUT" url)
 
 # ---------------------------------------------------------------------------
+# 2b. THE PAGE CENSUS -- how many cards are actually on this page?
+# ---------------------------------------------------------------------------
+# Ctrl+U / Ctrl+S on the RESULTS page, before any card is clicked, and read
+# the card list out of it.  This is the same step the collector runs and the
+# same parser, so what it reports here is what a run would do.
+#
+# Measured: a search can put FIVE cards on the page while the fixed plan
+# says ten, and the five extra probes each come back "no more cards".
+say "counting the job cards on this listing page"
+CENSUS_FILE="$TEMP/listing_1_page01.html"
+CENSUS_OUT=$(timeout 240 bash "$SHELL_DIR/save_page_source.sh" \
+    --window "$WINDOW" --out "$CENSUS_FILE" 2>&1) || true
+printf '%s\n' "$CENSUS_OUT" | grep -E "RESULT:(saved_file|saved_bytes)|ERROR" || true
+timeout 120 bash "$SHELL_DIR/close_source_tab.sh" --window "$WINDOW" 2>&1 \
+    | grep -E "RESULT:(closed|back_on_listing)|ERROR" || true
+
+if [ -s "$CENSUS_FILE" ]; then
+    python3 "$BASE/tools/page_cards.py" "$CENSUS_FILE" || true
+    FOUND=$(python3 "$BASE/tools/page_cards.py" --count "$CENSUS_FILE" 2>/dev/null || true)
+    # Only ever LOWER the count. An unreadable census prints nothing, and
+    # nothing must not be read as "this page has no jobs".
+    if [ -n "$FOUND" ] && [ "$FOUND" -gt 0 ] && [ "$FOUND" -lt "$COUNT" ]; then
+        echo "taking all $FOUND card(s) on the page instead of $COUNT"
+        COUNT="$FOUND"
+    fi
+else
+    echo "census unreadable -- carrying on with the requested $COUNT card(s)"
+fi
+
+# ---------------------------------------------------------------------------
 # 3. THE CARDS
 # ---------------------------------------------------------------------------
 SEEN=""
