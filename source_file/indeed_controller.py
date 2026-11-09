@@ -704,21 +704,125 @@ class IndeedController(object):
         ])
         return results
 
+    # -- 7. verify the search fields without searching ----------------------
+    def verify_search_fields(self, probe="zz"):
+        """Prove the two search boxes exist, are where we think, and type.
+
+        Run after the browser is (re)started, BEFORE the next keyword is
+        typed.  A throwaway probe goes into each box and is read back; both
+        boxes are then cleared.  Nothing is submitted.
+
+        Raises BrowserError (NavigationFailed / Focus / AccessDenied) when
+        the page is not a usable search page, which is the point: the
+        alternative is clicking at a remembered coordinate, typing a real
+        keyword into nothing, and pressing Return on whatever has focus.
+        """
+        _, results, _ = self.run_script("verify_search_fields.sh", [
+            "--window", self.listing_window,
+            "--probe", probe,
+            "--what-xy", "%d,%d" % (self.config.what_xy[0],
+                                    self.config.what_xy[1]),
+            "--where-xy", "%d,%d" % (self.config.where_xy[0],
+                                     self.config.where_xy[1]),
+        ])
+        self.log("   search fields verified: keyword=%s location=%s"
+                 % (results.get("what_ok"), results.get("where_ok")))
+        return results
+
+    # -- 8. restart: close, wait, open, verify ------------------------------
+    def restart_browser(self, wait_seconds=5.0, start_url=None,
+                        expect_host="indeed", verify_fields=True,
+                        sleeper=None):
+        """Close Firefox, wait, open it again on the home page, verify.
+
+        THE ORDER IS THE REQUIREMENT:
+
+            close the browser  (and WAIT for it to actually exit)
+            sleep wait_seconds
+            open the browser on the home page
+            verify the search fields
+            ... caller types the next keyword ...
+
+        WHY THE WAIT MATTERS MORE THAN IT LOOKS.  Two reasons, both
+        measured:
+
+          * A second Firefox on the SAME profile does not get a window --
+            it gets a "Close Firefox" dialog (FACT 3 in _common.sh). So the
+            old process must be gone, not merely signalled, before the new
+            one starts.
+          * Firefox checkpoints its cookies on a clean exit. Relaunching
+            over a half-dead process risks reopening with a session that
+            was never written -- which is exactly the login this project
+            spent a day getting into the profile.
+
+        ``sleeper`` is the sleep function, injectable so tests do not wait.
+
+        Returns the open_browser results.
+        """
+        sleeper = sleeper or time.sleep
+
+        # DO NOT LAUNCH OVER A LIVE FIREFOX. If the old process is still
+        # there, open_firefox.sh would be handed a "Close Firefox" dialog
+        # instead of a browser window (FACT 3) and fail with a message
+        # about dialogs rather than about this. Say what actually happened.
+        if not self.close_browser(wait=True):
+            raise BrowserLaunchFailed(
+                "Firefox did not exit after SIGTERM, so a new one cannot be "
+                "started on the same profile -- a second instance gets a "
+                "'Close Firefox' dialog, not a window. Nothing was "
+                "relaunched.", stage="restart_browser")
+
+        if wait_seconds:
+            self.log("   waiting %s before opening the browser again"
+                     % _human_wait(wait_seconds))
+            sleeper(wait_seconds)
+
+        results = self.open_browser(start_url=start_url or self.config.base_url,
+                                    expect_host=expect_host)
+        if verify_fields:
+            self.verify_search_fields()
+        return results
+
     # -- shutdown -----------------------------------------------------------
-    def close_browser(self):
-        """Close OUR Firefox, and only ours."""
+    def close_browser(self, wait=False, timeout=30.0):
+        """Close OUR Firefox, and only ours.
+
+        ``wait`` polls until the process has actually gone, which is what a
+        restart needs: see restart_browser() for why a signalled-but-alive
+        Firefox breaks the next launch.  SIGTERM only -- never SIGKILL --
+        because Firefox flushes its cookie write-ahead log on a clean exit
+        and the session in there is the one the collector signs in with.
+        """
         if not self.firefox_pid:
             return False
+        pid = int(self.firefox_pid)
         try:
-            subprocess.run(["kill", str(self.firefox_pid)],
+            subprocess.run(["kill", str(pid)],
                            stdout=subprocess.DEVNULL,
                            stderr=subprocess.DEVNULL, timeout=10)
-            self.log("   closed our Firefox (pid %s)" % self.firefox_pid)
-            return True
         except (OSError, subprocess.TimeoutExpired) as error:
             self.log("   [WARN] could not close Firefox pid %s: %s"
-                     % (self.firefox_pid, error))
+                     % (pid, error))
             return False
+
+        if not wait:
+            self.log("   closed our Firefox (pid %s)" % pid)
+            return True
+
+        deadline = time.time() + timeout
+        while time.time() < deadline:
+            if not _pid_alive(pid):
+                self.log("   our Firefox (pid %s) has exited cleanly" % pid)
+                self.firefox_pid = None
+                self.listing_window = None
+                return True
+            time.sleep(0.5)
+
+        # Still there. Say so plainly rather than escalating to SIGKILL:
+        # killing it is what loses the cookies, and the caller can decide.
+        self.log("   [WARN] Firefox pid %s is still running %.0fs after "
+                 "SIGTERM" % (pid, timeout))
+        return False
 
     def kill_browser(self):
         """Immediate, for a Ctrl+C path that must not wait for anything."""
@@ -736,6 +840,29 @@ class IndeedController(object):
 # ---------------------------------------------------------------------------
 # PARSING THE PROTOCOL
 # ---------------------------------------------------------------------------
+
+def _pid_alive(pid):
+    """Is this process still there?  Signal 0 asks without delivering."""
+    try:
+        os.kill(int(pid), 0)
+    except ProcessLookupError:
+        return False
+    except PermissionError:
+        # It exists; we are simply not allowed to signal it. Reporting that
+        # as "gone" would let a restart relaunch over a live Firefox.
+        return True
+    except (OSError, TypeError, ValueError):
+        return False
+    return True
+
+
+def _human_wait(seconds):
+    """"5s" / "10m 0s" -- so a ten-minute rest does not print as 600.0."""
+    seconds = float(seconds)
+    if seconds < 60:
+        return "%.0fs" % seconds
+    return "%dm %ds" % (int(seconds // 60), int(seconds % 60))
+
 
 RESULT_PREFIX = "RESULT:"
 

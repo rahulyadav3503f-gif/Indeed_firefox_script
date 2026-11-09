@@ -259,10 +259,55 @@ WORK_BREAK_MAX_MINUTES = 60
 
 JOB_GAP_MIN_SECONDS = 0.0        # extra gap on top of the two 10s delays
 JOB_GAP_MAX_SECONDS = 0.0
-KEYWORD_GAP_MIN_SECONDS = 20.0
+KEYWORD_GAP_MIN_SECONDS = 20.0   # only used when the restart is disabled
 KEYWORD_GAP_MAX_SECONDS = 45.0
-CITY_GAP_MIN_SECONDS = 60.0
+CITY_GAP_MIN_SECONDS = 60.0      # only used when the restart is disabled
 CITY_GAP_MAX_SECONDS = 180.0
+
+# ---------------------------------------------------------------------------
+# A FRESH BROWSER FOR EVERY KEYWORD
+# ---------------------------------------------------------------------------
+# When a keyword+city is finished -- every card of every page it has -- the
+# browser is closed and started again before the next keyword:
+#
+#     process the last card  ->  close the browser
+#                            ->  wait BROWSER_RESTART_WAIT_SECONDS
+#                            ->  open the browser on the Indeed home page
+#                            ->  verify the two search fields
+#                            ->  type the next keyword
+#
+# WHY RESTART AT ALL, rather than just searching again in the open window:
+#
+#   * One window used for hundreds of searches accumulates state -- the
+#     detail pane, the suggestion dropdown, scroll position, modals Indeed
+#     shows after a while. Every one of those has broken a run at least
+#     once. A new window has none of it.
+#   * The card coordinates are measured against a fresh home page layout.
+#   * Firefox flushes its cookie write-ahead log on a clean exit, so the
+#     login is re-checked and re-saved to disk on every restart.
+#
+# And why the search fields are verified afterwards: the step right after a
+# restart CLICKS at a remembered coordinate and types a real keyword. If
+# that click misses the input, the keyword goes nowhere and Return submits
+# whatever the page had before -- the failure that once sent a run to
+# youtube.com. verify_search_fields.sh types a throwaway probe into each
+# box, reads it back, and clears it. Nothing is submitted.
+RESTART_BROWSER_BETWEEN_KEYWORDS = True
+BROWSER_RESTART_WAIT_SECONDS = 5.0
+VERIFY_SEARCH_FIELDS_AFTER_RESTART = True
+
+# ONE COMPLETE CYCLE = every keyword done for one city. Then the collector
+# rests for ten minutes before the next city's first keyword. It rests with
+# the browser CLOSED: ten minutes of an idle logged-in window is ten
+# minutes of something that can go wrong on a shared desktop, and the
+# restart that follows opens a fresh one anyway.
+COMPLETE_CYCLE_REST_SECONDS = 600.0      # 10 minutes
+
+# How many restarts in a row may fail before the run gives up. A restart
+# that cannot produce a working search page is not something to carry on
+# through: every subsequent keyword would type into a page we cannot vouch
+# for.
+MAX_CONSECUTIVE_RESTART_FAILURES = 3
 LISTING_PAGE_GAP_MIN_SECONDS = 15.0
 LISTING_PAGE_GAP_MAX_SECONDS = 30.0
 CYCLE_COOLDOWN_MINUTES = 45
@@ -756,6 +801,16 @@ def show_banner(cities, plan_pairs, checkpoint):
     log("  loop            : city-outer, keyword-inner (brief section 8)")
     log("  delays          : %.0fs before close, %.0fs before next card"
         % (PRE_CLOSE_DELAY_SECONDS, POST_CLOSE_DELAY_SECONDS))
+    log("  between keywords: %s"
+        % ("close the browser, wait %.0fs, reopen on the home page%s"
+           % (BROWSER_RESTART_WAIT_SECONDS,
+              ", verify the search fields"
+              if VERIFY_SEARCH_FIELDS_AFTER_RESTART else "")
+           if RESTART_BROWSER_BETWEEN_KEYWORDS
+           else "%.0f-%.0fs wait, same window"
+           % (KEYWORD_GAP_MIN_SECONDS, KEYWORD_GAP_MAX_SECONDS)))
+    log("  complete cycle  : all keywords for one city, then rest %s"
+        % human_duration(COMPLETE_CYCLE_REST_SECONDS))
     log("  night rest      : %s" % ("%02d:00-%02d:00 %s"
                                     % (NIGHT_START_HOUR, NIGHT_END_HOUR,
                                        TIMEZONE)
@@ -1467,6 +1522,73 @@ def run_combo(controller, store, checkpoint, index, keyword, city,
 
 
 # ===========================================================================
+# BETWEEN COMBINATIONS: A FRESH BROWSER
+# ===========================================================================
+
+#: Whether the profile was signed in last time it was checked.  Kept so the
+#: log says something when it CHANGES, rather than once per keyword.
+_LOGIN_STATE = {"signed_in": None}
+
+
+def report_login_state(config):
+    """Log the session only when it has changed since the last check.
+
+    A restart is the moment to look: Firefox has just exited, so its cookie
+    write-ahead log is checkpointed and what is on disk is the truth.  A
+    session that expires mid-run otherwise shows up as "paging stopped
+    working" several hundred keywords later.
+    """
+    signed_in, detail = check_indeed_login(config)
+    if _LOGIN_STATE["signed_in"] is None:
+        log("      [login] signed in: %s (%s)"
+            % ("yes" if signed_in else "NO", detail))
+    elif signed_in != _LOGIN_STATE["signed_in"]:
+        if signed_in:
+            log("      [login] the Indeed session is back (%s)" % detail)
+        else:
+            log("      [login] THE INDEED SESSION HAS GONE (%s)." % detail)
+            log("      [login] Paging will stop working. Sign in again:")
+            log("                %s save_indeed_login.py --rank %d"
+                % (sys.executable, rank))
+    _LOGIN_STATE["signed_in"] = signed_in
+    return signed_in
+
+
+def restart_for_next_combo(controller, rest_seconds, why):
+    """Close the browser, rest, open it again, verify the search fields.
+
+    This is the gap between one keyword+city and the next.  The rest is
+    taken with the browser CLOSED, which is why the wait is a parameter
+    rather than a constant: 5 seconds between keywords, ten minutes after a
+    complete cycle, one mechanism.
+
+    Returns (ok, detail).  AccessDenied is NOT caught -- a refusal stops the
+    run, as it does everywhere else.
+    """
+    if not RESTART_BROWSER_BETWEEN_KEYWORDS:
+        # Restarting disabled: keep the old behaviour of simply waiting.
+        sleep_responsive(rest_seconds, why)
+        return True, ""
+
+    log("\n  [restart] closing the browser, resting %s, then opening a fresh "
+        "window on the Indeed home page" % human_duration(rest_seconds))
+    try:
+        controller.restart_browser(
+            wait_seconds=rest_seconds,
+            start_url=controller.config.base_url,
+            expect_host="indeed",
+            verify_fields=VERIFY_SEARCH_FIELDS_AFTER_RESTART,
+            sleeper=lambda seconds: sleep_responsive(seconds, why))
+    except AccessDenied:
+        raise
+    except BrowserError as error:
+        return False, error.detail()
+
+    report_login_state(controller.config)
+    return True, ""
+
+
+# ===========================================================================
 # THE CITY-WISE CYCLE LOOP (brief section 8)
 # ===========================================================================
 
@@ -1480,6 +1602,7 @@ def run_cycle(controller, store, checkpoint, max_combos=None):
     order = state["keyword_order"]
     city_index, keyword_index, page = checkpoint.position()
     combos_done = 0
+    restart_failures = 0
 
     while city_index < len(cities):
         city = cities[city_index]
@@ -1538,8 +1661,29 @@ def run_cycle(controller, store, checkpoint, max_combos=None):
                 return "stopped"
 
             if keyword_index < len(order):
-                sleep_between(KEYWORD_GAP_MIN_SECONDS,
-                              KEYWORD_GAP_MAX_SECONDS, "before the next keyword")
+                # THE KEYWORD IS FINISHED -- every card of every page it
+                # had. Close the browser, wait, open a fresh one on the
+                # home page, verify the search fields, then type the next
+                # keyword into them.
+                ok, detail = restart_for_next_combo(
+                    controller, BROWSER_RESTART_WAIT_SECONDS,
+                    "before the next keyword")
+                if ok:
+                    restart_failures = 0
+                else:
+                    restart_failures += 1
+                    log("  [WARN] the browser restart failed (%s)" % detail)
+                    checkpoint.note_failure(
+                        "browser_restart", detail,
+                        {"city": city, "keyword": keyword,
+                         "consecutive": restart_failures})
+                    if restart_failures >= MAX_CONSECUTIVE_RESTART_FAILURES:
+                        log("  [STOP] %d browser restarts in a row failed. "
+                            "Every keyword after this would be typed into a "
+                            "page that cannot be vouched for -- stopping "
+                            "instead." % restart_failures)
+                        checkpoint.save()
+                        return "stopped"
 
         # ALL 85 KEYWORDS ARE DONE FOR THIS CITY.  That is one complete
         # cycle, and this is the only place it is counted.
@@ -1555,8 +1699,26 @@ def run_cycle(controller, store, checkpoint, max_combos=None):
         keyword_index = 0
 
         if city_index < len(cities):
-            sleep_between(CITY_GAP_MIN_SECONDS, CITY_GAP_MAX_SECONDS,
-                          "before the next city")
+            # A COMPLETE CYCLE IS DONE. Rest for ten minutes -- with the
+            # browser closed -- before the next city's first keyword, where
+            # BOTH the keyword and the city change.
+            log("\n[rest] one complete cycle is done; resting %s before the "
+                "next keyword + city."
+                % human_duration(COMPLETE_CYCLE_REST_SECONDS))
+            ok, detail = restart_for_next_combo(
+                controller, COMPLETE_CYCLE_REST_SECONDS,
+                "complete-cycle rest")
+            if ok:
+                restart_failures = 0
+            else:
+                restart_failures += 1
+                log("  [WARN] the browser restart failed (%s)" % detail)
+                checkpoint.note_failure("browser_restart", detail,
+                                        {"city": city,
+                                         "consecutive": restart_failures})
+                if restart_failures >= MAX_CONSECUTIVE_RESTART_FAILURES:
+                    checkpoint.save()
+                    return "stopped"
 
     return "complete"
 

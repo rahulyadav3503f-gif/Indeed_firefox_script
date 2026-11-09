@@ -1264,3 +1264,222 @@ class TestCensusIsWiredIn(unittest.TestCase):
 
 if __name__ == "__main__":
     unittest.main(verbosity=2)
+
+
+# ===========================================================================
+# A FRESH BROWSER FOR EVERY KEYWORD
+# ===========================================================================
+# When a keyword+city is finished the browser is closed, there is a wait,
+# and a new window is opened on the Indeed home page with its search fields
+# verified before the next keyword is typed. After a COMPLETE CYCLE -- all
+# keywords for one city -- the same mechanism rests ten minutes.
+
+class TestBrowserRestart(unittest.TestCase):
+
+    class Recorder(ctrl.IndeedController):
+        """Records the restart's steps in order, touching no browser."""
+
+        def __init__(self, config):
+            super(TestBrowserRestart.Recorder, self).__init__(config)
+            self.steps = []
+            self.firefox_pid = "4242"
+            self.listing_window = "0x1"
+            self.alive = True
+
+        def close_browser(self, wait=False, timeout=30.0):
+            self.steps.append("close(wait=%s)" % wait)
+            self.alive = False
+            self.firefox_pid = None
+            self.listing_window = None
+            return True
+
+        def open_browser(self, start_url=None, expect_host=None):
+            self.steps.append("open(%s)" % start_url)
+            self.alive = True
+            self.firefox_pid = "4343"
+            self.listing_window = "0x2"
+            return {"window_id": "0x2"}
+
+        def verify_search_fields(self, probe="zz"):
+            self.steps.append("verify")
+            return {"what_ok": "yes", "where_ok": "yes"}
+
+    def recorder(self):
+        import find_indeed_job as collector
+        return self.Recorder(collector.build_controller_config(which_rank=1))
+
+    def test_the_order_is_close_wait_open_verify(self):
+        slept = []
+        rec = self.recorder()
+        rec.restart_browser(wait_seconds=5.0, sleeper=slept.append)
+        self.assertEqual(rec.steps,
+                         ["close(wait=True)",
+                          "open(%s)" % rec.config.base_url,
+                          "verify"])
+        self.assertEqual(slept, [5.0])
+
+    def test_the_wait_happens_while_the_browser_is_closed(self):
+        """Ten minutes of an idle logged-in window is ten minutes of risk."""
+        seen = []
+        rec = self.recorder()
+        rec.restart_browser(wait_seconds=600.0,
+                            sleeper=lambda s: seen.append(
+                                ("slept", s, rec.alive)))
+        self.assertEqual(seen, [("slept", 600.0, False)])
+
+    def test_the_close_waits_for_the_process_to_exit(self):
+        """A signalled-but-alive Firefox breaks the next launch.
+
+        A second Firefox on the same profile gets a "Close Firefox" dialog,
+        not a window (FACT 3), and a killed Firefox can lose the cookies it
+        had not checkpointed -- which is the login.
+        """
+        rec = self.recorder()
+        rec.restart_browser(wait_seconds=0, sleeper=lambda s: None)
+        self.assertIn("close(wait=True)", rec.steps)
+
+    def test_a_firefox_that_will_not_die_is_not_launched_over(self):
+        """A second instance on one profile gets a dialog, not a window."""
+        rec = self.recorder()
+        rec.close_browser = lambda wait=False, timeout=30.0: False
+        with self.assertRaises(ctrl.BrowserLaunchFailed) as caught:
+            rec.restart_browser(wait_seconds=0, sleeper=lambda s: None)
+        self.assertIn("did not exit", str(caught.exception))
+        self.assertNotIn("open(", " ".join(rec.steps),
+                         "nothing may be launched over a live Firefox")
+
+    def test_the_fields_can_be_turned_off_but_default_on(self):
+        import find_indeed_job as collector
+        self.assertTrue(collector.VERIFY_SEARCH_FIELDS_AFTER_RESTART)
+        rec = self.recorder()
+        rec.restart_browser(wait_seconds=0, verify_fields=False,
+                            sleeper=lambda s: None)
+        self.assertNotIn("verify", rec.steps)
+
+
+class TestCloseBrowserWaits(unittest.TestCase):
+    """close_browser(wait=True) must not return while the pid is alive."""
+
+    def test_a_live_pid_is_reported_as_not_closed(self):
+        import find_indeed_job as collector
+        config = collector.build_controller_config(which_rank=1)
+        controller = ctrl.IndeedController(config)
+        # OUR OWN pid: `kill` cannot remove it, so the wait must time out
+        # and say so rather than claim the browser closed.
+        controller.firefox_pid = str(os.getpid())
+        calls = []
+        real_run = ctrl.subprocess.run
+
+        def no_kill(args, **kwargs):
+            calls.append(args)
+            class Done(object):
+                returncode = 0
+            return Done()
+
+        ctrl.subprocess.run = no_kill
+        try:
+            closed = controller.close_browser(wait=True, timeout=1.0)
+        finally:
+            ctrl.subprocess.run = real_run
+        self.assertFalse(closed, "a still-running Firefox is not 'closed'")
+        self.assertEqual(calls[0][0], "kill")
+        self.assertNotIn("-9", calls[0],
+                         "SIGKILL loses the cookie write-ahead log, which "
+                         "is where the login lives")
+
+    def test_a_dead_pid_clears_the_window(self):
+        import find_indeed_job as collector
+        controller = ctrl.IndeedController(
+            collector.build_controller_config(which_rank=1))
+        controller.firefox_pid = "999999"         # not a running process
+        controller.listing_window = "0x1"
+        real_run = ctrl.subprocess.run
+        ctrl.subprocess.run = lambda args, **kw: type(
+            "Done", (), {"returncode": 0})()
+        try:
+            self.assertTrue(controller.close_browser(wait=True, timeout=5.0))
+        finally:
+            ctrl.subprocess.run = real_run
+        self.assertIsNone(controller.listing_window,
+                          "a closed browser must not leave a window id "
+                          "behind for the next script to be aimed at")
+
+    def test_pid_alive_does_not_mistake_permission_denied_for_gone(self):
+        """EPERM means it exists. Reading that as dead relaunches over it."""
+        self.assertTrue(ctrl._pid_alive(1))       # init: exists, not ours
+        self.assertTrue(ctrl._pid_alive(os.getpid()))
+        self.assertFalse(ctrl._pid_alive(999999))
+
+
+class TestSearchFieldVerification(unittest.TestCase):
+    """verify_search_fields.sh -- prove the boxes work, submit nothing."""
+
+    def setUp(self):
+        self.text = script("verify_search_fields.sh")
+        self.code = code_of(self.text)
+
+    def test_it_never_presses_return(self):
+        """Submitting here would run a search nobody asked for."""
+        self.assertNotIn("Return", self.code)
+
+    def test_it_clears_the_probe_out_of_both_boxes(self):
+        """A leftover probe would prefix the next real keyword."""
+        self.assertIn("Delete", self.code)
+
+    def test_it_reads_the_boxes_back(self):
+        self.assertIn("_copy_with_nonce", self.code)
+
+    def test_it_runs_the_input_guard_before_typing(self):
+        self.assertIn("assert_input_lands", self.code)
+        self.assertLess(self.code.index("assert_input_lands"),
+                        self.code.index("xdotool type"))
+
+    def test_an_access_refusal_stops_it(self):
+        self.assertIn("title_says_access_denied", self.code)
+        self.assertIn("EX_ACCESS_DENIED", self.code)
+
+    def test_an_empty_read_back_is_a_failure(self):
+        """Empty means the keystrokes never arrived -- not a warning."""
+        self.assertIn("verified=no", self.code)
+        self.assertIn('fail "$EX_NAVIGATION"', self.code)
+
+    def test_the_dropdown_is_dismissed_before_each_click(self):
+        self.assertIn("dismiss_url_dropdown", self.code)
+
+
+class TestRestartIsWiredIntoTheLoop(unittest.TestCase):
+
+    def setUp(self):
+        self.source = open(os.path.join(BASE, "find_indeed_job.py"),
+                           encoding="utf-8").read()
+        self.cycle = self.source.split("def run_cycle(")[1].split("\ndef ")[0]
+
+    def test_the_restart_replaces_the_plain_keyword_wait(self):
+        self.assertIn("restart_for_next_combo", self.cycle)
+        self.assertNotIn("KEYWORD_GAP_MIN_SECONDS", self.cycle)
+        self.assertNotIn("CITY_GAP_MIN_SECONDS", self.cycle)
+
+    def test_the_complete_cycle_rest_is_ten_minutes(self):
+        import find_indeed_job as collector
+        self.assertEqual(collector.COMPLETE_CYCLE_REST_SECONDS, 600.0)
+        self.assertEqual(collector.BROWSER_RESTART_WAIT_SECONDS, 5.0)
+
+    def test_the_two_waits_go_through_one_mechanism(self):
+        """5s and 600s differ only as an argument, so they cannot drift."""
+        self.assertIn("BROWSER_RESTART_WAIT_SECONDS", self.cycle)
+        self.assertIn("COMPLETE_CYCLE_REST_SECONDS", self.cycle)
+
+    def test_repeated_restart_failures_stop_the_run(self):
+        self.assertIn("MAX_CONSECUTIVE_RESTART_FAILURES", self.cycle)
+        self.assertIn('return "stopped"', self.cycle)
+
+    def test_an_access_refusal_during_a_restart_is_not_swallowed(self):
+        body = self.source.split("def restart_for_next_combo(")[1] \
+                          .split("\ndef ")[0]
+        self.assertIn("except AccessDenied:\n        raise", body)
+
+    def test_the_long_rest_stays_interruptible(self):
+        """A ten-minute time.sleep() would swallow Ctrl+C for ten minutes."""
+        body = self.source.split("def restart_for_next_combo(")[1] \
+                          .split("\ndef ")[0]
+        self.assertIn("sleep_responsive", body)

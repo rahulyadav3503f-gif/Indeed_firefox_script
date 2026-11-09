@@ -140,6 +140,66 @@ City is the **outer** loop, keyword the inner. A city is only marked
 complete when every keyword has been attempted for it — and **never** when
 the run stopped because of an access refusal.
 
+**A fresh browser for every keyword.** A keyword+city is finished when
+every card of every page it has is done. Then, before the next keyword:
+
+```
+   last card processed
+        |
+   close the browser        SIGTERM, and WAIT for the process to exit
+        |
+   wait 5 seconds           BROWSER_RESTART_WAIT_SECONDS
+        |
+   open the browser         on https://in.indeed.com, the signed-in profile
+        |
+   verify the search fields verify_search_fields.sh -- probe, read back, clear
+        |
+   next keyword, same city
+```
+
+and when the **last** keyword of a city is done — one **complete cycle** —
+the same mechanism rests for **ten minutes** before the next keyword+city:
+
+```python
+BROWSER_RESTART_WAIT_SECONDS = 5.0      # between keywords
+COMPLETE_CYCLE_REST_SECONDS  = 600.0    # after a complete cycle
+```
+
+One mechanism, two numbers, passed as an argument — so the two waits
+cannot drift apart.
+
+Three reasons the browser is restarted rather than simply searched again:
+
+- One window used for hundreds of searches **accumulates state** — the
+  detail pane, the suggestion dropdown, scroll position, the modals Indeed
+  starts showing after a while. Each of those has broken a run at least
+  once. A new window has none of it.
+- The card coordinates are measured against a **fresh home page layout**.
+- Firefox **checkpoints its cookies on a clean exit**, so the login is
+  re-flushed and re-checked on every restart. The log says so only when the
+  session's state *changes*, not once per keyword.
+
+Two details that are not cosmetic:
+
+- **The close waits for the process to actually exit.** A signalled-but-
+  alive Firefox breaks the next launch: a second Firefox on the same
+  profile gets a "Close Firefox" dialog rather than a window (FACT 3). And
+  the signal is **SIGTERM, never SIGKILL** — a killed Firefox can lose the
+  cookies it had not yet checkpointed, which is exactly the login.
+- **The rest is taken with the browser closed.** Ten minutes of an idle
+  logged-in window on a shared desktop is ten minutes of something that can
+  go wrong, and the restart opens a fresh one anyway.
+
+**Why the fields are verified.** The very next thing the run does is click
+at a remembered coordinate and type a real keyword. If that click misses
+the input, the keyword goes nowhere and `Return` submits whatever the page
+had before — the failure that once sent a run to *youtube.com*.
+`verify_search_fields.sh` types a throwaway probe into each box, reads it
+back, and clears it. It never presses Return, and a box that cannot be read
+back is a hard failure. Three restarts failing in a row stops the run
+(`MAX_CONSECUTIVE_RESTART_FAILURES`) rather than typing into pages nothing
+can vouch for.
+
 **The fixed plan.** How much of a search to take is two numbers in
 `find_indeed_job.py`:
 
@@ -594,8 +654,9 @@ anyway. That was measured, and it is why the shape looks the way it does.
 |---|---|
 | `PRE_CLOSE_DELAY_SECONDS` / `POST_CLOSE_DELAY_SECONDS` | 10.0 / 10.0 |
 | `SEARCH_FIELD_DELAY_SECONDS` | 7 |
-| `KEYWORD_GAP` | 20–45 s |
-| `CITY_GAP` | 60–180 s |
+| **between keywords** | **close the browser → 5 s → open → verify fields** |
+| **after a complete cycle** | **close the browser → 10 min → open → verify fields** |
+| `KEYWORD_GAP` / `CITY_GAP` | 20–45 s / 60–180 s — *only when `RESTART_BROWSER_BETWEEN_KEYWORDS = False`* |
 | `LISTING_PAGE_GAP` | 15–30 s |
 | `JOB_GAP` | 0 (the two 10 s delays already apply) |
 | work period → break | 3.7–4.2 h → 30–60 min |
@@ -757,6 +818,14 @@ rather than assumed:
   `save_page_source.sh`.
 - **URL paging has not run live.** `start=10/20/30/40` is unit-tested
   against the two worked examples and never driven in a browser.
+- **The between-keyword browser restart has not run live.** The order
+  (close → wait → open → verify) is proven by a recording test, and
+  `verify_search_fields.sh` passes its static checks, but no live run has
+  closed Firefox and reopened it between two keywords. The one risk worth
+  naming: the probe is typed at `--what-xy` / `--where-xy`, the same
+  measured coordinates the real search uses, so if those are wrong for a
+  window size the verification *fails loudly* rather than searching — which
+  is the intent, but it will stop the run rather than work around it.
 - `experience_required` mirrors the description text. That is the upstream
   `parse_experience()` behaviour and was deliberately left alone.
 
