@@ -1,0 +1,1443 @@
+2026-11-09 11:07:56 ========================================================================
+2026-11-09 11:07:56 NEW INDEED COLLECTOR -- Firefox / xdotool / xclip
+2026-11-09 11:07:56 ========================================================================
+2026-11-09 11:07:56   roles+cities : vendor/ (local, authoritative) -- new_mylib.py md5 5e06a7d1, target_audience_roles.py md5 54b25400
+  row builder  : /home/ubuntu/check_indeed (read-only, 32-column schema)  [stand-ins: gtts, psutil]
+2026-11-09 11:07:56   rank            : 1 of 5
+2026-11-09 11:07:56   keywords        : 1264
+2026-11-09 11:07:56     target-audience : 200  (15.8% of the plan)
+2026-11-09 11:07:56     fresher/other   : 1064  (84.2%)
+2026-11-09 11:07:56     departments     : 116
+2026-11-09 11:07:56   cities (all)    : 110
+2026-11-09 11:07:56   cities (rank 1) : 23  -> Delhi, Gurugram, Gurgaon, Noida ...
+2026-11-09 11:07:56   excel columns   : 32
+2026-11-09 11:07:56   output          : /home/ubuntu/new_indeed_script/Excel_Data/rank_1
+2026-11-09 11:07:56   temp            : /home/ubuntu/new_indeed_script/Temp_Data/rank_1
+2026-11-09 11:07:56   checkpoint      : /home/ubuntu/new_indeed_script/config/checkpoints/checkpoint_rank_1.json
+2026-11-09 11:07:56   loop            : city-outer, keyword-inner (brief section 8)
+2026-11-09 11:07:56   delays          : 10s before close, 10s before next card
+2026-11-09 11:07:56   night rest      : disabled
+2026-11-09 11:07:56   work period     : 3.7-4.2 h, then a 30-60 min break
+2026-11-09 11:07:56   fixed plan      : 5 page(s) x 10 card(s) = up to 50 jobs per keyword+city
+2026-11-09 11:07:56   paging          : page 1 = typed search, page 2+ = start=10,20,...
+2026-11-09 11:07:56   page ceiling    : 5 listing page(s) per keyword+city
+2026-11-09 11:07:56   unique target   : 50 distinct jobs EXAMINED per keyword+city
+2026-11-09 11:07:56   TOTAL COMPLETE CYCLE : 0   (cities finished this crawl cycle: 0/23)
+2026-11-09 11:07:56 ========================================================================
+2026-11-09 11:07:56   indeed login   : signed in  (session cookies: PPID, SOCK, SHOE)
+2026-11-09 11:07:56   search mode    : form
+2026-11-09 11:07:56       $ /home/ubuntu/new_indeed_script/shell_scripts/open_firefox.sh --profile /home/ubuntu/new_indeed_script/config/firefox_profile/rank_1 --url https://in.indeed.com --state-file /home/ubuntu/new_indeed_script/Temp_Data/rank_1/browser_window.json --expect-host indeed --download-dir /home/ubuntu/new_indeed_script/Temp_Data/rank_1 --window-size 1845x1046 --window-pos 0,34
+2026-11-09 11:08:08         [open_firefox] pre-existing Firefox windows (never touched): none
+2026-11-09 11:08:08         [open_firefox] display=:0 xauthority=/home/ubuntu/new_indeed_script/config/xauth_xwayland
+2026-11-09 11:08:08         [open_firefox] launch mode: snap (inner binary inside 'snap run --shell')
+2026-11-09 11:08:08         [open_firefox] firefox pid=22788
+2026-11-09 11:08:08         [open_firefox] window_id=65011735 name=Mozilla Firefox
+2026-11-09 11:08:08         [open_firefox] window geometry set on attempt 1: 1850x1053+70+27
+2026-11-09 11:08:08         [open_firefox] normal window: 1850x1053+70+27 (asked for 1845x1046+0+34)
+2026-11-09 11:08:08         [open_firefox] address bar:  non user content
+2026-11-09 11:08:08         
+2026-11-09 11:08:08         Start of main content
+2026-11-09 11:08:08         Keyword : all jobs
+2026-11-09 11:08:08         &nbsp;
+2026-11-09 11:08:08         Edit location input box label
+2026-11-09 11:08:08         Welcome, rohan
+2026-11-09 11:08:08         You haven't added a resume yetA resume helps you stand out and apply faster.
+2026-11-09 11:08:08         Jobs for you
+2026-11-09 11:08:08         
+2026-11-09 11:08:08             SOFTWARE DEVELOPER- Fresher
+2026-11-09 11:08:08             Easily apply
+2026-11-09 11:08:08             Soranova Technologies Private Limited
+2026-11-09 11:08:08             Remote
+2026-11-09 11:08:08                 ₹3,00,000 - ₹4,50,000 a year
+2026-11-09 11:08:08             Social Media & Customer Support Executive
+2026-11-09 11:08:08             Easily apply
+2026-11-09 11:08:08             Multiple openings
+2026-11-09 11:08:08             Udaan Credit
+2026-11-09 11:08:08             Chandigarh, Chandigarh
+2026-11-09 11:08:08                 ₹14,000 - ₹16,000 a month
+2026-11-09 11:08:08                 Full-time +1
+2026-11-09 11:08:08             Social Media Manager
+2026-11-09 11:08:08             Easily apply
+2026-11-09 11:08:08             Often replies in 1 day
+2026-11-09 11:08:08             Growvique media pvt. ltd
+2026-11-09 11:08:08             Mohali, Punjab
+2026-11-09 11:08:08                 ₹10,000 - ₹30,000 a month
+2026-11-09 11:08:08                 Full-time +2
+2026-11-09 11:08:08             Social Media Manager
+2026-11-09 11:08:08             Easily apply
+2026-11-09 11:08:08             Often replies in 2 days
+2026-11-09 11:08:08             Divya Aradhana
+2026-11-09 11:08:08             Zirakpur, Punjab
+2026-11-09 11:08:08                 ₹20,000 - ₹44,000 a month
+2026-11-09 11:08:08                 Full-time
+2026-11-09 11:08:08                 Flexible schedule
+2026-11-09 11:08:08             Frontend Engineer (India)
+2026-11-09 11:08:08             Easily apply
+2026-11-09 11:08:08             Aidaptive
+2026-11-09 11:08:08             Remote
+2026-11-09 11:08:08             Desktop Support Engineer - L1
+2026-11-09 11:08:08             Easily apply
+2026-11-09 11:08:08             Sysnet Global Technologies Pvt.Ltd
+2026-11-09 11:08:08             Unknown, Delhi
+2026-11-09 11:08:08             Desktop Support Engineer - L2
+2026-11-09 11:08:08             Easily apply
+2026-11-09 11:08:08             Sysnet Global Technologies Pvt.Ltd
+2026-11-09 11:08:08             Unknown, Uttar Pradesh
+2026-11-09 11:08:08             Remote Support Engineer
+2026-11-09 11:08:08             Easily apply
+2026-11-09 11:08:08             Sysnet Global Technologies Pvt.Ltd
+2026-11-09 11:08:08             Unknown, Uttar Pradesh
+2026-11-09 11:08:08             Associate Software Engineer
+2026-11-09 11:08:08             Green Apple Solutions
+2026-11-09 11:08:08             Delhi, Delhi
+2026-11-09 11:08:08                 ₹3,00,000 - ₹5,00,000 a year
+2026-11-09 11:08:08             Desktop Support Engineer
+2026-11-09 11:08:08             Easily apply
+2026-11-09 11:08:08             Three Ess Computer Services (I) Pvt. Ltd.
+2026-11-09 11:08:08             Chandigarh, Chandigarh
+2026-11-09 11:08:08                 ₹18,000 - ₹20,000 a month
+2026-11-09 11:08:08             Web Developer Intern
+2026-11-09 11:08:08             Easily apply
+2026-11-09 11:08:08             Eduwrap
+2026-11-09 11:08:08             Zirakpur, Punjab
+2026-11-09 11:08:08                 ₹10,000 - ₹15,000 a month
+2026-11-09 11:08:08         
+2026-11-09 11:08:08         Return to Search Result
+2026-11-09 11:08:08         Job Post Details
+2026-11-09 11:08:08         SOFTWARE DEVELOPER- Fresher
+2026-11-09 11:08:08         Soranova Technologies Private Limited
+2026-11-09 11:08:08         Remote
+2026-11-09 11:08:08         ₹3,00,000 - ₹4,50,000 a year
+2026-11-09 11:08:08          -  
+2026-11-09 11:08:08         Full-time
+2026-11-09 11:08:08         Apply now
+2026-11-09 11:08:08         Job details
+2026-11-09 11:08:08         ₹3,00,000 - ₹4,50,000 a year
+2026-11-09 11:08:08         Full-time
+2026-11-09 11:08:08         Remote
+2026-11-09 11:08:08         Full job description
+2026-11-09 11:08:08         Description
+2026-11-09 11:08:08         
+2026-11-09 11:08:08         Submit your application here : https://forms.gle/5HgGHZPfXL7Z2K4x6
+2026-11-09 11:08:08         
+2026-11-09 11:08:08         Soranova Technologies Private Limited is excited to welcome a talented and motivated Software Developer - Fresher to our innovative team. This full-time remote position offers an excellent opportunity for recent graduates and entry-level professionals to kick-start their careers in the dynamic field of Computer Software and Engineering.
+2026-11-09 11:08:08         
+2026-11-09 11:08:08         As a Software Developer, you will have the chance to work on a variety of projects that leverage cutting-edge technologies, allowing you to contribute to meaningful software solutions. Join us in our mission to deliver high-quality software that meets the needs of our clients and enhances user experience. This role not only promises valuable hands-on experience but also a supportive environment for your professional growth.
+2026-11-09 11:08:08         
+2026-11-09 11:08:08         We offer a competitive salary range of ₹300,000 - ₹450,000 annually, along with a range of benefits and opportunities for skill development.
+2026-11-09 11:08:08         Responsibilities
+2026-11-09 11:08:08         
+2026-11-09 11:08:08             Assist in the design and development of software applications
+2026-11-09 11:08:08             Write clean, efficient, and maintainable code
+2026-11-09 11:08:08             Participate in code reviews and contribute to team discussions
+2026-11-09 11:08:08             Collaborate with senior developers to troubleshoot and resolve issues
+2026-11-09 11:08:08             Engage in testing and debugging processes
+2026-11-09 11:08:08             Learn and apply new programming languages and technologies
+2026-11-09 11:08:08             Document development processes and code changes
+2026-11-09 11:08:08             Contribute to team meetings and share ideas for improvements
+2026-11-09 11:08:08         
+2026-11-09 11:08:08         Requirements
+2026-11-09 11:08:08         
+2026-11-09 11:08:08             Bachelor's degree in Computer Science, Information Technology, or a related field
+2026-11-09 11:08:08             Basic understanding of programming languages such as Java, C++, or Python
+2026-11-09 11:08:08             Familiarity with software development methodologies
+2026-11-09 11:08:08             Strong analytical and problem-solving skills
+2026-11-09 11:08:08             Ability to work collaboratively in a team environment
+2026-11-09 11:08:08             Good communication skills, both verbal and written
+2026-11-09 11:08:08             Willingness to learn and adapt to new technologies
+2026-11-09 11:08:08             Prior internship or project experience in software development is a plus (nice-to-have)
+2026-11-09 11:08:08         
+2026-11-09 11:08:08         Is there a problem with this job?
+2026-11-09 11:08:08         Return to Search Result
+2026-11-09 11:08:08         [open_firefox] ERROR(7): Firefox is up in a normal window, but the address bar does not contain 'indeed'. Got:  non user content
+2026-11-09 11:08:08         
+2026-11-09 11:08:08         Start of main content
+2026-11-09 11:08:08         Keyword : all jobs
+2026-11-09 11:08:08         &nbsp;
+2026-11-09 11:08:08         Edit location input box label
+2026-11-09 11:08:08         Welcome, rohan
+2026-11-09 11:08:08         You haven't added a resume yetA resume helps you stand out and apply faster.
+2026-11-09 11:08:08         Jobs for you
+2026-11-09 11:08:08         
+2026-11-09 11:08:08             SOFTWARE DEVELOPER- Fresher
+2026-11-09 11:08:08             Easily apply
+2026-11-09 11:08:08             Soranova Technologies Private Limited
+2026-11-09 11:08:08             Remote
+2026-11-09 11:08:08                 ₹3,00,000 - ₹4,50,000 a year
+2026-11-09 11:08:08             Social Media & Customer Support Executive
+2026-11-09 11:08:08             Easily apply
+2026-11-09 11:08:08             Multiple openings
+2026-11-09 11:08:08             Udaan Credit
+2026-11-09 11:08:08             Chandigarh, Chandigarh
+2026-11-09 11:08:08                 ₹14,000 - ₹16,000 a month
+2026-11-09 11:08:08                 Full-time +1
+2026-11-09 11:08:08             Social Media Manager
+2026-11-09 11:08:08             Easily apply
+2026-11-09 11:08:08             Often replies in 1 day
+2026-11-09 11:08:08             Growvique media pvt. ltd
+2026-11-09 11:08:08             Mohali, Punjab
+2026-11-09 11:08:08                 ₹10,000 - ₹30,000 a month
+2026-11-09 11:08:08                 Full-time +2
+2026-11-09 11:08:08             Social Media Manager
+2026-11-09 11:08:08             Easily apply
+2026-11-09 11:08:08             Often replies in 2 days
+2026-11-09 11:08:08             Divya Aradhana
+2026-11-09 11:08:08             Zirakpur, Punjab
+2026-11-09 11:08:08                 ₹20,000 - ₹44,000 a month
+2026-11-09 11:08:08                 Full-time
+2026-11-09 11:08:08                 Flexible schedule
+2026-11-09 11:08:08             Frontend Engineer (India)
+2026-11-09 11:08:08             Easily apply
+2026-11-09 11:08:08             Aidaptive
+2026-11-09 11:08:08             Remote
+2026-11-09 11:08:08             Desktop Support Engineer - L1
+2026-11-09 11:08:08             Easily apply
+2026-11-09 11:08:08             Sysnet Global Technologies Pvt.Ltd
+2026-11-09 11:08:08             Unknown, Delhi
+2026-11-09 11:08:08             Desktop Support Engineer - L2
+2026-11-09 11:08:08             Easily apply
+2026-11-09 11:08:08             Sysnet Global Technologies Pvt.Ltd
+2026-11-09 11:08:08             Unknown, Uttar Pradesh
+2026-11-09 11:08:08             Remote Support Engineer
+2026-11-09 11:08:08             Easily apply
+2026-11-09 11:08:08             Sysnet Global Technologies Pvt.Ltd
+2026-11-09 11:08:08             Unknown, Uttar Pradesh
+2026-11-09 11:08:08             Associate Software Engineer
+2026-11-09 11:08:08             Green Apple Solutions
+2026-11-09 11:08:08             Delhi, Delhi
+2026-11-09 11:08:08                 ₹3,00,000 - ₹5,00,000 a year
+2026-11-09 11:08:08             Desktop Support Engineer
+2026-11-09 11:08:08             Easily apply
+2026-11-09 11:08:08             Three Ess Computer Services (I) Pvt. Ltd.
+2026-11-09 11:08:08             Chandigarh, Chandigarh
+2026-11-09 11:08:08                 ₹18,000 - ₹20,000 a month
+2026-11-09 11:08:08             Web Developer Intern
+2026-11-09 11:08:08             Easily apply
+2026-11-09 11:08:08             Eduwrap
+2026-11-09 11:08:08             Zirakpur, Punjab
+2026-11-09 11:08:08                 ₹10,000 - ₹15,000 a month
+2026-11-09 11:08:08         
+2026-11-09 11:08:08         Return to Search Result
+2026-11-09 11:08:08         Job Post Details
+2026-11-09 11:08:08         SOFTWARE DEVELOPER- Fresher
+2026-11-09 11:08:08         Soranova Technologies Private Limited
+2026-11-09 11:08:08         Remote
+2026-11-09 11:08:08         ₹3,00,000 - ₹4,50,000 a year
+2026-11-09 11:08:08          -  
+2026-11-09 11:08:08         Full-time
+2026-11-09 11:08:08         Apply now
+2026-11-09 11:08:08         Job details
+2026-11-09 11:08:08         ₹3,00,000 - ₹4,50,000 a year
+2026-11-09 11:08:08         Full-time
+2026-11-09 11:08:08         Remote
+2026-11-09 11:08:08         Full job description
+2026-11-09 11:08:08         Description
+2026-11-09 11:08:08         
+2026-11-09 11:08:08         Submit your application here : https://forms.gle/5HgGHZPfXL7Z2K4x6
+2026-11-09 11:08:08         
+2026-11-09 11:08:08         Soranova Technologies Private Limited is excited to welcome a talented and motivated Software Developer - Fresher to our innovative team. This full-time remote position offers an excellent opportunity for recent graduates and entry-level professionals to kick-start their careers in the dynamic field of Computer Software and Engineering.
+2026-11-09 11:08:08         
+2026-11-09 11:08:08         As a Software Developer, you will have the chance to work on a variety of projects that leverage cutting-edge technologies, allowing you to contribute to meaningful software solutions. Join us in our mission to deliver high-quality software that meets the needs of our clients and enhances user experience. This role not only promises valuable hands-on experience but also a supportive environment for your professional growth.
+2026-11-09 11:08:08         
+2026-11-09 11:08:08         We offer a competitive salary range of ₹300,000 - ₹450,000 annually, along with a range of benefits and opportunities for skill development.
+2026-11-09 11:08:08         Responsibilities
+2026-11-09 11:08:08         
+2026-11-09 11:08:08             Assist in the design and development of software applications
+2026-11-09 11:08:08             Write clean, efficient, and maintainable code
+2026-11-09 11:08:08             Participate in code reviews and contribute to team discussions
+2026-11-09 11:08:08             Collaborate with senior developers to troubleshoot and resolve issues
+2026-11-09 11:08:08             Engage in testing and debugging processes
+2026-11-09 11:08:08             Learn and apply new programming languages and technologies
+2026-11-09 11:08:08             Document development processes and code changes
+2026-11-09 11:08:08             Contribute to team meetings and share ideas for improvements
+2026-11-09 11:08:08         
+2026-11-09 11:08:08         Requirements
+2026-11-09 11:08:08         
+2026-11-09 11:08:08             Bachelor's degree in Computer Science, Information Technology, or a related field
+2026-11-09 11:08:08             Basic understanding of programming languages such as Java, C++, or Python
+2026-11-09 11:08:08             Familiarity with software development methodologies
+2026-11-09 11:08:08             Strong analytical and problem-solving skills
+2026-11-09 11:08:08             Ability to work collaboratively in a team environment
+2026-11-09 11:08:08             Good communication skills, both verbal and written
+2026-11-09 11:08:08             Willingness to learn and adapt to new technologies
+2026-11-09 11:08:08             Prior internship or project experience in software development is a plus (nice-to-have)
+2026-11-09 11:08:08         
+2026-11-09 11:08:08         Is there a problem with this job?
+2026-11-09 11:08:08         Return to Search Result
+2026-11-09 11:08:08         -> exit 7 in 11.3s (window_id=65011735 fullscreen=no access_denied=no verified=no)
+2026-11-09 11:08:08 
+[FAIL] Firefox is up in a normal window, but the address bar does not contain 'indeed'. Got:  non user content | stage=open_firefox.sh | exit=7
+2026-11-09 11:08:08 
+2026-11-09 11:08:08 ========================================================================
+2026-11-09 11:08:08 RUN SUMMARY -- rank 1/5
+2026-11-09 11:08:08   examined 0 | saved 0 | duplicates 0 | rejected 0 | failures 1
+2026-11-09 11:08:08   TOTAL COMPLETE CYCLE : 0
+2026-11-09 11:08:08   cities finished this crawl cycle : 0/23
+2026-11-09 11:08:08   checkpoint : /home/ubuntu/new_indeed_script/config/checkpoints/checkpoint_rank_1.json
+2026-11-09 11:08:08   excel      : /home/ubuntu/new_indeed_script/Excel_Data/rank_1
+2026-11-09 11:08:08 ========================================================================
+2026-11-09 11:09:07 ========================================================================
+2026-11-09 11:09:07 NEW INDEED COLLECTOR -- Firefox / xdotool / xclip
+2026-11-09 11:09:07 ========================================================================
+2026-11-09 11:09:07   roles+cities : vendor/ (local, authoritative) -- new_mylib.py md5 5e06a7d1, target_audience_roles.py md5 54b25400
+  row builder  : /home/ubuntu/check_indeed (read-only, 32-column schema)  [stand-ins: gtts, psutil]
+2026-11-09 11:09:07   rank            : 1 of 5
+2026-11-09 11:09:07   keywords        : 1264
+2026-11-09 11:09:07     target-audience : 200  (15.8% of the plan)
+2026-11-09 11:09:07     fresher/other   : 1064  (84.2%)
+2026-11-09 11:09:07     departments     : 116
+2026-11-09 11:09:07   cities (all)    : 110
+2026-11-09 11:09:07   cities (rank 1) : 23  -> Delhi, Gurugram, Gurgaon, Noida ...
+2026-11-09 11:09:07   excel columns   : 32
+2026-11-09 11:09:07   output          : /home/ubuntu/new_indeed_script/Excel_Data/rank_1
+2026-11-09 11:09:07   temp            : /home/ubuntu/new_indeed_script/Temp_Data/rank_1
+2026-11-09 11:09:07   checkpoint      : /home/ubuntu/new_indeed_script/config/checkpoints/checkpoint_rank_1.json
+2026-11-09 11:09:07   loop            : city-outer, keyword-inner (brief section 8)
+2026-11-09 11:09:07   delays          : 10s before close, 10s before next card
+2026-11-09 11:09:07   night rest      : disabled
+2026-11-09 11:09:07   work period     : 3.7-4.2 h, then a 30-60 min break
+2026-11-09 11:09:07   fixed plan      : 5 page(s) x 10 card(s) = up to 50 jobs per keyword+city
+2026-11-09 11:09:07   paging          : page 1 = typed search, page 2+ = start=10,20,...
+2026-11-09 11:09:07   page ceiling    : 5 listing page(s) per keyword+city
+2026-11-09 11:09:07   unique target   : 50 distinct jobs EXAMINED per keyword+city
+2026-11-09 11:09:07   TOTAL COMPLETE CYCLE : 0   (cities finished this crawl cycle: 0/23)
+2026-11-09 11:09:07 ========================================================================
+2026-11-09 11:09:07   indeed login   : signed in  (session cookies: PPID, SOCK, SHOE)
+2026-11-09 11:09:07   search mode    : form
+2026-11-09 11:09:07       $ /home/ubuntu/new_indeed_script/shell_scripts/open_firefox.sh --profile /home/ubuntu/new_indeed_script/config/firefox_profile/rank_1 --url https://in.indeed.com --state-file /home/ubuntu/new_indeed_script/Temp_Data/rank_1/browser_window.json --expect-host indeed --download-dir /home/ubuntu/new_indeed_script/Temp_Data/rank_1 --window-size 1845x1046 --window-pos 0,34
+2026-11-09 11:09:16         [open_firefox] pre-existing Firefox windows (never touched): none
+2026-11-09 11:09:16         [open_firefox] display=:0 xauthority=/home/ubuntu/new_indeed_script/config/xauth_xwayland
+2026-11-09 11:09:16         [open_firefox] launch mode: snap (inner binary inside 'snap run --shell')
+2026-11-09 11:09:16         [open_firefox] firefox pid=23763
+2026-11-09 11:09:16         [open_firefox] window_id=65011735 name=Mozilla Firefox
+2026-11-09 11:09:16         [open_firefox] window geometry set on attempt 1: 1850x1053+70+27
+2026-11-09 11:09:16         [open_firefox] normal window: 1850x1053+70+27 (asked for 1845x1046+0+34)
+2026-11-09 11:09:16         [open_firefox] address bar: https://in.indeed.com/
+2026-11-09 11:09:16         [open_firefox] ready
+2026-11-09 11:09:16         -> exit 0 in 9.7s (window_id=65011735 fullscreen=no access_denied=no verified=yes)
+2026-11-09 11:09:16    browser ready: pid=23763 window=65011735 fullscreen=no
+2026-11-09 11:09:16 
+========================================================================
+2026-11-09 11:09:16 CRAWL CYCLE 1 | CITY 1/23: Delhi   (keywords 1..1264)
+2026-11-09 11:09:16 TOTAL COMPLETE CYCLE SO FAR: 0
+2026-11-09 11:09:16 ========================================================================
+2026-11-09 11:09:16 
+  [cycle 1 | city 1/23 Delhi | keyword 1/1264 Social Media Designer | worked 9s]
+2026-11-09 11:09:16 
+  [page 1/5] Social Media Designer @ Delhi  (start=0)
+2026-11-09 11:09:16       $ /home/ubuntu/new_indeed_script/shell_scripts/search_jobs.sh --window 65011735 --keyword 'Social Media Designer' --city Delhi --base-url https://in.indeed.com --mode form --what-xy 700,240 --where-xy 1100,240
+2026-11-09 11:09:45         [search_jobs] input guard passed; address bar reads: https://in.indeed.com/
+2026-11-09 11:09:45         [search_jobs] waiting 7.0s for the page to settle before typing
+2026-11-09 11:09:45         [search_jobs] form search: 'Social Media Designer' in 'Delhi'
+2026-11-09 11:09:45         [search_jobs] clicking the keyword box at 700,240
+2026-11-09 11:09:45         [search_jobs] clicking the city box at 1100,240
+2026-11-09 11:09:45         [search_jobs] both fields confirmed; submitting (focus is still in the city box)
+2026-11-09 11:09:45         [search_jobs] waiting 10.0s for the results to load
+2026-11-09 11:09:45         [search_jobs] window title: 300 Social Media Designer Job Vacancies in Delhi | Indeed — Mozilla Firefox
+2026-11-09 11:09:45         [search_jobs] address bar after search: https://in.indeed.com/jobs?q=Social+Media+Designer&l=Delhi&from=searchOnHP&vjk=f3adbc1fc0659b30
+2026-11-09 11:09:45         [search_jobs] Indeed pre-selected job f3adbc1fc0659b30
+2026-11-09 11:09:45         [search_jobs] search submitted: Social Media Designer @ Delhi -- going to the first job card
+2026-11-09 11:09:45         -> exit 0 in 28.1s (access_denied=no verified=not_checked)
+2026-11-09 11:09:45       $ /home/ubuntu/new_indeed_script/shell_scripts/select_job_card.sh --window 65011735 --index 0 --card-x 430 --start-y 440 --max-y 1000 --probe-step 55 --probe-limit 12 --scroll-rounds 6 --marker vjk= --preselected-key f3adbc1fc0659b30
+2026-11-09 11:09:46         [select_job_card] before selection: key='f3adbc1fc0659b30'
+2026-11-09 11:09:46         [select_job_card] job f3adbc1fc0659b30 is already selected by Indeed -- taking it without clicking
+2026-11-09 11:09:46         -> exit 0 in 1.8s 
+2026-11-09 11:09:46       selected job f3adbc1fc0659b30 (preselected)
+2026-11-09 11:09:46       $ /home/ubuntu/new_indeed_script/shell_scripts/save_page_source.sh --window 65011735 --out /home/ubuntu/new_indeed_script/Temp_Data/rank_1/job_1_0000.html --expect-url vjk=f3adbc1fc0659b30
+2026-11-09 11:09:57         [save_page_source] source will be taken from: https://in.indeed.com/jobs?q=Social+Media+Designer&l=Delhi&from=searchOnHP&vjk=f3adbc1fc0659b30
+2026-11-09 11:09:57         [save_page_source] page identity confirmed against --expect-url
+2026-11-09 11:09:57         [save_page_source] pressing Ctrl+U
+2026-11-09 11:09:57         [save_page_source] view-source tab confirmed: view-source:https://in.indeed.com/jobs?q=Social+Media+Designer&l=Delhi&from=searchOnHP&vjk=f3adbc1fc0659b30
+2026-11-09 11:09:57         [save_page_source] pressing Ctrl+S
+2026-11-09 11:09:57         [save_page_source] save dialog window=67110192 name='Save As - https://in.indeed.com/jobs?q=Social+Media+Designer&l=Delhi&from=searchOnHP&vjk=f3adbc1fc0659b30 — Mozilla Firefox'
+2026-11-09 11:09:57         [save_page_source] saved 984770 bytes to /home/ubuntu/new_indeed_script/Temp_Data/rank_1/job_1_0000.html
+2026-11-09 11:09:57         -> exit 0 in 10.8s 
+2026-11-09 11:09:57    saved source: /home/ubuntu/new_indeed_script/Temp_Data/rank_1/job_1_0000.html (984770 bytes)
+2026-11-09 11:09:57       [fields] 26 of 32 columns filled   (isolation: job-card, 16 job(s) in the document)
+2026-11-09 11:09:57          job_id                 6856292d16c55d851c36291e1f8ff80d
+2026-11-09 11:09:57          internal_job_id        f3adbc1fc0659b30
+2026-11-09 11:09:57          job_title              Junior Graphic Designer   [job-pane]
+2026-11-09 11:09:57          company_name           PinnacleU   [job-pane]
+2026-11-09 11:09:57          company_website        (blank -- not stated in the saved page)
+2026-11-09 11:09:57          job_description        Position: Junior Graphic Designer  Location: Gurugram  Workin...
+2026-11-09 11:09:57          skills_required        (blank -- not stated in the saved page)
+2026-11-09 11:09:57          experience_required    Position: Junior Graphic Designer Location: Gurugram Working ...
+2026-11-09 11:09:57          experience_min_years   2
+2026-11-09 11:09:57          experience_max_years   (blank -- not stated in the saved page)
+2026-11-09 11:09:57          salary_min             500000
+2026-11-09 11:09:57          salary_max             800000
+2026-11-09 11:09:57          salary_currency        INR   [job-card]
+2026-11-09 11:09:57          location               Delhi, Delhi   [job-pane]
+2026-11-09 11:09:57          city                   Delhi
+2026-11-09 11:09:57          state                  Delhi NCR
+2026-11-09 11:09:57          country                India
+2026-11-09 11:09:57          remote_type            Onsite
+2026-11-09 11:09:57          employment_type        Full-time   [job-card]
+2026-11-09 11:09:57          job_category           IT Department
+2026-11-09 11:09:57          posted_date            2026-08-30 05:00:00   [job-card]
+2026-11-09 11:09:57          expiry_date            (blank -- not stated in the saved page)
+2026-11-09 11:09:57          application_deadline   (blank -- not stated in the saved page)
+2026-11-09 11:09:57          apply_url              https://in.indeed.com/viewjob?jk=f3adbc1fc0659b30   [address-bar]
+2026-11-09 11:09:57          updated_at             2026-08-30 05:00:00
+2026-11-09 11:09:57          fetched_at             2026-11-09 05:39:57
+2026-11-09 11:09:57          is_fake                (blank -- not stated in the saved page)
+2026-11-09 11:09:57          is_active              True
+2026-11-09 11:09:57          source_url             https://in.indeed.com/   [address-bar]
+2026-11-09 11:09:57          source_type            job_portal
+2026-11-09 11:09:57          source_platform        Indeed
+2026-11-09 11:09:57          score                  30
+2026-11-09 11:09:57       [note] isolated job f3adbc1fc0659b30 from a document describing 16 jobs
+2026-11-09 11:09:57       [note] no JSON-LD JobPosting in the source
+2026-11-09 11:09:57       [note] visible-text parsing skipped: the job was isolated from a 16-job document, so page text belongs to other jobs too
+2026-11-09 11:09:57       [parse] not stated by the page: skills_required
+2026-11-09 11:09:57 
+2026-11-09 11:09:57 [Rank 1/5]
+2026-11-09 11:09:57 
+2026-11-09 11:09:57 City: Delhi   (1/23)
+2026-11-09 11:09:57 Keyword: Social Media Designer   (1/1264)
+2026-11-09 11:09:57 
+2026-11-09 11:09:57 Page: 1
+2026-11-09 11:09:57 Job: 0
+2026-11-09 11:09:57 
+2026-11-09 11:09:57 Job Title: Junior Graphic Designer
+2026-11-09 11:09:57 Company: PinnacleU
+2026-11-09 11:09:57 
+2026-11-09 11:09:57 Extraction: SUCCESS (2105 chars of description)
+2026-11-09 11:09:57 Duplicate: NO
+2026-11-09 11:09:57 Excel Save: SUCCESS (current_data.xlsx rows=1)
+2026-11-09 11:09:57 
+2026-11-09 11:09:57 Jobs Examined: 1   Extracted: 0   Saved: 1   Duplicates: 0   Rejected: 0   Failures: 1
+2026-11-09 11:09:57 
+2026-11-09 11:09:57 Total Complete Cycle: 0
+2026-11-09 11:09:57 
+2026-11-09 11:09:57 Next: Job Card 1
+2026-11-09 11:09:57 ------------------------------------------------------------
+2026-11-09 11:09:57    waiting 10.0s before closing the source tab
+2026-11-09 11:10:07       $ /home/ubuntu/new_indeed_script/shell_scripts/close_source_tab.sh --window 65011735
+2026-11-09 11:10:12         [close_source_tab] address bar before closing: view-source:https://in.indeed.com/jobs?q=Social+Media+Designer&l=Delhi&from=searchOnHP&vjk=f3adbc1fc0659b30
+2026-11-09 11:10:12         [close_source_tab] closing the view-source tab
+2026-11-09 11:10:12         [close_source_tab] back on: https://in.indeed.com/jobs?q=Social+Media+Designer&l=Delhi&from=searchOnHP&vjk=f3adbc1fc0659b30
+2026-11-09 11:10:12         -> exit 0 in 4.5s (closed=yes)
+2026-11-09 11:10:12    waiting 10.0s before the next job card
+2026-11-09 11:10:13 
+[STOP] signal 2. Checkpoint saved -- re-run to continue from here.
+2026-11-09 11:24:21 ========================================================================
+2026-11-09 11:24:21 NEW INDEED COLLECTOR -- Firefox / xdotool / xclip
+2026-11-09 11:24:21 ========================================================================
+2026-11-09 11:24:21   roles+cities : vendor/ (local, authoritative) -- new_mylib.py md5 5e06a7d1, target_audience_roles.py md5 54b25400
+  row builder  : /home/ubuntu/check_indeed (read-only, 32-column schema)  [stand-ins: gtts, psutil]
+2026-11-09 11:24:21   rank            : 1 of 5
+2026-11-09 11:24:21   keywords        : 1264
+2026-11-09 11:24:21     target-audience : 200  (15.8% of the plan)
+2026-11-09 11:24:21     fresher/other   : 1064  (84.2%)
+2026-11-09 11:24:21     departments     : 116
+2026-11-09 11:24:21   cities (all)    : 110
+2026-11-09 11:24:21   cities (rank 1) : 23  -> Delhi, Gurugram, Gurgaon, Noida ...
+2026-11-09 11:24:21   excel columns   : 32
+2026-11-09 11:24:21   output          : /home/ubuntu/new_indeed_script/Excel_Data/rank_1
+2026-11-09 11:24:21   temp            : /home/ubuntu/new_indeed_script/Temp_Data/rank_1
+2026-11-09 11:24:21   checkpoint      : /home/ubuntu/new_indeed_script/config/checkpoints/checkpoint_rank_1.json
+2026-11-09 11:24:21   loop            : city-outer, keyword-inner (brief section 8)
+2026-11-09 11:24:21   delays          : 10s before close, 10s before next card
+2026-11-09 11:24:21   night rest      : disabled
+2026-11-09 11:24:21   work period     : 3.7-4.2 h, then a 30-60 min break
+2026-11-09 11:24:21   fixed plan      : 5 page(s) x 10 card(s) = up to 50 jobs per keyword+city
+2026-11-09 11:24:21   paging          : page 1 = typed search, page 2+ = start=10,20,...
+2026-11-09 11:24:21   page ceiling    : 5 listing page(s) per keyword+city
+2026-11-09 11:24:21   unique target   : 50 distinct jobs EXAMINED per keyword+city
+2026-11-09 11:24:21   TOTAL COMPLETE CYCLE : 0   (cities finished this crawl cycle: 0/23)
+2026-11-09 11:24:21 ========================================================================
+2026-11-09 11:24:21   indeed login   : signed in  (session cookies: PPID, SOCK, SHOE)
+2026-11-09 11:24:21   search mode    : form
+2026-11-09 11:24:21       $ /home/ubuntu/new_indeed_script/shell_scripts/open_firefox.sh --profile /home/ubuntu/new_indeed_script/config/firefox_profile/rank_1 --url https://in.indeed.com --state-file /home/ubuntu/new_indeed_script/Temp_Data/rank_1/browser_window.json --expect-host indeed --download-dir /home/ubuntu/new_indeed_script/Temp_Data/rank_1 --window-size 1845x1046 --window-pos 0,34
+2026-11-09 11:24:29         [open_firefox] pre-existing Firefox windows (never touched): none
+2026-11-09 11:24:29         [open_firefox] display=:0 xauthority=/home/ubuntu/new_indeed_script/config/xauth_xwayland
+2026-11-09 11:24:29         [open_firefox] launch mode: snap (inner binary inside 'snap run --shell')
+2026-11-09 11:24:29         [open_firefox] firefox pid=32584
+2026-11-09 11:24:29         [open_firefox] window_id=65011735 name=Mozilla Firefox
+2026-11-09 11:24:29         [open_firefox] window geometry set on attempt 1: 1850x1053+70+27
+2026-11-09 11:24:29         [open_firefox] normal window: 1850x1053+70+27 (asked for 1845x1046+0+34)
+2026-11-09 11:24:29         [open_firefox] address bar:  non user content
+2026-11-09 11:24:29         
+2026-11-09 11:24:29         Start of main content
+2026-11-09 11:24:29         Keyword : all jobs
+2026-11-09 11:24:29         &nbsp;
+2026-11-09 11:24:29         Edit location input box label
+2026-11-09 11:24:29         Welcome, rohan
+2026-11-09 11:24:29         You haven't added a resume yetA resume helps you stand out and apply faster.
+2026-11-09 11:24:29         Jobs for you
+2026-11-09 11:24:29         
+2026-11-09 11:24:29             Associate Software Engineer
+2026-11-09 11:24:29             Green Apple Solutions
+2026-11-09 11:24:29             Delhi, Delhi
+2026-11-09 11:24:29                 ₹3,00,000 - ₹5,00,000 a year
+2026-11-09 11:24:29             Frontend Engineer (India)
+2026-11-09 11:24:29             Easily apply
+2026-11-09 11:24:29             Aidaptive
+2026-11-09 11:24:29             Remote
+2026-11-09 11:24:29             Desktop Support Engineer - L1
+2026-11-09 11:24:29             Easily apply
+2026-11-09 11:24:29             Sysnet Global Technologies Pvt.Ltd
+2026-11-09 11:24:29             Unknown, Delhi
+2026-11-09 11:24:29             Web Developer Intern
+2026-11-09 11:24:29             Easily apply
+2026-11-09 11:24:29             Eduwrap
+2026-11-09 11:24:29             Zirakpur, Punjab
+2026-11-09 11:24:29                 ₹10,000 - ₹15,000 a month
+2026-11-09 11:24:29             Desktop Support Engineer
+2026-11-09 11:24:29             Easily apply
+2026-11-09 11:24:29             Three Ess Computer Services (I) Pvt. Ltd.
+2026-11-09 11:24:29             Chandigarh, Chandigarh
+2026-11-09 11:24:29                 ₹18,000 - ₹20,000 a month
+2026-11-09 11:24:29             SOFTWARE DEVELOPER- Fresher
+2026-11-09 11:24:29             Easily apply
+2026-11-09 11:24:29             Soranova Technologies Private Limited
+2026-11-09 11:24:29             Remote
+2026-11-09 11:24:29                 ₹3,00,000 - ₹4,50,000 a year
+2026-11-09 11:24:29             Digital Marketing Intern
+2026-11-09 11:24:29             Easily apply
+2026-11-09 11:24:29             Mala enterprises
+2026-11-09 11:24:29             Rajouri Garden, Delhi, Delhi
+2026-11-09 11:24:29                 ₹8,086.00 - ₹31,642.78 a month
+2026-11-09 11:24:29                 Full-time +8
+2026-11-09 11:24:29             IT Executive
+2026-11-09 11:24:29             Easily apply
+2026-11-09 11:24:29             Chandigarh Distillers & Bottlers Ltd
+2026-11-09 11:24:29             Chandigarh, Chandigarh
+2026-11-09 11:24:29                 ₹20,000 - ₹25,000 a month
+2026-11-09 11:24:29             Software Developer
+2026-11-09 11:24:29             Easily apply
+2026-11-09 11:24:29             Heirloom Technologies Pvt. Ltd.
+2026-11-09 11:24:29             Mohali, Punjab
+2026-11-09 11:24:29                 ₹20,000 - ₹40,000 a month
+2026-11-09 11:24:29             Desktop Support Engineers (2)
+2026-11-09 11:24:29             Allengers Infotech
+2026-11-09 11:24:29             Chandigarh, Chandigarh
+2026-11-09 11:24:29             Front-End Developer Intern
+2026-11-09 11:24:29             Easily apply
+2026-11-09 11:24:29             Optimspace
+2026-11-09 11:24:29             Remote
+2026-11-09 11:24:29                 ₹7,500 - ₹15,000 a month
+2026-11-09 11:24:29         
+2026-11-09 11:24:29         Return to Search Result
+2026-11-09 11:24:29         Job Post Details
+2026-11-09 11:24:29         Associate Software Engineer
+2026-11-09 11:24:29         Green Apple Solutions
+2026-11-09 11:24:29         ·
+2026-11-09 11:24:29         3.5
+2026-11-09 11:24:29         Delhi, Delhi
+2026-11-09 11:24:29         ₹3,00,000 - ₹5,00,000 a year
+2026-11-09 11:24:29          -  
+2026-11-09 11:24:29         Full-time
+2026-11-09 11:24:29         Apply on company site
+2026-11-09 11:24:29         Job details
+2026-11-09 11:24:29         ₹3,00,000 - ₹5,00,000 a year
+2026-11-09 11:24:29         Full-time
+2026-11-09 11:24:29         Delhi, Delhi
+2026-11-09 11:24:29         Full job description
+2026-11-09 11:24:29         We are looking for a few passionate freshers who want to start their career in Node.js, Vue.js, AngularJS, ReactJS. Selected candidates will be responsible for developing and designing frontend and backend applications for our products and client integrations.
+2026-11-09 11:24:29         
+2026-11-09 11:24:29         
+2026-11-09 11:24:29             Develop scalable, robust, and simple web-based solutions and client-side UI frontend applications
+2026-11-09 11:24:29         
+2026-11-09 11:24:29             Rapidly fix bugs
+2026-11-09 11:24:29         
+2026-11-09 11:24:29             Work closely with, and incorporate feedback from other team members, QA, and product owners for client integrations
+2026-11-09 11:24:29         
+2026-11-09 11:24:29         Attend daily stand-up meetings, encourage collaboration, prioritization, and urgency to develop at a rapid pace.
+2026-11-09 11:24:29         
+2026-11-09 11:24:29         
+2026-11-09 11:24:29         
+2026-11-09 11:24:29         
+2026-11-09 11:24:29         
+2026-11-09 11:24:29         Requirements
+2026-11-09 11:24:29         
+2026-11-09 11:24:29             Bachelor or advanced degree in Computer Science or a related discipline.
+2026-11-09 11:24:29         
+2026-11-09 11:24:29             Solid grasp of general programming principles, OOPS and RDBMS
+2026-11-09 11:24:29         
+2026-11-09 11:24:29             Excellent programming skills in any object-oriented language
+2026-11-09 11:24:29         
+2026-11-09 11:24:29             Strong analytical-reasoning and problem-solving skills
+2026-11-09 11:24:29         
+2026-11-09 11:24:29             Passion for learning about programming and attitude of creating high quality code
+2026-11-09 11:24:29         
+2026-11-09 11:24:29             Strong academic background. 80% and upwards on class 10 and 12.
+2026-11-09 11:24:29         
+2026-11-09 11:24:29             Good communication skills
+2026-11-09 11:24:29         
+2026-11-09 11:24:29         Knowledge of UNIX, C/C++, Java, SQL, JavaScript, HTML5, CSS3, JQuery, Bootstrap. RESTful APIs, source control such as Git is a plus.
+2026-11-09 11:24:29         
+2026-11-09 11:24:29         
+2026-11-09 11:24:29         
+2026-11-09 11:24:29         Interview Process:
+2026-11-09 11:24:29         
+2026-11-09 11:24:29         In-Person interview rounds at our Delhi office.
+2026-11-09 11:24:29         Is there a problem with this job?
+2026-11-09 11:24:29         Return to Search Result
+2026-11-09 11:24:29         [open_firefox] ERROR(7): Firefox is up in a normal window, but the address bar does not contain 'indeed'. Got:  non user content
+2026-11-09 11:24:29         
+2026-11-09 11:24:29         Start of main content
+2026-11-09 11:24:29         Keyword : all jobs
+2026-11-09 11:24:29         &nbsp;
+2026-11-09 11:24:29         Edit location input box label
+2026-11-09 11:24:29         Welcome, rohan
+2026-11-09 11:24:29         You haven't added a resume yetA resume helps you stand out and apply faster.
+2026-11-09 11:24:29         Jobs for you
+2026-11-09 11:24:29         
+2026-11-09 11:24:29             Associate Software Engineer
+2026-11-09 11:24:29             Green Apple Solutions
+2026-11-09 11:24:29             Delhi, Delhi
+2026-11-09 11:24:29                 ₹3,00,000 - ₹5,00,000 a year
+2026-11-09 11:24:29             Frontend Engineer (India)
+2026-11-09 11:24:29             Easily apply
+2026-11-09 11:24:29             Aidaptive
+2026-11-09 11:24:29             Remote
+2026-11-09 11:24:29             Desktop Support Engineer - L1
+2026-11-09 11:24:29             Easily apply
+2026-11-09 11:24:29             Sysnet Global Technologies Pvt.Ltd
+2026-11-09 11:24:29             Unknown, Delhi
+2026-11-09 11:24:29             Web Developer Intern
+2026-11-09 11:24:29             Easily apply
+2026-11-09 11:24:29             Eduwrap
+2026-11-09 11:24:29             Zirakpur, Punjab
+2026-11-09 11:24:29                 ₹10,000 - ₹15,000 a month
+2026-11-09 11:24:29             Desktop Support Engineer
+2026-11-09 11:24:29             Easily apply
+2026-11-09 11:24:29             Three Ess Computer Services (I) Pvt. Ltd.
+2026-11-09 11:24:29             Chandigarh, Chandigarh
+2026-11-09 11:24:29                 ₹18,000 - ₹20,000 a month
+2026-11-09 11:24:29             SOFTWARE DEVELOPER- Fresher
+2026-11-09 11:24:29             Easily apply
+2026-11-09 11:24:29             Soranova Technologies Private Limited
+2026-11-09 11:24:29             Remote
+2026-11-09 11:24:29                 ₹3,00,000 - ₹4,50,000 a year
+2026-11-09 11:24:29             Digital Marketing Intern
+2026-11-09 11:24:29             Easily apply
+2026-11-09 11:24:29             Mala enterprises
+2026-11-09 11:24:29             Rajouri Garden, Delhi, Delhi
+2026-11-09 11:24:29                 ₹8,086.00 - ₹31,642.78 a month
+2026-11-09 11:24:29                 Full-time +8
+2026-11-09 11:24:29             IT Executive
+2026-11-09 11:24:29             Easily apply
+2026-11-09 11:24:29             Chandigarh Distillers & Bottlers Ltd
+2026-11-09 11:24:29             Chandigarh, Chandigarh
+2026-11-09 11:24:29                 ₹20,000 - ₹25,000 a month
+2026-11-09 11:24:29             Software Developer
+2026-11-09 11:24:29             Easily apply
+2026-11-09 11:24:29             Heirloom Technologies Pvt. Ltd.
+2026-11-09 11:24:29             Mohali, Punjab
+2026-11-09 11:24:29                 ₹20,000 - ₹40,000 a month
+2026-11-09 11:24:29             Desktop Support Engineers (2)
+2026-11-09 11:24:29             Allengers Infotech
+2026-11-09 11:24:29             Chandigarh, Chandigarh
+2026-11-09 11:24:29             Front-End Developer Intern
+2026-11-09 11:24:29             Easily apply
+2026-11-09 11:24:29             Optimspace
+2026-11-09 11:24:29             Remote
+2026-11-09 11:24:29                 ₹7,500 - ₹15,000 a month
+2026-11-09 11:24:29         
+2026-11-09 11:24:29         Return to Search Result
+2026-11-09 11:24:29         Job Post Details
+2026-11-09 11:24:29         Associate Software Engineer
+2026-11-09 11:24:29         Green Apple Solutions
+2026-11-09 11:24:29         ·
+2026-11-09 11:24:29         3.5
+2026-11-09 11:24:29         Delhi, Delhi
+2026-11-09 11:24:29         ₹3,00,000 - ₹5,00,000 a year
+2026-11-09 11:24:29          -  
+2026-11-09 11:24:29         Full-time
+2026-11-09 11:24:29         Apply on company site
+2026-11-09 11:24:29         Job details
+2026-11-09 11:24:29         ₹3,00,000 - ₹5,00,000 a year
+2026-11-09 11:24:29         Full-time
+2026-11-09 11:24:29         Delhi, Delhi
+2026-11-09 11:24:29         Full job description
+2026-11-09 11:24:29         We are looking for a few passionate freshers who want to start their career in Node.js, Vue.js, AngularJS, ReactJS. Selected candidates will be responsible for developing and designing frontend and backend applications for our products and client integrations.
+2026-11-09 11:24:29         
+2026-11-09 11:24:29         
+2026-11-09 11:24:29             Develop scalable, robust, and simple web-based solutions and client-side UI frontend applications
+2026-11-09 11:24:29         
+2026-11-09 11:24:29             Rapidly fix bugs
+2026-11-09 11:24:29         
+2026-11-09 11:24:29             Work closely with, and incorporate feedback from other team members, QA, and product owners for client integrations
+2026-11-09 11:24:29         
+2026-11-09 11:24:29         Attend daily stand-up meetings, encourage collaboration, prioritization, and urgency to develop at a rapid pace.
+2026-11-09 11:24:29         
+2026-11-09 11:24:29         
+2026-11-09 11:24:29         
+2026-11-09 11:24:29         
+2026-11-09 11:24:29         
+2026-11-09 11:24:29         Requirements
+2026-11-09 11:24:29         
+2026-11-09 11:24:29             Bachelor or advanced degree in Computer Science or a related discipline.
+2026-11-09 11:24:29         
+2026-11-09 11:24:29             Solid grasp of general programming principles, OOPS and RDBMS
+2026-11-09 11:24:29         
+2026-11-09 11:24:29             Excellent programming skills in any object-oriented language
+2026-11-09 11:24:29         
+2026-11-09 11:24:29             Strong analytical-reasoning and problem-solving skills
+2026-11-09 11:24:29         
+2026-11-09 11:24:29             Passion for learning about programming and attitude of creating high quality code
+2026-11-09 11:24:29         
+2026-11-09 11:24:29             Strong academic background. 80% and upwards on class 10 and 12.
+2026-11-09 11:24:29         
+2026-11-09 11:24:29             Good communication skills
+2026-11-09 11:24:29         
+2026-11-09 11:24:29         Knowledge of UNIX, C/C++, Java, SQL, JavaScript, HTML5, CSS3, JQuery, Bootstrap. RESTful APIs, source control such as Git is a plus.
+2026-11-09 11:24:29         
+2026-11-09 11:24:29         
+2026-11-09 11:24:29         
+2026-11-09 11:24:29         Interview Process:
+2026-11-09 11:24:29         
+2026-11-09 11:24:29         In-Person interview rounds at our Delhi office.
+2026-11-09 11:24:29         Is there a problem with this job?
+2026-11-09 11:24:29         Return to Search Result
+2026-11-09 11:24:29         -> exit 7 in 8.3s (window_id=65011735 fullscreen=no access_denied=no verified=no)
+2026-11-09 11:24:29 
+[FAIL] Firefox is up in a normal window, but the address bar does not contain 'indeed'. Got:  non user content | stage=open_firefox.sh | exit=7
+2026-11-09 11:24:29 
+2026-11-09 11:24:29 ========================================================================
+2026-11-09 11:24:29 RUN SUMMARY -- rank 1/5
+2026-11-09 11:24:29   examined 1 | saved 1 | duplicates 0 | rejected 0 | failures 2
+2026-11-09 11:24:29   TOTAL COMPLETE CYCLE : 0
+2026-11-09 11:24:29   cities finished this crawl cycle : 0/23
+2026-11-09 11:24:29   checkpoint : /home/ubuntu/new_indeed_script/config/checkpoints/checkpoint_rank_1.json
+2026-11-09 11:24:29   excel      : /home/ubuntu/new_indeed_script/Excel_Data/rank_1
+2026-11-09 11:24:29 ========================================================================
+2026-11-09 11:24:49 ========================================================================
+2026-11-09 11:24:49 NEW INDEED COLLECTOR -- Firefox / xdotool / xclip
+2026-11-09 11:24:49 ========================================================================
+2026-11-09 11:24:49   roles+cities : vendor/ (local, authoritative) -- new_mylib.py md5 5e06a7d1, target_audience_roles.py md5 54b25400
+  row builder  : /home/ubuntu/check_indeed (read-only, 32-column schema)  [stand-ins: gtts, psutil]
+2026-11-09 11:24:49   rank            : 1 of 5
+2026-11-09 11:24:49   keywords        : 1264
+2026-11-09 11:24:49     target-audience : 200  (15.8% of the plan)
+2026-11-09 11:24:49     fresher/other   : 1064  (84.2%)
+2026-11-09 11:24:49     departments     : 116
+2026-11-09 11:24:49   cities (all)    : 110
+2026-11-09 11:24:49   cities (rank 1) : 23  -> Delhi, Gurugram, Gurgaon, Noida ...
+2026-11-09 11:24:49   excel columns   : 32
+2026-11-09 11:24:49   output          : /home/ubuntu/new_indeed_script/Excel_Data/rank_1
+2026-11-09 11:24:49   temp            : /home/ubuntu/new_indeed_script/Temp_Data/rank_1
+2026-11-09 11:24:49   checkpoint      : /home/ubuntu/new_indeed_script/config/checkpoints/checkpoint_rank_1.json
+2026-11-09 11:24:49   loop            : city-outer, keyword-inner (brief section 8)
+2026-11-09 11:24:49   delays          : 10s before close, 10s before next card
+2026-11-09 11:24:49   night rest      : disabled
+2026-11-09 11:24:49   work period     : 3.7-4.2 h, then a 30-60 min break
+2026-11-09 11:24:49   fixed plan      : 5 page(s) x 10 card(s) = up to 50 jobs per keyword+city
+2026-11-09 11:24:49   paging          : page 1 = typed search, page 2+ = start=10,20,...
+2026-11-09 11:24:49   page ceiling    : 5 listing page(s) per keyword+city
+2026-11-09 11:24:49   unique target   : 50 distinct jobs EXAMINED per keyword+city
+2026-11-09 11:24:49   TOTAL COMPLETE CYCLE : 0   (cities finished this crawl cycle: 0/23)
+2026-11-09 11:24:49 ========================================================================
+2026-11-09 11:24:49   indeed login   : signed in  (session cookies: PPID, SOCK, SHOE)
+2026-11-09 11:24:49   search mode    : form
+2026-11-09 11:24:49       $ /home/ubuntu/new_indeed_script/shell_scripts/open_firefox.sh --profile /home/ubuntu/new_indeed_script/config/firefox_profile/rank_1 --url https://in.indeed.com --state-file /home/ubuntu/new_indeed_script/Temp_Data/rank_1/browser_window.json --expect-host indeed --download-dir /home/ubuntu/new_indeed_script/Temp_Data/rank_1 --window-size 1845x1046 --window-pos 0,34
+2026-11-09 11:24:59         [open_firefox] pre-existing Firefox windows (never touched): none
+2026-11-09 11:24:59         [open_firefox] display=:0 xauthority=/home/ubuntu/new_indeed_script/config/xauth_xwayland
+2026-11-09 11:24:59         [open_firefox] launch mode: snap (inner binary inside 'snap run --shell')
+2026-11-09 11:24:59         [open_firefox] firefox pid=33413
+2026-11-09 11:24:59         [open_firefox] window_id=65011735 name=Mozilla Firefox
+2026-11-09 11:24:59         [open_firefox] window geometry set on attempt 1: 1850x1053+70+27
+2026-11-09 11:24:59         [open_firefox] normal window: 1850x1053+70+27 (asked for 1845x1046+0+34)
+2026-11-09 11:24:59         [open_firefox] address bar: https://in.indeed.com/
+2026-11-09 11:24:59         [open_firefox] ready
+2026-11-09 11:24:59         -> exit 0 in 9.5s (window_id=65011735 fullscreen=no access_denied=no verified=yes)
+2026-11-09 11:24:59    browser ready: pid=33413 window=65011735 fullscreen=no
+2026-11-09 11:24:59 
+========================================================================
+2026-11-09 11:24:59 CRAWL CYCLE 1 | CITY 1/23: Delhi   (keywords 1..1264)
+2026-11-09 11:24:59 TOTAL COMPLETE CYCLE SO FAR: 0
+2026-11-09 11:24:59 ========================================================================
+2026-11-09 11:24:59 
+  [cycle 1 | city 1/23 Delhi | keyword 1/1264 Social Media Designer | worked 9s]
+2026-11-09 11:24:59 
+  [page 1/5] Social Media Designer @ Delhi  (start=0)
+2026-11-09 11:24:59       $ /home/ubuntu/new_indeed_script/shell_scripts/search_jobs.sh --window 65011735 --keyword 'Social Media Designer' --city Delhi --base-url https://in.indeed.com --mode form --what-xy 700,240 --where-xy 1100,240
+2026-11-09 11:25:27         [search_jobs] input guard passed; address bar reads: https://in.indeed.com/
+2026-11-09 11:25:27         [search_jobs] waiting 7.0s for the page to settle before typing
+2026-11-09 11:25:27         [search_jobs] form search: 'Social Media Designer' in 'Delhi'
+2026-11-09 11:25:27         [search_jobs] clicking the keyword box at 700,240
+2026-11-09 11:25:27         [search_jobs] clicking the city box at 1100,240
+2026-11-09 11:25:27         [search_jobs] both fields confirmed; submitting (focus is still in the city box)
+2026-11-09 11:25:27         [search_jobs] waiting 10.0s for the results to load
+2026-11-09 11:25:27         [search_jobs] window title: 300 Social Media Designer Job Vacancies in Delhi | Indeed — Mozilla Firefox
+2026-11-09 11:25:27         [search_jobs] address bar after search: https://in.indeed.com/jobs?q=Social+Media+Designer&l=Delhi&from=searchOnHP&vjk=f3adbc1fc0659b30
+2026-11-09 11:25:27         [search_jobs] Indeed pre-selected job f3adbc1fc0659b30
+2026-11-09 11:25:27         [search_jobs] search submitted: Social Media Designer @ Delhi -- going to the first job card
+2026-11-09 11:25:27         -> exit 0 in 28.2s (access_denied=no verified=not_checked)
+2026-11-09 11:25:27       $ /home/ubuntu/new_indeed_script/shell_scripts/select_job_card.sh --window 65011735 --index 0 --card-x 430 --start-y 440 --max-y 1000 --probe-step 55 --probe-limit 12 --scroll-rounds 6 --marker vjk= --preselected-key f3adbc1fc0659b30
+2026-11-09 11:25:29         [select_job_card] before selection: key='f3adbc1fc0659b30'
+2026-11-09 11:25:29         [select_job_card] job f3adbc1fc0659b30 is already selected by Indeed -- taking it without clicking
+2026-11-09 11:25:29         -> exit 0 in 1.8s 
+2026-11-09 11:25:29       selected job f3adbc1fc0659b30 (preselected)
+2026-11-09 11:25:29       [dup] card 0 is a job this combination already handled (https://in.indeed.com/jobs?vjk=f3adbc1fc0659b30)
+2026-11-09 11:25:29       $ /home/ubuntu/new_indeed_script/shell_scripts/close_source_tab.sh --window 65011735
+2026-11-09 11:25:30         [close_source_tab] address bar before closing: https://in.indeed.com/jobs?q=Social+Media+Designer&l=Delhi&from=searchOnHP&vjk=f3adbc1fc0659b30
+2026-11-09 11:25:30         [close_source_tab] WARNING: the front tab is not a view-source tab ('https://in.indeed.com/jobs?q=Social+Media+Designer&l=Delhi&from=searchOnHP&vjk=f3adbc1fc0659b30'); NOT pressing Ctrl+W, because that would close the listing.
+2026-11-09 11:25:30         -> exit 0 in 1.4s (closed=no_tab)
+2026-11-09 11:25:30       $ /home/ubuntu/new_indeed_script/shell_scripts/select_job_card.sh --window 65011735 --index 1 --card-x 430 --start-y 440 --max-y 1000 --probe-step 55 --probe-limit 12 --scroll-rounds 6 --marker vjk= --seen-keys f3adbc1fc0659b30
+2026-11-09 11:26:03         [select_job_card] before selection: key='f3adbc1fc0659b30'
+2026-11-09 11:26:03         [select_job_card] probe 1: clicking 430,440
+2026-11-09 11:26:03         [select_job_card]    same job still selected -- the click was inside the current card
+2026-11-09 11:26:03         [select_job_card] probe 2: clicking 430,495
+2026-11-09 11:26:03         [select_job_card]    same job still selected -- the click was inside the current card
+2026-11-09 11:26:03         [select_job_card] probe 3: clicking 430,550
+2026-11-09 11:26:03         [select_job_card]    same job still selected -- the click was inside the current card
+2026-11-09 11:26:03         [select_job_card] probe 4: clicking 430,605
+2026-11-09 11:26:03         [select_job_card]    same job still selected -- the click was inside the current card
+2026-11-09 11:26:03         [select_job_card] probe 5: clicking 430,660
+2026-11-09 11:26:03         [select_job_card]    same job still selected -- the click was inside the current card
+2026-11-09 11:26:03         [select_job_card] probe 6: clicking 430,715
+2026-11-09 11:26:03         [select_job_card] card index 1 selected: job ce2cc62981d84732 at y=715 after 6 probe(s) and 0 scroll(s)
+2026-11-09 11:26:03         -> exit 0 in 32.4s 
+2026-11-09 11:26:03       selected job ce2cc62981d84732 (click)
+2026-11-09 11:26:03       $ /home/ubuntu/new_indeed_script/shell_scripts/save_page_source.sh --window 65011735 --out /home/ubuntu/new_indeed_script/Temp_Data/rank_1/job_1_0001.html --expect-url vjk=ce2cc62981d84732
+2026-11-09 11:26:14         [save_page_source] source will be taken from: https://in.indeed.com/jobs?q=Social+Media+Designer&l=Delhi&from=searchOnHP&vjk=ce2cc62981d84732
+2026-11-09 11:26:14         [save_page_source] page identity confirmed against --expect-url
+2026-11-09 11:26:14         [save_page_source] pressing Ctrl+U
+2026-11-09 11:26:14         [save_page_source] view-source tab confirmed: view-source:https://in.indeed.com/jobs?q=Social+Media+Designer&l=Delhi&from=searchOnHP&vjk=ce2cc62981d84732
+2026-11-09 11:26:14         [save_page_source] pressing Ctrl+S
+2026-11-09 11:26:14         [save_page_source] save dialog window=67110472 name='Save As - https://in.indeed.com/jobs?q=Social+Media+Designer&l=Delhi&from=searchOnHP&vjk=ce2cc62981d84732 — Mozilla Firefox'
+2026-11-09 11:26:14         [save_page_source] saved 994381 bytes to /home/ubuntu/new_indeed_script/Temp_Data/rank_1/job_1_0001.html
+2026-11-09 11:26:14         -> exit 0 in 11.5s 
+2026-11-09 11:26:14    saved source: /home/ubuntu/new_indeed_script/Temp_Data/rank_1/job_1_0001.html (994381 bytes)
+2026-11-09 11:26:15       [fields] 22 of 32 columns filled   (isolation: job-card, 16 job(s) in the document)
+2026-11-09 11:26:15          job_id                 3adf25275ecb706eed22e3d2d60d5f5f
+2026-11-09 11:26:15          internal_job_id        ce2cc62981d84732
+2026-11-09 11:26:15          job_title              Junior Graphic Web Designer   [job-pane]
+2026-11-09 11:26:15          company_name           Advanced Systemics   [job-pane]
+2026-11-09 11:26:15          company_website        (blank -- not stated in the saved page)
+2026-11-09 11:26:15          job_description        Location: Saket, New Delhi, India  This is an in-office, full...
+2026-11-09 11:26:15          skills_required        (blank -- not stated in the saved page)
+2026-11-09 11:26:15          experience_required    Location: Saket, New Delhi, India This is an in-office, full ...
+2026-11-09 11:26:15          experience_min_years   (blank -- not stated in the saved page)
+2026-11-09 11:26:15          experience_max_years   2
+2026-11-09 11:26:15          salary_min             (blank -- not stated in the saved page)
+2026-11-09 11:26:15          salary_max             (blank -- not stated in the saved page)
+2026-11-09 11:26:15          salary_currency        (blank -- not stated in the saved page)
+2026-11-09 11:26:15          location               Saket, Delhi   [job-pane]
+2026-11-09 11:26:15          city                   Saket
+2026-11-09 11:26:15          state                  (blank -- not stated in the saved page)
+2026-11-09 11:26:15          country                India
+2026-11-09 11:26:15          remote_type            Onsite
+2026-11-09 11:26:15          employment_type        Full-time   [job-card]
+2026-11-09 11:26:15          job_category           IT Department
+2026-11-09 11:26:15          posted_date            2025-04-11 05:00:00   [job-card]
+2026-11-09 11:26:15          expiry_date            (blank -- not stated in the saved page)
+2026-11-09 11:26:15          application_deadline   (blank -- not stated in the saved page)
+2026-11-09 11:26:15          apply_url              https://in.indeed.com/viewjob?jk=ce2cc62981d84732   [address-bar]
+2026-11-09 11:26:15          updated_at             2025-04-11 05:00:00
+2026-11-09 11:26:15          fetched_at             2026-11-09 05:56:15
+2026-11-09 11:26:15          is_fake                (blank -- not stated in the saved page)
+2026-11-09 11:26:15          is_active              True
+2026-11-09 11:26:15          source_url             https://in.indeed.com/   [address-bar]
+2026-11-09 11:26:15          source_type            job_portal
+2026-11-09 11:26:15          source_platform        Indeed
+2026-11-09 11:26:15          score                  30
+2026-11-09 11:26:15       [note] isolated job ce2cc62981d84732 from a document describing 16 jobs
+2026-11-09 11:26:15       [note] no JSON-LD JobPosting in the source
+2026-11-09 11:26:15       [note] visible-text parsing skipped: the job was isolated from a 16-job document, so page text belongs to other jobs too
+2026-11-09 11:26:15       [parse] not stated by the page: skills_required
+2026-11-09 11:26:15 
+2026-11-09 11:26:15 [Rank 1/5]
+2026-11-09 11:26:15 
+2026-11-09 11:26:15 City: Delhi   (1/23)
+2026-11-09 11:26:15 Keyword: Social Media Designer   (1/1264)
+2026-11-09 11:26:15 
+2026-11-09 11:26:15 Page: 1
+2026-11-09 11:26:15 Job: 1
+2026-11-09 11:26:15 
+2026-11-09 11:26:15 Job Title: Junior Graphic Web Designer
+2026-11-09 11:26:15 Company: Advanced Systemics
+2026-11-09 11:26:15 
+2026-11-09 11:26:15 Extraction: SUCCESS (2755 chars of description)
+2026-11-09 11:26:15 Duplicate: NO
+2026-11-09 11:26:15 Excel Save: SUCCESS (current_data.xlsx rows=2)
+2026-11-09 11:26:15 
+2026-11-09 11:26:15 Jobs Examined: 2   Extracted: 0   Saved: 2   Duplicates: 1   Rejected: 0   Failures: 2
+2026-11-09 11:26:15 
+2026-11-09 11:26:15 Total Complete Cycle: 0
+2026-11-09 11:26:15 
+2026-11-09 11:26:15 Next: Job Card 2
+2026-11-09 11:26:15 ------------------------------------------------------------
+2026-11-09 11:26:15    waiting 10.0s before closing the source tab
+2026-11-09 11:26:25       $ /home/ubuntu/new_indeed_script/shell_scripts/close_source_tab.sh --window 65011735
+2026-11-09 11:26:29         [close_source_tab] address bar before closing: view-source:https://in.indeed.com/jobs?q=Social+Media+Designer&l=Delhi&from=searchOnHP&vjk=ce2cc62981d84732
+2026-11-09 11:26:29         [close_source_tab] closing the view-source tab
+2026-11-09 11:26:29         [close_source_tab] back on: https://in.indeed.com/jobs?q=Social+Media+Designer&l=Delhi&from=searchOnHP&vjk=ce2cc62981d84732
+2026-11-09 11:26:29         -> exit 0 in 4.5s (closed=yes)
+2026-11-09 11:26:29    waiting 10.0s before the next job card
+2026-11-09 11:26:39       $ /home/ubuntu/new_indeed_script/shell_scripts/select_job_card.sh --window 65011735 --index 2 --card-x 430 --start-y 775 --max-y 1000 --probe-step 55 --probe-limit 12 --scroll-rounds 6 --marker vjk= --seen-keys f3adbc1fc0659b30,ce2cc62981d84732
+2026-11-09 11:26:51         [select_job_card] before selection: key='ce2cc62981d84732'
+2026-11-09 11:26:51         [select_job_card] probe 1: clicking 430,775
+2026-11-09 11:26:51         [select_job_card]    same job still selected -- the click was inside the current card
+2026-11-09 11:26:51         [select_job_card] probe 2: clicking 430,830
+2026-11-09 11:26:51         [select_job_card] card index 2 selected: job 645d9e64c26edab0 at y=830 after 2 probe(s) and 0 scroll(s)
+2026-11-09 11:26:51         -> exit 0 in 12.0s 
+2026-11-09 11:26:51       selected job 645d9e64c26edab0 (click)
+2026-11-09 11:26:51       $ /home/ubuntu/new_indeed_script/shell_scripts/save_page_source.sh --window 65011735 --out /home/ubuntu/new_indeed_script/Temp_Data/rank_1/job_1_0002.html --expect-url vjk=645d9e64c26edab0
+2026-11-09 11:27:02         [save_page_source] source will be taken from: https://in.indeed.com/jobs?q=Social+Media+Designer&l=Delhi&from=searchOnHP&vjk=645d9e64c26edab0
+2026-11-09 11:27:02         [save_page_source] page identity confirmed against --expect-url
+2026-11-09 11:27:02         [save_page_source] pressing Ctrl+U
+2026-11-09 11:27:02         [save_page_source] view-source tab confirmed: view-source:https://in.indeed.com/jobs?q=Social+Media+Designer&l=Delhi&from=searchOnHP&vjk=645d9e64c26edab0
+2026-11-09 11:27:02         [save_page_source] pressing Ctrl+S
+2026-11-09 11:27:02         [save_page_source] save dialog window=67110566 name='Save As - https://in.indeed.com/jobs?q=Social+Media+Designer&l=Delhi&from=searchOnHP&vjk=645d9e64c26edab0 — Mozilla Firefox'
+2026-11-09 11:27:02         [save_page_source] saved 974824 bytes to /home/ubuntu/new_indeed_script/Temp_Data/rank_1/job_1_0002.html
+2026-11-09 11:27:02         -> exit 0 in 10.8s 
+2026-11-09 11:27:02    saved source: /home/ubuntu/new_indeed_script/Temp_Data/rank_1/job_1_0002.html (974824 bytes)
+2026-11-09 11:27:02       [fields] 24 of 32 columns filled   (isolation: job-card, 16 job(s) in the document)
+2026-11-09 11:27:02          job_id                 6cf3dbc9cd61394f41b273c7d499686e
+2026-11-09 11:27:02          internal_job_id        645d9e64c26edab0
+2026-11-09 11:27:02          job_title              Graphic Designer (Illustrator, Photoshop & Canva)   [job-pane]
+2026-11-09 11:27:02          company_name           Flashy International   [job-pane]
+2026-11-09 11:27:02          company_website        (blank -- not stated in the saved page)
+2026-11-09 11:27:02          job_description        Part Time, Work from Home New Delhi  Graphic Designer (Illust...
+2026-11-09 11:27:02          skills_required        (blank -- not stated in the saved page)
+2026-11-09 11:27:02          experience_required    Part Time, Work from Home New Delhi Graphic Designer (Illustr...
+2026-11-09 11:27:02          experience_min_years   1
+2026-11-09 11:27:02          experience_max_years   3
+2026-11-09 11:27:02          salary_min             (blank -- not stated in the saved page)
+2026-11-09 11:27:02          salary_max             (blank -- not stated in the saved page)
+2026-11-09 11:27:02          salary_currency        (blank -- not stated in the saved page)
+2026-11-09 11:27:02          location               Delhi, Delhi   [job-pane]
+2026-11-09 11:27:02          city                   Delhi
+2026-11-09 11:27:02          state                  Delhi NCR
+2026-11-09 11:27:02          country                India
+2026-11-09 11:27:02          remote_type            Onsite
+2026-11-09 11:27:02          employment_type        Part-time   [job-card]
+2026-11-09 11:27:02          job_category           IT Department
+2026-11-09 11:27:02          posted_date            2025-04-21 05:00:00   [job-card]
+2026-11-09 11:27:02          expiry_date            (blank -- not stated in the saved page)
+2026-11-09 11:27:02          application_deadline   (blank -- not stated in the saved page)
+2026-11-09 11:27:02          apply_url              https://in.indeed.com/viewjob?jk=645d9e64c26edab0   [address-bar]
+2026-11-09 11:27:02          updated_at             2025-04-21 05:00:00
+2026-11-09 11:27:02          fetched_at             2026-11-09 05:57:02
+2026-11-09 11:27:02          is_fake                (blank -- not stated in the saved page)
+2026-11-09 11:27:02          is_active              True
+2026-11-09 11:27:02          source_url             https://in.indeed.com/   [address-bar]
+2026-11-09 11:27:02          source_type            job_portal
+2026-11-09 11:27:02          source_platform        Indeed
+2026-11-09 11:27:02          score                  30
+2026-11-09 11:27:02       [note] isolated job 645d9e64c26edab0 from a document describing 16 jobs
+2026-11-09 11:27:02       [note] no JSON-LD JobPosting in the source
+2026-11-09 11:27:02       [note] visible-text parsing skipped: the job was isolated from a 16-job document, so page text belongs to other jobs too
+2026-11-09 11:27:02       [parse] not stated by the page: experience_required, skills_required
+2026-11-09 11:27:02 
+2026-11-09 11:27:02 [Rank 1/5]
+2026-11-09 11:27:02 
+2026-11-09 11:27:02 City: Delhi   (1/23)
+2026-11-09 11:27:02 Keyword: Social Media Designer   (1/1264)
+2026-11-09 11:27:02 
+2026-11-09 11:27:02 Page: 1
+2026-11-09 11:27:02 Job: 2
+2026-11-09 11:27:02 
+2026-11-09 11:27:02 Job Title: Graphic Designer (Illustrator, Photoshop & Canva)
+2026-11-09 11:27:02 Company: Flashy International
+2026-11-09 11:27:02 
+2026-11-09 11:27:02 Extraction: SUCCESS (1379 chars of description)
+2026-11-09 11:27:02 Duplicate: NO
+2026-11-09 11:27:02 Excel Save: SUCCESS (current_data.xlsx rows=3)
+2026-11-09 11:27:02 
+2026-11-09 11:27:02 Jobs Examined: 3   Extracted: 1   Saved: 3   Duplicates: 1   Rejected: 0   Failures: 2
+2026-11-09 11:27:02 
+2026-11-09 11:27:02 Total Complete Cycle: 0
+2026-11-09 11:27:02 
+2026-11-09 11:27:02 Next: Job Card 3
+2026-11-09 11:27:02 ------------------------------------------------------------
+2026-11-09 11:27:02    waiting 10.0s before closing the source tab
+2026-11-09 11:27:12       $ /home/ubuntu/new_indeed_script/shell_scripts/close_source_tab.sh --window 65011735
+2026-11-09 11:27:17         [close_source_tab] address bar before closing: view-source:https://in.indeed.com/jobs?q=Social+Media+Designer&l=Delhi&from=searchOnHP&vjk=645d9e64c26edab0
+2026-11-09 11:27:17         [close_source_tab] closing the view-source tab
+2026-11-09 11:27:17         [close_source_tab] back on: https://in.indeed.com/jobs?q=Social+Media+Designer&l=Delhi&from=searchOnHP&vjk=645d9e64c26edab0
+2026-11-09 11:27:17         -> exit 0 in 4.5s (closed=yes)
+2026-11-09 11:27:17    waiting 10.0s before the next job card
+2026-11-09 11:27:27       $ /home/ubuntu/new_indeed_script/shell_scripts/select_job_card.sh --window 65011735 --index 3 --card-x 430 --start-y 890 --max-y 1000 --probe-step 55 --probe-limit 12 --scroll-rounds 6 --marker vjk= --seen-keys f3adbc1fc0659b30,ce2cc62981d84732,645d9e64c26edab0
+2026-11-09 11:27:44         [select_job_card] before selection: key='645d9e64c26edab0'
+2026-11-09 11:27:44         [select_job_card] probe 1: clicking 430,890
+2026-11-09 11:27:44         [select_job_card]    same job still selected -- the click was inside the current card
+2026-11-09 11:27:44         [select_job_card] probe 2: clicking 430,945
+2026-11-09 11:27:44         [select_job_card]    same job still selected -- the click was inside the current card
+2026-11-09 11:27:44         [select_job_card] probe 3: clicking 430,1000
+2026-11-09 11:27:44         [select_job_card] card index 3 selected: job 9bbaefcfa0fd6a7b at y=1000 after 3 probe(s) and 0 scroll(s)
+2026-11-09 11:27:44         -> exit 0 in 17.1s 
+2026-11-09 11:27:44       selected job 9bbaefcfa0fd6a7b (click)
+2026-11-09 11:27:44       $ /home/ubuntu/new_indeed_script/shell_scripts/save_page_source.sh --window 65011735 --out /home/ubuntu/new_indeed_script/Temp_Data/rank_1/job_1_0003.html --expect-url vjk=9bbaefcfa0fd6a7b
+2026-11-09 11:27:55         [save_page_source] source will be taken from: https://in.indeed.com/jobs?q=Social+Media+Designer&l=Delhi&from=searchOnHP&vjk=9bbaefcfa0fd6a7b
+2026-11-09 11:27:55         [save_page_source] page identity confirmed against --expect-url
+2026-11-09 11:27:55         [save_page_source] pressing Ctrl+U
+2026-11-09 11:27:55         [save_page_source] view-source tab confirmed: view-source:https://in.indeed.com/jobs?q=Social+Media+Designer&l=Delhi&from=searchOnHP&vjk=9bbaefcfa0fd6a7b
+2026-11-09 11:27:55         [save_page_source] pressing Ctrl+S
+2026-11-09 11:27:55         [save_page_source] save dialog window=67110661 name='Save As - https://in.indeed.com/jobs?q=Social+Media+Designer&l=Delhi&from=searchOnHP&vjk=9bbaefcfa0fd6a7b — Mozilla Firefox'
+2026-11-09 11:27:55         [save_page_source] saved 975232 bytes to /home/ubuntu/new_indeed_script/Temp_Data/rank_1/job_1_0003.html
+2026-11-09 11:27:55         -> exit 0 in 10.7s 
+2026-11-09 11:27:55    saved source: /home/ubuntu/new_indeed_script/Temp_Data/rank_1/job_1_0003.html (975232 bytes)
+2026-11-09 11:27:55       [fields] 23 of 32 columns filled   (isolation: job-card, 16 job(s) in the document)
+2026-11-09 11:27:55          job_id                 cad114dd489c2450f8193f2aae7228ce
+2026-11-09 11:27:55          internal_job_id        9bbaefcfa0fd6a7b
+2026-11-09 11:27:55          job_title              Graphic Designer   [job-pane]
+2026-11-09 11:27:55          company_name           WeaverStory   [job-pane]
+2026-11-09 11:27:55          company_website        (blank -- not stated in the saved page)
+2026-11-09 11:27:55          job_description        JD for Graphic Designer for a Luxury Brand- WeaverStory/ Urge...
+2026-11-09 11:27:55          skills_required        (blank -- not stated in the saved page)
+2026-11-09 11:27:55          experience_required    JD for Graphic Designer for a Luxury Brand- WeaverStory/ Urge...
+2026-11-09 11:27:55          experience_min_years   (blank -- not stated in the saved page)
+2026-11-09 11:27:55          experience_max_years   2
+2026-11-09 11:27:55          salary_min             (blank -- not stated in the saved page)
+2026-11-09 11:27:55          salary_max             (blank -- not stated in the saved page)
+2026-11-09 11:27:55          salary_currency        (blank -- not stated in the saved page)
+2026-11-09 11:27:55          location               Delhi   [job-pane]
+2026-11-09 11:27:55          city                   Delhi
+2026-11-09 11:27:55          state                  Delhi NCR
+2026-11-09 11:27:55          country                India
+2026-11-09 11:27:55          remote_type            Onsite
+2026-11-09 11:27:55          employment_type        Full-time
+2026-11-09 11:27:55          job_category           IT Department
+2026-11-09 11:27:55          posted_date            2023-05-05 05:00:00   [job-card]
+2026-11-09 11:27:55          expiry_date            (blank -- not stated in the saved page)
+2026-11-09 11:27:55          application_deadline   (blank -- not stated in the saved page)
+2026-11-09 11:27:55          apply_url              https://in.indeed.com/viewjob?jk=9bbaefcfa0fd6a7b   [address-bar]
+2026-11-09 11:27:55          updated_at             2023-05-05 05:00:00
+2026-11-09 11:27:55          fetched_at             2026-11-09 05:57:55
+2026-11-09 11:27:55          is_fake                (blank -- not stated in the saved page)
+2026-11-09 11:27:55          is_active              True
+2026-11-09 11:27:55          source_url             https://in.indeed.com/   [address-bar]
+2026-11-09 11:27:55          source_type            job_portal
+2026-11-09 11:27:55          source_platform        Indeed
+2026-11-09 11:27:55          score                  30
+2026-11-09 11:27:55       [note] isolated job 9bbaefcfa0fd6a7b from a document describing 16 jobs
+2026-11-09 11:27:55       [note] no JSON-LD JobPosting in the source
+2026-11-09 11:27:55       [note] visible-text parsing skipped: the job was isolated from a 16-job document, so page text belongs to other jobs too
+2026-11-09 11:27:55       [parse] not stated by the page: experience_required, skills_required
+2026-11-09 11:27:55 
+2026-11-09 11:27:55 [Rank 1/5]
+2026-11-09 11:27:55 
+2026-11-09 11:27:55 City: Delhi   (1/23)
+2026-11-09 11:27:55 Keyword: Social Media Designer   (1/1264)
+2026-11-09 11:27:55 
+2026-11-09 11:27:55 Page: 1
+2026-11-09 11:27:55 Job: 3
+2026-11-09 11:27:55 
+2026-11-09 11:27:55 Job Title: Graphic Designer
+2026-11-09 11:27:55 Company: WeaverStory
+2026-11-09 11:27:55 
+2026-11-09 11:27:55 Extraction: SUCCESS (1393 chars of description)
+2026-11-09 11:27:55 Duplicate: NO
+2026-11-09 11:27:55 Excel Save: SUCCESS (current_data.xlsx rows=4)
+2026-11-09 11:27:55 
+2026-11-09 11:27:55 Jobs Examined: 4   Extracted: 2   Saved: 4   Duplicates: 1   Rejected: 0   Failures: 2
+2026-11-09 11:27:55 
+2026-11-09 11:27:55 Total Complete Cycle: 0
+2026-11-09 11:27:55 
+2026-11-09 11:27:55 Next: Job Card 4
+2026-11-09 11:27:55 ------------------------------------------------------------
+2026-11-09 11:27:55    waiting 10.0s before closing the source tab
+2026-11-09 11:28:05       $ /home/ubuntu/new_indeed_script/shell_scripts/close_source_tab.sh --window 65011735
+2026-11-09 11:28:09         [close_source_tab] address bar before closing: view-source:https://in.indeed.com/jobs?q=Social+Media+Designer&l=Delhi&from=searchOnHP&vjk=9bbaefcfa0fd6a7b
+2026-11-09 11:28:09         [close_source_tab] closing the view-source tab
+2026-11-09 11:28:09         [close_source_tab] back on: https://in.indeed.com/jobs?q=Social+Media+Designer&l=Delhi&from=searchOnHP&vjk=9bbaefcfa0fd6a7b
+2026-11-09 11:28:09         -> exit 0 in 4.5s (closed=yes)
+2026-11-09 11:28:09    waiting 10.0s before the next job card
+2026-11-09 11:28:19       $ /home/ubuntu/new_indeed_script/shell_scripts/select_job_card.sh --window 65011735 --index 4 --card-x 430 --start-y 1060 --max-y 1000 --probe-step 55 --probe-limit 12 --scroll-rounds 6 --marker vjk= --seen-keys f3adbc1fc0659b30,ce2cc62981d84732,645d9e64c26edab0,9bbaefcfa0fd6a7b
+2026-11-09 11:29:10         [select_job_card] before selection: key='9bbaefcfa0fd6a7b'
+2026-11-09 11:29:10         [select_job_card] nothing new above y=1060 -- scrolling the results list (round 1/6)
+2026-11-09 11:29:10         [select_job_card] probe 1: clicking 430,320
+2026-11-09 11:29:10         [select_job_card]    job f3adbc1fc0659b30 has already been handled -- probing past it
+2026-11-09 11:29:10         [select_job_card] probe 2: clicking 430,375
+2026-11-09 11:29:10         [select_job_card]    job ce2cc62981d84732 has already been handled -- probing past it
+2026-11-09 11:29:10         [select_job_card] probe 3: clicking 430,430
+2026-11-09 11:29:10         [select_job_card]    same job still selected -- the click was inside the current card
+2026-11-09 11:29:10         [select_job_card] probe 4: clicking 430,485
+2026-11-09 11:29:10         [select_job_card]    job 645d9e64c26edab0 has already been handled -- probing past it
+2026-11-09 11:29:10         [select_job_card] probe 5: clicking 430,540
+2026-11-09 11:29:10         [select_job_card]    same job still selected -- the click was inside the current card
+2026-11-09 11:29:10         [select_job_card] probe 6: clicking 430,595
+2026-11-09 11:29:10         [select_job_card]    same job still selected -- the click was inside the current card
+2026-11-09 11:29:10         [select_job_card] probe 7: clicking 430,650
+2026-11-09 11:29:10         [select_job_card]    job 9bbaefcfa0fd6a7b has already been handled -- probing past it
+2026-11-09 11:29:10         [select_job_card] probe 8: clicking 430,705
+2026-11-09 11:29:10         [select_job_card]    same job still selected -- the click was inside the current card
+2026-11-09 11:29:10         [select_job_card] probe 9: clicking 430,760
+2026-11-09 11:29:10         [select_job_card] card index 4 selected: job 08656ce8a6b73631 at y=760 after 9 probe(s) and 1 scroll(s)
+2026-11-09 11:29:10         -> exit 0 in 50.8s 
+2026-11-09 11:29:10       selected job 08656ce8a6b73631 (click, after scrolling)
+2026-11-09 11:29:10       $ /home/ubuntu/new_indeed_script/shell_scripts/save_page_source.sh --window 65011735 --out /home/ubuntu/new_indeed_script/Temp_Data/rank_1/job_1_0004.html --expect-url vjk=08656ce8a6b73631
+2026-11-09 11:29:21         [save_page_source] source will be taken from: https://in.indeed.com/jobs?q=Social+Media+Designer&l=Delhi&from=searchOnHP&vjk=08656ce8a6b73631
+2026-11-09 11:29:21         [save_page_source] page identity confirmed against --expect-url
+2026-11-09 11:29:21         [save_page_source] pressing Ctrl+U
+2026-11-09 11:29:21         [save_page_source] view-source tab confirmed: view-source:https://in.indeed.com/jobs?q=Social+Media+Designer&l=Delhi&from=searchOnHP&vjk=08656ce8a6b73631
+2026-11-09 11:29:21         [save_page_source] pressing Ctrl+S
+2026-11-09 11:29:21         [save_page_source] save dialog window=67110758 name='Save As - https://in.indeed.com/jobs?q=Social+Media+Designer&l=Delhi&from=searchOnHP&vjk=08656ce8a6b73631 — Mozilla Firefox'
+2026-11-09 11:29:21         [save_page_source] saved 974714 bytes to /home/ubuntu/new_indeed_script/Temp_Data/rank_1/job_1_0004.html
+2026-11-09 11:29:21         -> exit 0 in 10.8s 
+2026-11-09 11:29:21    saved source: /home/ubuntu/new_indeed_script/Temp_Data/rank_1/job_1_0004.html (974714 bytes)
+2026-11-09 11:29:21       [fields] 19 of 32 columns filled   (isolation: job-card, 17 job(s) in the document)
+2026-11-09 11:29:21          job_id                 cd74beab0b70ed9ea4146badc3aeb193
+2026-11-09 11:29:21          internal_job_id        08656ce8a6b73631
+2026-11-09 11:29:21          job_title              Graphic Designer   [job-card]
+2026-11-09 11:29:21          company_name           (blank -- not stated in the saved page)
+2026-11-09 11:29:21          company_website        (blank -- not stated in the saved page)
+2026-11-09 11:29:21          job_description        346 Social Media Designer jobs available in Delhi on Indeed.com.
+2026-11-09 11:29:21          skills_required        (blank -- not stated in the saved page)
+2026-11-09 11:29:21          experience_required    346 Social Media Designer jobs available in Delhi on Indeed.com.
+2026-11-09 11:29:21          experience_min_years   (blank -- not stated in the saved page)
+2026-11-09 11:29:21          experience_max_years   (blank -- not stated in the saved page)
+2026-11-09 11:29:21          salary_min             (blank -- not stated in the saved page)
+2026-11-09 11:29:21          salary_max             (blank -- not stated in the saved page)
+2026-11-09 11:29:21          salary_currency        (blank -- not stated in the saved page)
+2026-11-09 11:29:21          location               Delhi
+2026-11-09 11:29:21          city                   Delhi
+2026-11-09 11:29:21          state                  Delhi NCR
+2026-11-09 11:29:21          country                India
+2026-11-09 11:29:21          remote_type            Onsite
+2026-11-09 11:29:21          employment_type        Full-time
+2026-11-09 11:29:21          job_category           IT Department
+2026-11-09 11:29:21          posted_date            (blank -- not stated in the saved page)
+2026-11-09 11:29:21          expiry_date            (blank -- not stated in the saved page)
+2026-11-09 11:29:21          application_deadline   (blank -- not stated in the saved page)
+2026-11-09 11:29:21          apply_url              https://in.indeed.com/viewjob?jk=08656ce8a6b73631   [address-bar]
+2026-11-09 11:29:21          updated_at             (blank -- not stated in the saved page)
+2026-11-09 11:29:21          fetched_at             2026-11-09 05:59:21
+2026-11-09 11:29:21          is_fake                (blank -- not stated in the saved page)
+2026-11-09 11:29:21          is_active              True
+2026-11-09 11:29:21          source_url             https://in.indeed.com/   [address-bar]
+2026-11-09 11:29:21          source_type            job_portal
+2026-11-09 11:29:21          source_platform        Indeed
+2026-11-09 11:29:21          score                  30
+2026-11-09 11:29:21       [note] isolated job 08656ce8a6b73631 from a document describing 17 jobs
+2026-11-09 11:29:21       [note] no JSON-LD JobPosting in the source
+2026-11-09 11:29:21       [note] visible-text parsing skipped: the job was isolated from a 17-job document, so page text belongs to other jobs too
+2026-11-09 11:29:21       [parse] not stated by the page: experience_required, skills_required
+2026-11-09 11:29:21 
+2026-11-09 11:29:21 [Rank 1/5]
+2026-11-09 11:29:21 
+2026-11-09 11:29:21 City: Delhi   (1/23)
+2026-11-09 11:29:21 Keyword: Social Media Designer   (1/1264)
+2026-11-09 11:29:21 
+2026-11-09 11:29:21 Page: 1
+2026-11-09 11:29:21 Job: 4
+2026-11-09 11:29:21 
+2026-11-09 11:29:21 Job Title: Graphic Designer
+2026-11-09 11:29:21 
+2026-11-09 11:29:21 Extraction: SUCCESS (678 chars of description)
+2026-11-09 11:29:21 Duplicate: NO
+2026-11-09 11:29:21 Excel Save: SKIPPED (invalid (no trustworthy company name))
+2026-11-09 11:29:21 
+2026-11-09 11:29:21 Jobs Examined: 5   Extracted: 3   Saved: 4   Duplicates: 1   Rejected: 1   Failures: 2
+2026-11-09 11:29:21 
+2026-11-09 11:29:21 Total Complete Cycle: 0
+2026-11-09 11:29:21 
+2026-11-09 11:29:21 Next: Job Card 5
+2026-11-09 11:29:21 ------------------------------------------------------------
+2026-11-09 11:29:21    waiting 10.0s before closing the source tab
+2026-11-09 11:29:31       $ /home/ubuntu/new_indeed_script/shell_scripts/close_source_tab.sh --window 65011735
+2026-11-09 11:29:35         [close_source_tab] address bar before closing: view-source:https://in.indeed.com/jobs?q=Social+Media+Designer&l=Delhi&from=searchOnHP&vjk=08656ce8a6b73631
+2026-11-09 11:29:35         [close_source_tab] closing the view-source tab
+2026-11-09 11:29:35         [close_source_tab] back on: https://in.indeed.com/jobs?q=Social+Media+Designer&l=Delhi&from=searchOnHP&vjk=08656ce8a6b73631
+2026-11-09 11:29:35         -> exit 0 in 4.5s (closed=yes)
+2026-11-09 11:29:35    waiting 10.0s before the next job card
+2026-11-09 11:29:46       $ /home/ubuntu/new_indeed_script/shell_scripts/select_job_card.sh --window 65011735 --index 5 --card-x 430 --start-y 440 --max-y 1000 --probe-step 55 --probe-limit 12 --scroll-rounds 6 --marker vjk= --seen-keys f3adbc1fc0659b30,ce2cc62981d84732,645d9e64c26edab0,9bbaefcfa0fd6a7b,08656ce8a6b73631
+2026-11-09 11:30:44         [select_job_card] before selection: key='08656ce8a6b73631'
+2026-11-09 11:30:44         [select_job_card] probe 1: clicking 430,440
+2026-11-09 11:30:44         [select_job_card]    job ce2cc62981d84732 has already been handled -- probing past it
+2026-11-09 11:30:44         [select_job_card] probe 2: clicking 430,495
+2026-11-09 11:30:44         [select_job_card]    job 645d9e64c26edab0 has already been handled -- probing past it
+2026-11-09 11:30:44         [select_job_card] probe 3: clicking 430,550
+2026-11-09 11:30:44         [select_job_card]    same job still selected -- the click was inside the current card
+2026-11-09 11:30:44         [select_job_card] probe 4: clicking 430,605
+2026-11-09 11:30:44         [select_job_card]    same job still selected -- the click was inside the current card
+2026-11-09 11:30:44         [select_job_card] probe 5: clicking 430,660
+2026-11-09 11:30:44         [select_job_card]    job 9bbaefcfa0fd6a7b has already been handled -- probing past it
+2026-11-09 11:30:44         [select_job_card] probe 6: clicking 430,715
+2026-11-09 11:30:44         [select_job_card]    same job still selected -- the click was inside the current card
+2026-11-09 11:30:44         [select_job_card] probe 7: clicking 430,770
+2026-11-09 11:30:44         [select_job_card]    job 08656ce8a6b73631 has already been handled -- probing past it
+2026-11-09 11:30:44         [select_job_card] probe 8: clicking 430,825
+2026-11-09 11:30:44         [select_job_card]    same job still selected -- the click was inside the current card
+2026-11-09 11:30:44         [select_job_card] probe 9: clicking 430,880
+2026-11-09 11:30:44         [select_job_card]    same job still selected -- the click was inside the current card
+2026-11-09 11:30:44         [select_job_card] probe 10: clicking 430,935
+2026-11-09 11:30:44         [select_job_card]    same job still selected -- the click was inside the current card
+2026-11-09 11:30:44         [select_job_card] probe 11: clicking 430,990
+2026-11-09 11:30:44         [select_job_card] card index 5 selected: job edeab8ef73614243 at y=990 after 11 probe(s) and 0 scroll(s)
+2026-11-09 11:30:44         -> exit 0 in 58.0s 
+2026-11-09 11:30:44       selected job edeab8ef73614243 (click)
+2026-11-09 11:30:44       $ /home/ubuntu/new_indeed_script/shell_scripts/save_page_source.sh --window 65011735 --out /home/ubuntu/new_indeed_script/Temp_Data/rank_1/job_1_0005.html --expect-url vjk=edeab8ef73614243
+2026-11-09 11:30:54         [save_page_source] source will be taken from: https://in.indeed.com/jobs?q=Social+Media+Designer&l=Delhi&from=searchOnHP&vjk=edeab8ef73614243
+2026-11-09 11:30:54         [save_page_source] page identity confirmed against --expect-url
+2026-11-09 11:30:54         [save_page_source] pressing Ctrl+U
+2026-11-09 11:30:54         [save_page_source] view-source tab confirmed: view-source:https://in.indeed.com/jobs?q=Social+Media+Designer&l=Delhi&from=searchOnHP&vjk=edeab8ef73614243
+2026-11-09 11:30:54         [save_page_source] pressing Ctrl+S
+2026-11-09 11:30:54         [save_page_source] save dialog window=67110857 name='Save As - https://in.indeed.com/jobs?q=Social+Media+Designer&l=Delhi&from=searchOnHP&vjk=edeab8ef73614243 — Mozilla Firefox'
+2026-11-09 11:30:54         [save_page_source] saved 984087 bytes to /home/ubuntu/new_indeed_script/Temp_Data/rank_1/job_1_0005.html
+2026-11-09 11:30:54         -> exit 0 in 10.8s 
+2026-11-09 11:30:54    saved source: /home/ubuntu/new_indeed_script/Temp_Data/rank_1/job_1_0005.html (984087 bytes)
+2026-11-09 11:30:54       [fields] 26 of 32 columns filled   (isolation: job-card, 16 job(s) in the document)
+2026-11-09 11:30:54          job_id                 cee2f4682c52ebe15b6848ef874d77cc
+2026-11-09 11:30:54          internal_job_id        edeab8ef73614243
+2026-11-09 11:30:54          job_title              Graphic Designer Immediate Openings   [job-pane]
+2026-11-09 11:30:54          company_name           Professional Utilities   [job-pane]
+2026-11-09 11:30:54          company_website        (blank -- not stated in the saved page)
+2026-11-09 11:30:54          job_description        We're Hiring - Join Our Growing Team  Join The Professional U...
+2026-11-09 11:30:54          skills_required        (blank -- not stated in the saved page)
+2026-11-09 11:30:54          experience_required    We're Hiring - Join Our Growing Team Join The Professional Ut...
+2026-11-09 11:30:54          experience_min_years   1
+2026-11-09 11:30:54          experience_max_years   (blank -- not stated in the saved page)
+2026-11-09 11:30:54          salary_min             15000
+2026-11-09 11:30:54          salary_max             29999
+2026-11-09 11:30:54          salary_currency        INR   [job-card]
+2026-11-09 11:30:54          location               Delhi, Delhi   [job-pane]
+2026-11-09 11:30:54          city                   Delhi
+2026-11-09 11:30:54          state                  Delhi NCR
+2026-11-09 11:30:54          country                India
+2026-11-09 11:30:54          remote_type            Onsite
+2026-11-09 11:30:54          employment_type        Full-time   [job-card]
+2026-11-09 11:30:54          job_category           IT Department
+2026-11-09 11:30:54          posted_date            2026-10-26 05:00:00   [job-card]
+2026-11-09 11:30:54          expiry_date            (blank -- not stated in the saved page)
+2026-11-09 11:30:54          application_deadline   (blank -- not stated in the saved page)
+2026-11-09 11:30:54          apply_url              https://in.indeed.com/viewjob?jk=edeab8ef73614243   [address-bar]
+2026-11-09 11:30:54          updated_at             2026-10-26 05:00:00
+2026-11-09 11:30:54          fetched_at             2026-11-09 06:00:54
+2026-11-09 11:30:54          is_fake                (blank -- not stated in the saved page)
+2026-11-09 11:30:54          is_active              True
+2026-11-09 11:30:54          source_url             https://in.indeed.com/   [address-bar]
+2026-11-09 11:30:54          source_type            job_portal
+2026-11-09 11:30:54          source_platform        Indeed
+2026-11-09 11:30:54          score                  30
+2026-11-09 11:30:54       [note] isolated job edeab8ef73614243 from a document describing 16 jobs
+2026-11-09 11:30:54       [note] no JSON-LD JobPosting in the source
+2026-11-09 11:30:54       [note] visible-text parsing skipped: the job was isolated from a 16-job document, so page text belongs to other jobs too
+2026-11-09 11:30:54       [parse] not stated by the page: skills_required
+2026-11-09 11:30:55 
+2026-11-09 11:30:55 [Rank 1/5]
+2026-11-09 11:30:55 
+2026-11-09 11:30:55 City: Delhi   (1/23)
+2026-11-09 11:30:55 Keyword: Social Media Designer   (1/1264)
+2026-11-09 11:30:55 
+2026-11-09 11:30:55 Page: 1
+2026-11-09 11:30:55 Job: 5
+2026-11-09 11:30:55 
+2026-11-09 11:30:55 Job Title: Graphic Designer Immediate Openings
+2026-11-09 11:30:55 Company: Professional Utilities
+2026-11-09 11:30:55 
+2026-11-09 11:30:55 Extraction: SUCCESS (1615 chars of description)
+2026-11-09 11:30:55 Duplicate: NO
+2026-11-09 11:30:55 Excel Save: SUCCESS (current_data.xlsx rows=5)
+2026-11-09 11:30:55 
+2026-11-09 11:30:55 Jobs Examined: 6   Extracted: 4   Saved: 5   Duplicates: 1   Rejected: 1   Failures: 2
+2026-11-09 11:30:55 
+2026-11-09 11:30:55 Total Complete Cycle: 0
+2026-11-09 11:30:55 
+2026-11-09 11:30:55 Next: Job Card 6
+2026-11-09 11:30:55 ------------------------------------------------------------
+2026-11-09 11:30:55    waiting 10.0s before closing the source tab
+2026-11-09 11:31:05       $ /home/ubuntu/new_indeed_script/shell_scripts/close_source_tab.sh --window 65011735
+2026-11-09 11:31:09         [close_source_tab] address bar before closing: view-source:https://in.indeed.com/jobs?q=Social+Media+Designer&l=Delhi&from=searchOnHP&vjk=edeab8ef73614243
+2026-11-09 11:31:09         [close_source_tab] closing the view-source tab
+2026-11-09 11:31:09         [close_source_tab] back on: https://in.indeed.com/jobs?q=Social+Media+Designer&l=Delhi&from=searchOnHP&vjk=edeab8ef73614243
+2026-11-09 11:31:09         -> exit 0 in 4.5s (closed=yes)
+2026-11-09 11:31:09    waiting 10.0s before the next job card
+2026-11-09 11:31:19       $ /home/ubuntu/new_indeed_script/shell_scripts/select_job_card.sh --window 65011735 --index 6 --card-x 430 --start-y 1050 --max-y 1000 --probe-step 55 --probe-limit 12 --scroll-rounds 6 --marker vjk= --seen-keys f3adbc1fc0659b30,ce2cc62981d84732,645d9e64c26edab0,9bbaefcfa0fd6a7b,08656ce8a6b73631,edeab8ef73614243
+2026-11-09 11:32:15         [select_job_card] before selection: key='edeab8ef73614243'
+2026-11-09 11:32:15         [select_job_card] nothing new above y=1050 -- scrolling the results list (round 1/6)
+2026-11-09 11:32:15         [select_job_card] probe 1: clicking 430,320
+2026-11-09 11:32:15         [select_job_card]    job 9bbaefcfa0fd6a7b has already been handled -- probing past it
+2026-11-09 11:32:15         [select_job_card] probe 2: clicking 430,375
+2026-11-09 11:32:15         [select_job_card]    same job still selected -- the click was inside the current card
+2026-11-09 11:32:15         [select_job_card] probe 3: clicking 430,430
+2026-11-09 11:32:15         [select_job_card]    job 08656ce8a6b73631 has already been handled -- probing past it
+2026-11-09 11:32:15         [select_job_card] probe 4: clicking 430,485
+2026-11-09 11:32:15         [select_job_card]    same job still selected -- the click was inside the current card
+2026-11-09 11:32:15         [select_job_card] probe 5: clicking 430,540
+2026-11-09 11:32:15         [select_job_card]    same job still selected -- the click was inside the current card
+2026-11-09 11:32:15         [select_job_card] probe 6: clicking 430,595
+2026-11-09 11:32:15         [select_job_card]    same job still selected -- the click was inside the current card
+2026-11-09 11:32:15         [select_job_card] probe 7: clicking 430,650
+2026-11-09 11:32:15         [select_job_card]    job edeab8ef73614243 has already been handled -- probing past it
+2026-11-09 11:32:15         [select_job_card] probe 8: clicking 430,705
+2026-11-09 11:32:15         [select_job_card]    same job still selected -- the click was inside the current card
+2026-11-09 11:32:15         [select_job_card] probe 9: clicking 430,760
+2026-11-09 11:32:15         [select_job_card]    same job still selected -- the click was inside the current card
+2026-11-09 11:32:15         [select_job_card] probe 10: clicking 430,815
+2026-11-09 11:32:15         [select_job_card] card index 6 selected: job eb835a78180044fa at y=815 after 10 probe(s) and 1 scroll(s)
+2026-11-09 11:32:15         -> exit 0 in 55.8s 
+2026-11-09 11:32:15       selected job eb835a78180044fa (click, after scrolling)
+2026-11-09 11:32:15       $ /home/ubuntu/new_indeed_script/shell_scripts/save_page_source.sh --window 65011735 --out /home/ubuntu/new_indeed_script/Temp_Data/rank_1/job_1_0006.html --expect-url vjk=eb835a78180044fa
+2026-11-09 11:32:26         [save_page_source] source will be taken from: https://in.indeed.com/jobs?q=Social+Media+Designer&l=Delhi&from=searchOnHP&vjk=eb835a78180044fa
+2026-11-09 11:32:26         [save_page_source] page identity confirmed against --expect-url
+2026-11-09 11:32:26         [save_page_source] pressing Ctrl+U
+2026-11-09 11:32:26         [save_page_source] view-source tab confirmed: view-source:https://in.indeed.com/jobs?q=Social+Media+Designer&l=Delhi&from=searchOnHP&vjk=eb835a78180044fa
+2026-11-09 11:32:26         [save_page_source] pressing Ctrl+S
+2026-11-09 11:32:26         [save_page_source] save dialog window=67110953 name='Save As - https://in.indeed.com/jobs?q=Social+Media+Designer&l=Delhi&from=searchOnHP&vjk=eb835a78180044fa — Mozilla Firefox'
+2026-11-09 11:32:26         [save_page_source] saved 1004545 bytes to /home/ubuntu/new_indeed_script/Temp_Data/rank_1/job_1_0006.html
+2026-11-09 11:32:26         -> exit 0 in 10.8s 
+2026-11-09 11:32:26    saved source: /home/ubuntu/new_indeed_script/Temp_Data/rank_1/job_1_0006.html (1004545 bytes)
+2026-11-09 11:32:26       [fields] 19 of 32 columns filled   (isolation: job-card, 17 job(s) in the document)
+2026-11-09 11:32:26          job_id                 a94b604ccbeb19080e37e4583e29969b
+2026-11-09 11:32:26          internal_job_id        eb835a78180044fa
+2026-11-09 11:32:26          job_title              Graphic Designer Intern   [job-card]
+2026-11-09 11:32:26          company_name           (blank -- not stated in the saved page)
+2026-11-09 11:32:26          company_website        (blank -- not stated in the saved page)
+2026-11-09 11:32:26          job_description        347 Social Media Designer jobs available in Delhi on Indeed.com.
+2026-11-09 11:32:26          skills_required        (blank -- not stated in the saved page)
+2026-11-09 11:32:26          experience_required    347 Social Media Designer jobs available in Delhi on Indeed.com.
+2026-11-09 11:32:26          experience_min_years   (blank -- not stated in the saved page)
+2026-11-09 11:32:26          experience_max_years   (blank -- not stated in the saved page)
+2026-11-09 11:32:26          salary_min             (blank -- not stated in the saved page)
+2026-11-09 11:32:26          salary_max             (blank -- not stated in the saved page)
+2026-11-09 11:32:26          salary_currency        (blank -- not stated in the saved page)
+2026-11-09 11:32:26          location               Delhi
+2026-11-09 11:32:26          city                   Delhi
+2026-11-09 11:32:26          state                  Delhi NCR
+2026-11-09 11:32:26          country                India
+2026-11-09 11:32:26          remote_type            Onsite
+2026-11-09 11:32:26          employment_type        Full-time
+2026-11-09 11:32:26          job_category           IT Department
+2026-11-09 11:32:26          posted_date            (blank -- not stated in the saved page)
+2026-11-09 11:32:26          expiry_date            (blank -- not stated in the saved page)
+2026-11-09 11:32:26          application_deadline   (blank -- not stated in the saved page)
+2026-11-09 11:32:26          apply_url              https://in.indeed.com/viewjob?jk=eb835a78180044fa   [address-bar]
+2026-11-09 11:32:26          updated_at             (blank -- not stated in the saved page)
+2026-11-09 11:32:26          fetched_at             2026-11-09 06:02:26
+2026-11-09 11:32:26          is_fake                (blank -- not stated in the saved page)
+2026-11-09 11:32:26          is_active              True
+2026-11-09 11:32:26          source_url             https://in.indeed.com/   [address-bar]
+2026-11-09 11:32:26          source_type            job_portal
+2026-11-09 11:32:26          source_platform        Indeed
+2026-11-09 11:32:26          score                  30
+2026-11-09 11:32:26       [note] isolated job eb835a78180044fa from a document describing 17 jobs
+2026-11-09 11:32:26       [note] no JSON-LD JobPosting in the source
+2026-11-09 11:32:26       [note] visible-text parsing skipped: the job was isolated from a 17-job document, so page text belongs to other jobs too
+2026-11-09 11:32:26       [parse] not stated by the page: skills_required
+2026-11-09 11:32:26 
+2026-11-09 11:32:26 [Rank 1/5]
+2026-11-09 11:32:26 
+2026-11-09 11:32:26 City: Delhi   (1/23)
+2026-11-09 11:32:26 Keyword: Social Media Designer   (1/1264)
+2026-11-09 11:32:26 
+2026-11-09 11:32:26 Page: 1
+2026-11-09 11:32:26 Job: 6
+2026-11-09 11:32:26 
+2026-11-09 11:32:26 Job Title: Graphic Designer Intern
+2026-11-09 11:32:26 
+2026-11-09 11:32:26 Extraction: SUCCESS (8478 chars of description)
+2026-11-09 11:32:26 Duplicate: NO
+2026-11-09 11:32:26 Excel Save: SKIPPED (invalid (no trustworthy company name))
+2026-11-09 11:32:26 
+2026-11-09 11:32:26 Jobs Examined: 7   Extracted: 5   Saved: 5   Duplicates: 1   Rejected: 2   Failures: 2
+2026-11-09 11:32:26 
+2026-11-09 11:32:26 Total Complete Cycle: 0
+2026-11-09 11:32:26 
+2026-11-09 11:32:26 Next: Job Card 7
+2026-11-09 11:32:26 ------------------------------------------------------------
+2026-11-09 11:32:26    waiting 10.0s before closing the source tab
+2026-11-09 11:32:36       $ /home/ubuntu/new_indeed_script/shell_scripts/close_source_tab.sh --window 65011735
+2026-11-09 11:32:40         [close_source_tab] address bar before closing: view-source:https://in.indeed.com/jobs?q=Social+Media+Designer&l=Delhi&from=searchOnHP&vjk=eb835a78180044fa
+2026-11-09 11:32:40         [close_source_tab] closing the view-source tab
+2026-11-09 11:32:40         [close_source_tab] back on: https://in.indeed.com/jobs?q=Social+Media+Designer&l=Delhi&from=searchOnHP&vjk=eb835a78180044fa
+2026-11-09 11:32:40         -> exit 0 in 4.5s (closed=yes)
+2026-11-09 11:32:40    waiting 10.0s before the next job card
+2026-11-09 11:32:50       $ /home/ubuntu/new_indeed_script/shell_scripts/select_job_card.sh --window 65011735 --index 7 --card-x 430 --start-y 440 --max-y 1000 --probe-step 55 --probe-limit 12 --scroll-rounds 6 --marker vjk= --seen-keys f3adbc1fc0659b30,ce2cc62981d84732,645d9e64c26edab0,9bbaefcfa0fd6a7b,08656ce8a6b73631,edeab8ef73614243,eb835a78180044fa
+2026-11-09 11:33:43         [select_job_card] before selection: key='eb835a78180044fa'
+2026-11-09 11:33:43         [select_job_card] probe 1: clicking 430,440
+2026-11-09 11:33:43         [select_job_card]    job 08656ce8a6b73631 has already been handled -- probing past it
+2026-11-09 11:33:43         [select_job_card] probe 2: clicking 430,495
+2026-11-09 11:33:43         [select_job_card]    same job still selected -- the click was inside the current card
+2026-11-09 11:33:43         [select_job_card] probe 3: clicking 430,550
+2026-11-09 11:33:43         [select_job_card]    same job still selected -- the click was inside the current card
+2026-11-09 11:33:43         [select_job_card] probe 4: clicking 430,605
+2026-11-09 11:33:43         [select_job_card]    job edeab8ef73614243 has already been handled -- probing past it
+2026-11-09 11:33:43         [select_job_card] probe 5: clicking 430,660
+2026-11-09 11:33:43         [select_job_card]    same job still selected -- the click was inside the current card
+2026-11-09 11:33:43         [select_job_card] probe 6: clicking 430,715
+2026-11-09 11:33:43         [select_job_card]    same job still selected -- the click was inside the current card
+2026-11-09 11:33:43         [select_job_card] probe 7: clicking 430,770
+2026-11-09 11:33:43         [select_job_card]    job eb835a78180044fa has already been handled -- probing past it
+2026-11-09 11:33:43         [select_job_card] probe 8: clicking 430,825
+2026-11-09 11:33:43         [select_job_card]    same job still selected -- the click was inside the current card
+2026-11-09 11:33:43         [select_job_card] probe 9: clicking 430,880
+2026-11-09 11:33:43         [select_job_card]    same job still selected -- the click was inside the current card
+2026-11-09 11:33:43         [select_job_card] probe 10: clicking 430,935
+2026-11-09 11:33:43         [select_job_card] card index 7 selected: job 47608f136841a80e at y=935 after 10 probe(s) and 0 scroll(s)
+2026-11-09 11:33:43         -> exit 0 in 52.9s 
+2026-11-09 11:33:43       selected job 47608f136841a80e (click)
+2026-11-09 11:33:43       $ /home/ubuntu/new_indeed_script/shell_scripts/save_page_source.sh --window 65011735 --out /home/ubuntu/new_indeed_script/Temp_Data/rank_1/job_1_0007.html --expect-url vjk=47608f136841a80e
+2026-11-09 11:33:54         [save_page_source] source will be taken from: https://in.indeed.com/jobs?q=Social+Media+Designer&l=Delhi&from=searchOnHP&vjk=47608f136841a80e
+2026-11-09 11:33:54         [save_page_source] page identity confirmed against --expect-url
+2026-11-09 11:33:54         [save_page_source] pressing Ctrl+U
+2026-11-09 11:33:54         [save_page_source] view-source tab confirmed: view-source:https://in.indeed.com/jobs?q=Social+Media+Designer&l=Delhi&from=searchOnHP&vjk=47608f136841a80e
+2026-11-09 11:33:54         [save_page_source] pressing Ctrl+S
+2026-11-09 11:33:54         [save_page_source] save dialog window=67111048 name='Save As - https://in.indeed.com/jobs?q=Social+Media+Designer&l=Delhi&from=searchOnHP&vjk=47608f136841a80e — Mozilla Firefox'
+2026-11-09 11:33:54         [save_page_source] saved 988984 bytes to /home/ubuntu/new_indeed_script/Temp_Data/rank_1/job_1_0007.html
+2026-11-09 11:33:54         -> exit 0 in 10.8s 
+2026-11-09 11:33:54    saved source: /home/ubuntu/new_indeed_script/Temp_Data/rank_1/job_1_0007.html (988984 bytes)
+2026-11-09 11:33:54       [fields] 25 of 32 columns filled   (isolation: job-card, 16 job(s) in the document)
+2026-11-09 11:33:54          job_id                 a675dc8b3e50c670624ffc7b12940e95
+2026-11-09 11:33:54          internal_job_id        47608f136841a80e
+2026-11-09 11:33:54          job_title              Content Creator   [job-pane]
+2026-11-09 11:33:54          company_name           Viral Bulls Digital Media   [job-pane]
+2026-11-09 11:33:54          company_website        (blank -- not stated in the saved page)
+2026-11-09 11:33:54          job_description        Job Description – Content Creator Intern  Company: ViralBulls...
+2026-11-09 11:33:54          skills_required        (blank -- not stated in the saved page)
+2026-11-09 11:33:54          experience_required    Job Description – Content Creator Intern Company: ViralBulls ...
+2026-11-09 11:33:54          experience_min_years   (blank -- not stated in the saved page)
+2026-11-09 11:33:54          experience_max_years   (blank -- not stated in the saved page)
+2026-11-09 11:33:54          salary_min             10000
+2026-11-09 11:33:54          salary_max             12000
+2026-11-09 11:33:54          salary_currency        INR   [job-card]
+2026-11-09 11:33:54          location               Delhi, Delhi   [job-pane]
+2026-11-09 11:33:54          city                   Delhi
+2026-11-09 11:33:54          state                  Delhi NCR
+2026-11-09 11:33:54          country                India
+2026-11-09 11:33:54          remote_type            Onsite
+2026-11-09 11:33:54          employment_type        Full-time   [job-card]
+2026-11-09 11:33:54          job_category           IT Department
+2026-11-09 11:33:54          posted_date            2026-10-14 05:00:00   [job-card]
+2026-11-09 11:33:54          expiry_date            (blank -- not stated in the saved page)
+2026-11-09 11:33:54          application_deadline   (blank -- not stated in the saved page)
+2026-11-09 11:33:54          apply_url              https://in.indeed.com/viewjob?jk=47608f136841a80e   [address-bar]
+2026-11-09 11:33:54          updated_at             2026-10-14 05:00:00
+2026-11-09 11:33:54          fetched_at             2026-11-09 06:03:54
+2026-11-09 11:33:54          is_fake                (blank -- not stated in the saved page)
+2026-11-09 11:33:54          is_active              True
+2026-11-09 11:33:54          source_url             https://in.indeed.com/   [address-bar]
+2026-11-09 11:33:54          source_type            job_portal
+2026-11-09 11:33:54          source_platform        Indeed
+2026-11-09 11:33:54          score                  30
+2026-11-09 11:33:54       [note] isolated job 47608f136841a80e from a document describing 16 jobs
+2026-11-09 11:33:54       [note] no JSON-LD JobPosting in the source
+2026-11-09 11:33:54       [note] visible-text parsing skipped: the job was isolated from a 16-job document, so page text belongs to other jobs too
+2026-11-09 11:33:54       [parse] not stated by the page: experience_required, skills_required
+2026-11-09 11:33:54 
+2026-11-09 11:33:54 [Rank 1/5]
+2026-11-09 11:33:54 
+2026-11-09 11:33:54 City: Delhi   (1/23)
+2026-11-09 11:33:54 Keyword: Social Media Designer   (1/1264)
+2026-11-09 11:33:54 
+2026-11-09 11:33:54 Page: 1
+2026-11-09 11:33:54 Job: 7
+2026-11-09 11:33:54 
+2026-11-09 11:33:54 Job Title: Content Creator
+2026-11-09 11:33:54 Company: Viral Bulls Digital Media
+2026-11-09 11:33:54 
+2026-11-09 11:33:54 Extraction: SUCCESS (1834 chars of description)
+2026-11-09 11:33:54 Duplicate: NO
+2026-11-09 11:33:54 Excel Save: SUCCESS (current_data.xlsx rows=6)
+2026-11-09 11:33:54 
+2026-11-09 11:33:54 Jobs Examined: 8   Extracted: 6   Saved: 6   Duplicates: 1   Rejected: 2   Failures: 2
+2026-11-09 11:33:54 
+2026-11-09 11:33:54 Total Complete Cycle: 0
+2026-11-09 11:33:54 
+2026-11-09 11:33:54 Next: Job Card 8
+2026-11-09 11:33:54 ------------------------------------------------------------
+2026-11-09 11:33:54    waiting 10.0s before closing the source tab
+2026-11-09 11:34:04       $ /home/ubuntu/new_indeed_script/shell_scripts/close_source_tab.sh --window 65011735
+2026-11-09 11:34:09         [close_source_tab] address bar before closing: view-source:https://in.indeed.com/jobs?q=Social+Media+Designer&l=Delhi&from=searchOnHP&vjk=47608f136841a80e
+2026-11-09 11:34:09         [close_source_tab] closing the view-source tab
+2026-11-09 11:34:09         [close_source_tab] back on: https://in.indeed.com/jobs?q=Social+Media+Designer&l=Delhi&from=searchOnHP&vjk=47608f136841a80e
+2026-11-09 11:34:09         -> exit 0 in 4.5s (closed=yes)
+2026-11-09 11:34:09    waiting 10.0s before the next job card
+2026-11-09 11:34:10 
+[STOP] signal 2. Checkpoint saved -- re-run to continue from here.

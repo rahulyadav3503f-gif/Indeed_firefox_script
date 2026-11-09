@@ -133,6 +133,85 @@ def login_evidence(cookies):
     return [name for name in LOGIN_COOKIE_NAMES if name in cookies]
 
 
+#: The files Firefox keeps cookies in.  The -wal holds cookies not yet
+#: checkpointed into the main database, so copying only cookies.sqlite can
+#: copy a session that is missing its newest half.
+COOKIE_FILES = ("cookies.sqlite", "cookies.sqlite-wal", "cookies.sqlite-shm")
+
+
+def rank_count():
+    """How many ranks this project is configured for."""
+    try:
+        import find_indeed_job as collector
+        return int(collector.num_sys)
+    except Exception:                                # pragma: no cover
+        return 5
+
+
+def sync_login_to_other_ranks(source_profile, source_rank, ranks=None):
+    """Copy the signed-in session into every OTHER rank's profile.
+
+    WHY THIS EXISTS.  Each rank runs its own Firefox profile
+    (config/firefox_profile/rank_N) so two ranks can run at once without
+    fighting over one profile lock -- a second Firefox on the same profile
+    does not get a window, it gets a "Close Firefox" dialog.
+
+    The cost of that isolation is that a login in rank 1's profile is
+    invisible to rank 2: separate profile, separate cookies.sqlite,
+    separate session.  Signing in five times is the obvious answer and the
+    wrong one.  Copying the cookie database across gives every rank the
+    same session from one sign-in, and keeps the profiles separate.
+
+    A rank whose Firefox is RUNNING is skipped, not overwritten: Firefox
+    holds the database open and would write its own copy back over ours on
+    exit, so the sync would silently undo itself.
+
+    Returns (copied, skipped) as lists of rank numbers.
+    """
+    copied, skipped = [], []
+    total = rank_count() if ranks is None else max(ranks)
+    targets = ranks if ranks is not None else range(1, total + 1)
+
+    for rank in targets:
+        if rank == source_rank:
+            continue
+        target = profile_dir_for(rank)
+
+        if firefox_pids(target):
+            print("  rank %d: SKIPPED -- a Firefox is running on it. Close "
+                  "it and re-run with --sync-only." % rank)
+            skipped.append(rank)
+            continue
+
+        try:
+            os.makedirs(target, exist_ok=True)
+            for name in COOKIE_FILES:
+                source_file = os.path.join(source_profile, name)
+                target_file = os.path.join(target, name)
+                if os.path.isfile(source_file):
+                    shutil.copy2(source_file, target_file)
+                elif os.path.isfile(target_file):
+                    # The source has no -wal, so a stale -wal on the target
+                    # would be replayed over the session we just copied.
+                    os.remove(target_file)
+        except OSError as error:
+            print("  rank %d: FAILED -- %s" % (rank, error))
+            skipped.append(rank)
+            continue
+
+        evidence = login_evidence(indeed_cookies(target))
+        if evidence:
+            print("  rank %d: session copied (%s)" % (rank, ", ".join(evidence)))
+            copied.append(rank)
+        else:
+            print("  rank %d: copied, but no login cookie is readable there"
+                  % rank)
+            skipped.append(rank)
+
+    return copied, skipped
+
+
+
 def firefox_pids(profile_dir):
     """Firefox processes running on THIS profile, by /proc/PID/exe."""
     pids = []
@@ -243,6 +322,11 @@ def main(argv=None):
                              "(default: 1)")
     parser.add_argument("--url", default=SIGN_IN_URL,
                         help="page to open (default: Indeed's sign-in page)")
+    parser.add_argument("--no-sync", action="store_true",
+                        help="do NOT copy the session to the other ranks")
+    parser.add_argument("--sync-only", action="store_true",
+                        help="copy this rank's existing session to the other "
+                             "ranks without opening a browser")
     args = parser.parse_args(argv)
 
     profile_dir = profile_dir_for(args.rank)
@@ -250,6 +334,22 @@ def main(argv=None):
     print("INDEED LOGIN  --  rank %d" % args.rank)
     print("=" * 70)
     print("  profile : %s" % profile_dir)
+
+    if args.sync_only:
+        evidence = login_evidence(indeed_cookies(profile_dir))
+        if not evidence:
+            print("\n[STOP] rank %d is not signed in, so there is no session "
+                  "to copy." % args.rank)
+            print("  Sign in first:  %s save_indeed_login.py --rank %d"
+                  % (sys.executable, args.rank))
+            return 4
+        print("  session found (%s); copying to the other ranks:"
+              % ", ".join(evidence))
+        copied, skipped = sync_login_to_other_ranks(profile_dir, args.rank)
+        print("\n  copied to %d rank(s)%s."
+              % (len(copied),
+                 ", skipped %s" % skipped if skipped else ""))
+        return 0 if copied or not skipped else 4
 
     before = indeed_cookies(profile_dir)
     already = login_evidence(before)
@@ -303,6 +403,12 @@ def main(argv=None):
         print("  LOGIN SAVED. Session cookies found: %s" % ", ".join(evidence))
         print("  They live in %s/cookies.sqlite" % profile_dir)
         print("  Recorded in %s" % path)
+        if not args.no_sync:
+            print("")
+            print("  Copying this session to the other ranks, so one sign-in")
+            print("  serves all of them:")
+            sync_login_to_other_ranks(profile_dir, args.rank)
+
         print("")
         print("  Now run the collector -- it opens this same profile and is")
         print("  already signed in:")

@@ -798,6 +798,56 @@ class TestIndeedLogin(unittest.TestCase):
         self.assertNotIn("return", block.split("log(\"\")")[0])
         self.assertIn("save_indeed_login.py", block)
 
+    def test_each_rank_has_its_own_profile(self):
+        """Deliberate: two ranks on one profile fight over the lock.
+
+        The cost is that a login in rank 1 is invisible to rank 2 -- which
+        is what sync_login_to_other_ranks() exists to pay.
+        """
+        import find_indeed_job as collector
+        paths = {collector.build_controller_config(which_rank=r).profile_dir
+                 for r in (1, 2, 3)}
+        self.assertEqual(len(paths), 3, "ranks must not share a profile")
+
+    def test_the_session_can_be_copied_to_the_other_ranks(self):
+        source = open(os.path.join(BASE, "save_indeed_login.py"),
+                      encoding="utf-8").read()
+        body = source.split("def sync_login_to_other_ranks(")[1].split("\ndef ")[0]
+        # the write-ahead log holds the newest half of a fresh session
+        self.assertIn("cookies.sqlite-wal", source)
+        self.assertIn("COOKIE_FILES", body)
+
+    def test_a_rank_with_firefox_running_is_skipped_not_overwritten(self):
+        """Firefox would write its own copy back over ours on exit."""
+        source = open(os.path.join(BASE, "save_indeed_login.py"),
+                      encoding="utf-8").read()
+        body = source.split("def sync_login_to_other_ranks(")[1].split("\ndef ")[0]
+        guard = body.split("firefox_pids(target)")[1][:300]
+        self.assertIn("skipped.append", guard)
+        self.assertIn("continue", guard)
+
+    def test_a_stale_wal_on_the_target_is_removed(self):
+        """Replaying it would undo the session we just copied."""
+        source = open(os.path.join(BASE, "save_indeed_login.py"),
+                      encoding="utf-8").read()
+        body = source.split("def sync_login_to_other_ranks(")[1].split("\ndef ")[0]
+        self.assertIn("os.remove(target_file)", body)
+
+    def test_sync_only_refuses_when_the_source_is_not_signed_in(self):
+        """Copying a logged-out profile over the others would undo them."""
+        source = open(os.path.join(BASE, "save_indeed_login.py"),
+                      encoding="utf-8").read()
+        block = source.split("if args.sync_only:")[1][:500]
+        self.assertIn("is not signed in", block)
+        self.assertIn("return 4", block)
+
+    def test_the_collector_tells_you_about_the_per_rank_profile(self):
+        source = open(os.path.join(BASE, "find_indeed_job.py"),
+                      encoding="utf-8").read()
+        warning = source.split("NOT SIGNED IN to Indeed")[1][:900]
+        self.assertIn("--sync-only", warning)
+        self.assertIn("--rank", warning)
+
     def test_the_marker_records_no_session(self):
         """The marker is a receipt, not a credential store."""
         source = open(os.path.join(BASE, "save_indeed_login.py"),

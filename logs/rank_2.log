@@ -1,0 +1,407 @@
+2026-11-09 11:10:56 ========================================================================
+2026-11-09 11:10:56 NEW INDEED COLLECTOR -- Firefox / xdotool / xclip
+2026-11-09 11:10:56 ========================================================================
+2026-11-09 11:10:56   roles+cities : vendor/ (local, authoritative) -- new_mylib.py md5 5e06a7d1, target_audience_roles.py md5 54b25400
+  row builder  : /home/ubuntu/check_indeed (read-only, 32-column schema)  [stand-ins: gtts, psutil]
+2026-11-09 11:10:56   rank            : 2 of 5
+2026-11-09 11:10:56   keywords        : 1264
+2026-11-09 11:10:56     target-audience : 200  (15.8% of the plan)
+2026-11-09 11:10:56     fresher/other   : 1064  (84.2%)
+2026-11-09 11:10:56     departments     : 116
+2026-11-09 11:10:56   cities (all)    : 110
+2026-11-09 11:10:56   cities (rank 2) : 23  -> Madurai, Tiruchirappalli, Salem, Vellore ...
+2026-11-09 11:10:56   excel columns   : 32
+2026-11-09 11:10:56   output          : /home/ubuntu/new_indeed_script/Excel_Data/rank_2
+2026-11-09 11:10:56   temp            : /home/ubuntu/new_indeed_script/Temp_Data/rank_2
+2026-11-09 11:10:56   checkpoint      : /home/ubuntu/new_indeed_script/config/checkpoints/checkpoint_rank_2.json
+2026-11-09 11:10:56   loop            : city-outer, keyword-inner (brief section 8)
+2026-11-09 11:10:56   delays          : 10s before close, 10s before next card
+2026-11-09 11:10:56   night rest      : disabled
+2026-11-09 11:10:56   work period     : 3.7-4.2 h, then a 30-60 min break
+2026-11-09 11:10:56   fixed plan      : 5 page(s) x 10 card(s) = up to 50 jobs per keyword+city
+2026-11-09 11:10:56   paging          : page 1 = typed search, page 2+ = start=10,20,...
+2026-11-09 11:10:56   page ceiling    : 5 listing page(s) per keyword+city
+2026-11-09 11:10:56   unique target   : 50 distinct jobs EXAMINED per keyword+city
+2026-11-09 11:10:56   TOTAL COMPLETE CYCLE : 0   (cities finished this crawl cycle: 0/23)
+2026-11-09 11:10:56 ========================================================================
+2026-11-09 11:10:56 
+2026-11-09 11:10:56   [WARN] NOT SIGNED IN to Indeed (no Indeed session cookie in /home/ubuntu/new_indeed_script/config/firefox_profile/rank_2).
+2026-11-09 11:10:56          Indeed asks for a login when paging deeper into
+2026-11-09 11:10:56          results, so this run will collect the first page or
+2026-11-09 11:10:56          two and then stop finding new jobs.
+2026-11-09 11:10:56          To sign in once, in this same browser profile:
+2026-11-09 11:10:56              /home/ubuntu/new_indeed_script/venv/bin/python3 save_indeed_login.py
+2026-11-09 11:10:56 
+2026-11-09 11:10:56   search mode    : form
+2026-11-09 11:10:56       $ /home/ubuntu/new_indeed_script/shell_scripts/open_firefox.sh --profile /home/ubuntu/new_indeed_script/config/firefox_profile/rank_2 --url https://in.indeed.com --state-file /home/ubuntu/new_indeed_script/Temp_Data/rank_2/browser_window.json --expect-host indeed --download-dir /home/ubuntu/new_indeed_script/Temp_Data/rank_2 --window-size 1845x1046 --window-pos 0,34
+2026-11-09 11:11:06         [open_firefox] pre-existing Firefox windows (never touched): none
+2026-11-09 11:11:06         [open_firefox] display=:0 xauthority=/home/ubuntu/new_indeed_script/config/xauth_xwayland
+2026-11-09 11:11:06         [open_firefox] launch mode: snap (inner binary inside 'snap run --shell')
+2026-11-09 11:11:06         [open_firefox] firefox pid=25018
+2026-11-09 11:11:06         [open_firefox] window_id=65011735 name=Mozilla Firefox
+2026-11-09 11:11:06         [open_firefox] window geometry set on attempt 1: 1845x1046+44+34
+2026-11-09 11:11:06         [open_firefox] normal window: 1845x1046+44+34 (asked for 1845x1046+0+34)
+2026-11-09 11:11:06         [open_firefox] address bar: https://in.indeed.com/
+2026-11-09 11:11:06         [open_firefox] ready
+2026-11-09 11:11:06         -> exit 0 in 10.0s (window_id=65011735 fullscreen=no access_denied=no verified=yes)
+2026-11-09 11:11:06    browser ready: pid=25018 window=65011735 fullscreen=no
+2026-11-09 11:11:06 
+========================================================================
+2026-11-09 11:11:06 CRAWL CYCLE 1 | CITY 1/23: Madurai   (keywords 1..1264)
+2026-11-09 11:11:06 TOTAL COMPLETE CYCLE SO FAR: 0
+2026-11-09 11:11:06 ========================================================================
+2026-11-09 11:11:06 
+  [cycle 1 | city 1/23 Madurai | keyword 1/1264 MDM Engineer | worked 9s]
+2026-11-09 11:11:06 
+  [page 1/5] MDM Engineer @ Madurai  (start=0)
+2026-11-09 11:11:06       $ /home/ubuntu/new_indeed_script/shell_scripts/search_jobs.sh --window 65011735 --keyword 'MDM Engineer' --city Madurai --base-url https://in.indeed.com --mode form --what-xy 700,240 --where-xy 1100,240
+2026-11-09 11:11:34         [search_jobs] input guard passed; address bar reads: https://in.indeed.com/
+2026-11-09 11:11:34         [search_jobs] waiting 7.0s for the page to settle before typing
+2026-11-09 11:11:34         [search_jobs] form search: 'MDM Engineer' in 'Madurai'
+2026-11-09 11:11:34         [search_jobs] clicking the keyword box at 700,240
+2026-11-09 11:11:34         [search_jobs] clicking the city box at 1100,240
+2026-11-09 11:11:34         [search_jobs] both fields confirmed; submitting (focus is still in the city box)
+2026-11-09 11:11:34         [search_jobs] waiting 10.0s for the results to load
+2026-11-09 11:11:34         [search_jobs] window title: 0 Mdm Engineer Jobs and Vacancies in Madurai, Tamil Nadu - 9 November 2026 | Indeed — Mozilla Firefox
+2026-11-09 11:11:34         [search_jobs] address bar after search: https://in.indeed.com/jobs?q=MDM+Engineer&l=Madurai&from=searchOnHP&vjk=bf297dd2cd1df2f5
+2026-11-09 11:11:34         [search_jobs] Indeed pre-selected job bf297dd2cd1df2f5
+2026-11-09 11:11:34         [search_jobs] search submitted: MDM Engineer @ Madurai -- going to the first job card
+2026-11-09 11:11:34         -> exit 0 in 28.0s (access_denied=no verified=not_checked)
+2026-11-09 11:11:34       $ /home/ubuntu/new_indeed_script/shell_scripts/select_job_card.sh --window 65011735 --index 0 --card-x 430 --start-y 440 --max-y 1000 --probe-step 55 --probe-limit 12 --scroll-rounds 6 --marker vjk= --preselected-key bf297dd2cd1df2f5
+2026-11-09 11:11:36         [select_job_card] before selection: key='bf297dd2cd1df2f5'
+2026-11-09 11:11:36         [select_job_card] job bf297dd2cd1df2f5 is already selected by Indeed -- taking it without clicking
+2026-11-09 11:11:36         -> exit 0 in 1.8s 
+2026-11-09 11:11:36       selected job bf297dd2cd1df2f5 (preselected)
+2026-11-09 11:11:36       $ /home/ubuntu/new_indeed_script/shell_scripts/save_page_source.sh --window 65011735 --out /home/ubuntu/new_indeed_script/Temp_Data/rank_2/job_2_0000.html --expect-url vjk=bf297dd2cd1df2f5
+2026-11-09 11:11:47         [save_page_source] source will be taken from: https://in.indeed.com/jobs?q=MDM+Engineer&l=Madurai&from=searchOnHP&vjk=bf297dd2cd1df2f5
+2026-11-09 11:11:47         [save_page_source] page identity confirmed against --expect-url
+2026-11-09 11:11:47         [save_page_source] pressing Ctrl+U
+2026-11-09 11:11:47         [save_page_source] view-source tab confirmed: view-source:https://in.indeed.com/jobs?q=MDM+Engineer&l=Madurai&from=searchOnHP&vjk=bf297dd2cd1df2f5
+2026-11-09 11:11:47         [save_page_source] pressing Ctrl+S
+2026-11-09 11:11:47         [save_page_source] save dialog window=67110280 name='Save As - https://in.indeed.com/jobs?q=MDM+Engineer&l=Madurai&from=searchOnHP&vjk=bf297dd2cd1df2f5 — Mozilla Firefox'
+2026-11-09 11:11:47         [save_page_source] saved 756192 bytes to /home/ubuntu/new_indeed_script/Temp_Data/rank_2/job_2_0000.html
+2026-11-09 11:11:47         -> exit 0 in 10.8s 
+2026-11-09 11:11:47    saved source: /home/ubuntu/new_indeed_script/Temp_Data/rank_2/job_2_0000.html (756192 bytes)
+2026-11-09 11:11:47       [fields] 22 of 32 columns filled   (isolation: job-card, 3 job(s) in the document)
+2026-11-09 11:11:47          job_id                 76e3a4df64d55a26d7d88aac432a4d7e
+2026-11-09 11:11:47          internal_job_id        bf297dd2cd1df2f5
+2026-11-09 11:11:47          job_title              Technical Project Manager   [job-pane]
+2026-11-09 11:11:47          company_name           TOUCHTiER Technology Pvt Ltd.   [job-pane]
+2026-11-09 11:11:47          company_website        (blank -- not stated in the saved page)
+2026-11-09 11:11:47          job_description        Position : Technical Project Manager  THE PERSON WE ARE LOOKI...
+2026-11-09 11:11:47          skills_required        (blank -- not stated in the saved page)
+2026-11-09 11:11:47          experience_required    Position : Technical Project Manager THE PERSON WE ARE LOOKIN...
+2026-11-09 11:11:47          experience_min_years   5
+2026-11-09 11:11:47          experience_max_years   (blank -- not stated in the saved page)
+2026-11-09 11:11:47          salary_min             (blank -- not stated in the saved page)
+2026-11-09 11:11:47          salary_max             (blank -- not stated in the saved page)
+2026-11-09 11:11:47          salary_currency        (blank -- not stated in the saved page)
+2026-11-09 11:11:47          location               Simmakkal, Madurai, Tamil Nadu   [job-pane]
+2026-11-09 11:11:47          city                   Simmakkal
+2026-11-09 11:11:47          state                  (blank -- not stated in the saved page)
+2026-11-09 11:11:47          country                India
+2026-11-09 11:11:47          remote_type            Onsite
+2026-11-09 11:11:47          employment_type        Full-time   [job-card]
+2026-11-09 11:11:47          job_category           IT Department
+2026-11-09 11:11:47          posted_date            2026-10-27 05:00:00   [job-card]
+2026-11-09 11:11:47          expiry_date            (blank -- not stated in the saved page)
+2026-11-09 11:11:47          application_deadline   (blank -- not stated in the saved page)
+2026-11-09 11:11:47          apply_url              https://in.indeed.com/viewjob?jk=bf297dd2cd1df2f5   [address-bar]
+2026-11-09 11:11:47          updated_at             2026-10-27 05:00:00
+2026-11-09 11:11:47          fetched_at             2026-11-09 05:41:47
+2026-11-09 11:11:47          is_fake                (blank -- not stated in the saved page)
+2026-11-09 11:11:47          is_active              True
+2026-11-09 11:11:47          source_url             https://in.indeed.com/   [address-bar]
+2026-11-09 11:11:47          source_type            job_portal
+2026-11-09 11:11:47          source_platform        Indeed
+2026-11-09 11:11:47          score                  30
+2026-11-09 11:11:47       [note] isolated job bf297dd2cd1df2f5 from a document describing 3 jobs
+2026-11-09 11:11:47       [note] no JSON-LD JobPosting in the source
+2026-11-09 11:11:47       [note] visible-text parsing skipped: the job was isolated from a 3-job document, so page text belongs to other jobs too
+2026-11-09 11:11:47 
+2026-11-09 11:11:47 [Rank 2/5]
+2026-11-09 11:11:47 
+2026-11-09 11:11:47 City: Madurai   (1/23)
+2026-11-09 11:11:47 Keyword: MDM Engineer   (1/1264)
+2026-11-09 11:11:47 
+2026-11-09 11:11:47 Page: 1
+2026-11-09 11:11:47 Job: 0
+2026-11-09 11:11:47 
+2026-11-09 11:11:47 Job Title: Technical Project Manager
+2026-11-09 11:11:47 Company: TOUCHTiER Technology Pvt Ltd.
+2026-11-09 11:11:47 
+2026-11-09 11:11:47 Extraction: SUCCESS (3633 chars of description)
+2026-11-09 11:11:47 Duplicate: NO
+2026-11-09 11:11:47 Excel Save: SKIPPED (non_it (non-IT title: Technical Project Manager))
+2026-11-09 11:11:47 
+2026-11-09 11:11:47 Jobs Examined: 1   Extracted: 1   Saved: 0   Duplicates: 0   Rejected: 1   Failures: 0
+2026-11-09 11:11:47 
+2026-11-09 11:11:47 Total Complete Cycle: 0
+2026-11-09 11:11:47 
+2026-11-09 11:11:47 Next: Job Card 1
+2026-11-09 11:11:47 ------------------------------------------------------------
+2026-11-09 11:11:47    waiting 10.0s before closing the source tab
+2026-11-09 11:11:57       $ /home/ubuntu/new_indeed_script/shell_scripts/close_source_tab.sh --window 65011735
+2026-11-09 11:12:02         [close_source_tab] address bar before closing: view-source:https://in.indeed.com/jobs?q=MDM+Engineer&l=Madurai&from=searchOnHP&vjk=bf297dd2cd1df2f5
+2026-11-09 11:12:02         [close_source_tab] closing the view-source tab
+2026-11-09 11:12:02         [close_source_tab] back on: https://in.indeed.com/jobs?q=MDM+Engineer&l=Madurai&from=searchOnHP&vjk=bf297dd2cd1df2f5
+2026-11-09 11:12:02         -> exit 0 in 4.5s (closed=yes)
+2026-11-09 11:12:02    waiting 10.0s before the next job card
+2026-11-09 11:12:12       $ /home/ubuntu/new_indeed_script/shell_scripts/select_job_card.sh --window 65011735 --index 1 --card-x 430 --start-y 440 --max-y 1000 --probe-step 55 --probe-limit 12 --scroll-rounds 6 --marker vjk= --seen-keys bf297dd2cd1df2f5
+2026-11-09 11:13:00         [select_job_card] before selection: key='bf297dd2cd1df2f5'
+2026-11-09 11:13:00         [select_job_card] probe 1: clicking 430,440
+2026-11-09 11:13:00         [select_job_card]    same job still selected -- the click was inside the current card
+2026-11-09 11:13:00         [select_job_card] probe 2: clicking 430,495
+2026-11-09 11:13:00         [select_job_card]    same job still selected -- the click was inside the current card
+2026-11-09 11:13:00         [select_job_card] probe 3: clicking 430,550
+2026-11-09 11:13:00         [select_job_card]    same job still selected -- the click was inside the current card
+2026-11-09 11:13:00         [select_job_card] probe 4: clicking 430,605
+2026-11-09 11:13:00         [select_job_card]    same job still selected -- the click was inside the current card
+2026-11-09 11:13:00         [select_job_card] probe 5: clicking 430,660
+2026-11-09 11:13:00         [select_job_card]    same job still selected -- the click was inside the current card
+2026-11-09 11:13:00         [select_job_card] probe 6: clicking 430,715
+2026-11-09 11:13:00         [select_job_card]    same job still selected -- the click was inside the current card
+2026-11-09 11:13:00         [select_job_card] probe 7: clicking 430,770
+2026-11-09 11:13:00         [select_job_card]    same job still selected -- the click was inside the current card
+2026-11-09 11:13:00         [select_job_card] probe 8: clicking 430,825
+2026-11-09 11:13:00         [select_job_card]    same job still selected -- the click was inside the current card
+2026-11-09 11:13:00         [select_job_card] probe 9: clicking 430,880
+2026-11-09 11:13:00         [select_job_card] card index 1 selected: job 9c30e0a57b566b5c at y=880 after 9 probe(s) and 0 scroll(s)
+2026-11-09 11:13:00         -> exit 0 in 47.8s 
+2026-11-09 11:13:00       selected job 9c30e0a57b566b5c (click)
+2026-11-09 11:13:00       $ /home/ubuntu/new_indeed_script/shell_scripts/save_page_source.sh --window 65011735 --out /home/ubuntu/new_indeed_script/Temp_Data/rank_2/job_2_0001.html --expect-url vjk=9c30e0a57b566b5c
+2026-11-09 11:13:10         [save_page_source] source will be taken from: https://in.indeed.com/jobs?q=MDM+Engineer&l=Madurai&from=searchOnHP&vjk=9c30e0a57b566b5c
+2026-11-09 11:13:10         [save_page_source] page identity confirmed against --expect-url
+2026-11-09 11:13:10         [save_page_source] pressing Ctrl+U
+2026-11-09 11:13:10         [save_page_source] view-source tab confirmed: view-source:https://in.indeed.com/jobs?q=MDM+Engineer&l=Madurai&from=searchOnHP&vjk=9c30e0a57b566b5c
+2026-11-09 11:13:10         [save_page_source] pressing Ctrl+S
+2026-11-09 11:13:10         [save_page_source] save dialog window=67110374 name='Save As - https://in.indeed.com/jobs?q=MDM+Engineer&l=Madurai&from=searchOnHP&vjk=9c30e0a57b566b5c — Mozilla Firefox'
+2026-11-09 11:13:10         [save_page_source] saved 814961 bytes to /home/ubuntu/new_indeed_script/Temp_Data/rank_2/job_2_0001.html
+2026-11-09 11:13:10         -> exit 0 in 10.8s 
+2026-11-09 11:13:10    saved source: /home/ubuntu/new_indeed_script/Temp_Data/rank_2/job_2_0001.html (814961 bytes)
+2026-11-09 11:13:10       [fields] 22 of 32 columns filled   (isolation: job-card, 6 job(s) in the document)
+2026-11-09 11:13:10          job_id                 4adfba3f13d2b87118028fc5f76a1fed
+2026-11-09 11:13:10          internal_job_id        9c30e0a57b566b5c
+2026-11-09 11:13:10          job_title              Software Developer (.NET & Azure technologies)   [job-pane]
+2026-11-09 11:13:10          company_name           TOUCHTiER Technology Pvt Ltd.   [job-pane]
+2026-11-09 11:13:10          company_website        (blank -- not stated in the saved page)
+2026-11-09 11:13:10          job_description        Job Summary:  We are looking for a skilled Software Developer...
+2026-11-09 11:13:10          skills_required        (blank -- not stated in the saved page)
+2026-11-09 11:13:10          experience_required    Job Summary: We are looking for a skilled Software Developer ...
+2026-11-09 11:13:10          experience_min_years   5
+2026-11-09 11:13:10          experience_max_years   (blank -- not stated in the saved page)
+2026-11-09 11:13:10          salary_min             (blank -- not stated in the saved page)
+2026-11-09 11:13:10          salary_max             (blank -- not stated in the saved page)
+2026-11-09 11:13:10          salary_currency        (blank -- not stated in the saved page)
+2026-11-09 11:13:10          location               Simmakkal, Madurai, Tamil Nadu   [job-pane]
+2026-11-09 11:13:10          city                   Simmakkal
+2026-11-09 11:13:10          state                  (blank -- not stated in the saved page)
+2026-11-09 11:13:10          country                India
+2026-11-09 11:13:10          remote_type            Onsite
+2026-11-09 11:13:10          employment_type        Full-time   [job-card]
+2026-11-09 11:13:10          job_category           IT Department
+2026-11-09 11:13:10          posted_date            2026-11-02 06:00:00   [job-card]
+2026-11-09 11:13:10          expiry_date            (blank -- not stated in the saved page)
+2026-11-09 11:13:10          application_deadline   (blank -- not stated in the saved page)
+2026-11-09 11:13:10          apply_url              https://in.indeed.com/viewjob?jk=9c30e0a57b566b5c   [address-bar]
+2026-11-09 11:13:10          updated_at             2026-11-02 06:00:00
+2026-11-09 11:13:10          fetched_at             2026-11-09 05:43:10
+2026-11-09 11:13:10          is_fake                (blank -- not stated in the saved page)
+2026-11-09 11:13:10          is_active              True
+2026-11-09 11:13:10          source_url             https://in.indeed.com/   [address-bar]
+2026-11-09 11:13:10          source_type            job_portal
+2026-11-09 11:13:10          source_platform        Indeed
+2026-11-09 11:13:10          score                  30
+2026-11-09 11:13:10       [note] isolated job 9c30e0a57b566b5c from a document describing 6 jobs
+2026-11-09 11:13:10       [note] no JSON-LD JobPosting in the source
+2026-11-09 11:13:10       [note] visible-text parsing skipped: the job was isolated from a 6-job document, so page text belongs to other jobs too
+2026-11-09 11:13:10 
+2026-11-09 11:13:10 [Rank 2/5]
+2026-11-09 11:13:10 
+2026-11-09 11:13:10 City: Madurai   (1/23)
+2026-11-09 11:13:10 Keyword: MDM Engineer   (1/1264)
+2026-11-09 11:13:10 
+2026-11-09 11:13:10 Page: 1
+2026-11-09 11:13:10 Job: 1
+2026-11-09 11:13:10 
+2026-11-09 11:13:10 Job Title: Software Developer (.NET & Azure technologies)
+2026-11-09 11:13:10 Company: TOUCHTiER Technology Pvt Ltd.
+2026-11-09 11:13:10 
+2026-11-09 11:13:10 Extraction: SUCCESS (2877 chars of description)
+2026-11-09 11:13:10 Duplicate: NO
+2026-11-09 11:13:10 Excel Save: SUCCESS (current_data.xlsx rows=1)
+2026-11-09 11:13:10 
+2026-11-09 11:13:10 Jobs Examined: 2   Extracted: 2   Saved: 1   Duplicates: 0   Rejected: 1   Failures: 0
+2026-11-09 11:13:10 
+2026-11-09 11:13:10 Total Complete Cycle: 0
+2026-11-09 11:13:10 
+2026-11-09 11:13:10 Next: Job Card 2
+2026-11-09 11:13:10 ------------------------------------------------------------
+2026-11-09 11:13:10    waiting 10.0s before closing the source tab
+2026-11-09 11:13:20       $ /home/ubuntu/new_indeed_script/shell_scripts/close_source_tab.sh --window 65011735
+2026-11-09 11:13:25         [close_source_tab] address bar before closing: view-source:https://in.indeed.com/jobs?q=MDM+Engineer&l=Madurai&from=searchOnHP&vjk=9c30e0a57b566b5c
+2026-11-09 11:13:25         [close_source_tab] closing the view-source tab
+2026-11-09 11:13:25         [close_source_tab] back on: https://in.indeed.com/jobs?q=MDM+Engineer&l=Madurai&from=searchOnHP&vjk=9c30e0a57b566b5c
+2026-11-09 11:13:25         -> exit 0 in 4.5s (closed=yes)
+2026-11-09 11:13:25    waiting 10.0s before the next job card
+2026-11-09 11:13:35       $ /home/ubuntu/new_indeed_script/shell_scripts/select_job_card.sh --window 65011735 --index 2 --card-x 430 --start-y 940 --max-y 1000 --probe-step 55 --probe-limit 12 --scroll-rounds 6 --marker vjk= --seen-keys bf297dd2cd1df2f5,9c30e0a57b566b5c
+2026-11-09 11:16:35   [WARN] card 2 failed: select_job_card.sh did not finish within 180s. The desktop may be blocked by a modal dialog or a pointer grab. | stage=select_job_card.sh
+2026-11-09 11:16:35       $ /home/ubuntu/new_indeed_script/shell_scripts/select_job_card.sh --window 65011735 --index 3 --card-x 430 --start-y 940 --max-y 1000 --probe-step 55 --probe-limit 12 --scroll-rounds 6 --marker vjk= --seen-keys bf297dd2cd1df2f5,9c30e0a57b566b5c
+2026-11-09 11:17:13 
+[STOP] signal 2. Checkpoint saved -- re-run to continue from here.
+2026-11-09 11:19:02 ========================================================================
+2026-11-09 11:19:02 NEW INDEED COLLECTOR -- Firefox / xdotool / xclip
+2026-11-09 11:19:02 ========================================================================
+2026-11-09 11:19:02   roles+cities : vendor/ (local, authoritative) -- new_mylib.py md5 5e06a7d1, target_audience_roles.py md5 54b25400
+  row builder  : /home/ubuntu/check_indeed (read-only, 32-column schema)  [stand-ins: gtts, psutil]
+2026-11-09 11:19:02   rank            : 2 of 5
+2026-11-09 11:19:02   keywords        : 1264
+2026-11-09 11:19:02     target-audience : 200  (15.8% of the plan)
+2026-11-09 11:19:02     fresher/other   : 1064  (84.2%)
+2026-11-09 11:19:02     departments     : 116
+2026-11-09 11:19:02   cities (all)    : 110
+2026-11-09 11:19:02   cities (rank 2) : 23  -> Madurai, Tiruchirappalli, Salem, Vellore ...
+2026-11-09 11:19:02   excel columns   : 32
+2026-11-09 11:19:02   output          : /home/ubuntu/new_indeed_script/Excel_Data/rank_2
+2026-11-09 11:19:02   temp            : /home/ubuntu/new_indeed_script/Temp_Data/rank_2
+2026-11-09 11:19:02   checkpoint      : /home/ubuntu/new_indeed_script/config/checkpoints/checkpoint_rank_2.json
+2026-11-09 11:19:02   loop            : city-outer, keyword-inner (brief section 8)
+2026-11-09 11:19:02   delays          : 10s before close, 10s before next card
+2026-11-09 11:19:02   night rest      : disabled
+2026-11-09 11:19:02   work period     : 3.7-4.2 h, then a 30-60 min break
+2026-11-09 11:19:02   fixed plan      : 5 page(s) x 10 card(s) = up to 50 jobs per keyword+city
+2026-11-09 11:19:02   paging          : page 1 = typed search, page 2+ = start=10,20,...
+2026-11-09 11:19:02   page ceiling    : 5 listing page(s) per keyword+city
+2026-11-09 11:19:02   unique target   : 50 distinct jobs EXAMINED per keyword+city
+2026-11-09 11:19:02   TOTAL COMPLETE CYCLE : 0   (cities finished this crawl cycle: 0/23)
+2026-11-09 11:19:02 ========================================================================
+2026-11-09 11:19:02 
+2026-11-09 11:19:02   [WARN] NOT SIGNED IN to Indeed (no Indeed session cookie in /home/ubuntu/new_indeed_script/config/firefox_profile/rank_2).
+2026-11-09 11:19:02          Indeed asks for a login when paging deeper into
+2026-11-09 11:19:02          results, so this run will collect the first page or
+2026-11-09 11:19:02          two and then stop finding new jobs.
+2026-11-09 11:19:02          To sign in once, in this same browser profile:
+2026-11-09 11:19:02              /home/ubuntu/new_indeed_script/venv/bin/python3 save_indeed_login.py
+2026-11-09 11:19:02 
+2026-11-09 11:19:02   search mode    : form
+2026-11-09 11:19:02       $ /home/ubuntu/new_indeed_script/shell_scripts/open_firefox.sh --profile /home/ubuntu/new_indeed_script/config/firefox_profile/rank_2 --url https://in.indeed.com --state-file /home/ubuntu/new_indeed_script/Temp_Data/rank_2/browser_window.json --expect-host indeed --download-dir /home/ubuntu/new_indeed_script/Temp_Data/rank_2 --window-size 1845x1046 --window-pos 0,34
+2026-11-09 11:19:12         [open_firefox] pre-existing Firefox windows (never touched): none
+2026-11-09 11:19:12         [open_firefox] display=:0 xauthority=/home/ubuntu/new_indeed_script/config/xauth_xwayland
+2026-11-09 11:19:12         [open_firefox] launch mode: snap (inner binary inside 'snap run --shell')
+2026-11-09 11:19:12         [open_firefox] firefox pid=28936
+2026-11-09 11:19:12         [open_firefox] window_id=65011735 name=Mozilla Firefox
+2026-11-09 11:19:12         [open_firefox] window geometry set on attempt 1: 1850x1053+70+27
+2026-11-09 11:19:12         [open_firefox] normal window: 1850x1053+70+27 (asked for 1845x1046+0+34)
+2026-11-09 11:19:12         [open_firefox] address bar: https://in.indeed.com/
+2026-11-09 11:19:12         [open_firefox] ready
+2026-11-09 11:19:12         -> exit 0 in 9.2s (window_id=65011735 fullscreen=no access_denied=no verified=yes)
+2026-11-09 11:19:12    browser ready: pid=28936 window=65011735 fullscreen=no
+2026-11-09 11:19:12 
+========================================================================
+2026-11-09 11:19:12 CRAWL CYCLE 1 | CITY 1/23: Madurai   (keywords 1..1264)
+2026-11-09 11:19:12 TOTAL COMPLETE CYCLE SO FAR: 0
+2026-11-09 11:19:12 ========================================================================
+2026-11-09 11:19:12 
+  [cycle 1 | city 1/23 Madurai | keyword 1/1264 MDM Engineer | worked 9s]
+2026-11-09 11:19:12 
+  [page 1/5] MDM Engineer @ Madurai  (start=0)
+2026-11-09 11:19:12       $ /home/ubuntu/new_indeed_script/shell_scripts/search_jobs.sh --window 65011735 --keyword 'MDM Engineer' --city Madurai --base-url https://in.indeed.com --mode form --what-xy 700,240 --where-xy 1100,240
+2026-11-09 11:19:19 
+[STOP] signal 2. Checkpoint saved -- re-run to continue from here.
+2026-11-09 11:19:44 ========================================================================
+2026-11-09 11:19:44 NEW INDEED COLLECTOR -- Firefox / xdotool / xclip
+2026-11-09 11:19:44 ========================================================================
+2026-11-09 11:19:44   roles+cities : vendor/ (local, authoritative) -- new_mylib.py md5 5e06a7d1, target_audience_roles.py md5 54b25400
+  row builder  : /home/ubuntu/check_indeed (read-only, 32-column schema)  [stand-ins: gtts, psutil]
+2026-11-09 11:19:44   rank            : 2 of 5
+2026-11-09 11:19:44   keywords        : 1264
+2026-11-09 11:19:44     target-audience : 200  (15.8% of the plan)
+2026-11-09 11:19:44     fresher/other   : 1064  (84.2%)
+2026-11-09 11:19:44     departments     : 116
+2026-11-09 11:19:44   cities (all)    : 110
+2026-11-09 11:19:44   cities (rank 2) : 23  -> Madurai, Tiruchirappalli, Salem, Vellore ...
+2026-11-09 11:19:44   excel columns   : 32
+2026-11-09 11:19:44   output          : /home/ubuntu/new_indeed_script/Excel_Data/rank_2
+2026-11-09 11:19:44   temp            : /home/ubuntu/new_indeed_script/Temp_Data/rank_2
+2026-11-09 11:19:44   checkpoint      : /home/ubuntu/new_indeed_script/config/checkpoints/checkpoint_rank_2.json
+2026-11-09 11:19:44   loop            : city-outer, keyword-inner (brief section 8)
+2026-11-09 11:19:44   delays          : 10s before close, 10s before next card
+2026-11-09 11:19:44   night rest      : disabled
+2026-11-09 11:19:44   work period     : 3.7-4.2 h, then a 30-60 min break
+2026-11-09 11:19:44   fixed plan      : 5 page(s) x 10 card(s) = up to 50 jobs per keyword+city
+2026-11-09 11:19:44   paging          : page 1 = typed search, page 2+ = start=10,20,...
+2026-11-09 11:19:44   page ceiling    : 5 listing page(s) per keyword+city
+2026-11-09 11:19:44   unique target   : 50 distinct jobs EXAMINED per keyword+city
+2026-11-09 11:19:44   TOTAL COMPLETE CYCLE : 0   (cities finished this crawl cycle: 0/23)
+2026-11-09 11:19:44 ========================================================================
+2026-11-09 11:19:44 
+2026-11-09 11:19:44   [WARN] NOT SIGNED IN to Indeed (no Indeed session cookie in /home/ubuntu/new_indeed_script/config/firefox_profile/rank_2).
+2026-11-09 11:19:44          Indeed asks for a login when paging deeper into
+2026-11-09 11:19:44          results, so this run will collect the first page or
+2026-11-09 11:19:44          two and then stop finding new jobs.
+2026-11-09 11:19:44          To sign in once, in this same browser profile:
+2026-11-09 11:19:44              /home/ubuntu/new_indeed_script/venv/bin/python3 save_indeed_login.py
+2026-11-09 11:19:44 
+2026-11-09 11:19:44   search mode    : form
+2026-11-09 11:19:44       $ /home/ubuntu/new_indeed_script/shell_scripts/open_firefox.sh --profile /home/ubuntu/new_indeed_script/config/firefox_profile/rank_2 --url https://in.indeed.com --state-file /home/ubuntu/new_indeed_script/Temp_Data/rank_2/browser_window.json --expect-host indeed --download-dir /home/ubuntu/new_indeed_script/Temp_Data/rank_2 --window-size 1845x1046 --window-pos 0,34
+2026-11-09 11:19:54         [open_firefox] pre-existing Firefox windows (never touched): none
+2026-11-09 11:19:54         [open_firefox] display=:0 xauthority=/home/ubuntu/new_indeed_script/config/xauth_xwayland
+2026-11-09 11:19:54         [open_firefox] launch mode: snap (inner binary inside 'snap run --shell')
+2026-11-09 11:19:54         [open_firefox] firefox pid=29805
+2026-11-09 11:19:54         [open_firefox] window_id=65011735 name=Mozilla Firefox
+2026-11-09 11:19:54         [open_firefox] window geometry set on attempt 1: 1850x1053+70+27
+2026-11-09 11:19:54         [open_firefox] normal window: 1850x1053+70+27 (asked for 1845x1046+0+34)
+2026-11-09 11:19:54         [open_firefox] address bar: https://in.indeed.com/
+2026-11-09 11:19:54         [open_firefox] ready
+2026-11-09 11:19:54         -> exit 0 in 9.7s (window_id=65011735 fullscreen=no access_denied=no verified=yes)
+2026-11-09 11:19:54    browser ready: pid=29805 window=65011735 fullscreen=no
+2026-11-09 11:19:54 
+========================================================================
+2026-11-09 11:19:54 CRAWL CYCLE 1 | CITY 1/23: Madurai   (keywords 1..1264)
+2026-11-09 11:19:54 TOTAL COMPLETE CYCLE SO FAR: 0
+2026-11-09 11:19:54 ========================================================================
+2026-11-09 11:19:54 
+  [cycle 1 | city 1/23 Madurai | keyword 1/1264 MDM Engineer | worked 9s]
+2026-11-09 11:19:54 
+  [page 1/5] MDM Engineer @ Madurai  (start=0)
+2026-11-09 11:19:54       $ /home/ubuntu/new_indeed_script/shell_scripts/search_jobs.sh --window 65011735 --keyword 'MDM Engineer' --city Madurai --base-url https://in.indeed.com --mode form --what-xy 700,240 --where-xy 1100,240
+2026-11-09 11:19:58 
+[STOP] signal 2. Checkpoint saved -- re-run to continue from here.
+2026-11-09 11:22:17 ========================================================================
+2026-11-09 11:22:17 NEW INDEED COLLECTOR -- Firefox / xdotool / xclip
+2026-11-09 11:22:17 ========================================================================
+2026-11-09 11:22:17   roles+cities : vendor/ (local, authoritative) -- new_mylib.py md5 5e06a7d1, target_audience_roles.py md5 54b25400
+  row builder  : /home/ubuntu/check_indeed (read-only, 32-column schema)  [stand-ins: gtts, psutil]
+2026-11-09 11:22:17   rank            : 2 of 5
+2026-11-09 11:22:17   keywords        : 1264
+2026-11-09 11:22:17     target-audience : 200  (15.8% of the plan)
+2026-11-09 11:22:17     fresher/other   : 1064  (84.2%)
+2026-11-09 11:22:17     departments     : 116
+2026-11-09 11:22:17   cities (all)    : 110
+2026-11-09 11:22:17   cities (rank 2) : 23  -> Madurai, Tiruchirappalli, Salem, Vellore ...
+2026-11-09 11:22:17   excel columns   : 32
+2026-11-09 11:22:17   output          : /home/ubuntu/new_indeed_script/Excel_Data/rank_2
+2026-11-09 11:22:17   temp            : /home/ubuntu/new_indeed_script/Temp_Data/rank_2
+2026-11-09 11:22:17   checkpoint      : /home/ubuntu/new_indeed_script/config/checkpoints/checkpoint_rank_2.json
+2026-11-09 11:22:17   loop            : city-outer, keyword-inner (brief section 8)
+2026-11-09 11:22:17   delays          : 10s before close, 10s before next card
+2026-11-09 11:22:17   night rest      : disabled
+2026-11-09 11:22:17   work period     : 3.7-4.2 h, then a 30-60 min break
+2026-11-09 11:22:17   fixed plan      : 5 page(s) x 10 card(s) = up to 50 jobs per keyword+city
+2026-11-09 11:22:17   paging          : page 1 = typed search, page 2+ = start=10,20,...
+2026-11-09 11:22:17   page ceiling    : 5 listing page(s) per keyword+city
+2026-11-09 11:22:17   unique target   : 50 distinct jobs EXAMINED per keyword+city
+2026-11-09 11:22:17   TOTAL COMPLETE CYCLE : 0   (cities finished this crawl cycle: 0/23)
+2026-11-09 11:22:17 ========================================================================
+2026-11-09 11:22:17 
+2026-11-09 11:22:17   [WARN] NOT SIGNED IN to Indeed (no Indeed session cookie in /home/ubuntu/new_indeed_script/config/firefox_profile/rank_2).
+2026-11-09 11:22:17          Indeed asks for a login when paging deeper into
+2026-11-09 11:22:17          results, so this run will collect the first page or
+2026-11-09 11:22:17          two and then stop finding new jobs.
+2026-11-09 11:22:17          To sign in once, in this same browser profile:
+2026-11-09 11:22:17              /home/ubuntu/new_indeed_script/venv/bin/python3 save_indeed_login.py
+2026-11-09 11:22:17 
+2026-11-09 11:22:17   search mode    : form
+2026-11-09 11:22:17       $ /home/ubuntu/new_indeed_script/shell_scripts/open_firefox.sh --profile /home/ubuntu/new_indeed_script/config/firefox_profile/rank_2 --url https://in.indeed.com --state-file /home/ubuntu/new_indeed_script/Temp_Data/rank_2/browser_window.json --expect-host indeed --download-dir /home/ubuntu/new_indeed_script/Temp_Data/rank_2 --window-size 1845x1046 --window-pos 0,34
+2026-11-09 11:22:25 
+[STOP] signal 2. Checkpoint saved -- re-run to continue from here.

@@ -1513,8 +1513,15 @@ def collect(args):
         log("         Indeed asks for a login when paging deeper into")
         log("         results, so this run will collect the first page or")
         log("         two and then stop finding new jobs.")
-        log("         To sign in once, in this same browser profile:")
-        log("             %s save_indeed_login.py" % sys.executable)
+        log("         Each rank has its OWN browser profile, so a login in")
+        log("         one rank's profile is invisible to the others.")
+        log("         Sign in once:")
+        log("             %s save_indeed_login.py --rank %d"
+            % (sys.executable, rank))
+        log("         Or, if another rank is already signed in, copy its")
+        log("         session to every rank without signing in again:")
+        log("             %s save_indeed_login.py --sync-only --rank <that one>"
+            % sys.executable)
         log("")
 
     # A file:// fixture has no Indeed search form to click, so form mode

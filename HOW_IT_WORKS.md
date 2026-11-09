@@ -221,6 +221,39 @@ Three details that matter:
   session cookies appear, it says so and lists the new cookies as evidence
   rather than reporting a login that may not exist.
 
+**One login, every rank.** Each rank runs its own Firefox profile
+(`config/firefox_profile/rank_N`) so two ranks can run at once without
+fighting over a profile lock — a second Firefox on one profile gets a
+"Close Firefox" dialog, not a window. The cost is that a login in rank 1's
+profile is *invisible* to rank 2: separate profile, separate
+`cookies.sqlite`, separate session. Symptom: change the rank, run again,
+and the listing pages come back logged out.
+
+Signing in five times is the obvious answer and the wrong one. After a
+successful login the session is **copied into every other rank's profile**,
+and it can be done on its own at any time:
+
+```bash
+venv/bin/python save_indeed_login.py --sync-only --rank 1
+```
+```
+session found (PPID, SOCK, SHOE); copying to the other ranks:
+  rank 2: session copied (PPID, SOCK, SHOE)
+  rank 3: session copied (PPID, SOCK, SHOE)
+  rank 4: session copied (PPID, SOCK, SHOE)
+  rank 5: session copied (PPID, SOCK, SHOE)
+```
+
+Two details that make it correct rather than merely convenient:
+
+- **A rank whose Firefox is running is skipped, never overwritten.** It
+  holds the database open and would write its own copy back over ours on
+  exit — the sync would silently undo itself.
+- **`cookies.sqlite-wal` is copied too**, and a stale one on the target is
+  removed. The write-ahead log holds cookies not yet checkpointed, so
+  copying only `cookies.sqlite` can copy a session missing its newest half,
+  and replaying a stale `-wal` would undo the one just written.
+
 The collector checks at startup and **warns without blocking** — the first
 page really does read signed out:
 
