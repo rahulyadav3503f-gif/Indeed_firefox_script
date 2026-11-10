@@ -6,5 +6,5 @@
     "each. See upstream.py. Resolution order: INDEED_UPSTREAM_DIR, then this",
     "setting, then upstream.DEFAULT_UPSTREAM_DIR."
   ],
-  "upstream_dir": "/home/abhinav/rahul1/indeed_scrapper"
+  "upstream_dir": "/home/abhinav/indeed_script"
 }

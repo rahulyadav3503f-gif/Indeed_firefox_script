@@ -9,7 +9,7 @@ alias deactivate 'test $?_OLD_VIRTUAL_PATH != 0 && setenv PATH "$_OLD_VIRTUAL_PA
 # Unset irrelevant variables.
 deactivate nondestructive
 
-setenv VIRTUAL_ENV /home/abhinav/rahul1/rahul_new_indeed_script/Indeed_firefox_script/venv
+setenv VIRTUAL_ENV /home/abhinav/rahul3/rahul_new_indeed_script/Indeed_firefox_script/venv
 
 set _OLD_VIRTUAL_PATH="$PATH"
 setenv PATH "$VIRTUAL_ENV/"bin":$PATH"

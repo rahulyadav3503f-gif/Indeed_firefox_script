@@ -4,7 +4,7 @@
   "rank": 1,
   "num_sys": 5,
   "crawl_cycle_number": 1,
-  "cycle_started_at": "2026-11-09 11:07:56",
+  "cycle_started_at": "2026-11-10 11:44:00",
   "cities": [
     "Delhi",
     "Gurugram",
@@ -5100,46 +5100,16 @@
   "current_page": 1,
   "current_city": "Delhi",
   "current_keyword": "Social Media Designer",
-  "done_job_urls": [
-    "https://in.indeed.com/"
-  ],
+  "done_job_urls": [],
   "completed_cities": [],
   "total_complete_cycle": 0,
-  "last_completed_job_id": "a675dc8b3e50c670624ffc7b12940e95",
-  "saved_jobs": 6,
-  "duplicate_jobs": 1,
-  "rejected_jobs": 2,
-  "failed_jobs": 2,
-  "examined_jobs": 8,
-  "failure_state": {
-    "at": "2026-11-09 11:24:29",
-    "stage": "open_firefox.sh",
-    "reason": "Firefox is up in a normal window, but the address bar does not contain 'indeed'. Got:  non user content | stage=open_firefox.sh | exit=7",
-    "rank": 1,
-    "city": "Delhi",
-    "keyword": "Social Media Designer",
-    "page": 1
-  },
+  "last_completed_job_id": "",
+  "saved_jobs": 0,
+  "duplicate_jobs": 0,
+  "rejected_jobs": 0,
+  "failed_jobs": 0,
+  "examined_jobs": 0,
+  "failure_state": null,
   "cycle_complete": false,
-  "updated_at": "2026-11-09 11:34:10",
-  "recent_failures": [
-    {
-      "at": "2026-11-09 11:08:08",
-      "stage": "open_firefox.sh",
-      "reason": "Firefox is up in a normal window, but the address bar does not contain 'indeed'. Got:  non user content | stage=open_firefox.sh | exit=7",
-      "rank": 1,
-      "city": "Delhi",
-      "keyword": "Social Media Designer",
-      "page": 1
-    },
-    {
-      "at": "2026-11-09 11:24:29",
-      "stage": "open_firefox.sh",
-      "reason": "Firefox is up in a normal window, but the address bar does not contain 'indeed'. Got:  non user content | stage=open_firefox.sh | exit=7",
-      "rank": 1,
-      "city": "Delhi",
-      "keyword": "Social Media Designer",
-      "page": 1
-    }
-  ]
+  "updated_at": "2026-11-10 11:46:42"
 }

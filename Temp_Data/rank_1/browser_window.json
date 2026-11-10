@@ -1,12 +1,12 @@
 {
-  "firefox_pid": 33413,
-  "window_id": "65011735",
-  "profile_dir": "/home/ubuntu/new_indeed_script/config/firefox_profile/rank_1",
-  "download_dir": "/home/ubuntu/new_indeed_script/Temp_Data/rank_1",
+  "firefox_pid": 133202,
+  "window_id": "4194347",
+  "profile_dir": "/home/abhinav/rahul3/rahul_new_indeed_script/Indeed_firefox_script/config/firefox_profile/rank_1",
+  "download_dir": "/home/abhinav/rahul3/rahul_new_indeed_script/Indeed_firefox_script/Temp_Data/rank_1",
   "url": "https://in.indeed.com/",
   "verified": "yes",
   "fullscreen": "no",
-  "display": ":0",
-  "xauthority": "/home/ubuntu/new_indeed_script/config/xauth_xwayland",
-  "started_at": "2026-11-09T11:24:59+05:30"
+  "display": ":105",
+  "xauthority": "",
+  "started_at": "2026-11-10T11:44:09+05:30"
 }

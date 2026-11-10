@@ -33,7 +33,7 @@ end
 # Unset irrelevant variables.
 deactivate nondestructive
 
-set -gx VIRTUAL_ENV /home/abhinav/rahul1/rahul_new_indeed_script/Indeed_firefox_script/venv
+set -gx VIRTUAL_ENV /home/abhinav/rahul3/rahul_new_indeed_script/Indeed_firefox_script/venv
 
 set -gx _OLD_VIRTUAL_PATH $PATH
 set -gx PATH "$VIRTUAL_ENV/"bin $PATH

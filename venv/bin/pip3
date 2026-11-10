@@ -1,6 +1,7 @@
-#!/home/abhinav/rahul1/rahul_new_indeed_script/Indeed_firefox_script/venv/bin/python3
+#!/home/abhinav/rahul3/rahul_new_indeed_script/Indeed_firefox_script/venv/bin/python3
 import sys
-from pip._internal.cli.main import main
+from pip._internal.cli.main import cli
 if __name__ == '__main__':
-    sys.argv[0] = sys.argv[0].removesuffix('.exe')
-    sys.exit(main())
+    if sys.argv[0].endswith('.exe'):
+        sys.argv[0] = sys.argv[0][:-4]
+    sys.exit(cli())

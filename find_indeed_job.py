@@ -74,7 +74,7 @@ if BASE_DIR not in sys.path:
 # The contract is the original project's, including the slicing algorithm
 # (see get_cities_by_rank).  Override from the command line with
 # --rank / --num-sys; these are the defaults.
-rank = 3
+rank = 1
 num_sys = 5
 
 # -- the source ------------------------------------------------------------
