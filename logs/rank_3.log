@@ -1141,3 +1141,247 @@
 2026-11-09 23:13:47       $ /home/abhinav/rahul1/rahul_new_indeed_script/Indeed_firefox_script/shell_scripts/select_job_card.sh --window 6291499 --index 7 --card-x 440 --start-y 502 --max-y 1062 --probe-step 55 --probe-limit 12 --scroll-rounds 6 --marker vjk= --seen-keys c9e3292a4cd96c94,09af3effa4a6c678,cc135b9c5d4bd391,5808f173973339e5,ebadf68aa5a23bcd,ab2a7cd954d011e7,84c8f40078f062f0
 2026-11-09 23:15:41 
 [STOP] signal 2. Checkpoint saved -- re-run to continue from here.
+2026-11-10 09:39:51   display         : :0 (inherited)
+2026-11-10 09:39:51 ========================================================================
+2026-11-10 09:39:51 NEW INDEED COLLECTOR -- Firefox / xdotool / xclip
+2026-11-10 09:39:51 ========================================================================
+2026-11-10 09:39:51   roles+cities : vendor/ (local, authoritative) -- new_mylib.py md5 5e06a7d1, target_audience_roles.py md5 54b25400
+  row builder  : /home/ubuntu/check_indeed (read-only, 32-column schema)  [stand-ins: gtts, psutil]
+2026-11-10 09:39:51   rank            : 3 of 5
+2026-11-10 09:39:51   keywords        : 1264
+2026-11-10 09:39:51     target-audience : 200  (15.8% of the plan)
+2026-11-10 09:39:51     fresher/other   : 1064  (84.2%)
+2026-11-10 09:39:51     departments     : 116
+2026-11-10 09:39:51   cities (all)    : 110
+2026-11-10 09:39:51   cities (rank 3) : 23  -> Vapi, Bharuch, Kochi, Cochin ...
+2026-11-10 09:39:51   excel columns   : 32
+2026-11-10 09:39:51   output          : /home/ubuntu/new_indeed_script/Excel_Data/rank_3
+2026-11-10 09:39:51   temp            : /home/ubuntu/new_indeed_script/Temp_Data/rank_3
+2026-11-10 09:39:51   checkpoint      : /home/ubuntu/new_indeed_script/config/checkpoints/checkpoint_rank_3.json
+2026-11-10 09:39:51   loop            : city-outer, keyword-inner (brief section 8)
+2026-11-10 09:39:51   delays          : 10s before close, 10s before next card
+2026-11-10 09:39:51   between keywords: close the browser, wait 5s, reopen on the home page, verify the search fields
+2026-11-10 09:39:51   complete cycle  : all keywords for one city, then rest 10m 00s
+2026-11-10 09:39:51   night rest      : disabled
+2026-11-10 09:39:51   work period     : 3.7-4.2 h, then a 30-60 min break
+2026-11-10 09:39:51   fixed plan      : 5 page(s) x 10 card(s) = up to 50 jobs per keyword+city
+2026-11-10 09:39:51   paging          : page 1 = typed search, page 2+ = start=10,20,...
+2026-11-10 09:39:51   cards per page  : counted from each page's own source, capped at 10
+2026-11-10 09:39:51   repeated page   : same card list as the previous page -> next keyword
+2026-11-10 09:39:51   page ceiling    : 5 listing page(s) per keyword+city
+2026-11-10 09:39:51   unique target   : 50 distinct jobs EXAMINED per keyword+city
+2026-11-10 09:39:51   TOTAL COMPLETE CYCLE : 0   (cities finished this crawl cycle: 0/23)
+2026-11-10 09:39:51 ========================================================================
+2026-11-10 09:39:51   indeed login   : signed in  (session cookies: PPID, SOCK, SHOE)
+2026-11-10 09:39:51   search mode    : form
+2026-11-10 09:39:51       $ /home/ubuntu/new_indeed_script/shell_scripts/open_firefox.sh --profile /home/ubuntu/new_indeed_script/config/firefox_profile/rank_3 --url https://in.indeed.com --state-file /home/ubuntu/new_indeed_script/Temp_Data/rank_3/browser_window.json --expect-host indeed --download-dir /home/ubuntu/new_indeed_script/Temp_Data/rank_3 --window-size 1845x1046 --window-pos 0,34
+2026-11-10 09:40:08         [open_firefox] pre-existing Firefox windows (never touched): none
+2026-11-10 09:40:08         [open_firefox] display=:0 xauthority=/run/user/1000/gdm/Xauthority
+2026-11-10 09:40:08         [open_firefox] launch mode: snap (inner binary inside 'snap run --shell')
+2026-11-10 09:40:08         [open_firefox] firefox pid=5303
+2026-11-10 09:40:08         [open_firefox] window_id=65011735 name=Mozilla Firefox
+2026-11-10 09:40:08         [open_firefox] window geometry set on attempt 1: 1850x1053+70+27
+2026-11-10 09:40:08         [open_firefox] normal window: 1850x1053+70+27 (asked for 1845x1046+0+34)
+2026-11-10 09:40:08         [open_firefox] address bar: https://in.indeed.com/
+2026-11-10 09:40:08         [open_firefox] ready
+2026-11-10 09:40:08         -> exit 0 in 16.9s (window_id=65011735 fullscreen=no access_denied=no verified=yes)
+2026-11-10 09:40:08    window landed at +70+27, not the +0+34 it was asked for: clicks shifted by (+70,-7) to match
+2026-11-10 09:40:08    browser ready: pid=5303 window=65011735 fullscreen=no
+2026-11-10 09:40:08 
+========================================================================
+2026-11-10 09:40:08 CRAWL CYCLE 1 | CITY 1/23: Vapi   (keywords 1..1264)
+2026-11-10 09:40:08 TOTAL COMPLETE CYCLE SO FAR: 0
+2026-11-10 09:40:08 ========================================================================
+2026-11-10 09:40:08 
+  [cycle 1 | city 1/23 Vapi | keyword 1/1264 Product Consultant | worked 16s]
+2026-11-10 09:40:08 
+  [page 1/5] Product Consultant @ Vapi  (start=0)
+2026-11-10 09:40:08       $ /home/ubuntu/new_indeed_script/shell_scripts/search_jobs.sh --window 65011735 --keyword 'Product Consultant' --city Vapi --base-url https://in.indeed.com --mode form --what-xy 770,233 --where-xy 1170,233
+2026-11-10 09:40:25         [search_jobs] input guard passed; address bar reads: https://in.indeed.com/
+2026-11-10 09:40:25         [search_jobs] waiting 7.0s for the page to settle before typing
+2026-11-10 09:40:25         [search_jobs] form search: 'Product Consultant' in 'Vapi'
+2026-11-10 09:40:25         [search_jobs] clicking the keyword box at 770,233
+2026-11-10 09:40:25         [search_jobs] clicking the city box at 1170,233
+2026-11-10 09:40:25         [search_jobs] ERROR(7): the keyword box holds ' non user content
+2026-11-10 09:40:25         
+2026-11-10 09:40:25         Start of main content
+2026-11-10 09:40:25         Keyword : all jobs
+2026-11-10 09:40:25         &nbsp;
+2026-11-10 09:40:25         Edit location input box label
+2026-11-10 09:40:25         Welcome, rohan
+2026-11-10 09:40:25         You haven't added a resume yetA resume helps you stand out and apply faster.
+2026-11-10 09:40:25         Jobs for you
+2026-11-10 09:40:25         
+2026-11-10 09:40:25             Photoshop Designers
+2026-11-10 09:40:25             Dimension India Networks (P) Ltd.
+2026-11-10 09:40:25             Delhi
+2026-11-10 09:40:25             Graphics Designer (Onsite job)
+2026-11-10 09:40:25             Easily apply
+2026-11-10 09:40:25             Nisha Rajput Coaching
+2026-11-10 09:40:25             Sagarpur, Delhi, Delhi
+2026-11-10 09:40:25                 ₹12,000 - ₹18,000 a month
+2026-11-10 09:40:25                 Full-time +1
+2026-11-10 09:40:25             Video Editor
+2026-11-10 09:40:25             Easily apply
+2026-11-10 09:40:25             New
+2026-11-10 09:40:25             The Digiconnetcs
+2026-11-10 09:40:25             Virar, Maharashtra
+2026-11-10 09:40:25                 ₹15,000 - ₹20,000 a month
+2026-11-10 09:40:25                 Internship
+2026-11-10 09:40:25             Graphic Designer Internship
+2026-11-10 09:40:25             Easily apply
+2026-11-10 09:40:25             Multiple openings
+2026-11-10 09:40:25             graphonix infotech pvt ltd
+2026-11-10 09:40:25             Meerut, Uttar Pradesh
+2026-11-10 09:40:25                 ₹8,000 - ₹21,000 a month
+2026-11-10 09:40:25                 Full-time +3
+2026-11-10 09:40:25             Video Editor
+2026-11-10 09:40:25             Easily apply
+2026-11-10 09:40:25             Often replies in 1 day
+2026-11-10 09:40:25             House of Ataraxia
+2026-11-10 09:40:25             Chandigarh
+2026-11-10 09:40:25                 ₹10,000 - ₹34,000 a month
+2026-11-10 09:40:25                 Full-time
+2026-11-10 09:40:25             Video editor intern
+2026-11-10 09:40:25             Easily apply
+2026-11-10 09:40:25             Nareka creative growth agency
+2026-11-10 09:40:25             Remote
+2026-11-10 09:40:25                 ₹1,000 - ₹2,000 a month
+2026-11-10 09:40:25                 Full-time +3
+2026-11-10 09:40:25             Video Editor
+2026-11-10 09:40:25             Easily apply
+2026-11-10 09:40:25             Social ScaleX
+2026-11-10 09:40:25             Rajouri Garden, Delhi, Delhi
+2026-11-10 09:40:25                 ₹10,000 - ₹15,000 a month
+2026-11-10 09:40:25             Graphic Designer
+2026-11-10 09:40:25             Easily apply
+2026-11-10 09:40:25             SaveInGrams
+2026-11-10 09:40:25             Delhi
+2026-11-10 09:40:25                 ₹18,000 - ₹25,000 a month
+2026-11-10 09:40:25             Graphic Designer (Work from Home)
+2026-11-10 09:40:25             Nestsoft technologies
+2026-11-10 09:40:25             India
+2026-11-10 09:40:25                 ₹20,000 - ₹30,000 a month
+2026-11-10 09:40:25             Junior Video Editor
+2026-11-10 09:40:25             Easily apply
+2026-11-10 09:40:25             WXM Productions Pvt Ltd
+2026-11-10 09:40:25             Delhi, Delhi
+2026-11-10 09:40:25                 ₹25,000 - ₹45,000 a month
+2026-11-10 09:40:25             GRAPHIC DESIGNER / CREATIVE DESIGNER – FRESHERS WELCOME
+2026-11-10 09:40:25             Easily apply
+2026-11-10 09:40:25             Star Advertising & Printing
+2026-11-10 09:40:25             South District, Delhi
+2026-11-10 09:40:25                 ₹10,334.65 - ₹25,452.38 a month
+2026-11-10 09:40:25         
+2026-11-10 09:40:25         Return to Search Result
+2026-11-10 09:40:25         Job Post Details
+2026-11-10 09:40:25         Photoshop Designers
+2026-11-10 09:40:25         Dimension India Networks (P) Ltd.
+2026-11-10 09:40:25         ·
+2026-11-10 09:40:25         4.0
+2026-11-10 09:40:25         Delhi
+2026-11-10 09:40:25         Fresher
+2026-11-10 09:40:25         Apply on company site
+2026-11-10 09:40:25         Job details
+2026-11-10 09:40:25         Pay information not provided
+2026-11-10 09:40:25         Fresher
+2026-11-10 09:40:25         Delhi
+2026-11-10 09:40:25         Full job description
+2026-11-10 09:40:25         Photoshop Designers
+2026-11-10 09:40:25         
+2026-11-10 09:40:25         Skills: Good working knowledge of Adobe Photoshop.
+2026-11-10 09:40:25         
+2026-11-10 09:40:25         Qualification: Any Graduate with knowledge of Adobe Photoshop.
+2026-11-10 09:40:25         
+2026-11-10 09:40:25         Profile: Working on image processing using Adobe Photoshop. We have various assignments that you will be assigned to work upon as part of a team.
+2026-11-10 09:40:25         
+2026-11-10 09:40:25         Experience: Freshers and above!
+2026-11-10 09:40:25         
+2026-11-10 09:40:25         Is there a problem with this job?
+2026-11-10 09:40:25         Return to Search Result', not 'Product Consultant'. The click at 770,233 did not land in the search field. Nothing was submitted. Adjust --what-xy for this window size.
+2026-11-10 09:40:25         -> exit 7 in 16.6s 
+2026-11-10 09:40:25   [WARN] the search failed (the keyword box holds ' non user content | stage=search_jobs.sh | exit=7)
+2026-11-10 09:40:25       [wait] 23s before a retry
+2026-11-10 09:40:49 
+  [page 1/5] Product Consultant @ Vapi  (start=0)
+2026-11-10 09:40:49       $ /home/ubuntu/new_indeed_script/shell_scripts/search_jobs.sh --window 65011735 --keyword 'Product Consultant' --city Vapi --base-url https://in.indeed.com --mode form --what-xy 770,233 --where-xy 1170,233
+2026-11-10 09:41:06         [search_jobs] input guard passed; address bar reads: https://in.indeed.com/
+2026-11-10 09:41:06         [search_jobs] waiting 7.0s for the page to settle before typing
+2026-11-10 09:41:06         [search_jobs] form search: 'Product Consultant' in 'Vapi'
+2026-11-10 09:41:06         [search_jobs] clicking the keyword box at 770,233
+2026-11-10 09:41:06         [search_jobs] clicking the city box at 1170,233
+2026-11-10 09:41:06         [search_jobs] ERROR(7): the keyword box holds ' non user content
+2026-11-10 09:41:06         
+2026-11-10 09:41:06         Start of main content
+2026-11-10 09:41:06         Keyword : all jobs
+2026-11-10 09:41:06         &nbsp;
+2026-11-10 09:41:06         Edit location input box label
+2026-11-10 09:41:06         Welcome, rohan
+2026-11-10 09:41:06         You haven't added a resume yetA resume helps you stand out and apply faster.
+2026-11-10 09:41:06         Jobs for you
+2026-11-10 09:41:06         
+2026-11-10 09:41:06             Photoshop Designers
+2026-11-10 09:41:06             Dimension India Networks (P) Ltd.
+2026-11-10 09:41:06             Delhi
+2026-11-10 09:41:06             Graphics Designer (Onsite job)
+2026-11-10 09:41:06             Easily apply
+2026-11-10 09:41:06             Nisha Rajput Coaching
+2026-11-10 09:41:06             Sagarpur, Delhi, Delhi
+2026-11-10 09:41:06                 ₹12,000 - ₹18,000 a month
+2026-11-10 09:41:06                 Full-time +1
+2026-11-10 09:41:06             Video Editor
+2026-11-10 09:41:06             Easily apply
+2026-11-10 09:41:06             New
+2026-11-10 09:41:06             The Digiconnetcs
+2026-11-10 09:41:06             Virar, Maharashtra
+2026-11-10 09:41:06                 ₹15,000 - ₹20,000 a month
+2026-11-10 09:41:06                 Internship
+2026-11-10 09:41:06             Graphic Designer Internship
+2026-11-10 09:41:06             Easily apply
+2026-11-10 09:41:06             Multiple openings
+2026-11-10 09:41:06             graphonix infotech pvt ltd
+2026-11-10 09:41:06             Meerut, Uttar Pradesh
+2026-11-10 09:41:06                 ₹8,000 - ₹21,000 a month
+2026-11-10 09:41:06                 Full-time +3
+2026-11-10 09:41:06             Video Editor
+2026-11-10 09:41:06             Easily apply
+2026-11-10 09:41:06             Often replies in 1 day
+2026-11-10 09:41:06             House of Ataraxia
+2026-11-10 09:41:06             Chandigarh
+2026-11-10 09:41:06                 ₹10,000 - ₹34,000 a month
+2026-11-10 09:41:06                 Full-time
+2026-11-10 09:41:06             Video editor intern
+2026-11-10 09:41:06             Easily apply
+2026-11-10 09:41:06             Nareka creative growth agency
+2026-11-10 09:41:06             Remote
+2026-11-10 09:41:06                 ₹1,000 - ₹2,000 a month
+2026-11-10 09:41:06                 Full-time +3
+2026-11-10 09:41:06             Video Editor
+2026-11-10 09:41:06             Easily apply
+2026-11-10 09:41:06             Social ScaleX
+2026-11-10 09:41:06             Rajouri Garden, Delhi, Delhi
+2026-11-10 09:41:06                 ₹10,000 - ₹15,000 a month
+2026-11-10 09:41:06             Graphic Designer
+2026-11-10 09:41:06             Easily apply
+2026-11-10 09:41:06             SaveInGrams
+2026-11-10 09:41:06             Delhi
+2026-11-10 09:41:06                 ₹18,000 - ₹25,000 a month
+2026-11-10 09:41:06             Graphic Designer (Work from Home)
+2026-11-10 09:41:06             Nestsoft technologies
+2026-11-10 09:41:06             India
+2026-11-10 09:41:06                 ₹20,000 - ₹30,000 a month
+2026-11-10 09:41:06             Junior Video Editor
+2026-11-10 09:41:06             Easily apply
+2026-11-10 09:41:06             WXM Productions Pvt Ltd
+2026-11-10 09:41:06             Delhi, Delhi
+2026-11-10 09:41:06                 ₹25,000 - ₹45,000 a month
+2026-11-10 09:41:06             GRAPHIC DESIGNER / CREATIVE DESIGNER – FRESHERS WELCOME
+2026-11-10 09:41:06             Easily apply
+2026-11-10 09:41:06             Star Advertising & Printing
+2026-11-10 09:41:06             South District, Delhi
+2026-11-10 09:41:06                 ₹10,334.65 - ₹25,452.38 a month', not 'Product Consultant'. The click at 770,233 did not land in the search field. Nothing was submitted. Adjust --what-xy for this window size.
+2026-11-10 09:41:06         -> exit 7 in 16.7s 
+2026-11-10 09:41:06   [WARN] the search failed (the keyword box holds ' non user content | stage=search_jobs.sh | exit=7)
+2026-11-10 09:41:06       [wait] 24s before a retry
+2026-11-10 09:41:20 
+[STOP] signal 2. Checkpoint saved -- re-run to continue from here.

@@ -1365,8 +1365,16 @@ class PageCensus(object):
 
     @property
     def definitely_empty(self):
-        """True only when the page itself said it has no jobs."""
-        return not self.keys and self.declared_count == 0
+        """True only when the page itself said it has no jobs.
+
+        BOTH numbers must agree, because "jobCount" on its own cannot carry
+        this: measured at 5 on a page holding 6 cards for a search that
+        matched 17.  So a jobCount of 0 is believed only when no match
+        count contradicts it -- otherwise an unreadable card list falls
+        back to the fixed plan, which is the safe direction.
+        """
+        return (not self.keys and self.declared_count == 0
+                and not self.total_matches)
 
 
 def read_page_census(controller, page):
@@ -2135,6 +2143,30 @@ def collect(args):
     try:
         controller.open_browser(start_url=base_url,
                                expect_host=None if fixture else "indeed")
+
+        # FIND THE SEARCH BOXES BEFORE THE FIRST KEYWORD IS TYPED.
+        #
+        # This was missing, and it is the gap the 2026-11-10 run fell
+        # through: every restart BETWEEN keywords verified the fields, but
+        # the first browser of the run did not -- so keyword 1 clicked at a
+        # coordinate nothing had checked, missed the box, and reported "the
+        # keyword box holds <4KB of Indeed's home page>" on a loop.
+        #
+        # Fixtures have no search form to find, so they are exempt.
+        if not fixture and VERIFY_SEARCH_FIELDS_AFTER_RESTART:
+            try:
+                controller.verify_search_fields()
+            except AccessDenied:
+                raise
+            except BrowserError as error:
+                log("\n[FAIL] the Indeed search boxes could not be found: %s"
+                    % error.detail())
+                log("  Nothing has been searched. The run stops here rather "
+                    "than typing keywords at a coordinate nothing has "
+                    "checked -- that is how a run once ended up reading job "
+                    "cards from youtube.com.")
+                raise
+
         result = run_cycle(controller, store, checkpoint,
                            max_combos=args.max_combos)
 
@@ -2225,7 +2257,73 @@ def parse_args(argv=None):
                              "(default %.0fs)" % POST_CLOSE_DELAY_SECONDS)
     parser.add_argument("--max-pages", type=int, default=None,
                         help="override MAX_LISTING_PAGES")
+    parser.add_argument("--verify-fields", action="store_true",
+                        help="open the browser, find Indeed's two search "
+                             "boxes, report where they are, and exit. "
+                             "Searches nothing and collects nothing.")
     return parser.parse_args(argv)
+
+
+def verify_fields_only(args):
+    """--verify-fields: find the two search boxes and report them.
+
+    The whole collection machinery is bypassed.  This opens the browser
+    exactly as a run does, probes for the boxes, prints the coordinates it
+    found, and leaves them in Temp_Data/rank_N/search_fields.json so the
+    next real run starts from a position that has been proven rather than
+    one that was measured on someone else's screen.
+
+    It types a two-letter probe, reads it back, and clears it.  It never
+    presses Return: nothing is searched and nothing is written to Excel.
+    """
+    config = build_controller_config(which_rank=args.rank)
+    controller = IndeedController(config)
+
+    log("=" * 72)
+    log("FINDING INDEED'S SEARCH BOXES -- rank %d" % args.rank)
+    log("=" * 72)
+    log("  profile    : %s" % config.profile_dir)
+    log("  home page  : %s" % config.base_url)
+    log("  first guess: what=%d,%d where=%d,%d"
+        % (controller._field_xy("what") + controller._field_xy("where")))
+    if controller.what_offset:
+        log("  (that first guess comes from %s)"
+            % controller.learned_fields_file)
+    signed_in, detail = check_indeed_login(config)
+    log("  login      : %s (%s)"
+        % ("signed in" if signed_in else "NOT signed in", detail))
+    log("")
+
+    try:
+        controller.open_browser(start_url=config.base_url,
+                                expect_host="indeed")
+        results = controller.verify_search_fields()
+    except BrowserError as error:
+        log("\n[FAIL] %s" % error.detail())
+        log("\nWhat to try next:")
+        log("  * Was the page a working Indeed home page? Signed in, it is")
+        log("    a different layout -- 'Jobs for you' rather than the hero")
+        log("    search panel -- and the boxes sit elsewhere.")
+        log("  * Widen the search: --scan-reach is %s px by default in"
+            % "120")
+        log("    verify_search_fields.sh; raise FIELD_SCAN_REACH to look")
+        log("    further from the starting guess.")
+        log("  * The window must be visible and not covered.")
+        return 6
+    finally:
+        controller.close_browser(wait=True)
+
+    log("")
+    log("=" * 72)
+    log("  keyword box  : %s" % results.get("learned_what_xy", "NOT FOUND"))
+    log("  location box : %s" % results.get("learned_where_xy", "NOT FOUND"))
+    log("  probes used  : %s" % results.get("probes", "?"))
+    log("  remembered as offsets from the window corner: what=%s where=%s"
+        % (controller.what_offset, controller.where_offset))
+    log("  stored in    : %s" % controller.learned_fields_file)
+    log("=" * 72)
+    log("Nothing was searched. A collection run will now aim here first.")
+    return 0
 
 
 def main(argv=None):
@@ -2254,6 +2352,8 @@ def main(argv=None):
             return show_plan(args)
         if args.status:
             return show_status(args)
+        if args.verify_fields:
+            return verify_fields_only(args)
         return collect(args)
     except upstream.UpstreamNotFound as error:
         log("[FAIL] %s" % error)

@@ -175,27 +175,58 @@ form)
 
     TYPED_KEYWORD=$(type_into_field "$SEARCH_WHAT_X" "$SEARCH_WHAT_Y" \
                                     "$KEYWORD" "keyword")
-    emit "typed_keyword=$TYPED_KEYWORD"
+    # PREVIEWS, not the raw read-back: a RESULT line is one line by
+    # definition -- the protocol is line-based -- and a whole-page copy
+    # would spray 120 lines through it and corrupt every later RESULT.
+    emit "typed_keyword=$(field_preview "$TYPED_KEYWORD")"
 
     TYPED_CITY=$(type_into_field "$SEARCH_WHERE_X" "$SEARCH_WHERE_Y" \
                                  "$CITY" "city")
-    emit "typed_city=$TYPED_CITY"
+    emit "typed_city=$(field_preview "$TYPED_CITY")"
 
     # CONFIRM BEFORE SUBMITTING.  A click that landed on the page background
     # instead of the input types the keyword into nothing, and submitting
     # then runs the PREVIOUS search again -- which would be recorded against
     # this keyword.  Refusing here is much cheaper than detecting it later.
+    # WHAT A FAILED READ-BACK ACTUALLY MEANS, AND HOW TO SAY IT.
+    #
+    # When the click misses the input, focus stays on the DOCUMENT -- and
+    # there Ctrl+A selects the whole page, so Ctrl+C copies it. The
+    # read-back then "holds" four kilobytes of Indeed's home page. Measured
+    # 2026-11-10: this message printed all of it, twice per retry, and the
+    # real fault (a click ~30px high) was invisible underneath.
+    #
+    # is_field_value() separates the two cases exactly -- an input's value
+    # cannot contain a newline -- and field_preview() keeps either one to a
+    # single line. See _common.sh.
     if [ -n "$TYPED_KEYWORD" ] && [ "$TYPED_KEYWORD" != "$KEYWORD" ]; then
+        if is_field_value "$TYPED_KEYWORD"; then
+            fail "$EX_NAVIGATION" \
+                "the keyword box holds $(field_preview "$TYPED_KEYWORD"), \
+not '$KEYWORD'. The click at ${SEARCH_WHAT_X},${SEARCH_WHAT_Y} landed in \
+some other field. Nothing was submitted."
+        fi
         fail "$EX_NAVIGATION" \
-            "the keyword box holds '$TYPED_KEYWORD', not '$KEYWORD'. The \
-click at ${SEARCH_WHAT_X},${SEARCH_WHAT_Y} did not land in the search field. \
-Nothing was submitted. Adjust --what-xy for this window size."
+            "the click at ${SEARCH_WHAT_X},${SEARCH_WHAT_Y} did NOT land in \
+the keyword box: it landed on the page body, so Ctrl+A selected the whole \
+document and the read-back is $(field_preview "$TYPED_KEYWORD"). Nothing \
+was submitted. Run verify_search_fields.sh to find the box -- it probes \
+nearby rows and reports the coordinates that work. (Indeed's home page has \
+a different layout when signed in, and a window manager may not place the \
+window where it was asked to.)"
     fi
     if [ -n "$TYPED_CITY" ] && [ "$TYPED_CITY" != "$CITY" ]; then
+        if is_field_value "$TYPED_CITY"; then
+            fail "$EX_NAVIGATION" \
+                "the city box holds $(field_preview "$TYPED_CITY"), not \
+'$CITY'. The click at ${SEARCH_WHERE_X},${SEARCH_WHERE_Y} landed in some \
+other field. Nothing was submitted."
+        fi
         fail "$EX_NAVIGATION" \
-            "the city box holds '$TYPED_CITY', not '$CITY'. The click at \
-${SEARCH_WHERE_X},${SEARCH_WHERE_Y} did not land in the location field. \
-Nothing was submitted. Adjust --where-xy for this window size."
+            "the click at ${SEARCH_WHERE_X},${SEARCH_WHERE_Y} did NOT land \
+in the location box: it landed on the page body and the read-back is \
+$(field_preview "$TYPED_CITY"). Nothing was submitted. Run \
+verify_search_fields.sh to find the box."
     fi
     # AN EMPTY READ-BACK IS A FAILURE, NOT A WARNING.
     #

@@ -694,20 +694,28 @@ def count_jobs(original_html):
 # the rest of the page probing empty space.  Reading the card list out of
 # the page's own source first turns that guesswork into a number.
 #
-# MEASURED on the saved results pages in Temp_Data: three independent
-# signals in the same document agreed exactly.
+# MEASURED on the saved results pages in Temp_Data. The `results` array is
+# the authority: it IS the list, in the page's own display order.
 #
-#     mosaic-provider-jobcards -> {"results": [{"jobkey": ...}, ...]}   5
-#     distinct "jobkey":"<16 hex>" anywhere in the document             5
-#     "jobCount": <n>                                                   5
+#     mosaic-provider-jobcards -> {"results": [{"jobkey": ...}, ...]}
 #
-# The `results` array is used because it is the list itself and it is in
-# the page's own display order; the other two corroborate it.
+# THE OTHER TWO NUMBERS ARE NOT THE SAME NUMBER, and a later measurement
+# proved it. On "17 Book Editor Jobs and Vacancies in Madurai":
+#
+#     len(results)        6     the cards actually on the page
+#     "jobCount"          5     DISAGREES -- and it is usually absent
+#     "totalJobCount"    17     what the SEARCH matched, title agrees
+#
+# So "jobCount" is kept as a reported curiosity and nothing is decided from
+# it; see PageCards.declared_count. Across 25 saved pages it was present on
+# two and wrong on both.
 
 #: `"jobkey":"<16 hex>"` as the page's own json spells it.
 _JOBKEY_IN_JSON = re.compile(r'"job[kK]ey"\s*:\s*"([a-f0-9]{16})"')
 
-#: Indeed's own count of the cards it put on the page.
+#: "jobCount". NOT the number of cards and NOT the number of matches --
+#: measured at 5 on a page carrying 6 cards for a search matching 17.
+#: Reported for the log, never used to decide anything.
 _JOB_COUNT = re.compile(r'"jobCount"\s*:\s*(\d+)')
 
 #: How many jobs the SEARCH matched -- a different number from jobCount.
@@ -731,7 +739,10 @@ class PageCards(object):
     ``keys``           the job keys, in the page's order, deduplicated.
     ``evidence``       which mechanism produced them -- "results-array",
                        "jobkey-scan", or "none".
-    ``declared_count`` Indeed's own "jobCount" for the page, or None.
+    ``declared_count`` the page's "jobCount", or None.  DO NOT DECIDE
+                       ANYTHING FROM THIS: measured at 5 on a page holding
+                       6 cards whose search matched 17.  It is logged so a
+                       reader can see it, and that is all.
 
     AN EMPTY ``keys`` MEANS "UNKNOWN", NOT "THIS PAGE HAS NO JOBS".
     Nothing may conclude the results have ended from an empty census: the

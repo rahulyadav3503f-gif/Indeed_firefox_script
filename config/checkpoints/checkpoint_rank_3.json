@@ -5115,19 +5115,19 @@
   "saved_jobs": 6,
   "duplicate_jobs": 8,
   "rejected_jobs": 1,
-  "failed_jobs": 5,
+  "failed_jobs": 7,
   "examined_jobs": 7,
   "failure_state": {
-    "at": "2026-11-09 22:59:45",
-    "stage": "open_firefox.sh",
-    "reason": "Firefox opened the 'Close Firefox' dialog instead of a browser window: another Firefox is already using the profile /home/abhinav/rahul1/rahul_new_indeed_script/Indeed_firefox_script/config/firefox_profile/rank_3. Close that instance first, or reuse its window instead of launching a new one. | stage=open_firefox.sh | exit=3",
+    "at": "2026-11-10 09:41:06",
+    "stage": "search",
+    "reason": "the keyword box holds ' non user content | stage=search_jobs.sh | exit=7",
     "rank": 3,
     "city": "Vapi",
     "keyword": "Product Consultant",
     "page": 1
   },
   "cycle_complete": false,
-  "updated_at": "2026-11-09 23:15:41",
+  "updated_at": "2026-11-10 09:41:20",
   "recent_failures": [
     {
       "at": "2026-11-09 21:01:22",
@@ -5173,6 +5173,24 @@
       "at": "2026-11-09 22:59:45",
       "stage": "open_firefox.sh",
       "reason": "Firefox opened the 'Close Firefox' dialog instead of a browser window: another Firefox is already using the profile /home/abhinav/rahul1/rahul_new_indeed_script/Indeed_firefox_script/config/firefox_profile/rank_3. Close that instance first, or reuse its window instead of launching a new one. | stage=open_firefox.sh | exit=3",
+      "rank": 3,
+      "city": "Vapi",
+      "keyword": "Product Consultant",
+      "page": 1
+    },
+    {
+      "at": "2026-11-10 09:40:25",
+      "stage": "search",
+      "reason": "the keyword box holds ' non user content | stage=search_jobs.sh | exit=7",
+      "rank": 3,
+      "city": "Vapi",
+      "keyword": "Product Consultant",
+      "page": 1
+    },
+    {
+      "at": "2026-11-10 09:41:06",
+      "stage": "search",
+      "reason": "the keyword box holds ' non user content | stage=search_jobs.sh | exit=7",
       "rank": 3,
       "city": "Vapi",
       "keyword": "Product Consultant",

@@ -190,15 +190,88 @@ Two details that are not cosmetic:
   logged-in window on a shared desktop is ten minutes of something that can
   go wrong, and the restart opens a fresh one anyway.
 
-**Why the fields are verified.** The very next thing the run does is click
-at a remembered coordinate and type a real keyword. If that click misses
-the input, the keyword goes nowhere and `Return` submits whatever the page
-had before — the failure that once sent a run to *youtube.com*.
-`verify_search_fields.sh` types a throwaway probe into each box, reads it
-back, and clears it. It never presses Return, and a box that cannot be read
-back is a hard failure. Three restarts failing in a row stops the run
-(`MAX_CONSECUTIVE_RESTART_FAILURES`) rather than typing into pages nothing
-can vouch for.
+**Why the fields are verified, and why verifying means *finding*.** The
+very next thing the run does is click at a coordinate and type a real
+keyword. If that click misses the input, the keyword goes nowhere and
+`Return` submits whatever the page had before — the failure that once sent
+a run to *youtube.com*.
+
+A fixed coordinate cannot carry that weight. Measured 2026-11-10, **three
+things moved it independently**:
+
+| What moved | Measured |
+|---|---|
+| the window manager | placed the window at `+70+27` when asked for `+0+34`, and `getwindowgeometry` reports the **frame**, so page content starts a title-bar lower than the arithmetic assumes |
+| being **signed in** | `in.indeed.com/` is a different page — "Welcome, rohan", a *Jobs for you* feed, an open job pane — not the signed-out hero layout the coordinates were measured on |
+| the page itself | the hero area keeps laying out after the page reports loaded |
+
+The result was a click ~30 px high, into the header strip above the box.
+
+So `verify_search_fields.sh` does what `select_job_card.sh` already does for
+job cards: **it probes and it learns.** The given coordinates are tried
+first, then nearby rows, **nearest first** — so a small offset costs two or
+three probes and a large one still succeeds:
+
+```
+y = 233  213  253  193  273  173  293  153  313  …     (±20 px, reach 120)
+```
+
+It reports `learned_what_xy` / `learned_where_xy`, and the controller aims
+the real search there. Two details that matter:
+
+- **The learned position is stored as an offset from the window's corner**,
+  not as a screen coordinate — because the browser is closed and reopened
+  between every keyword and the window does not come back in the same
+  place. It is written to `Temp_Data/rank_N/search_fields.json`, so a fresh
+  process starts from a position already proven.
+- **No probe is ever sent into Firefox's own chrome** (`MIN_PAGE_Y_OFFSET`).
+  A probe that lands in the **address bar** types the probe, reads the probe
+  back, and looks exactly like success — and the run would then type
+  "Product Consultant" into the address bar and press Return. The floor is a
+  safety property, not a tuning knob.
+
+It never presses Return, and every box it touches is cleared. Three restarts
+failing in a row stops the run (`MAX_CONSECUTIVE_RESTART_FAILURES`) rather
+than typing into pages nothing can vouch for.
+
+**The first browser of the run is verified too.** It was not, and that is
+the gap the 2026-11-10 run fell through: every restart *between* keywords
+verified the fields, but keyword 1 clicked at a coordinate nothing had
+checked. To find the boxes without starting a collection run:
+
+```bash
+python3 find_indeed_job.py --verify-fields --rank 3
+```
+
+### A read-back is a field value, or it is the whole page
+
+When the click misses, focus stays on the **document** — and there `Ctrl+A`
+means *select the entire page*, so `Ctrl+C` copies it. The read-back came
+back as four kilobytes of Indeed:
+
+```
+[search_jobs] ERROR(7): the keyword box holds ' non user content
+    Start of main content
+    Keyword : all jobs
+    Edit location input box label
+    Welcome, rohan
+    … 120 more lines of job titles and salaries …
+', not 'Product Consultant'.
+```
+
+The refusal was right; the reporting was not. It printed the page twice per
+retry, buried the real fault, and read as though the box held that text.
+Worse, it went through `emit` — and a `RESULT:` line is **line-based**, so a
+page copy sprays 120 lines through the protocol.
+
+`is_field_value()` in `_common.sh` separates the two cases **exactly, not
+heuristically**: the value of a one-line search input *cannot contain a
+newline*, and a page copy always does. `field_preview()` keeps either case
+to one short line and says which it is:
+
+```
+73 characters of PAGE TEXT across 4 lines, starting ' non user content'
+```
 
 **The fixed plan.** How much of a search to take is two numbers in
 `find_indeed_job.py`:
@@ -778,7 +851,14 @@ has no screenshot tool).
 
 ## 14. What is proven, and what is not
 
-**Test suite: 231 tests, all passing** under `venv/bin/python`.
+**Test suite: 299 tests, all passing** under `venv/bin/python`.
+
+`tests/test_field_scan.py` runs `verify_search_fields.sh` **for real**
+against fake `xdotool`/`xclip` standing in for Firefox. The fake models the
+one thing that caused the failure — a click inside a box types into it, a
+click anywhere else leaves focus on the document where `Ctrl+A` selects the
+whole page — so both the fault and the scan that fixes it are reproducible
+without a browser.
 
 ### Verified live against real Indeed
 - Firefox opens in a **normal window** (1850×1053, title bar, not fullscreen).
@@ -797,8 +877,24 @@ has no screenshot tool).
   the dialog was also driven live).
 - View-source → original HTML recovery is **byte-for-byte exact**.
 
-Since that list was written, three more things became true, measured
-rather than assumed:
+Since that list was written, more became true, measured rather than
+assumed:
+
+- **The page census works live.** Saved pages in `Temp_Data/` now show it
+  doing its job across three ranks:
+
+  | Search | Matched | Cards on page 1 | Collected |
+  |---|---:|---:|---|
+  | 7 Product Consultant jobs, Vapi | 7 | 7 | all 7, then next keyword |
+  | 17 Book Editor jobs, Madurai | 17 | 15 | capped at 10, then `start=10` |
+  | Social Media Designer, Delhi | 346 | 15 | capped at 10 |
+
+  A full page is capped at the fixed ten; a short page is taken whole. Both
+  behaviours confirmed against real saved sources.
+- **`"jobCount"` is not the card count** and nothing decides from it any
+  more. Measured: **5** on a page carrying **6** cards for a search matching
+  **17**. Across 25 saved pages it was present on two and wrong on both.
+  `"totalJobCount"` and the `<title>` are the match count, and they agree.
 
 - **Live rows exist.** `Excel_Data/rank_1/current_data.xlsx` holds 6 rows
   and `rank_2` holds 2, all 32 columns, written by live runs.
@@ -819,13 +915,13 @@ rather than assumed:
 - **URL paging has not run live.** `start=10/20/30/40` is unit-tested
   against the two worked examples and never driven in a browser.
 - **The between-keyword browser restart has not run live.** The order
-  (close → wait → open → verify) is proven by a recording test, and
-  `verify_search_fields.sh` passes its static checks, but no live run has
-  closed Firefox and reopened it between two keywords. The one risk worth
-  naming: the probe is typed at `--what-xy` / `--where-xy`, the same
-  measured coordinates the real search uses, so if those are wrong for a
-  window size the verification *fails loudly* rather than searching — which
-  is the intent, but it will stop the run rather than work around it.
+  (close → wait → open → verify) is proven by a recording test, but no live
+  run has closed Firefox and reopened it between two keywords.
+- **The probe-and-learn scan has not run live.** It converges against the
+  simulated browser — box 30 px below the guess, found on probe 5, location
+  box on probe 6, and 2 probes once the offset is remembered — but no live
+  run has watched it find a real box. Run `--verify-fields` once before
+  trusting a long run to it.
 - `experience_required` mirrors the description text. That is the upstream
   `parse_experience()` behaviour and was deliberately left alone.
 

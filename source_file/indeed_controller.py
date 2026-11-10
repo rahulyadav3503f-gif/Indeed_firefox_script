@@ -363,6 +363,14 @@ class IndeedController(object):
         #: in open_browser(); see _learn_click_offset().
         self.click_dx = 0
         self.click_dy = 0
+        #: Where the window actually is, from open_firefox.sh's own report.
+        self.window_actual = None
+        #: Where the two search boxes were LAST FOUND, as offsets from the
+        #: window's top-left corner -- see _remember_fields() for why they
+        #: are stored relative rather than absolute.
+        self.what_offset = None
+        self.where_offset = None
+        self._load_learned_fields()
 
     # -- logging ------------------------------------------------------------
     def log(self, message):
@@ -483,6 +491,7 @@ class IndeedController(object):
         if not match:
             return
         actual_x, actual_y = int(match.group(3)), int(match.group(4))
+        self.window_actual = (actual_x, actual_y)
         self.click_dx = actual_x - int(self.config.window_pos[0])
         self.click_dy = actual_y - int(self.config.window_pos[1])
         if self.click_dx or self.click_dy:
@@ -491,6 +500,100 @@ class IndeedController(object):
                      % (actual_x, actual_y, self.config.window_pos[0],
                         self.config.window_pos[1],
                         self.click_dx, self.click_dy))
+
+    # -- where the search boxes are ----------------------------------------
+    #
+    # STORED RELATIVE TO THE WINDOW, NOT AS SCREEN COORDINATES.
+    #
+    # A learned screen coordinate is only true while the window stays put,
+    # and the window does not stay put: the collector closes and reopens
+    # Firefox between every keyword, and the window manager places it where
+    # it likes -- measured, +70+27 when +0+34 was asked for. An absolute
+    # pair learned before a restart would be wrong after it, in exactly the
+    # way that caused this whole class of failure. An offset from the
+    # window's own corner survives the move.
+
+    @property
+    def learned_fields_file(self):
+        return os.path.join(self.config.temp_dir, "search_fields.json")
+
+    def _window_origin(self):
+        """The window's top-left corner: measured if known, else as asked."""
+        if self.window_actual:
+            return self.window_actual
+        return (int(self.config.window_pos[0]), int(self.config.window_pos[1]))
+
+    def _field_xy(self, which):
+        """Screen coordinates to aim at for "what" or "where".
+
+        The learned offset when there is one, otherwise the configured
+        coordinate corrected by how far the window missed its position.
+        """
+        origin = self._window_origin()
+        offset = self.what_offset if which == "what" else self.where_offset
+        if offset:
+            return (origin[0] + offset[0], origin[1] + offset[1])
+        configured = self.config.what_xy if which == "what" \
+            else self.config.where_xy
+        return (int(configured[0]) + self.click_dx,
+                int(configured[1]) + self.click_dy)
+
+    def _remember_fields(self, results):
+        """Turn verify_search_fields.sh's learned coordinates into offsets."""
+        origin = self._window_origin()
+        changed = False
+        for which, key in (("what", "learned_what_xy"),
+                           ("where", "learned_where_xy")):
+            raw = (results.get(key) or "").strip()
+            if "," not in raw:
+                continue
+            try:
+                x, y = [int(part) for part in raw.split(",", 1)]
+            except ValueError:
+                continue
+            offset = (x - origin[0], y - origin[1])
+            if which == "what":
+                changed = changed or offset != self.what_offset
+                self.what_offset = offset
+            else:
+                changed = changed or offset != self.where_offset
+                self.where_offset = offset
+        if changed:
+            self.log("   search boxes are at +%s and +%s from the window "
+                     "corner; remembered for the next keyword"
+                     % ("%d,%d" % self.what_offset if self.what_offset
+                        else "?",
+                        "%d,%d" % self.where_offset if self.where_offset
+                        else "?"))
+            self._save_learned_fields()
+
+    def _save_learned_fields(self):
+        """Persist the offsets so a fresh process does not re-learn them.
+
+        Best effort: a run that cannot write this file still works, it just
+        starts from the configured coordinates and probes again.
+        """
+        try:
+            os.makedirs(self.config.temp_dir, exist_ok=True)
+            with open(self.learned_fields_file, "w", encoding="utf-8") as fh:
+                json.dump({"what_offset": self.what_offset,
+                           "where_offset": self.where_offset}, fh, indent=2)
+        except OSError as error:
+            self.log("   [WARN] could not save the learned search-box "
+                     "offsets: %s" % error)
+
+    def _load_learned_fields(self):
+        try:
+            with open(self.learned_fields_file, encoding="utf-8") as fh:
+                stored = json.load(fh)
+        except (OSError, ValueError):
+            return
+        for key, attribute in (("what_offset", "what_offset"),
+                               ("where_offset", "where_offset")):
+            value = stored.get(key)
+            if (isinstance(value, (list, tuple)) and len(value) == 2
+                    and all(isinstance(part, int) for part in value)):
+                setattr(self, attribute, (value[0], value[1]))
 
     def browser_is_alive(self):
         if not self.listing_window:
@@ -535,10 +638,11 @@ class IndeedController(object):
             "--city", city,
             "--base-url", self.config.base_url,
             "--mode", self.config.search_mode,
-            "--what-xy", "%d,%d" % (self.config.what_xy[0] + self.click_dx,
-                                    self.config.what_xy[1] + self.click_dy),
-            "--where-xy", "%d,%d" % (self.config.where_xy[0] + self.click_dx,
-                                     self.config.where_xy[1] + self.click_dy),
+            # The coordinates verify_search_fields.sh actually found, when
+            # it has run; the configured ones corrected for the window's
+            # real position otherwise.
+            "--what-xy", "%d,%d" % self._field_xy("what"),
+            "--where-xy", "%d,%d" % self._field_xy("where"),
         ]
         if start:
             args += ["--start", str(start)]
@@ -770,13 +874,18 @@ class IndeedController(object):
         _, results, _ = self.run_script("verify_search_fields.sh", [
             "--window", self.listing_window,
             "--probe", probe,
-            "--what-xy", "%d,%d" % (self.config.what_xy[0],
-                                    self.config.what_xy[1]),
-            "--where-xy", "%d,%d" % (self.config.where_xy[0],
-                                     self.config.where_xy[1]),
+            # The best guess first: what was learned last time, else the
+            # configured coordinate corrected for where the window landed.
+            # The script probes outward from here, nearest row first, so a
+            # good guess costs one probe and a bad one still succeeds.
+            "--what-xy", "%d,%d" % self._field_xy("what"),
+            "--where-xy", "%d,%d" % self._field_xy("where"),
         ])
-        self.log("   search fields verified: keyword=%s location=%s"
-                 % (results.get("what_ok"), results.get("where_ok")))
+        self._remember_fields(results)
+        self.log("   search fields verified: keyword=%s location=%s "
+                 "(%s probe(s))"
+                 % (results.get("what_ok"), results.get("where_ok"),
+                    results.get("probes", "?")))
         return results
 
     # -- 8. restart: close, wait, open, verify ------------------------------

@@ -86,6 +86,66 @@ EX_SAVE_FILE=14        # the dialog ran but no usable file arrived
 # sent too early lands on the page background, the keyword goes nowhere,
 # and the Return that follows is delivered to whatever has focus.
 : "${SEARCH_FIELD_DELAY_SECONDS:=7}"
+
+# ---------------------------------------------------------------------------
+# IS THAT READ-BACK A FIELD VALUE, OR THE WHOLE PAGE?
+# ---------------------------------------------------------------------------
+# MEASURED, 2026-11-10, and the reason these two functions exist.
+#
+# A search field is read back by clicking it and pressing Ctrl+A, Ctrl+C.
+# When the click MISSES the input, focus stays on the document -- and there
+# Ctrl+A means "select the entire page". So Ctrl+C copies Indeed's whole
+# home page, and the read-back came back as four kilobytes of it:
+#
+#     [search_jobs] ERROR(7): the keyword box holds ' non user content
+#         Start of main content
+#         Keyword : all jobs
+#         Edit location input box label
+#         Welcome, rohan
+#         ... 120 more lines of job titles and salaries ...
+#     ', not 'Product Consultant'.
+#
+# The refusal was right. Everything about how it was reported was wrong: it
+# dumped the page into the log twice, it buried the actual fault (a click
+# that landed 30px high), and "the keyword box holds <the whole page>" reads
+# as if the box held that text.
+#
+# The discriminator is EXACT, not a heuristic: the value of an <input> or
+# <textarea>-free search box cannot contain a newline, and Indeed's keyword
+# box is one line. A whole-page copy always contains newlines. So a
+# read-back with a newline in it did not come out of the field, full stop.
+: "${MAX_FIELD_VALUE_CHARS:=120}"
+
+#: Did this read-back come out of a text input?  0 = yes, 1 = it is page text.
+is_field_value() {
+    local text="$1"
+    case "$text" in
+        *"
+"*) return 1 ;;
+    esac
+    [ "${#text}" -le "$MAX_FIELD_VALUE_CHARS" ]
+}
+
+#: A read-back shortened for a log line: never more than one line, never
+#: more than $2 characters, and it SAYS when it is page text so a reader is
+#: not left wondering what the box supposedly contained.
+field_preview() {
+    local text="$1" limit="${2:-60}" head="" lines=0
+    if [ -z "$text" ]; then
+        printf '<nothing>'
+        return 0
+    fi
+    if is_field_value "$text"; then
+        printf "'%s'" "$text"
+        return 0
+    fi
+    head="${text%%"
+"*}"
+    lines=$(printf '%s' "$text" | wc -l)
+    [ "${#head}" -gt "$limit" ] && head="${head:0:$limit}"
+    printf "%d characters of PAGE TEXT across %d lines, starting '%s'" \
+        "${#text}" "$((lines + 1))" "$head"
+}
 # How long to let the results page load after Return, before the first job
 # card is selected.  This REPLACED a set of post-search verifications (url
 # must contain q= and l=, vjk= must appear) that blocked progression; a

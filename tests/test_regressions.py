@@ -1054,8 +1054,14 @@ class TestPageCards(unittest.TestCase):
             self.assertEqual(found.evidence, "none")
             self.assertIsNone(found.declared_count)
 
-    def test_it_agrees_with_the_real_saved_pages(self):
-        """MEASURED: these files carry 5 cards, and the page says jobCount 5."""
+    def test_it_reads_the_real_saved_pages(self):
+        """Every saved results page must yield a card list from `results`.
+
+        What is NOT asserted: that the count equals "jobCount". Measured on
+        25 saved pages, jobCount was present on two and disagreed with the
+        card list on both (5 against 6 cards). The invariant that does hold
+        is that a page cannot show more cards than the search matched.
+        """
         saved = sorted(glob.glob(os.path.join(BASE, "Temp_Data", "rank_*",
                                               "job_*.html")))
         if not saved:
@@ -1064,11 +1070,20 @@ class TestPageCards(unittest.TestCase):
             found = src.page_cards(src.read_saved_source(path))
             self.assertTrue(found.keys, "%s: no cards found" % path)
             self.assertEqual(found.evidence, "results-array", path)
-            if found.declared_count is not None:
-                self.assertEqual(len(found.keys), found.declared_count,
-                                 "%s: %d cards but the page says %s"
-                                 % (path, len(found.keys),
-                                    found.declared_count))
+            if found.total_matches:
+                self.assertLessEqual(
+                    len(found.keys), found.total_matches,
+                    "%s: %d cards on a page whose search matched only %s"
+                    % (path, len(found.keys), found.total_matches))
+
+    def test_jobcount_alone_cannot_declare_a_page_empty(self):
+        """It is the wrong number for that -- see the measurement above."""
+        import find_indeed_job as collector
+        contradicted = collector.PageCensus([], "none", 0, 17)
+        self.assertFalse(contradicted.definitely_empty,
+                         "a search matching 17 jobs is not an empty page")
+        uncontradicted = collector.PageCensus([], "none", 0, None)
+        self.assertTrue(uncontradicted.definitely_empty)
 
 
 class TestCardBudget(unittest.TestCase):
@@ -1076,11 +1091,17 @@ class TestCardBudget(unittest.TestCase):
 
     def budget(self, keys, page=1, seen=(), declared=None, matches=None,
                start_at=None, evidence="results-array"):
-        """(count, stop_reason, last_page) for a page shaped like this."""
+        """(count, stop_reason, last_page) for a page shaped like this.
+
+        ``matches`` defaults to a number large enough that the match-count
+        signal never fires, so a test can exercise the card-list backstop
+        on its own.  Pass ``matches="unstated"`` for a page that gives no
+        match count at all.
+        """
         if matches is None:
-            # Enough matches that the match-count signal never fires, so a
-            # test can exercise the card-list backstop on its own.
             matches = 10000
+        elif matches == "unstated":
+            matches = None
         if start_at is None:
             start_at = (page - 1) * collector.INDEED_PAGE_STEP
         census = collector.PageCensus(keys, evidence if keys else "none",
@@ -1145,7 +1166,9 @@ class TestCardBudget(unittest.TestCase):
         self.assertFalse(last)
 
     def test_a_page_that_says_zero_cards_is_believed(self):
-        count, stop, last = self.budget([], declared=0)
+        """jobCount 0 with nothing to contradict it ends the keyword."""
+        count, stop, last = self.budget([], declared=0,
+                                        matches="unstated")
         self.assertEqual(count, 0)
         self.assertIn("0 cards", stop)
         self.assertTrue(last)
@@ -1411,8 +1434,91 @@ class TestCloseBrowserWaits(unittest.TestCase):
         self.assertFalse(ctrl._pid_alive(999999))
 
 
+class TestPageTextIsNotAFieldValue(unittest.TestCase):
+    """A read-back with a newline in it did not come out of an <input>.
+
+    MEASURED 2026-11-10. The click landed ~30px above Indeed's keyword box,
+    so focus stayed on the document -- where Ctrl+A selects the WHOLE PAGE.
+    Ctrl+C copied it, and search_jobs.sh reported "the keyword box holds
+    ' non user content / Start of main content / Keyword : all jobs /
+    Welcome, rohan / ...'" -- four kilobytes of Indeed, printed twice per
+    retry, with the actual fault invisible underneath.
+    """
+
+    PAGE = (" non user content\n\nStart of main content\nKeyword : all jobs\n"
+            "Edit location input box label\nWelcome, rohan\n"
+            "Photoshop Designers\nDelhi\n\u20b912,000 - \u20b918,000 a month")
+
+    def shell(self, function, value):
+        """Call one _common.sh function with VALUE, exactly as given.
+
+        The value is passed through the ENVIRONMENT rather than interpolated
+        into the snippet, so a 4KB page full of newlines and currency signs
+        cannot be mangled by quoting on the way in -- which is the whole
+        point of what is being tested.
+        """
+        import subprocess
+        snippet = ("source %s >/dev/null 2>&1\n"
+                   'if [ "$1" = is_field_value ]; then\n'
+                   '  if is_field_value "$VALUE"; then echo YES; else echo NO; fi\n'
+                   "else\n"
+                   '  field_preview "$VALUE"\n'
+                   "fi\n") % os.path.join(SHELL, "_common.sh")
+        environment = dict(os.environ, VALUE=value)
+        done = subprocess.run(["bash", "-c", snippet, "bash", function],
+                              stdout=subprocess.PIPE,
+                              stderr=subprocess.PIPE, env=environment)
+        return done.stdout.decode("utf-8", "replace")
+
+    def test_real_field_values_are_accepted(self):
+        for value in ("Product Consultant", "zz", "Vapi",
+                      "Chennai, Tamil Nadu", "C++ Developer"):
+            self.assertEqual(self.shell("is_field_value", value).strip(),
+                             "YES", value)
+
+    def test_a_whole_page_copy_is_rejected(self):
+        self.assertEqual(self.shell("is_field_value", self.PAGE).strip(), "NO")
+
+    def test_an_overlong_single_line_is_also_rejected(self):
+        """No search box holds 4,000 characters, newline or not."""
+        self.assertEqual(self.shell("is_field_value", "a" * 4000).strip(),
+                         "NO")
+
+    def test_the_preview_of_page_text_says_it_is_page_text(self):
+        out = self.shell("field_preview", self.PAGE)
+        self.assertIn("PAGE TEXT", out)
+        self.assertIn("lines", out)
+
+    def test_the_preview_is_always_one_short_line(self):
+        """A RESULT: line is line-based; a page copy would corrupt the rest."""
+        out = self.shell("field_preview", self.PAGE * 40)
+        self.assertEqual(len(out.strip().splitlines()), 1)
+        self.assertLess(len(out), 200,
+                        "a preview must never approach the size of the page")
+
+    def test_a_field_value_previews_as_itself(self):
+        self.assertEqual(self.shell("field_preview", "Vapi").strip(),
+                         "'Vapi'")
+
+    def test_an_empty_read_back_previews_as_nothing(self):
+        self.assertEqual(self.shell("field_preview", "").strip(), "<nothing>")
+
+    def test_search_jobs_previews_instead_of_dumping(self):
+        """The RESULT lines and the error message both go through it."""
+        code = code_of(script("search_jobs.sh"))
+        self.assertIn('emit "typed_keyword=$(field_preview', code)
+        self.assertIn('emit "typed_city=$(field_preview', code)
+        self.assertNotIn('emit "typed_keyword=$TYPED_KEYWORD"', code)
+        self.assertIn("is_field_value", code)
+
+    def test_search_jobs_says_the_click_missed_rather_than_quoting_the_page(self):
+        code = code_of(script("search_jobs.sh"))
+        self.assertIn("landed on the page body", code)
+        self.assertNotIn("the keyword box holds '$TYPED_KEYWORD'", code)
+
+
 class TestSearchFieldVerification(unittest.TestCase):
-    """verify_search_fields.sh -- prove the boxes work, submit nothing."""
+    """verify_search_fields.sh -- find the boxes, prove them, submit nothing."""
 
     def setUp(self):
         self.text = script("verify_search_fields.sh")
@@ -1445,6 +1551,63 @@ class TestSearchFieldVerification(unittest.TestCase):
 
     def test_the_dropdown_is_dismissed_before_each_click(self):
         self.assertIn("dismiss_url_dropdown", self.code)
+
+    # -- the probe-and-learn behaviour ------------------------------------
+
+    def test_it_scans_for_the_box_instead_of_trusting_one_coordinate(self):
+        """A fixed coordinate was wrong three different ways at once."""
+        self.assertIn("find_field", self.code)
+        self.assertIn("scan_rows", self.code)
+        self.assertIn("FIELD_SCAN_REACH", self.code)
+
+    def test_it_reports_the_coordinates_it_learned(self):
+        self.assertIn("learned_what_xy=", self.code)
+        self.assertIn("learned_where_xy=", self.code)
+
+    def test_it_refuses_to_probe_into_firefoxs_own_chrome(self):
+        """A probe in the ADDRESS BAR returns the probe and looks like
+        success -- then the real keyword is typed into the address bar and
+        Return navigates to it."""
+        self.assertIn("MIN_PAGE_Y_OFFSET", self.code)
+        self.assertIn("SCAN_FLOOR", self.code)
+        self.assertIn('[ "$y" -lt "$SCAN_FLOOR" ]', self.code)
+
+    def test_it_asks_the_window_where_it_is(self):
+        """The failure came from arithmetic about where the window should be."""
+        self.assertIn("xdotool getwindowgeometry", self.code)
+
+    def test_the_probe_count_is_bounded(self):
+        self.assertIn("FIELD_PROBE_LIMIT", self.code)
+        self.assertIn('[ "$PROBES" -ge "$FIELD_PROBE_LIMIT" ]', self.code)
+
+    def test_it_never_puts_page_text_in_a_result_line(self):
+        for line in self.code.splitlines():
+            if "emit \"what_read=" in line or "emit \"where_read=" in line:
+                self.assertIn("field_preview", line)
+
+    def test_the_second_box_is_looked_for_on_the_first_boxs_row(self):
+        """They sit on one row, so that is usually a single probe."""
+        self.assertIn("WHERE_Y_GUESS", self.code)
+
+    def test_it_only_clears_a_box_it_actually_typed_into(self):
+        """Ctrl+A/Delete with focus on the DOCUMENT is not an edit."""
+        block = self.code.split("LEAVE NOTHING BEHIND")[-1] \
+            if "LEAVE NOTHING BEHIND" in self.text else self.code
+        self.assertIn("is_field_value \"$PROBE_READ\"", self.code)
+
+    def test_the_scan_order_is_nearest_first(self):
+        """The common case is a small offset; it should cost 2-3 probes."""
+        import subprocess
+        snippet = ('scan_rows() { local y="$1" step="$2" reach="$3" delta=0; '
+                   'printf "%s\\n" "$y"; '
+                   'while [ "$delta" -lt "$reach" ]; do '
+                   'delta=$((delta + step)); '
+                   'printf "%s\\n%s\\n" "$((y - delta))" "$((y + delta))"; '
+                   'done; }; scan_rows 233 20 60 | tr "\\n" " "')
+        out = subprocess.run(["bash", "-c", snippet],
+                             stdout=subprocess.PIPE).stdout.decode()
+        self.assertEqual(out.split(),
+                         ["233", "213", "253", "193", "273", "173", "293"])
 
 
 class TestRestartIsWiredIntoTheLoop(unittest.TestCase):
@@ -1483,3 +1646,170 @@ class TestRestartIsWiredIntoTheLoop(unittest.TestCase):
         body = self.source.split("def restart_for_next_combo(")[1] \
                           .split("\ndef ")[0]
         self.assertIn("sleep_responsive", body)
+
+
+class TestLearnedSearchBoxOffsets(unittest.TestCase):
+    """Where the boxes were found is remembered RELATIVE to the window.
+
+    An absolute screen coordinate is only true while the window stays put,
+    and it does not: the collector closes and reopens Firefox between every
+    keyword, and the window manager places it where it likes -- measured,
+    +70+27 when +0+34 was asked for. An offset from the window's own corner
+    survives that; an absolute pair is wrong immediately after it.
+    """
+
+    @staticmethod
+    def config_in(project_dir):
+        """A config whose Temp_Data is inside a throwaway directory.
+
+        temp_dir is derived from project_dir, so the project root is what
+        gets redirected -- nothing is written into the real Temp_Data.
+        """
+        return ctrl.ControllerConfig(
+            project_dir, rank=1, window_pos=(0, 34),
+            what_xy=(700, 240), where_xy=(1100, 240),
+            logger=lambda message: None)
+
+    def controller(self, project_dir):
+        return ctrl.IndeedController(self.config_in(project_dir))
+
+    def test_before_learning_it_uses_the_configured_coordinates(self):
+        import tempfile
+        controller = self.controller(tempfile.mkdtemp())
+        self.assertEqual(controller._field_xy("what"), (700, 240))
+
+    def test_a_misplaced_window_shifts_the_configured_coordinates(self):
+        import tempfile
+        controller = self.controller(tempfile.mkdtemp())
+        controller._learn_click_offset("1850x1053+70+27")
+        self.assertEqual(controller._field_xy("what"), (770, 233))
+
+    def test_a_learned_position_is_stored_as_an_offset(self):
+        import tempfile
+        controller = self.controller(tempfile.mkdtemp())
+        controller._learn_click_offset("1850x1053+70+27")
+        controller._remember_fields({"learned_what_xy": "770,263",
+                                     "learned_where_xy": "1170,263"})
+        # 263 - 27 = 236 from the window's corner, not "263 on this screen".
+        self.assertEqual(controller.what_offset, (700, 236))
+        self.assertEqual(controller.where_offset, (1100, 236))
+
+    def test_the_offset_follows_the_window_to_a_new_position(self):
+        """The same box, after a restart that landed somewhere else."""
+        import tempfile
+        controller = self.controller(tempfile.mkdtemp())
+        controller._learn_click_offset("1850x1053+70+27")
+        controller._remember_fields({"learned_what_xy": "770,263"})
+        self.assertEqual(controller._field_xy("what"), (770, 263))
+
+        controller._learn_click_offset("1850x1053+0+62")      # WM moved it
+        self.assertEqual(controller._field_xy("what"), (700, 298),
+                         "the learned offset must be re-based on the "
+                         "window's new corner")
+
+    def test_it_survives_a_fresh_process(self):
+        import tempfile
+        temp = tempfile.mkdtemp()
+        first = self.controller(temp)
+        first._learn_click_offset("1850x1053+70+27")
+        first._remember_fields({"learned_what_xy": "770,263",
+                                "learned_where_xy": "1170,263"})
+
+        second = self.controller(temp)
+        self.assertEqual(second.what_offset, (700, 236))
+        self.assertEqual(second.where_offset, (1100, 236))
+
+    def test_a_corrupt_memory_file_is_ignored_not_fatal(self):
+        import tempfile
+        temp = tempfile.mkdtemp()
+        path = os.path.join(temp, "Temp_Data", "rank_1", "search_fields.json")
+        os.makedirs(os.path.dirname(path))
+        with open(path, "w", encoding="utf-8") as handle:
+            handle.write("{not json at all")
+        controller = self.controller(temp)
+        self.assertEqual(controller.learned_fields_file, path,
+                         "the test must corrupt the file that is read")
+        self.assertIsNone(controller.what_offset)
+        self.assertEqual(controller._field_xy("what"), (700, 240))
+
+    def test_rubbish_coordinates_are_not_remembered(self):
+        import tempfile
+        controller = self.controller(tempfile.mkdtemp())
+        for bad in ({}, {"learned_what_xy": ""},
+                    {"learned_what_xy": "nonsense"},
+                    {"learned_what_xy": "770"}):
+            controller._remember_fields(bad)
+        self.assertIsNone(controller.what_offset)
+
+    def test_the_search_is_aimed_at_the_learned_position(self):
+        """The whole point: search_jobs.sh gets the coordinate that worked."""
+        import tempfile
+        recorded = []
+
+        class Recorder(ctrl.IndeedController):
+            def run_script(self, name, args, timeout=None, allow_codes=()):
+                recorded.append((name, args))
+                return 0, {}, ""
+
+        controller = Recorder(self.config_in(tempfile.mkdtemp()))
+        controller.listing_window = "0x1"
+        controller._learn_click_offset("1850x1053+70+27")
+        controller._remember_fields({"learned_what_xy": "770,263",
+                                     "learned_where_xy": "1170,263"})
+        controller.search("Product Consultant", "Vapi")
+
+        name, args = recorded[-1]
+        self.assertEqual(name, "search_jobs.sh")
+        self.assertEqual(args[args.index("--what-xy") + 1], "770,263")
+        self.assertEqual(args[args.index("--where-xy") + 1], "1170,263")
+
+    def test_verification_is_aimed_at_the_learned_position_too(self):
+        """So a good guess costs one probe instead of a scan."""
+        import tempfile
+        recorded = []
+
+        class Recorder(ctrl.IndeedController):
+            def run_script(self, name, args, timeout=None, allow_codes=()):
+                recorded.append((name, args))
+                return 0, {"what_ok": "yes", "where_ok": "yes"}, ""
+
+        controller = Recorder(self.config_in(tempfile.mkdtemp()))
+        controller.listing_window = "0x1"
+        controller._learn_click_offset("1850x1053+70+27")
+        controller._remember_fields({"learned_what_xy": "770,263"})
+        controller.verify_search_fields()
+
+        name, args = recorded[-1]
+        self.assertEqual(name, "verify_search_fields.sh")
+        self.assertEqual(args[args.index("--what-xy") + 1], "770,263")
+
+
+class TestFirstBrowserIsVerifiedToo(unittest.TestCase):
+    """The gap the 2026-11-10 run fell through.
+
+    Every restart BETWEEN keywords verified the search fields. The FIRST
+    browser of the run did not -- so keyword 1 clicked at a coordinate
+    nothing had checked, missed the box, and reported "the keyword box
+    holds <4KB of Indeed's home page>" on a loop until it was interrupted.
+    """
+
+    def setUp(self):
+        self.source = open(os.path.join(BASE, "find_indeed_job.py"),
+                           encoding="utf-8").read()
+
+    def test_the_first_open_verifies_the_fields(self):
+        after_open = self.source.split("controller.open_browser(start_url=")[1]
+        before_cycle = after_open.split("run_cycle(")[0]
+        self.assertIn("verify_search_fields", before_cycle)
+
+    def test_a_refusal_during_that_verification_stops_the_run(self):
+        after_open = self.source.split("controller.open_browser(start_url=")[1]
+        before_cycle = after_open.split("run_cycle(")[0]
+        self.assertIn("except AccessDenied", before_cycle)
+        self.assertIn("raise", before_cycle)
+
+    def test_fixtures_are_exempt(self):
+        """A local HTML fixture has no search form to find."""
+        after_open = self.source.split("controller.open_browser(start_url=")[1]
+        before_cycle = after_open.split("run_cycle(")[0]
+        self.assertIn("not fixture", before_cycle)
