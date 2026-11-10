@@ -5096,38 +5096,31 @@
   },
   "total_keywords": 1264,
   "current_city_index": 0,
-  "current_keyword_index": 0,
+  "current_keyword_index": 5,
   "current_page": 1,
   "current_city": "Vapi",
-  "current_keyword": "Product Consultant",
-  "done_job_urls": [
-    "https://in.indeed.com/jobs?vjk=09af3effa4a6c678",
-    "https://in.indeed.com/jobs?vjk=5808f173973339e5",
-    "https://in.indeed.com/jobs?vjk=ab2a7cd954d011e7",
-    "https://in.indeed.com/jobs?vjk=c9e3292a4cd96c94",
-    "https://in.indeed.com/jobs?vjk=ebadf68aa5a23bcd",
-    "https://in.indeed.com/jobs?vjk=cc135b9c5d4bd391",
-    "https://in.indeed.com/jobs?vjk=84c8f40078f062f0"
-  ],
+  "current_keyword": "Draftsman",
+  "done_job_urls": [],
   "completed_cities": [],
   "total_complete_cycle": 0,
-  "last_completed_job_id": "9e6ccce982c605d800f8fc1a84ccf789",
-  "saved_jobs": 6,
-  "duplicate_jobs": 8,
-  "rejected_jobs": 1,
-  "failed_jobs": 5,
-  "examined_jobs": 7,
+  "last_completed_job_id": "5612f736f8fa21e7f5dff123412e9a1f",
+  "saved_jobs": 14,
+  "duplicate_jobs": 23,
+  "rejected_jobs": 11,
+  "failed_jobs": 11,
+  "examined_jobs": 25,
   "failure_state": {
-    "at": "2026-11-09 22:59:45",
-    "stage": "open_firefox.sh",
-    "reason": "Firefox opened the 'Close Firefox' dialog instead of a browser window: another Firefox is already using the profile /home/abhinav/rahul1/rahul_new_indeed_script/Indeed_firefox_script/config/firefox_profile/rank_3. Close that instance first, or reuse its window instead of launching a new one. | stage=open_firefox.sh | exit=3",
+    "at": "2026-11-10 09:17:40",
+    "stage": "browser_restart",
+    "reason": "the search boxes did not verify: keyword box returned ' non user content | stage=verify_search_fields.sh | exit=7",
     "rank": 3,
     "city": "Vapi",
-    "keyword": "Product Consultant",
-    "page": 1
+    "keyword": "Advertising Copywriter",
+    "page": 1,
+    "consecutive": 3
   },
   "cycle_complete": false,
-  "updated_at": "2026-11-09 23:15:41",
+  "updated_at": "2026-11-10 09:17:40",
   "recent_failures": [
     {
       "at": "2026-11-09 21:01:22",
@@ -5177,6 +5170,65 @@
       "city": "Vapi",
       "keyword": "Product Consultant",
       "page": 1
+    },
+    {
+      "at": "2026-11-09 23:51:49",
+      "stage": "browser_restart",
+      "reason": "the search boxes did not verify: keyword box returned ' non user content | stage=verify_search_fields.sh | exit=7",
+      "rank": 3,
+      "city": "Vapi",
+      "keyword": "Product Consultant",
+      "page": 1,
+      "consecutive": 1
+    },
+    {
+      "at": "2026-11-09 23:59:16",
+      "stage": "browser_restart",
+      "reason": "the search boxes did not verify: keyword box returned ' non user content | stage=verify_search_fields.sh | exit=7",
+      "rank": 3,
+      "city": "Vapi",
+      "keyword": "Gameplay Programmer",
+      "page": 1,
+      "consecutive": 2
+    },
+    {
+      "at": "2026-11-10 08:51:08",
+      "stage": "open_firefox.sh",
+      "reason": "the first page is an access refusal (title: 'Just a moment... — Mozilla Firefox'). Stopping: no retry, no identity change. | stage=open_firefox.sh | exit=10",
+      "rank": 3,
+      "city": "Vapi",
+      "keyword": "Ramp Officer",
+      "page": 1
+    },
+    {
+      "at": "2026-11-10 08:59:27",
+      "stage": "browser_restart",
+      "reason": "the search boxes did not verify: keyword box returned ' non user content | stage=verify_search_fields.sh | exit=7",
+      "rank": 3,
+      "city": "Vapi",
+      "keyword": "Ramp Officer",
+      "page": 1,
+      "consecutive": 1
+    },
+    {
+      "at": "2026-11-10 09:07:32",
+      "stage": "browser_restart",
+      "reason": "the search boxes did not verify: keyword box returned ' non user content | stage=verify_search_fields.sh | exit=7",
+      "rank": 3,
+      "city": "Vapi",
+      "keyword": "MIS Executive",
+      "page": 1,
+      "consecutive": 2
+    },
+    {
+      "at": "2026-11-10 09:17:40",
+      "stage": "browser_restart",
+      "reason": "the search boxes did not verify: keyword box returned ' non user content | stage=verify_search_fields.sh | exit=7",
+      "rank": 3,
+      "city": "Vapi",
+      "keyword": "Advertising Copywriter",
+      "page": 1,
+      "consecutive": 3
     }
   ]
 }

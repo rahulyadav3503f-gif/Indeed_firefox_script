@@ -288,7 +288,7 @@ EXCEL_BATCH_SIZE = 100           # rows per archived current_data_cycleN.xlsx
 EXCEL_KEEP_BACKUPS = 20
 
 # -- schedule (brief section 21) -------------------------------------------
-NIGHT_PAUSE_ENABLED = False
+NIGHT_PAUSE_ENABLED = True
 NIGHT_START_HOUR = 23            # 23:00 .. 05:00 Asia/Kolkata
 NIGHT_END_HOUR = 5
 TIMEZONE = "Asia/Kolkata"
