@@ -1385,3 +1385,1376 @@
 2026-11-10 09:41:06       [wait] 24s before a retry
 2026-11-10 09:41:20 
 [STOP] signal 2. Checkpoint saved -- re-run to continue from here.
+2026-11-10 10:29:56   display         : :0 (inherited)
+2026-11-10 10:29:56 ========================================================================
+2026-11-10 10:29:56 NEW INDEED COLLECTOR -- Firefox / xdotool / xclip
+2026-11-10 10:29:56 ========================================================================
+2026-11-10 10:29:56   roles+cities : vendor/ (local, authoritative) -- new_mylib.py md5 5e06a7d1, target_audience_roles.py md5 54b25400
+  row builder  : /home/ubuntu/check_indeed (read-only, 32-column schema)  [stand-ins: gtts, psutil]
+2026-11-10 10:29:56   rank            : 3 of 5
+2026-11-10 10:29:56   keywords        : 1264
+2026-11-10 10:29:56     target-audience : 200  (15.8% of the plan)
+2026-11-10 10:29:56     fresher/other   : 1064  (84.2%)
+2026-11-10 10:29:56     departments     : 116
+2026-11-10 10:29:56   cities (all)    : 110
+2026-11-10 10:29:56   cities (rank 3) : 23  -> Vapi, Bharuch, Kochi, Cochin ...
+2026-11-10 10:29:56   excel columns   : 32
+2026-11-10 10:29:56   output          : /home/ubuntu/new_indeed_script/Excel_Data/rank_3
+2026-11-10 10:29:56   temp            : /home/ubuntu/new_indeed_script/Temp_Data/rank_3
+2026-11-10 10:29:56   checkpoint      : /home/ubuntu/new_indeed_script/config/checkpoints/checkpoint_rank_3.json
+2026-11-10 10:29:56   loop            : city-outer, keyword-inner (brief section 8)
+2026-11-10 10:29:56   delays          : 10s before close, 10s before next card
+2026-11-10 10:29:56   between keywords: close the browser, wait 5s, reopen on the home page, verify the search fields
+2026-11-10 10:29:56   complete cycle  : all keywords for one city, then rest 10m 00s
+2026-11-10 10:29:56   night rest      : disabled
+2026-11-10 10:29:56   work period     : 3.7-4.2 h, then a 30-60 min break
+2026-11-10 10:29:56   fixed plan      : 5 page(s) x 10 card(s) = up to 50 jobs per keyword+city
+2026-11-10 10:29:56   paging          : page 1 = typed search, page 2+ = start=10,20,...
+2026-11-10 10:29:56   cards per page  : counted from each page's own source, capped at 10
+2026-11-10 10:29:56   repeated page   : same card list as the previous page -> next keyword
+2026-11-10 10:29:56   page ceiling    : 5 listing page(s) per keyword+city
+2026-11-10 10:29:56   unique target   : 50 distinct jobs EXAMINED per keyword+city
+2026-11-10 10:29:56   TOTAL COMPLETE CYCLE : 0   (cities finished this crawl cycle: 0/23)
+2026-11-10 10:29:56 ========================================================================
+2026-11-10 10:29:57   indeed login   : signed in  (session cookies: PPID, SOCK, SHOE)
+2026-11-10 10:29:57   search mode    : form
+2026-11-10 10:29:57       $ /home/ubuntu/new_indeed_script/shell_scripts/open_firefox.sh --profile /home/ubuntu/new_indeed_script/config/firefox_profile/rank_3 --url https://in.indeed.com --state-file /home/ubuntu/new_indeed_script/Temp_Data/rank_3/browser_window.json --expect-host indeed --download-dir /home/ubuntu/new_indeed_script/Temp_Data/rank_3 --window-size 1845x1046 --window-pos 0,34
+2026-11-10 10:30:10         [open_firefox] pre-existing Firefox windows (never touched): none
+2026-11-10 10:30:10         [open_firefox] display=:0 xauthority=/run/user/1000/gdm/Xauthority
+2026-11-10 10:30:10         [open_firefox] launch mode: snap (inner binary inside 'snap run --shell')
+2026-11-10 10:30:10         [open_firefox] firefox pid=25243
+2026-11-10 10:30:10         [open_firefox] window_id=65011735 name=Mozilla Firefox
+2026-11-10 10:30:10         [open_firefox] window geometry set on attempt 1: 1850x1053+70+27
+2026-11-10 10:30:10         [open_firefox] normal window: 1850x1053+70+27 (asked for 1845x1046+0+34)
+2026-11-10 10:30:10         [open_firefox] address bar: https://in.indeed.com/
+2026-11-10 10:30:10         [open_firefox] ready
+2026-11-10 10:30:10         -> exit 0 in 13.3s (window_id=65011735 fullscreen=no access_denied=no verified=yes)
+2026-11-10 10:30:10    window landed at +70+27, not the +0+34 it was asked for: clicks shifted by (+70,-7) to match
+2026-11-10 10:30:10    browser ready: pid=25243 window=65011735 fullscreen=no
+2026-11-10 10:30:10       $ /home/ubuntu/new_indeed_script/shell_scripts/verify_search_fields.sh --window 65011735 --probe zz --what-xy 770,233 --where-xy 1170,233
+2026-11-10 10:30:34         [verify_search_fields] window at +70+27 1053px tall; probes stay between y=147 and y=1040 (never in Firefox's own chrome)
+2026-11-10 10:30:34         [verify_search_fields] input guard passed; address bar reads: https://in.indeed.com/
+2026-11-10 10:30:34         [verify_search_fields] waiting 7.0s for the page to settle
+2026-11-10 10:30:34         [verify_search_fields]   probe 1 at 770,233: not the keyword box (2081 characters of PAGE TEXT across 96 lines, starting ' non user content')
+2026-11-10 10:30:34         [verify_search_fields] scanning for the keyword box around 770,233 (+-120px)
+2026-11-10 10:30:34         [verify_search_fields]   probe 2 at 770,213: not the keyword box (2081 characters of PAGE TEXT across 96 lines, starting ' non user content')
+2026-11-10 10:30:34         [verify_search_fields]   probe 3 at 770,253: the keyword box answered
+2026-11-10 10:30:34         [verify_search_fields]   probe 4 at 1170,253: the location box answered
+2026-11-10 10:30:34         [verify_search_fields] both search boxes found and answered: keyword at 770,253, location at 1170,253 (after 4 probe(s))
+2026-11-10 10:30:34         -> exit 0 in 23.8s (verified=yes)
+2026-11-10 10:30:34    search boxes are at +700,226 and +1100,226 from the window corner; remembered for the next keyword
+2026-11-10 10:30:34    search fields verified: keyword=yes location=yes (4 probe(s))
+2026-11-10 10:30:34 
+========================================================================
+2026-11-10 10:30:34 CRAWL CYCLE 1 | CITY 1/23: Vapi   (keywords 1..1264)
+2026-11-10 10:30:34 TOTAL COMPLETE CYCLE SO FAR: 0
+2026-11-10 10:30:34 ========================================================================
+2026-11-10 10:30:34 
+  [cycle 1 | city 1/23 Vapi | keyword 1/1264 Product Consultant | worked 37s]
+2026-11-10 10:30:34 
+  [page 1/5] Product Consultant @ Vapi  (start=0)
+2026-11-10 10:30:34       $ /home/ubuntu/new_indeed_script/shell_scripts/search_jobs.sh --window 65011735 --keyword 'Product Consultant' --city Vapi --base-url https://in.indeed.com --mode form --what-xy 770,253 --where-xy 1170,253
+2026-11-10 10:31:01         [search_jobs] input guard passed; address bar reads: https://in.indeed.com/
+2026-11-10 10:31:01         [search_jobs] waiting 7.0s for the page to settle before typing
+2026-11-10 10:31:01         [search_jobs] form search: 'Product Consultant' in 'Vapi'
+2026-11-10 10:31:01         [search_jobs] clicking the keyword box at 770,253
+2026-11-10 10:31:01         [search_jobs] clicking the city box at 1170,253
+2026-11-10 10:31:01         [search_jobs] both fields confirmed; submitting (focus is still in the city box)
+2026-11-10 10:31:01         [search_jobs] waiting 10.0s for the results to load
+2026-11-10 10:31:01         [search_jobs] window title: Just a moment... — Mozilla Firefox
+2026-11-10 10:31:01         [search_jobs] ERROR(10): the results page is an access refusal (title: 'Just a moment... — Mozilla Firefox'). Stopping this search. No retry, no identity change, no session cycling.
+2026-11-10 10:31:01         -> exit 10 in 26.9s (access_denied=yes)
+2026-11-10 10:31:01   [WARN] the search failed (the results page is an access refusal (title: 'Just a moment... — Mozilla Firefox'). Stopping this search. No retry, no identity change, no session cycling. | stage=search_jobs.sh | exit=10)
+2026-11-10 10:31:01       [wait] 29s before a retry
+2026-11-10 10:31:31 
+  [page 1/5] Product Consultant @ Vapi  (start=0)
+2026-11-10 10:31:31       $ /home/ubuntu/new_indeed_script/shell_scripts/search_jobs.sh --window 65011735 --keyword 'Product Consultant' --city Vapi --base-url https://in.indeed.com --mode form --what-xy 770,253 --where-xy 1170,253
+2026-11-10 10:32:12         [search_jobs] address bar read on attempt 2
+2026-11-10 10:32:12         [search_jobs] input guard passed; address bar reads: https://in.indeed.com/jobs?q=Product+Consultant&l=Vapi&from=searchOnHP&vjk=5808f173973339e5
+2026-11-10 10:32:12         [search_jobs] waiting 7.0s for the page to settle before typing
+2026-11-10 10:32:12         [search_jobs] form search: 'Product Consultant' in 'Vapi'
+2026-11-10 10:32:12         [search_jobs] clicking the keyword box at 770,253
+2026-11-10 10:32:12         [search_jobs] clicking the city box at 1170,253
+2026-11-10 10:32:12         [search_jobs] both fields confirmed; submitting (focus is still in the city box)
+2026-11-10 10:32:12         [search_jobs] waiting 10.0s for the results to load
+2026-11-10 10:32:12         [search_jobs] window title: 7 Product Consultant Jobs and Vacancies in Vapi, Gujarat - 10 November 2026 | Indeed — Mozilla Firefox
+2026-11-10 10:32:12         [search_jobs] address bar after search: https://in.indeed.com/jobs?q=Product+Consultant&l=Vapi&radius=25&from=searchOnDesktopSerp&vjk=09af3effa4a6c678
+2026-11-10 10:32:12         [search_jobs] Indeed pre-selected job 09af3effa4a6c678
+2026-11-10 10:32:12         [search_jobs] search submitted: Product Consultant @ Vapi -- going to the first job card
+2026-11-10 10:32:12         -> exit 0 in 41.2s (access_denied=no verified=not_checked)
+2026-11-10 10:32:12       $ /home/ubuntu/new_indeed_script/shell_scripts/save_page_source.sh --window 65011735 --out /home/ubuntu/new_indeed_script/Temp_Data/rank_3/listing_3_page01.html
+2026-11-10 10:32:25         [save_page_source] source will be taken from: https://in.indeed.com/jobs?q=Product+Consultant&l=Vapi&radius=25&from=searchOnDesktopSerp&vjk=09af3effa4a6c678
+2026-11-10 10:32:25         [save_page_source] pressing Ctrl+U
+2026-11-10 10:32:25         [save_page_source] view-source tab confirmed: view-source:https://in.indeed.com/jobs?q=Product+Consultant&l=Vapi&radius=25&from=searchOnDesktopSerp&vjk=09af3effa4a6c678
+2026-11-10 10:32:25         [save_page_source] pressing Ctrl+S
+2026-11-10 10:32:25         [save_page_source] save dialog window=71303172 name='Save As - https://in.indeed.com/jobs?q=Product+Consultant&l=Vapi&radius=25&from=searchOnDesktopSerp&vjk=09af3effa4a6c678 — Mozilla Firefox'
+2026-11-10 10:32:25         [save_page_source] saved 898854 bytes to /home/ubuntu/new_indeed_script/Temp_Data/rank_3/listing_3_page01.html
+2026-11-10 10:32:25         -> exit 0 in 13.0s 
+2026-11-10 10:32:25    saved listing source: /home/ubuntu/new_indeed_script/Temp_Data/rank_3/listing_3_page01.html (898854 bytes)
+2026-11-10 10:32:25    waiting 2.0s before closing the source tab
+2026-11-10 10:32:27       $ /home/ubuntu/new_indeed_script/shell_scripts/close_source_tab.sh --window 65011735
+2026-11-10 10:32:31         [close_source_tab] address bar before closing: view-source:https://in.indeed.com/jobs?q=Product+Consultant&l=Vapi&radius=25&from=searchOnDesktopSerp&vjk=09af3effa4a6c678
+2026-11-10 10:32:31         [close_source_tab] closing the view-source tab
+2026-11-10 10:32:31         [close_source_tab] back on: https://in.indeed.com/jobs?q=Product+Consultant&l=Vapi&radius=25&from=searchOnDesktopSerp&vjk=09af3effa4a6c678
+2026-11-10 10:32:31         -> exit 0 in 4.5s (closed=yes)
+2026-11-10 10:32:31    waiting 3.0s before the next job card
+2026-11-10 10:32:34   [census] the page's own source lists 7 job card(s)  (evidence: results-array, search matched 7)
+2026-11-10 10:32:34   [census] start=0 plus 7 card(s) reaches the 7 job(s) this search matched -- this is its last page.
+2026-11-10 10:32:34   [census] fewer than the fixed 10 -- taking all 7.
+2026-11-10 10:32:34       $ /home/ubuntu/new_indeed_script/shell_scripts/select_job_card.sh --window 65011735 --index 0 --card-x 500 --start-y 433 --max-y 993 --probe-step 55 --probe-limit 12 --scroll-rounds 6 --marker vjk= --preselected-key 09af3effa4a6c678
+2026-11-10 10:32:36         [select_job_card] before selection: key='09af3effa4a6c678'
+2026-11-10 10:32:36         [select_job_card] job 09af3effa4a6c678 is already selected by Indeed -- taking it without clicking
+2026-11-10 10:32:36         -> exit 0 in 1.8s 
+2026-11-10 10:32:36       selected job 09af3effa4a6c678 (preselected)
+2026-11-10 10:32:36       [dup] card 0 is a job this combination already handled (https://in.indeed.com/jobs?vjk=09af3effa4a6c678)
+2026-11-10 10:32:36       $ /home/ubuntu/new_indeed_script/shell_scripts/close_source_tab.sh --window 65011735
+2026-11-10 10:32:38         [close_source_tab] address bar before closing: https://in.indeed.com/jobs?q=Product+Consultant&l=Vapi&radius=25&from=searchOnDesktopSerp&vjk=09af3effa4a6c678
+2026-11-10 10:32:38         [close_source_tab] WARNING: the front tab is not a view-source tab ('https://in.indeed.com/jobs?q=Product+Consultant&l=Vapi&radius=25&from=searchOnDesktopSerp&vjk=09af3effa4a6c678'); NOT pressing Ctrl+W, because that would close the listing.
+2026-11-10 10:32:38         -> exit 0 in 1.4s (closed=no_tab)
+2026-11-10 10:32:38       $ /home/ubuntu/new_indeed_script/shell_scripts/select_job_card.sh --window 65011735 --index 1 --card-x 500 --start-y 433 --max-y 993 --probe-step 55 --probe-limit 12 --scroll-rounds 6 --marker vjk= --seen-keys 09af3effa4a6c678
+2026-11-10 10:33:16         [select_job_card] before selection: key='09af3effa4a6c678'
+2026-11-10 10:33:16         [select_job_card] probe 1: clicking 500,433
+2026-11-10 10:33:16         [select_job_card]    same job still selected -- the click was inside the current card
+2026-11-10 10:33:16         [select_job_card] probe 2: clicking 500,488
+2026-11-10 10:33:16         [select_job_card]    same job still selected -- the click was inside the current card
+2026-11-10 10:33:16         [select_job_card] probe 3: clicking 500,543
+2026-11-10 10:33:16         [select_job_card]    same job still selected -- the click was inside the current card
+2026-11-10 10:33:16         [select_job_card] probe 4: clicking 500,598
+2026-11-10 10:33:16         [select_job_card]    same job still selected -- the click was inside the current card
+2026-11-10 10:33:16         [select_job_card] probe 5: clicking 500,653
+2026-11-10 10:33:16         [select_job_card]    same job still selected -- the click was inside the current card
+2026-11-10 10:33:16         [select_job_card] probe 6: clicking 500,708
+2026-11-10 10:33:16         [select_job_card]    same job still selected -- the click was inside the current card
+2026-11-10 10:33:16         [select_job_card] probe 7: clicking 500,763
+2026-11-10 10:33:16         [select_job_card] card index 1 selected: job 5808f173973339e5 at y=763 after 7 probe(s) and 0 scroll(s)
+2026-11-10 10:33:16         -> exit 0 in 37.9s 
+2026-11-10 10:33:16       selected job 5808f173973339e5 (click)
+2026-11-10 10:33:16       [dup] card 1 is a job this combination already handled (https://in.indeed.com/jobs?vjk=5808f173973339e5)
+2026-11-10 10:33:16       $ /home/ubuntu/new_indeed_script/shell_scripts/close_source_tab.sh --window 65011735
+2026-11-10 10:33:17         [close_source_tab] address bar before closing: https://in.indeed.com/jobs?q=Product+Consultant&l=Vapi&radius=25&from=searchOnDesktopSerp&vjk=5808f173973339e5
+2026-11-10 10:33:17         [close_source_tab] WARNING: the front tab is not a view-source tab ('https://in.indeed.com/jobs?q=Product+Consultant&l=Vapi&radius=25&from=searchOnDesktopSerp&vjk=5808f173973339e5'); NOT pressing Ctrl+W, because that would close the listing.
+2026-11-10 10:33:17         -> exit 0 in 1.4s (closed=no_tab)
+2026-11-10 10:33:17       $ /home/ubuntu/new_indeed_script/shell_scripts/select_job_card.sh --window 65011735 --index 2 --card-x 500 --start-y 823 --max-y 993 --probe-step 55 --probe-limit 12 --scroll-rounds 6 --marker vjk= --seen-keys 09af3effa4a6c678,5808f173973339e5
+2026-11-10 10:33:29         [select_job_card] before selection: key='5808f173973339e5'
+2026-11-10 10:33:29         [select_job_card] probe 1: clicking 500,823
+2026-11-10 10:33:29         [select_job_card]    same job still selected -- the click was inside the current card
+2026-11-10 10:33:29         [select_job_card] probe 2: clicking 500,878
+2026-11-10 10:33:29         [select_job_card] card index 2 selected: job c9e3292a4cd96c94 at y=878 after 2 probe(s) and 0 scroll(s)
+2026-11-10 10:33:29         -> exit 0 in 12.1s 
+2026-11-10 10:33:29       selected job c9e3292a4cd96c94 (click)
+2026-11-10 10:33:29       [dup] card 2 is a job this combination already handled (https://in.indeed.com/jobs?vjk=c9e3292a4cd96c94)
+2026-11-10 10:33:29       $ /home/ubuntu/new_indeed_script/shell_scripts/close_source_tab.sh --window 65011735
+2026-11-10 10:33:30         [close_source_tab] address bar before closing: https://in.indeed.com/jobs?q=Product+Consultant&l=Vapi&radius=25&from=searchOnDesktopSerp&vjk=c9e3292a4cd96c94
+2026-11-10 10:33:30         [close_source_tab] WARNING: the front tab is not a view-source tab ('https://in.indeed.com/jobs?q=Product+Consultant&l=Vapi&radius=25&from=searchOnDesktopSerp&vjk=c9e3292a4cd96c94'); NOT pressing Ctrl+W, because that would close the listing.
+2026-11-10 10:33:30         -> exit 0 in 1.4s (closed=no_tab)
+2026-11-10 10:33:30       $ /home/ubuntu/new_indeed_script/shell_scripts/select_job_card.sh --window 65011735 --index 3 --card-x 500 --start-y 938 --max-y 993 --probe-step 55 --probe-limit 12 --scroll-rounds 6 --marker vjk= --seen-keys 09af3effa4a6c678,5808f173973339e5,c9e3292a4cd96c94
+2026-11-10 10:34:26         [select_job_card] before selection: key='c9e3292a4cd96c94'
+2026-11-10 10:34:26         [select_job_card] probe 1: clicking 500,938
+2026-11-10 10:34:26         [select_job_card]    same job still selected -- the click was inside the current card
+2026-11-10 10:34:26         [select_job_card] probe 2: clicking 500,993
+2026-11-10 10:34:26         [select_job_card]    same job still selected -- the click was inside the current card
+2026-11-10 10:34:26         [select_job_card] nothing new above y=1048 -- scrolling the results list (round 1/6)
+2026-11-10 10:34:26         [select_job_card] probe 3: clicking 500,320
+2026-11-10 10:34:26         [select_job_card]    job 09af3effa4a6c678 has already been handled -- probing past it
+2026-11-10 10:34:26         [select_job_card] probe 4: clicking 500,375
+2026-11-10 10:34:26         [select_job_card]    job 5808f173973339e5 has already been handled -- probing past it
+2026-11-10 10:34:26         [select_job_card] probe 5: clicking 500,430
+2026-11-10 10:34:26         [select_job_card]    same job still selected -- the click was inside the current card
+2026-11-10 10:34:26         [select_job_card] probe 6: clicking 500,485
+2026-11-10 10:34:26         [select_job_card]    same job still selected -- the click was inside the current card
+2026-11-10 10:34:26         [select_job_card] probe 7: clicking 500,540
+2026-11-10 10:34:26         [select_job_card]    job c9e3292a4cd96c94 has already been handled -- probing past it
+2026-11-10 10:34:26         [select_job_card] probe 8: clicking 500,595
+2026-11-10 10:34:26         [select_job_card]    same job still selected -- the click was inside the current card
+2026-11-10 10:34:26         [select_job_card] probe 9: clicking 500,650
+2026-11-10 10:34:26         [select_job_card]    same job still selected -- the click was inside the current card
+2026-11-10 10:34:26         [select_job_card] probe 10: clicking 500,705
+2026-11-10 10:34:26         [select_job_card] card index 3 selected: job ab2a7cd954d011e7 at y=705 after 10 probe(s) and 1 scroll(s)
+2026-11-10 10:34:26         -> exit 0 in 56.0s 
+2026-11-10 10:34:26       selected job ab2a7cd954d011e7 (click, after scrolling)
+2026-11-10 10:34:26       [dup] card 3 is a job this combination already handled (https://in.indeed.com/jobs?vjk=ab2a7cd954d011e7)
+2026-11-10 10:34:26       $ /home/ubuntu/new_indeed_script/shell_scripts/close_source_tab.sh --window 65011735
+2026-11-10 10:34:28         [close_source_tab] address bar before closing: https://in.indeed.com/jobs?q=Product+Consultant&l=Vapi&radius=25&from=searchOnDesktopSerp&vjk=ab2a7cd954d011e7
+2026-11-10 10:34:28         [close_source_tab] WARNING: the front tab is not a view-source tab ('https://in.indeed.com/jobs?q=Product+Consultant&l=Vapi&radius=25&from=searchOnDesktopSerp&vjk=ab2a7cd954d011e7'); NOT pressing Ctrl+W, because that would close the listing.
+2026-11-10 10:34:28         -> exit 0 in 1.4s (closed=no_tab)
+2026-11-10 10:34:28       $ /home/ubuntu/new_indeed_script/shell_scripts/select_job_card.sh --window 65011735 --index 4 --card-x 500 --start-y 433 --max-y 993 --probe-step 55 --probe-limit 12 --scroll-rounds 6 --marker vjk= --seen-keys 09af3effa4a6c678,5808f173973339e5,c9e3292a4cd96c94,ab2a7cd954d011e7
+2026-11-10 10:35:21         [select_job_card] before selection: key='ab2a7cd954d011e7'
+2026-11-10 10:35:21         [select_job_card] probe 1: clicking 500,433
+2026-11-10 10:35:21         [select_job_card]    job 5808f173973339e5 has already been handled -- probing past it
+2026-11-10 10:35:21         [select_job_card] probe 2: clicking 500,488
+2026-11-10 10:35:21         [select_job_card]    same job still selected -- the click was inside the current card
+2026-11-10 10:35:21         [select_job_card] probe 3: clicking 500,543
+2026-11-10 10:35:21         [select_job_card]    job c9e3292a4cd96c94 has already been handled -- probing past it
+2026-11-10 10:35:21         [select_job_card] probe 4: clicking 500,598
+2026-11-10 10:35:21         [select_job_card]    same job still selected -- the click was inside the current card
+2026-11-10 10:35:21         [select_job_card] probe 5: clicking 500,653
+2026-11-10 10:35:21         [select_job_card]    same job still selected -- the click was inside the current card
+2026-11-10 10:35:21         [select_job_card] probe 6: clicking 500,708
+2026-11-10 10:35:21         [select_job_card]    job ab2a7cd954d011e7 has already been handled -- probing past it
+2026-11-10 10:35:21         [select_job_card] probe 7: clicking 500,763
+2026-11-10 10:35:21         [select_job_card]    same job still selected -- the click was inside the current card
+2026-11-10 10:35:21         [select_job_card] probe 8: clicking 500,818
+2026-11-10 10:35:21         [select_job_card]    same job still selected -- the click was inside the current card
+2026-11-10 10:35:21         [select_job_card] probe 9: clicking 500,873
+2026-11-10 10:35:21         [select_job_card]    same job still selected -- the click was inside the current card
+2026-11-10 10:35:21         [select_job_card] probe 10: clicking 500,928
+2026-11-10 10:35:21         [select_job_card] card index 4 selected: job ebadf68aa5a23bcd at y=928 after 10 probe(s) and 0 scroll(s)
+2026-11-10 10:35:21         -> exit 0 in 53.1s 
+2026-11-10 10:35:21       selected job ebadf68aa5a23bcd (click)
+2026-11-10 10:35:21       [dup] card 4 is a job this combination already handled (https://in.indeed.com/jobs?vjk=ebadf68aa5a23bcd)
+2026-11-10 10:35:21       $ /home/ubuntu/new_indeed_script/shell_scripts/close_source_tab.sh --window 65011735
+2026-11-10 10:35:22         [close_source_tab] address bar before closing: https://in.indeed.com/jobs?q=Product+Consultant&l=Vapi&radius=25&from=searchOnDesktopSerp&vjk=ebadf68aa5a23bcd
+2026-11-10 10:35:22         [close_source_tab] WARNING: the front tab is not a view-source tab ('https://in.indeed.com/jobs?q=Product+Consultant&l=Vapi&radius=25&from=searchOnDesktopSerp&vjk=ebadf68aa5a23bcd'); NOT pressing Ctrl+W, because that would close the listing.
+2026-11-10 10:35:22         -> exit 0 in 1.4s (closed=no_tab)
+2026-11-10 10:35:22       $ /home/ubuntu/new_indeed_script/shell_scripts/select_job_card.sh --window 65011735 --index 5 --card-x 500 --start-y 988 --max-y 993 --probe-step 55 --probe-limit 12 --scroll-rounds 6 --marker vjk= --seen-keys 09af3effa4a6c678,5808f173973339e5,c9e3292a4cd96c94,ab2a7cd954d011e7,ebadf68aa5a23bcd
+2026-11-10 10:36:18         [select_job_card] before selection: key='ebadf68aa5a23bcd'
+2026-11-10 10:36:18         [select_job_card] probe 1: clicking 500,988
+2026-11-10 10:36:18         [select_job_card]    same job still selected -- the click was inside the current card
+2026-11-10 10:36:18         [select_job_card] nothing new above y=1043 -- scrolling the results list (round 1/6)
+2026-11-10 10:36:18         [select_job_card] probe 2: clicking 500,320
+2026-11-10 10:36:18         [select_job_card]    job c9e3292a4cd96c94 has already been handled -- probing past it
+2026-11-10 10:36:18         [select_job_card] probe 3: clicking 500,375
+2026-11-10 10:36:18         [select_job_card]    job ab2a7cd954d011e7 has already been handled -- probing past it
+2026-11-10 10:36:18         [select_job_card] probe 4: clicking 500,430
+2026-11-10 10:36:18         [select_job_card]    same job still selected -- the click was inside the current card
+2026-11-10 10:36:18         [select_job_card] probe 5: clicking 500,485
+2026-11-10 10:36:18         [select_job_card]    same job still selected -- the click was inside the current card
+2026-11-10 10:36:18         [select_job_card] probe 6: clicking 500,540
+2026-11-10 10:36:18         [select_job_card]    job ebadf68aa5a23bcd has already been handled -- probing past it
+2026-11-10 10:36:18         [select_job_card] probe 7: clicking 500,595
+2026-11-10 10:36:18         [select_job_card]    same job still selected -- the click was inside the current card
+2026-11-10 10:36:18         [select_job_card] probe 8: clicking 500,650
+2026-11-10 10:36:18         [select_job_card]    same job still selected -- the click was inside the current card
+2026-11-10 10:36:18         [select_job_card] probe 9: clicking 500,705
+2026-11-10 10:36:18         [select_job_card]    same job still selected -- the click was inside the current card
+2026-11-10 10:36:18         [select_job_card] probe 10: clicking 500,760
+2026-11-10 10:36:18         [select_job_card] card index 5 selected: job 84c8f40078f062f0 at y=760 after 10 probe(s) and 1 scroll(s)
+2026-11-10 10:36:18         -> exit 0 in 56.1s 
+2026-11-10 10:36:18       selected job 84c8f40078f062f0 (click, after scrolling)
+2026-11-10 10:36:18       [dup] card 5 is a job this combination already handled (https://in.indeed.com/jobs?vjk=84c8f40078f062f0)
+2026-11-10 10:36:18       $ /home/ubuntu/new_indeed_script/shell_scripts/close_source_tab.sh --window 65011735
+2026-11-10 10:36:20         [close_source_tab] address bar before closing: https://in.indeed.com/jobs?q=Product+Consultant&l=Vapi&radius=25&from=searchOnDesktopSerp&vjk=84c8f40078f062f0
+2026-11-10 10:36:20         [close_source_tab] WARNING: the front tab is not a view-source tab ('https://in.indeed.com/jobs?q=Product+Consultant&l=Vapi&radius=25&from=searchOnDesktopSerp&vjk=84c8f40078f062f0'); NOT pressing Ctrl+W, because that would close the listing.
+2026-11-10 10:36:20         -> exit 0 in 1.4s (closed=no_tab)
+2026-11-10 10:36:20       $ /home/ubuntu/new_indeed_script/shell_scripts/select_job_card.sh --window 65011735 --index 6 --card-x 500 --start-y 433 --max-y 993 --probe-step 55 --probe-limit 12 --scroll-rounds 6 --marker vjk= --seen-keys 09af3effa4a6c678,5808f173973339e5,c9e3292a4cd96c94,ab2a7cd954d011e7,ebadf68aa5a23bcd,84c8f40078f062f0
+2026-11-10 10:37:18         [select_job_card] before selection: key='84c8f40078f062f0'
+2026-11-10 10:37:18         [select_job_card] probe 1: clicking 500,433
+2026-11-10 10:37:18         [select_job_card]    job ab2a7cd954d011e7 has already been handled -- probing past it
+2026-11-10 10:37:18         [select_job_card] probe 2: clicking 500,488
+2026-11-10 10:37:18         [select_job_card]    same job still selected -- the click was inside the current card
+2026-11-10 10:37:18         [select_job_card] probe 3: clicking 500,543
+2026-11-10 10:37:18         [select_job_card]    job ebadf68aa5a23bcd has already been handled -- probing past it
+2026-11-10 10:37:18         [select_job_card] probe 4: clicking 500,598
+2026-11-10 10:37:18         [select_job_card]    same job still selected -- the click was inside the current card
+2026-11-10 10:37:18         [select_job_card] probe 5: clicking 500,653
+2026-11-10 10:37:18         [select_job_card]    same job still selected -- the click was inside the current card
+2026-11-10 10:37:18         [select_job_card] probe 6: clicking 500,708
+2026-11-10 10:37:18         [select_job_card]    same job still selected -- the click was inside the current card
+2026-11-10 10:37:18         [select_job_card] probe 7: clicking 500,763
+2026-11-10 10:37:18         [select_job_card]    job 84c8f40078f062f0 has already been handled -- probing past it
+2026-11-10 10:37:18         [select_job_card] probe 8: clicking 500,818
+2026-11-10 10:37:18         [select_job_card]    same job still selected -- the click was inside the current card
+2026-11-10 10:37:18         [select_job_card] probe 9: clicking 500,873
+2026-11-10 10:37:18         [select_job_card]    same job still selected -- the click was inside the current card
+2026-11-10 10:37:18         [select_job_card] probe 10: clicking 500,928
+2026-11-10 10:37:18         [select_job_card]    same job still selected -- the click was inside the current card
+2026-11-10 10:37:18         [select_job_card] probe 11: clicking 500,983
+2026-11-10 10:37:18         [select_job_card] card index 6 selected: job cc135b9c5d4bd391 at y=983 after 11 probe(s) and 0 scroll(s)
+2026-11-10 10:37:18         -> exit 0 in 58.3s 
+2026-11-10 10:37:18       selected job cc135b9c5d4bd391 (click)
+2026-11-10 10:37:18       [dup] card 6 is a job this combination already handled (https://in.indeed.com/jobs?vjk=cc135b9c5d4bd391)
+2026-11-10 10:37:18       $ /home/ubuntu/new_indeed_script/shell_scripts/close_source_tab.sh --window 65011735
+2026-11-10 10:37:19         [close_source_tab] address bar before closing: https://in.indeed.com/jobs?q=Product+Consultant&l=Vapi&radius=25&from=searchOnDesktopSerp&vjk=cc135b9c5d4bd391
+2026-11-10 10:37:19         [close_source_tab] WARNING: the front tab is not a view-source tab ('https://in.indeed.com/jobs?q=Product+Consultant&l=Vapi&radius=25&from=searchOnDesktopSerp&vjk=cc135b9c5d4bd391'); NOT pressing Ctrl+W, because that would close the listing.
+2026-11-10 10:37:19         -> exit 0 in 1.4s (closed=no_tab)
+2026-11-10 10:37:19   [page 1] 0 distinct new jobs, 0 saved.
+2026-11-10 10:37:19   [page 1] this was the last page of this search -- moving on to the next keyword.
+2026-11-10 10:37:19 
+  [restart] closing the browser, resting 5s, then opening a fresh window on the Indeed home page
+2026-11-10 10:37:20    our Firefox (pid 25243) has exited cleanly
+2026-11-10 10:37:20    waiting 5s before opening the browser again
+2026-11-10 10:37:20       [wait] 5s before the next keyword
+2026-11-10 10:37:25       $ /home/ubuntu/new_indeed_script/shell_scripts/open_firefox.sh --profile /home/ubuntu/new_indeed_script/config/firefox_profile/rank_3 --url https://in.indeed.com --state-file /home/ubuntu/new_indeed_script/Temp_Data/rank_3/browser_window.json --expect-host indeed --download-dir /home/ubuntu/new_indeed_script/Temp_Data/rank_3 --window-size 1845x1046 --window-pos 0,34
+2026-11-10 10:37:36         [open_firefox] pre-existing Firefox windows (never touched): none
+2026-11-10 10:37:36         [open_firefox] display=:0 xauthority=/run/user/1000/gdm/Xauthority
+2026-11-10 10:37:36         [open_firefox] launch mode: snap (inner binary inside 'snap run --shell')
+2026-11-10 10:37:36         [open_firefox] firefox pid=29198
+2026-11-10 10:37:36         [open_firefox] window_id=65011735 name=Mozilla Firefox
+2026-11-10 10:37:36         [open_firefox] window geometry set on attempt 1: 1850x1053+70+27
+2026-11-10 10:37:36         [open_firefox] normal window: 1850x1053+70+27 (asked for 1845x1046+0+34)
+2026-11-10 10:37:36         [open_firefox] address bar: https://in.indeed.com/
+2026-11-10 10:37:36         [open_firefox] ready
+2026-11-10 10:37:36         -> exit 0 in 11.1s (window_id=65011735 fullscreen=no access_denied=no verified=yes)
+2026-11-10 10:37:36    window landed at +70+27, not the +0+34 it was asked for: clicks shifted by (+70,-7) to match
+2026-11-10 10:37:36    browser ready: pid=29198 window=65011735 fullscreen=no
+2026-11-10 10:37:36       $ /home/ubuntu/new_indeed_script/shell_scripts/verify_search_fields.sh --window 65011735 --probe zz --what-xy 770,253 --where-xy 1170,253
+2026-11-10 10:37:53         [verify_search_fields] window at +70+27 1053px tall; probes stay between y=147 and y=1040 (never in Firefox's own chrome)
+2026-11-10 10:37:53         [verify_search_fields] input guard passed; address bar reads: https://in.indeed.com/
+2026-11-10 10:37:53         [verify_search_fields] waiting 7.0s for the page to settle
+2026-11-10 10:37:53         [verify_search_fields]   probe 1 at 770,253: the keyword box answered
+2026-11-10 10:37:53         [verify_search_fields]   probe 2 at 1170,253: the location box answered
+2026-11-10 10:37:53         [verify_search_fields] both search boxes found and answered: keyword at 770,253, location at 1170,253 (after 2 probe(s))
+2026-11-10 10:37:53         -> exit 0 in 16.9s (verified=yes)
+2026-11-10 10:37:53    search fields verified: keyword=yes location=yes (2 probe(s))
+2026-11-10 10:37:53       [login] signed in: yes (session cookies: PPID, SOCK, SHOE)
+2026-11-10 10:37:53 
+  [cycle 1 | city 1/23 Vapi | keyword 2/1264 Gameplay Programmer | worked 7m 56s]
+2026-11-10 10:37:53 
+  [page 1/5] Gameplay Programmer @ Vapi  (start=0)
+2026-11-10 10:37:53       $ /home/ubuntu/new_indeed_script/shell_scripts/search_jobs.sh --window 65011735 --keyword 'Gameplay Programmer' --city Vapi --base-url https://in.indeed.com --mode form --what-xy 770,253 --where-xy 1170,253
+2026-11-10 10:38:21         [search_jobs] input guard passed; address bar reads: https://in.indeed.com/
+2026-11-10 10:38:21         [search_jobs] waiting 7.0s for the page to settle before typing
+2026-11-10 10:38:21         [search_jobs] form search: 'Gameplay Programmer' in 'Vapi'
+2026-11-10 10:38:21         [search_jobs] clicking the keyword box at 770,253
+2026-11-10 10:38:21         [search_jobs] clicking the city box at 1170,253
+2026-11-10 10:38:21         [search_jobs] both fields confirmed; submitting (focus is still in the city box)
+2026-11-10 10:38:21         [search_jobs] waiting 10.0s for the results to load
+2026-11-10 10:38:21         [search_jobs] window title: 0 Gameplay Programmer Jobs and Vacancies in Vapi, Gujarat - 10 November 2026 | Indeed — Mozilla Firefox
+2026-11-10 10:38:21         [search_jobs] address bar after search: https://in.indeed.com/jobs?q=Gameplay+Programmer&l=Vapi&from=searchOnHP&vjk=e8dde544ad880d7e
+2026-11-10 10:38:21         [search_jobs] Indeed pre-selected job e8dde544ad880d7e
+2026-11-10 10:38:21         [search_jobs] search submitted: Gameplay Programmer @ Vapi -- going to the first job card
+2026-11-10 10:38:21         -> exit 0 in 28.2s (access_denied=no verified=not_checked)
+2026-11-10 10:38:21       $ /home/ubuntu/new_indeed_script/shell_scripts/save_page_source.sh --window 65011735 --out /home/ubuntu/new_indeed_script/Temp_Data/rank_3/listing_3_page01.html
+2026-11-10 10:38:33         [save_page_source] source will be taken from: https://in.indeed.com/jobs?q=Gameplay+Programmer&l=Vapi&from=searchOnHP&vjk=e8dde544ad880d7e
+2026-11-10 10:38:33         [save_page_source] pressing Ctrl+U
+2026-11-10 10:38:33         [save_page_source] view-source tab confirmed: view-source:https://in.indeed.com/jobs?q=Gameplay+Programmer&l=Vapi&from=searchOnHP&vjk=e8dde544ad880d7e
+2026-11-10 10:38:33         [save_page_source] pressing Ctrl+S
+2026-11-10 10:38:33         [save_page_source] save dialog window=71303264 name='Save As - https://in.indeed.com/jobs?q=Gameplay+Programmer&l=Vapi&from=searchOnHP&vjk=e8dde544ad880d7e — Mozilla Firefox'
+2026-11-10 10:38:33         [save_page_source] saved 820259 bytes to /home/ubuntu/new_indeed_script/Temp_Data/rank_3/listing_3_page01.html
+2026-11-10 10:38:33         -> exit 0 in 11.4s 
+2026-11-10 10:38:33    saved listing source: /home/ubuntu/new_indeed_script/Temp_Data/rank_3/listing_3_page01.html (820259 bytes)
+2026-11-10 10:38:33    waiting 2.0s before closing the source tab
+2026-11-10 10:38:35       $ /home/ubuntu/new_indeed_script/shell_scripts/close_source_tab.sh --window 65011735
+2026-11-10 10:38:39         [close_source_tab] address bar before closing: view-source:https://in.indeed.com/jobs?q=Gameplay+Programmer&l=Vapi&from=searchOnHP&vjk=e8dde544ad880d7e
+2026-11-10 10:38:39         [close_source_tab] closing the view-source tab
+2026-11-10 10:38:39         [close_source_tab] back on: https://in.indeed.com/jobs?q=Gameplay+Programmer&l=Vapi&from=searchOnHP&vjk=e8dde544ad880d7e
+2026-11-10 10:38:39         -> exit 0 in 4.5s (closed=yes)
+2026-11-10 10:38:39    waiting 3.0s before the next job card
+2026-11-10 10:38:42   [census] the search matched 0 jobs -- the 5 card(s) on this page are Indeed's suggestions, not results for this keyword
+2026-11-10 10:38:42       $ /home/ubuntu/new_indeed_script/shell_scripts/select_job_card.sh --window 65011735 --index 0 --card-x 500 --start-y 433 --max-y 993 --probe-step 55 --probe-limit 12 --scroll-rounds 6 --marker vjk= --preselected-key e8dde544ad880d7e
+2026-11-10 10:38:44         [select_job_card] before selection: key='e8dde544ad880d7e'
+2026-11-10 10:38:44         [select_job_card] job e8dde544ad880d7e is already selected by Indeed -- taking it without clicking
+2026-11-10 10:38:44         -> exit 0 in 1.8s 
+2026-11-10 10:38:44       selected job e8dde544ad880d7e (preselected)
+2026-11-10 10:38:44       $ /home/ubuntu/new_indeed_script/shell_scripts/save_page_source.sh --window 65011735 --out /home/ubuntu/new_indeed_script/Temp_Data/rank_3/job_3_0000.html --expect-url vjk=e8dde544ad880d7e
+2026-11-10 10:38:55         [save_page_source] source will be taken from: https://in.indeed.com/jobs?q=Gameplay+Programmer&l=Vapi&from=searchOnHP&vjk=e8dde544ad880d7e
+2026-11-10 10:38:55         [save_page_source] page identity confirmed against --expect-url
+2026-11-10 10:38:55         [save_page_source] pressing Ctrl+U
+2026-11-10 10:38:55         [save_page_source] view-source tab confirmed: view-source:https://in.indeed.com/jobs?q=Gameplay+Programmer&l=Vapi&from=searchOnHP&vjk=e8dde544ad880d7e
+2026-11-10 10:38:55         [save_page_source] pressing Ctrl+S
+2026-11-10 10:38:55         [save_page_source] save dialog window=71303366 name='Save As - https://in.indeed.com/jobs?q=Gameplay+Programmer&l=Vapi&from=searchOnHP&vjk=e8dde544ad880d7e — Mozilla Firefox'
+2026-11-10 10:38:55         [save_page_source] saved 820259 bytes to /home/ubuntu/new_indeed_script/Temp_Data/rank_3/job_3_0000.html
+2026-11-10 10:38:55         -> exit 0 in 11.1s 
+2026-11-10 10:38:55    saved source: /home/ubuntu/new_indeed_script/Temp_Data/rank_3/job_3_0000.html (820259 bytes)
+2026-11-10 10:38:55       [fields] 26 of 32 columns filled   (isolation: job-card, 6 job(s) in the document)
+2026-11-10 10:38:55          job_id                 d84c5adeba627e25c1869d33d8fa29e3
+2026-11-10 10:38:55          internal_job_id        e8dde544ad880d7e
+2026-11-10 10:38:55          job_title              Graphic Designer & Video Editor- Madurai - No Work from home   [job-pane]
+2026-11-10 10:38:55          company_name           ATELIER NEORAH PVT LTD   [job-pane]
+2026-11-10 10:38:55          company_website        (blank -- not stated in the saved page)
+2026-11-10 10:38:55          job_description        NO WORK FROM HOME  JOB TIMING - 9.00 am to 7.00 pm  Only Expe...
+2026-11-10 10:38:55          skills_required        (blank -- not stated in the saved page)
+2026-11-10 10:38:55          experience_required    NO WORK FROM HOME JOB TIMING - 9.00 am to 7.00 pm Only Experi...
+2026-11-10 10:38:55          experience_min_years   5
+2026-11-10 10:38:55          experience_max_years   (blank -- not stated in the saved page)
+2026-11-10 10:38:55          salary_min             18000
+2026-11-10 10:38:55          salary_max             23000
+2026-11-10 10:38:55          salary_currency        INR   [job-card]
+2026-11-10 10:38:55          location               Madurai, Tamil Nadu   [job-pane]
+2026-11-10 10:38:55          city                   Madurai
+2026-11-10 10:38:55          state                  Tamil Nadu
+2026-11-10 10:38:55          country                India
+2026-11-10 10:38:55          remote_type            Remote
+2026-11-10 10:38:55          employment_type        Full-time   [job-card]
+2026-11-10 10:38:55          job_category           IT Department
+2026-11-10 10:38:55          posted_date            2024-09-09 05:00:00   [job-card]
+2026-11-10 10:38:55          expiry_date            (blank -- not stated in the saved page)
+2026-11-10 10:38:55          application_deadline   (blank -- not stated in the saved page)
+2026-11-10 10:38:55          apply_url              https://in.indeed.com/viewjob?jk=e8dde544ad880d7e   [address-bar]
+2026-11-10 10:38:55          updated_at             2024-09-09 05:00:00
+2026-11-10 10:38:55          fetched_at             2026-11-10 05:08:55
+2026-11-10 10:38:55          is_fake                (blank -- not stated in the saved page)
+2026-11-10 10:38:55          is_active              True
+2026-11-10 10:38:55          source_url             https://in.indeed.com/   [address-bar]
+2026-11-10 10:38:55          source_type            job_portal
+2026-11-10 10:38:55          source_platform        Indeed
+2026-11-10 10:38:55          score                  30
+2026-11-10 10:38:55       [note] isolated job e8dde544ad880d7e from a document describing 6 jobs
+2026-11-10 10:38:55       [note] no JSON-LD JobPosting in the source
+2026-11-10 10:38:55       [note] visible-text parsing skipped: the job was isolated from a 6-job document, so page text belongs to other jobs too
+2026-11-10 10:38:55       [parse] not stated by the page: skills_required
+2026-11-10 10:38:55 
+2026-11-10 10:38:55 [Rank 3/5]
+2026-11-10 10:38:55 
+2026-11-10 10:38:55 City: Vapi   (1/23)
+2026-11-10 10:38:55 Keyword: Gameplay Programmer   (2/1264)
+2026-11-10 10:38:55 
+2026-11-10 10:38:55 Page: 1
+2026-11-10 10:38:55 Job: 0
+2026-11-10 10:38:55 
+2026-11-10 10:38:55 Job Title: Graphic Designer & Video Editor- Madurai - No Work from home
+2026-11-10 10:38:55 Company: ATELIER NEORAH PVT LTD
+2026-11-10 10:38:55 
+2026-11-10 10:38:55 Extraction: SUCCESS (2161 chars of description)
+2026-11-10 10:38:55 Duplicate: NO
+2026-11-10 10:38:55 Excel Save: SUCCESS (current_data.xlsx rows=7)
+2026-11-10 10:38:55 
+2026-11-10 10:38:55 Jobs Examined: 8   Extracted: 0   Saved: 7   Duplicates: 15   Rejected: 1   Failures: 8
+2026-11-10 10:38:55 
+2026-11-10 10:38:55 Total Complete Cycle: 0
+2026-11-10 10:38:55 
+2026-11-10 10:38:55 Next: Job Card 1
+2026-11-10 10:38:55 ------------------------------------------------------------
+2026-11-10 10:38:55    waiting 10.0s before closing the source tab
+2026-11-10 10:39:05       $ /home/ubuntu/new_indeed_script/shell_scripts/close_source_tab.sh --window 65011735
+2026-11-10 10:39:10         [close_source_tab] address bar before closing: view-source:https://in.indeed.com/jobs?q=Gameplay+Programmer&l=Vapi&from=searchOnHP&vjk=e8dde544ad880d7e
+2026-11-10 10:39:10         [close_source_tab] closing the view-source tab
+2026-11-10 10:39:10         [close_source_tab] back on: https://in.indeed.com/jobs?q=Gameplay+Programmer&l=Vapi&from=searchOnHP&vjk=e8dde544ad880d7e
+2026-11-10 10:39:10         -> exit 0 in 4.6s (closed=yes)
+2026-11-10 10:39:10    waiting 10.0s before the next job card
+2026-11-10 10:39:20       $ /home/ubuntu/new_indeed_script/shell_scripts/select_job_card.sh --window 65011735 --index 1 --card-x 500 --start-y 433 --max-y 993 --probe-step 55 --probe-limit 12 --scroll-rounds 6 --marker vjk= --seen-keys e8dde544ad880d7e
+2026-11-10 10:40:13         [select_job_card] before selection: key='e8dde544ad880d7e'
+2026-11-10 10:40:13         [select_job_card] probe 1: clicking 500,433
+2026-11-10 10:40:13         [select_job_card]    same job still selected -- the click was inside the current card
+2026-11-10 10:40:13         [select_job_card] probe 2: clicking 500,488
+2026-11-10 10:40:13         [select_job_card]    same job still selected -- the click was inside the current card
+2026-11-10 10:40:13         [select_job_card] probe 3: clicking 500,543
+2026-11-10 10:40:13         [select_job_card]    same job still selected -- the click was inside the current card
+2026-11-10 10:40:13         [select_job_card] probe 4: clicking 500,598
+2026-11-10 10:40:13         [select_job_card]    same job still selected -- the click was inside the current card
+2026-11-10 10:40:13         [select_job_card] probe 5: clicking 500,653
+2026-11-10 10:40:13         [select_job_card]    same job still selected -- the click was inside the current card
+2026-11-10 10:40:13         [select_job_card] probe 6: clicking 500,708
+2026-11-10 10:40:13         [select_job_card]    same job still selected -- the click was inside the current card
+2026-11-10 10:40:13         [select_job_card] probe 7: clicking 500,763
+2026-11-10 10:40:13         [select_job_card]    same job still selected -- the click was inside the current card
+2026-11-10 10:40:13         [select_job_card] probe 8: clicking 500,818
+2026-11-10 10:40:13         [select_job_card]    same job still selected -- the click was inside the current card
+2026-11-10 10:40:13         [select_job_card] probe 9: clicking 500,873
+2026-11-10 10:40:13         [select_job_card]    same job still selected -- the click was inside the current card
+2026-11-10 10:40:13         [select_job_card] probe 10: clicking 500,928
+2026-11-10 10:40:13         [select_job_card] card index 1 selected: job 68b500296b456b83 at y=928 after 10 probe(s) and 0 scroll(s)
+2026-11-10 10:40:13         -> exit 0 in 53.3s 
+2026-11-10 10:40:13       selected job 68b500296b456b83 (click)
+2026-11-10 10:40:13       $ /home/ubuntu/new_indeed_script/shell_scripts/save_page_source.sh --window 65011735 --out /home/ubuntu/new_indeed_script/Temp_Data/rank_3/job_3_0001.html --expect-url vjk=68b500296b456b83
+2026-11-10 10:40:24         [save_page_source] source will be taken from: https://in.indeed.com/jobs?q=Gameplay+Programmer&l=Vapi&from=searchOnHP&vjk=68b500296b456b83
+2026-11-10 10:40:24         [save_page_source] page identity confirmed against --expect-url
+2026-11-10 10:40:24         [save_page_source] pressing Ctrl+U
+2026-11-10 10:40:24         [save_page_source] view-source tab confirmed: view-source:https://in.indeed.com/jobs?q=Gameplay+Programmer&l=Vapi&from=searchOnHP&vjk=68b500296b456b83
+2026-11-10 10:40:24         [save_page_source] pressing Ctrl+S
+2026-11-10 10:40:24         [save_page_source] save dialog window=71303463 name='Save As - https://in.indeed.com/jobs?q=Gameplay+Programmer&l=Vapi&from=searchOnHP&vjk=68b500296b456b83 — Mozilla Firefox'
+2026-11-10 10:40:24         [save_page_source] saved 820318 bytes to /home/ubuntu/new_indeed_script/Temp_Data/rank_3/job_3_0001.html
+2026-11-10 10:40:24         -> exit 0 in 11.0s 
+2026-11-10 10:40:24    saved source: /home/ubuntu/new_indeed_script/Temp_Data/rank_3/job_3_0001.html (820318 bytes)
+2026-11-10 10:40:25       [fields] 19 of 32 columns filled   (isolation: job-card, 7 job(s) in the document)
+2026-11-10 10:40:25          job_id                 03c761cade2dcbf8ba0e9bc8e3964ce0
+2026-11-10 10:40:25          internal_job_id        68b500296b456b83
+2026-11-10 10:40:25          job_title              Bilingual AI Content Writer (Odia/English) - AI Trainer   [job-card]
+2026-11-10 10:40:25          company_name           (blank -- not stated in the saved page)
+2026-11-10 10:40:25          company_website        (blank -- not stated in the saved page)
+2026-11-10 10:40:25          job_description        Gameplay Programmer jobs available in Vapi, Gujarat on Indeed...
+2026-11-10 10:40:25          skills_required        (blank -- not stated in the saved page)
+2026-11-10 10:40:25          experience_required    Gameplay Programmer jobs available in Vapi, Gujarat on Indeed...
+2026-11-10 10:40:25          experience_min_years   (blank -- not stated in the saved page)
+2026-11-10 10:40:25          experience_max_years   (blank -- not stated in the saved page)
+2026-11-10 10:40:25          salary_min             (blank -- not stated in the saved page)
+2026-11-10 10:40:25          salary_max             (blank -- not stated in the saved page)
+2026-11-10 10:40:25          salary_currency        (blank -- not stated in the saved page)
+2026-11-10 10:40:25          location               Vapi
+2026-11-10 10:40:25          city                   Vapi
+2026-11-10 10:40:25          state                  Gujarat
+2026-11-10 10:40:25          country                India
+2026-11-10 10:40:25          remote_type            Onsite
+2026-11-10 10:40:25          employment_type        Full-time
+2026-11-10 10:40:25          job_category           IT Department
+2026-11-10 10:40:25          posted_date            (blank -- not stated in the saved page)
+2026-11-10 10:40:25          expiry_date            (blank -- not stated in the saved page)
+2026-11-10 10:40:25          application_deadline   (blank -- not stated in the saved page)
+2026-11-10 10:40:25          apply_url              https://in.indeed.com/viewjob?jk=68b500296b456b83   [address-bar]
+2026-11-10 10:40:25          updated_at             (blank -- not stated in the saved page)
+2026-11-10 10:40:25          fetched_at             2026-11-10 05:10:25
+2026-11-10 10:40:25          is_fake                (blank -- not stated in the saved page)
+2026-11-10 10:40:25          is_active              True
+2026-11-10 10:40:25          source_url             https://in.indeed.com/   [address-bar]
+2026-11-10 10:40:25          source_type            job_portal
+2026-11-10 10:40:25          source_platform        Indeed
+2026-11-10 10:40:25          score                  30
+2026-11-10 10:40:25       [note] isolated job 68b500296b456b83 from a document describing 7 jobs
+2026-11-10 10:40:25       [note] no JSON-LD JobPosting in the source
+2026-11-10 10:40:25       [note] visible-text parsing skipped: the job was isolated from a 7-job document, so page text belongs to other jobs too
+2026-11-10 10:40:25       [parse] not stated by the page: experience_required, skills_required
+2026-11-10 10:40:25 
+2026-11-10 10:40:25 [Rank 3/5]
+2026-11-10 10:40:25 
+2026-11-10 10:40:25 City: Vapi   (1/23)
+2026-11-10 10:40:25 Keyword: Gameplay Programmer   (2/1264)
+2026-11-10 10:40:25 
+2026-11-10 10:40:25 Page: 1
+2026-11-10 10:40:25 Job: 1
+2026-11-10 10:40:25 
+2026-11-10 10:40:25 Job Title: Bilingual AI Content Writer (Odia/English) - AI Trainer
+2026-11-10 10:40:25 
+2026-11-10 10:40:25 Extraction: SUCCESS (1737 chars of description)
+2026-11-10 10:40:25 Duplicate: NO
+2026-11-10 10:40:25 Excel Save: SKIPPED (invalid (no trustworthy company name))
+2026-11-10 10:40:25 
+2026-11-10 10:40:25 Jobs Examined: 9   Extracted: 1   Saved: 7   Duplicates: 15   Rejected: 2   Failures: 8
+2026-11-10 10:40:25 
+2026-11-10 10:40:25 Total Complete Cycle: 0
+2026-11-10 10:40:25 
+2026-11-10 10:40:25 Next: Job Card 2
+2026-11-10 10:40:25 ------------------------------------------------------------
+2026-11-10 10:40:25    waiting 10.0s before closing the source tab
+2026-11-10 10:40:35       $ /home/ubuntu/new_indeed_script/shell_scripts/close_source_tab.sh --window 65011735
+2026-11-10 10:40:39         [close_source_tab] address bar before closing: view-source:https://in.indeed.com/jobs?q=Gameplay+Programmer&l=Vapi&from=searchOnHP&vjk=68b500296b456b83
+2026-11-10 10:40:39         [close_source_tab] closing the view-source tab
+2026-11-10 10:40:39         [close_source_tab] back on: https://in.indeed.com/jobs?q=Gameplay+Programmer&l=Vapi&from=searchOnHP&vjk=68b500296b456b83
+2026-11-10 10:40:39         -> exit 0 in 4.6s (closed=yes)
+2026-11-10 10:40:39    waiting 10.0s before the next job card
+2026-11-10 10:40:49       $ /home/ubuntu/new_indeed_script/shell_scripts/select_job_card.sh --window 65011735 --index 2 --card-x 500 --start-y 988 --max-y 993 --probe-step 55 --probe-limit 12 --scroll-rounds 6 --marker vjk= --seen-keys e8dde544ad880d7e,68b500296b456b83
+2026-11-10 10:41:46         [select_job_card] before selection: key='68b500296b456b83'
+2026-11-10 10:41:46         [select_job_card] probe 1: clicking 500,988
+2026-11-10 10:41:46         [select_job_card]    same job still selected -- the click was inside the current card
+2026-11-10 10:41:46         [select_job_card] nothing new above y=1043 -- scrolling the results list (round 1/6)
+2026-11-10 10:41:46         [select_job_card] probe 2: clicking 500,320
+2026-11-10 10:41:46         [select_job_card]    job e8dde544ad880d7e has already been handled -- probing past it
+2026-11-10 10:41:46         [select_job_card] probe 3: clicking 500,375
+2026-11-10 10:41:46         [select_job_card]    same job still selected -- the click was inside the current card
+2026-11-10 10:41:46         [select_job_card] probe 4: clicking 500,430
+2026-11-10 10:41:46         [select_job_card]    same job still selected -- the click was inside the current card
+2026-11-10 10:41:46         [select_job_card] probe 5: clicking 500,485
+2026-11-10 10:41:46         [select_job_card]    same job still selected -- the click was inside the current card
+2026-11-10 10:41:46         [select_job_card] probe 6: clicking 500,540
+2026-11-10 10:41:46         [select_job_card]    job 68b500296b456b83 has already been handled -- probing past it
+2026-11-10 10:41:46         [select_job_card] probe 7: clicking 500,595
+2026-11-10 10:41:46         [select_job_card]    same job still selected -- the click was inside the current card
+2026-11-10 10:41:46         [select_job_card] probe 8: clicking 500,650
+2026-11-10 10:41:46         [select_job_card]    same job still selected -- the click was inside the current card
+2026-11-10 10:41:46         [select_job_card] probe 9: clicking 500,705
+2026-11-10 10:41:46         [select_job_card]    same job still selected -- the click was inside the current card
+2026-11-10 10:41:46         [select_job_card] probe 10: clicking 500,760
+2026-11-10 10:41:46         [select_job_card] card index 2 selected: job 01be5dc2abf2769b at y=760 after 10 probe(s) and 1 scroll(s)
+2026-11-10 10:41:46         -> exit 0 in 56.3s 
+2026-11-10 10:41:46       selected job 01be5dc2abf2769b (click, after scrolling)
+2026-11-10 10:41:46       $ /home/ubuntu/new_indeed_script/shell_scripts/save_page_source.sh --window 65011735 --out /home/ubuntu/new_indeed_script/Temp_Data/rank_3/job_3_0002.html --expect-url vjk=01be5dc2abf2769b
+2026-11-10 10:41:57         [save_page_source] source will be taken from: https://in.indeed.com/jobs?q=Gameplay+Programmer&l=Vapi&from=searchOnHP&vjk=01be5dc2abf2769b
+2026-11-10 10:41:57         [save_page_source] page identity confirmed against --expect-url
+2026-11-10 10:41:57         [save_page_source] pressing Ctrl+U
+2026-11-10 10:41:57         [save_page_source] view-source tab confirmed: view-source:https://in.indeed.com/jobs?q=Gameplay+Programmer&l=Vapi&from=searchOnHP&vjk=01be5dc2abf2769b
+2026-11-10 10:41:57         [save_page_source] pressing Ctrl+S
+2026-11-10 10:41:57         [save_page_source] save dialog window=71303558 name='Save As - https://in.indeed.com/jobs?q=Gameplay+Programmer&l=Vapi&from=searchOnHP&vjk=01be5dc2abf2769b — Mozilla Firefox'
+2026-11-10 10:41:57         [save_page_source] saved 818719 bytes to /home/ubuntu/new_indeed_script/Temp_Data/rank_3/job_3_0002.html
+2026-11-10 10:41:57         -> exit 0 in 11.2s 
+2026-11-10 10:41:57    saved source: /home/ubuntu/new_indeed_script/Temp_Data/rank_3/job_3_0002.html (818719 bytes)
+2026-11-10 10:41:57       [fields] 19 of 32 columns filled   (isolation: job-card, 7 job(s) in the document)
+2026-11-10 10:41:57          job_id                 d15f5719a0f36ff4cbb1d02249813664
+2026-11-10 10:41:57          internal_job_id        01be5dc2abf2769b
+2026-11-10 10:41:57          job_title              Bilingual Content Editor (Odia/English) - AI Trainer   [job-card]
+2026-11-10 10:41:57          company_name           (blank -- not stated in the saved page)
+2026-11-10 10:41:57          company_website        (blank -- not stated in the saved page)
+2026-11-10 10:41:57          job_description        Gameplay Programmer jobs available in Vapi, Gujarat on Indeed...
+2026-11-10 10:41:57          skills_required        (blank -- not stated in the saved page)
+2026-11-10 10:41:57          experience_required    Gameplay Programmer jobs available in Vapi, Gujarat on Indeed...
+2026-11-10 10:41:57          experience_min_years   (blank -- not stated in the saved page)
+2026-11-10 10:41:57          experience_max_years   (blank -- not stated in the saved page)
+2026-11-10 10:41:57          salary_min             (blank -- not stated in the saved page)
+2026-11-10 10:41:57          salary_max             (blank -- not stated in the saved page)
+2026-11-10 10:41:57          salary_currency        (blank -- not stated in the saved page)
+2026-11-10 10:41:57          location               Vapi
+2026-11-10 10:41:57          city                   Vapi
+2026-11-10 10:41:57          state                  Gujarat
+2026-11-10 10:41:57          country                India
+2026-11-10 10:41:57          remote_type            Onsite
+2026-11-10 10:41:57          employment_type        Full-time
+2026-11-10 10:41:57          job_category           IT Department
+2026-11-10 10:41:57          posted_date            (blank -- not stated in the saved page)
+2026-11-10 10:41:57          expiry_date            (blank -- not stated in the saved page)
+2026-11-10 10:41:57          application_deadline   (blank -- not stated in the saved page)
+2026-11-10 10:41:57          apply_url              https://in.indeed.com/viewjob?jk=01be5dc2abf2769b   [address-bar]
+2026-11-10 10:41:57          updated_at             (blank -- not stated in the saved page)
+2026-11-10 10:41:57          fetched_at             2026-11-10 05:11:57
+2026-11-10 10:41:57          is_fake                (blank -- not stated in the saved page)
+2026-11-10 10:41:57          is_active              True
+2026-11-10 10:41:57          source_url             https://in.indeed.com/   [address-bar]
+2026-11-10 10:41:57          source_type            job_portal
+2026-11-10 10:41:57          source_platform        Indeed
+2026-11-10 10:41:57          score                  30
+2026-11-10 10:41:57       [note] isolated job 01be5dc2abf2769b from a document describing 7 jobs
+2026-11-10 10:41:57       [note] no JSON-LD JobPosting in the source
+2026-11-10 10:41:57       [note] visible-text parsing skipped: the job was isolated from a 7-job document, so page text belongs to other jobs too
+2026-11-10 10:41:57       [parse] not stated by the page: experience_required, skills_required
+2026-11-10 10:41:57 
+2026-11-10 10:41:57 [Rank 3/5]
+2026-11-10 10:41:57 
+2026-11-10 10:41:57 City: Vapi   (1/23)
+2026-11-10 10:41:57 Keyword: Gameplay Programmer   (2/1264)
+2026-11-10 10:41:57 
+2026-11-10 10:41:57 Page: 1
+2026-11-10 10:41:57 Job: 2
+2026-11-10 10:41:57 
+2026-11-10 10:41:57 Job Title: Bilingual Content Editor (Odia/English) - AI Trainer
+2026-11-10 10:41:57 
+2026-11-10 10:41:57 Extraction: SUCCESS (1734 chars of description)
+2026-11-10 10:41:57 Duplicate: NO
+2026-11-10 10:41:57 Excel Save: SKIPPED (invalid (no trustworthy company name))
+2026-11-10 10:41:57 
+2026-11-10 10:41:57 Jobs Examined: 10   Extracted: 2   Saved: 7   Duplicates: 15   Rejected: 3   Failures: 8
+2026-11-10 10:41:57 
+2026-11-10 10:41:57 Total Complete Cycle: 0
+2026-11-10 10:41:57 
+2026-11-10 10:41:57 Next: Job Card 3
+2026-11-10 10:41:57 ------------------------------------------------------------
+2026-11-10 10:41:57    waiting 10.0s before closing the source tab
+2026-11-10 10:42:07       $ /home/ubuntu/new_indeed_script/shell_scripts/close_source_tab.sh --window 65011735
+2026-11-10 10:42:12         [close_source_tab] address bar before closing: view-source:https://in.indeed.com/jobs?q=Gameplay+Programmer&l=Vapi&from=searchOnHP&vjk=01be5dc2abf2769b
+2026-11-10 10:42:12         [close_source_tab] closing the view-source tab
+2026-11-10 10:42:12         [close_source_tab] back on: https://in.indeed.com/jobs?q=Gameplay+Programmer&l=Vapi&from=searchOnHP&vjk=01be5dc2abf2769b
+2026-11-10 10:42:12         -> exit 0 in 4.6s (closed=yes)
+2026-11-10 10:42:12    waiting 10.0s before the next job card
+2026-11-10 10:42:22       $ /home/ubuntu/new_indeed_script/shell_scripts/select_job_card.sh --window 65011735 --index 3 --card-x 500 --start-y 433 --max-y 993 --probe-step 55 --probe-limit 12 --scroll-rounds 6 --marker vjk= --seen-keys e8dde544ad880d7e,68b500296b456b83,01be5dc2abf2769b
+2026-11-10 10:43:20         [select_job_card] before selection: key='01be5dc2abf2769b'
+2026-11-10 10:43:20         [select_job_card] probe 1: clicking 500,433
+2026-11-10 10:43:20         [select_job_card]    job e8dde544ad880d7e has already been handled -- probing past it
+2026-11-10 10:43:20         [select_job_card] probe 2: clicking 500,488
+2026-11-10 10:43:20         [select_job_card]    same job still selected -- the click was inside the current card
+2026-11-10 10:43:20         [select_job_card] probe 3: clicking 500,543
+2026-11-10 10:43:20         [select_job_card]    job 68b500296b456b83 has already been handled -- probing past it
+2026-11-10 10:43:20         [select_job_card] probe 4: clicking 500,598
+2026-11-10 10:43:20         [select_job_card]    same job still selected -- the click was inside the current card
+2026-11-10 10:43:20         [select_job_card] probe 5: clicking 500,653
+2026-11-10 10:43:20         [select_job_card]    same job still selected -- the click was inside the current card
+2026-11-10 10:43:20         [select_job_card] probe 6: clicking 500,708
+2026-11-10 10:43:20         [select_job_card]    same job still selected -- the click was inside the current card
+2026-11-10 10:43:20         [select_job_card] probe 7: clicking 500,763
+2026-11-10 10:43:20         [select_job_card]    job 01be5dc2abf2769b has already been handled -- probing past it
+2026-11-10 10:43:20         [select_job_card] probe 8: clicking 500,818
+2026-11-10 10:43:20         [select_job_card]    same job still selected -- the click was inside the current card
+2026-11-10 10:43:20         [select_job_card] probe 9: clicking 500,873
+2026-11-10 10:43:20         [select_job_card]    same job still selected -- the click was inside the current card
+2026-11-10 10:43:20         [select_job_card] probe 10: clicking 500,928
+2026-11-10 10:43:20         [select_job_card]    same job still selected -- the click was inside the current card
+2026-11-10 10:43:20         [select_job_card] probe 11: clicking 500,983
+2026-11-10 10:43:20         [select_job_card] card index 3 selected: job b876456a6d28a925 at y=983 after 11 probe(s) and 0 scroll(s)
+2026-11-10 10:43:20         -> exit 0 in 58.3s 
+2026-11-10 10:43:20       selected job b876456a6d28a925 (click)
+2026-11-10 10:43:20       $ /home/ubuntu/new_indeed_script/shell_scripts/save_page_source.sh --window 65011735 --out /home/ubuntu/new_indeed_script/Temp_Data/rank_3/job_3_0003.html --expect-url vjk=b876456a6d28a925
+2026-11-10 10:43:31         [save_page_source] source will be taken from: https://in.indeed.com/jobs?q=Gameplay+Programmer&l=Vapi&from=searchOnHP&vjk=b876456a6d28a925
+2026-11-10 10:43:31         [save_page_source] page identity confirmed against --expect-url
+2026-11-10 10:43:31         [save_page_source] pressing Ctrl+U
+2026-11-10 10:43:31         [save_page_source] view-source tab confirmed: view-source:https://in.indeed.com/jobs?q=Gameplay+Programmer&l=Vapi&from=searchOnHP&vjk=b876456a6d28a925
+2026-11-10 10:43:31         [save_page_source] pressing Ctrl+S
+2026-11-10 10:43:31         [save_page_source] save dialog window=71303655 name='Save As - https://in.indeed.com/jobs?q=Gameplay+Programmer&l=Vapi&from=searchOnHP&vjk=b876456a6d28a925 — Mozilla Firefox'
+2026-11-10 10:43:31         [save_page_source] saved 818222 bytes to /home/ubuntu/new_indeed_script/Temp_Data/rank_3/job_3_0003.html
+2026-11-10 10:43:31         -> exit 0 in 11.1s 
+2026-11-10 10:43:31    saved source: /home/ubuntu/new_indeed_script/Temp_Data/rank_3/job_3_0003.html (818222 bytes)
+2026-11-10 10:43:31       [fields] 19 of 32 columns filled   (isolation: job-card, 7 job(s) in the document)
+2026-11-10 10:43:31          job_id                 1268947ee339041b9d5a1bbe076d8ffd
+2026-11-10 10:43:31          internal_job_id        b876456a6d28a925
+2026-11-10 10:43:31          job_title              Bilingual AI Content Writer (Odia/English) - AI Trainer   [job-card]
+2026-11-10 10:43:31          company_name           (blank -- not stated in the saved page)
+2026-11-10 10:43:31          company_website        (blank -- not stated in the saved page)
+2026-11-10 10:43:31          job_description        Gameplay Programmer jobs available in Vapi, Gujarat on Indeed...
+2026-11-10 10:43:31          skills_required        (blank -- not stated in the saved page)
+2026-11-10 10:43:31          experience_required    Gameplay Programmer jobs available in Vapi, Gujarat on Indeed...
+2026-11-10 10:43:31          experience_min_years   (blank -- not stated in the saved page)
+2026-11-10 10:43:31          experience_max_years   (blank -- not stated in the saved page)
+2026-11-10 10:43:31          salary_min             (blank -- not stated in the saved page)
+2026-11-10 10:43:31          salary_max             (blank -- not stated in the saved page)
+2026-11-10 10:43:31          salary_currency        (blank -- not stated in the saved page)
+2026-11-10 10:43:31          location               Vapi
+2026-11-10 10:43:31          city                   Vapi
+2026-11-10 10:43:31          state                  Gujarat
+2026-11-10 10:43:31          country                India
+2026-11-10 10:43:31          remote_type            Onsite
+2026-11-10 10:43:31          employment_type        Full-time
+2026-11-10 10:43:31          job_category           IT Department
+2026-11-10 10:43:31          posted_date            (blank -- not stated in the saved page)
+2026-11-10 10:43:31          expiry_date            (blank -- not stated in the saved page)
+2026-11-10 10:43:31          application_deadline   (blank -- not stated in the saved page)
+2026-11-10 10:43:31          apply_url              https://in.indeed.com/viewjob?jk=b876456a6d28a925   [address-bar]
+2026-11-10 10:43:31          updated_at             (blank -- not stated in the saved page)
+2026-11-10 10:43:31          fetched_at             2026-11-10 05:13:31
+2026-11-10 10:43:31          is_fake                (blank -- not stated in the saved page)
+2026-11-10 10:43:31          is_active              True
+2026-11-10 10:43:31          source_url             https://in.indeed.com/   [address-bar]
+2026-11-10 10:43:31          source_type            job_portal
+2026-11-10 10:43:31          source_platform        Indeed
+2026-11-10 10:43:31          score                  30
+2026-11-10 10:43:31       [note] isolated job b876456a6d28a925 from a document describing 7 jobs
+2026-11-10 10:43:31       [note] no JSON-LD JobPosting in the source
+2026-11-10 10:43:31       [note] visible-text parsing skipped: the job was isolated from a 7-job document, so page text belongs to other jobs too
+2026-11-10 10:43:31       [parse] not stated by the page: experience_required, skills_required
+2026-11-10 10:43:31 
+2026-11-10 10:43:31 [Rank 3/5]
+2026-11-10 10:43:31 
+2026-11-10 10:43:31 City: Vapi   (1/23)
+2026-11-10 10:43:31 Keyword: Gameplay Programmer   (2/1264)
+2026-11-10 10:43:31 
+2026-11-10 10:43:31 Page: 1
+2026-11-10 10:43:31 Job: 3
+2026-11-10 10:43:31 
+2026-11-10 10:43:31 Job Title: Bilingual AI Content Writer (Odia/English) - AI Trainer
+2026-11-10 10:43:31 
+2026-11-10 10:43:31 Extraction: SUCCESS (1737 chars of description)
+2026-11-10 10:43:31 Duplicate: NO
+2026-11-10 10:43:31 Excel Save: SKIPPED (invalid (no trustworthy company name))
+2026-11-10 10:43:31 
+2026-11-10 10:43:31 Jobs Examined: 11   Extracted: 3   Saved: 7   Duplicates: 15   Rejected: 4   Failures: 8
+2026-11-10 10:43:31 
+2026-11-10 10:43:31 Total Complete Cycle: 0
+2026-11-10 10:43:31 
+2026-11-10 10:43:31 Next: Job Card 4
+2026-11-10 10:43:31 ------------------------------------------------------------
+2026-11-10 10:43:31    waiting 10.0s before closing the source tab
+2026-11-10 10:43:41       $ /home/ubuntu/new_indeed_script/shell_scripts/close_source_tab.sh --window 65011735
+2026-11-10 10:43:46         [close_source_tab] address bar before closing: view-source:https://in.indeed.com/jobs?q=Gameplay+Programmer&l=Vapi&from=searchOnHP&vjk=b876456a6d28a925
+2026-11-10 10:43:46         [close_source_tab] closing the view-source tab
+2026-11-10 10:43:46         [close_source_tab] back on: https://in.indeed.com/jobs?q=Gameplay+Programmer&l=Vapi&from=searchOnHP&vjk=b876456a6d28a925
+2026-11-10 10:43:46         -> exit 0 in 4.6s (closed=yes)
+2026-11-10 10:43:46    waiting 10.0s before the next job card
+2026-11-10 10:43:56       $ /home/ubuntu/new_indeed_script/shell_scripts/select_job_card.sh --window 65011735 --index 4 --card-x 500 --start-y 1043 --max-y 993 --probe-step 55 --probe-limit 12 --scroll-rounds 6 --marker vjk= --seen-keys e8dde544ad880d7e,68b500296b456b83,01be5dc2abf2769b,b876456a6d28a925
+2026-11-10 10:44:57         [select_job_card] before selection: key='b876456a6d28a925'
+2026-11-10 10:44:57         [select_job_card] nothing new above y=1043 -- scrolling the results list (round 1/6)
+2026-11-10 10:44:57         [select_job_card] probe 1: clicking 500,320
+2026-11-10 10:44:57         [select_job_card]    job 68b500296b456b83 has already been handled -- probing past it
+2026-11-10 10:44:57         [select_job_card] probe 2: clicking 500,375
+2026-11-10 10:44:57         [select_job_card]    same job still selected -- the click was inside the current card
+2026-11-10 10:44:57         [select_job_card] probe 3: clicking 500,430
+2026-11-10 10:44:57         [select_job_card]    job 01be5dc2abf2769b has already been handled -- probing past it
+2026-11-10 10:44:57         [select_job_card] probe 4: clicking 500,485
+2026-11-10 10:44:57         [select_job_card]    same job still selected -- the click was inside the current card
+2026-11-10 10:44:57         [select_job_card] probe 5: clicking 500,540
+2026-11-10 10:44:57         [select_job_card]    same job still selected -- the click was inside the current card
+2026-11-10 10:44:57         [select_job_card] probe 6: clicking 500,595
+2026-11-10 10:44:57         [select_job_card]    same job still selected -- the click was inside the current card
+2026-11-10 10:44:57         [select_job_card] probe 7: clicking 500,650
+2026-11-10 10:44:57         [select_job_card]    job b876456a6d28a925 has already been handled -- probing past it
+2026-11-10 10:44:57         [select_job_card] probe 8: clicking 500,705
+2026-11-10 10:44:57         [select_job_card]    same job still selected -- the click was inside the current card
+2026-11-10 10:44:57         [select_job_card] probe 9: clicking 500,760
+2026-11-10 10:44:57         [select_job_card]    same job still selected -- the click was inside the current card
+2026-11-10 10:44:57         [select_job_card] probe 10: clicking 500,815
+2026-11-10 10:44:57         [select_job_card]    same job still selected -- the click was inside the current card
+2026-11-10 10:44:57         [select_job_card] probe 11: clicking 500,870
+2026-11-10 10:44:57         [select_job_card] card index 4 selected: job fafd5deb14a58e2e at y=870 after 11 probe(s) and 1 scroll(s)
+2026-11-10 10:44:57         -> exit 0 in 61.3s 
+2026-11-10 10:44:57       selected job fafd5deb14a58e2e (click, after scrolling)
+2026-11-10 10:44:57       $ /home/ubuntu/new_indeed_script/shell_scripts/save_page_source.sh --window 65011735 --out /home/ubuntu/new_indeed_script/Temp_Data/rank_3/job_3_0004.html --expect-url vjk=fafd5deb14a58e2e
+2026-11-10 10:45:08         [save_page_source] source will be taken from: https://in.indeed.com/jobs?q=Gameplay+Programmer&l=Vapi&from=searchOnHP&vjk=fafd5deb14a58e2e
+2026-11-10 10:45:08         [save_page_source] page identity confirmed against --expect-url
+2026-11-10 10:45:08         [save_page_source] pressing Ctrl+U
+2026-11-10 10:45:08         [save_page_source] view-source tab confirmed: view-source:https://in.indeed.com/jobs?q=Gameplay+Programmer&l=Vapi&from=searchOnHP&vjk=fafd5deb14a58e2e
+2026-11-10 10:45:08         [save_page_source] pressing Ctrl+S
+2026-11-10 10:45:08         [save_page_source] save dialog window=71303751 name='Save As - https://in.indeed.com/jobs?q=Gameplay+Programmer&l=Vapi&from=searchOnHP&vjk=fafd5deb14a58e2e — Mozilla Firefox'
+2026-11-10 10:45:08         [save_page_source] saved 812602 bytes to /home/ubuntu/new_indeed_script/Temp_Data/rank_3/job_3_0004.html
+2026-11-10 10:45:08         -> exit 0 in 10.9s 
+2026-11-10 10:45:08    saved source: /home/ubuntu/new_indeed_script/Temp_Data/rank_3/job_3_0004.html (812602 bytes)
+2026-11-10 10:45:08       [fields] 19 of 32 columns filled   (isolation: job-card, 7 job(s) in the document)
+2026-11-10 10:45:08          job_id                 57aff4e68e7e7e7a0f17767762564367
+2026-11-10 10:45:08          internal_job_id        fafd5deb14a58e2e
+2026-11-10 10:45:08          job_title              Camera Operator/Editor   [job-card]
+2026-11-10 10:45:08          company_name           (blank -- not stated in the saved page)
+2026-11-10 10:45:08          company_website        (blank -- not stated in the saved page)
+2026-11-10 10:45:08          job_description        Gameplay Programmer jobs available in Vapi, Gujarat on Indeed...
+2026-11-10 10:45:08          skills_required        (blank -- not stated in the saved page)
+2026-11-10 10:45:08          experience_required    Gameplay Programmer jobs available in Vapi, Gujarat on Indeed...
+2026-11-10 10:45:08          experience_min_years   (blank -- not stated in the saved page)
+2026-11-10 10:45:08          experience_max_years   (blank -- not stated in the saved page)
+2026-11-10 10:45:08          salary_min             (blank -- not stated in the saved page)
+2026-11-10 10:45:08          salary_max             (blank -- not stated in the saved page)
+2026-11-10 10:45:08          salary_currency        (blank -- not stated in the saved page)
+2026-11-10 10:45:08          location               Vapi
+2026-11-10 10:45:08          city                   Vapi
+2026-11-10 10:45:08          state                  Gujarat
+2026-11-10 10:45:08          country                India
+2026-11-10 10:45:08          remote_type            Onsite
+2026-11-10 10:45:08          employment_type        Full-time
+2026-11-10 10:45:08          job_category           IT Department
+2026-11-10 10:45:08          posted_date            (blank -- not stated in the saved page)
+2026-11-10 10:45:08          expiry_date            (blank -- not stated in the saved page)
+2026-11-10 10:45:08          application_deadline   (blank -- not stated in the saved page)
+2026-11-10 10:45:08          apply_url              https://in.indeed.com/viewjob?jk=fafd5deb14a58e2e   [address-bar]
+2026-11-10 10:45:08          updated_at             (blank -- not stated in the saved page)
+2026-11-10 10:45:08          fetched_at             2026-11-10 05:15:08
+2026-11-10 10:45:08          is_fake                (blank -- not stated in the saved page)
+2026-11-10 10:45:08          is_active              True
+2026-11-10 10:45:08          source_url             https://in.indeed.com/   [address-bar]
+2026-11-10 10:45:08          source_type            job_portal
+2026-11-10 10:45:08          source_platform        Indeed
+2026-11-10 10:45:08          score                  30
+2026-11-10 10:45:08       [note] isolated job fafd5deb14a58e2e from a document describing 7 jobs
+2026-11-10 10:45:08       [note] no JSON-LD JobPosting in the source
+2026-11-10 10:45:08       [note] visible-text parsing skipped: the job was isolated from a 7-job document, so page text belongs to other jobs too
+2026-11-10 10:45:08       [parse] not stated by the page: skills_required
+2026-11-10 10:45:08 
+2026-11-10 10:45:08 [Rank 3/5]
+2026-11-10 10:45:08 
+2026-11-10 10:45:08 City: Vapi   (1/23)
+2026-11-10 10:45:08 Keyword: Gameplay Programmer   (2/1264)
+2026-11-10 10:45:08 
+2026-11-10 10:45:08 Page: 1
+2026-11-10 10:45:08 Job: 4
+2026-11-10 10:45:08 
+2026-11-10 10:45:08 Job Title: Camera Operator/Editor
+2026-11-10 10:45:08 
+2026-11-10 10:45:08 Extraction: SUCCESS (1961 chars of description)
+2026-11-10 10:45:08 Duplicate: NO
+2026-11-10 10:45:08 Excel Save: SKIPPED (invalid (no trustworthy company name))
+2026-11-10 10:45:08 
+2026-11-10 10:45:08 Jobs Examined: 12   Extracted: 4   Saved: 7   Duplicates: 15   Rejected: 5   Failures: 8
+2026-11-10 10:45:08 
+2026-11-10 10:45:08 Total Complete Cycle: 0
+2026-11-10 10:45:08 
+2026-11-10 10:45:08 Next: Job Card 5
+2026-11-10 10:45:08 ------------------------------------------------------------
+2026-11-10 10:45:08    waiting 10.0s before closing the source tab
+2026-11-10 10:45:18       $ /home/ubuntu/new_indeed_script/shell_scripts/close_source_tab.sh --window 65011735
+2026-11-10 10:45:23         [close_source_tab] address bar before closing: view-source:https://in.indeed.com/jobs?q=Gameplay+Programmer&l=Vapi&from=searchOnHP&vjk=fafd5deb14a58e2e
+2026-11-10 10:45:23         [close_source_tab] closing the view-source tab
+2026-11-10 10:45:23         [close_source_tab] back on: https://in.indeed.com/jobs?q=Gameplay+Programmer&l=Vapi&from=searchOnHP&vjk=fafd5deb14a58e2e
+2026-11-10 10:45:23         -> exit 0 in 4.7s (closed=yes)
+2026-11-10 10:45:23    waiting 10.0s before the next job card
+2026-11-10 10:45:33   [page 1] 5 distinct new jobs, 1 saved.
+2026-11-10 10:45:33   [page 1] this was the last page of this search -- moving on to the next keyword.
+2026-11-10 10:45:33 
+  [restart] closing the browser, resting 5s, then opening a fresh window on the Indeed home page
+2026-11-10 10:45:34    our Firefox (pid 29198) has exited cleanly
+2026-11-10 10:45:34    waiting 5s before opening the browser again
+2026-11-10 10:45:34       [wait] 5s before the next keyword
+2026-11-10 10:45:39       $ /home/ubuntu/new_indeed_script/shell_scripts/open_firefox.sh --profile /home/ubuntu/new_indeed_script/config/firefox_profile/rank_3 --url https://in.indeed.com --state-file /home/ubuntu/new_indeed_script/Temp_Data/rank_3/browser_window.json --expect-host indeed --download-dir /home/ubuntu/new_indeed_script/Temp_Data/rank_3 --window-size 1845x1046 --window-pos 0,34
+2026-11-10 10:45:48         [open_firefox] pre-existing Firefox windows (never touched): none
+2026-11-10 10:45:48         [open_firefox] display=:0 xauthority=/run/user/1000/gdm/Xauthority
+2026-11-10 10:45:48         [open_firefox] launch mode: snap (inner binary inside 'snap run --shell')
+2026-11-10 10:45:48         [open_firefox] firefox pid=33082
+2026-11-10 10:45:48         [open_firefox] window_id=65011735 name=Mozilla Firefox
+2026-11-10 10:45:48         [open_firefox] window geometry set on attempt 1: 1850x1053+70+27
+2026-11-10 10:45:48         [open_firefox] normal window: 1850x1053+70+27 (asked for 1845x1046+0+34)
+2026-11-10 10:45:48         [open_firefox] address bar: https://in.indeed.com/
+2026-11-10 10:45:48         [open_firefox] ready
+2026-11-10 10:45:48         -> exit 0 in 9.7s (window_id=65011735 fullscreen=no access_denied=no verified=yes)
+2026-11-10 10:45:48    window landed at +70+27, not the +0+34 it was asked for: clicks shifted by (+70,-7) to match
+2026-11-10 10:45:48    browser ready: pid=33082 window=65011735 fullscreen=no
+2026-11-10 10:45:48       $ /home/ubuntu/new_indeed_script/shell_scripts/verify_search_fields.sh --window 65011735 --probe zz --what-xy 770,253 --where-xy 1170,253
+2026-11-10 10:46:05         [verify_search_fields] window at +70+27 1053px tall; probes stay between y=147 and y=1040 (never in Firefox's own chrome)
+2026-11-10 10:46:05         [verify_search_fields] input guard passed; address bar reads: https://in.indeed.com/
+2026-11-10 10:46:05         [verify_search_fields] waiting 7.0s for the page to settle
+2026-11-10 10:46:05         [verify_search_fields]   probe 1 at 770,253: the keyword box answered
+2026-11-10 10:46:05         [verify_search_fields]   probe 2 at 1170,253: the location box answered
+2026-11-10 10:46:05         [verify_search_fields] both search boxes found and answered: keyword at 770,253, location at 1170,253 (after 2 probe(s))
+2026-11-10 10:46:05         -> exit 0 in 16.8s (verified=yes)
+2026-11-10 10:46:05    search fields verified: keyword=yes location=yes (2 probe(s))
+2026-11-10 10:46:05 
+  [cycle 1 | city 1/23 Vapi | keyword 3/1264 Ramp Officer | worked 16m 08s]
+2026-11-10 10:46:05 
+  [page 1/5] Ramp Officer @ Vapi  (start=0)
+2026-11-10 10:46:05       $ /home/ubuntu/new_indeed_script/shell_scripts/search_jobs.sh --window 65011735 --keyword 'Ramp Officer' --city Vapi --base-url https://in.indeed.com --mode form --what-xy 770,253 --where-xy 1170,253
+2026-11-10 10:46:33         [search_jobs] input guard passed; address bar reads: https://in.indeed.com/
+2026-11-10 10:46:33         [search_jobs] waiting 7.0s for the page to settle before typing
+2026-11-10 10:46:33         [search_jobs] form search: 'Ramp Officer' in 'Vapi'
+2026-11-10 10:46:33         [search_jobs] clicking the keyword box at 770,253
+2026-11-10 10:46:33         [search_jobs] clicking the city box at 1170,253
+2026-11-10 10:46:33         [search_jobs] both fields confirmed; submitting (focus is still in the city box)
+2026-11-10 10:46:33         [search_jobs] waiting 10.0s for the results to load
+2026-11-10 10:46:33         [search_jobs] window title: 0 Ramp Officer Jobs and Vacancies in Vapi, Gujarat - 10 November 2026 | Indeed — Mozilla Firefox
+2026-11-10 10:46:33         [search_jobs] address bar after search: https://in.indeed.com/jobs?q=Ramp+Officer&l=Vapi&from=searchOnHP&vjk=cde0a25795d36f10
+2026-11-10 10:46:33         [search_jobs] Indeed pre-selected job cde0a25795d36f10
+2026-11-10 10:46:33         [search_jobs] search submitted: Ramp Officer @ Vapi -- going to the first job card
+2026-11-10 10:46:33         -> exit 0 in 28.1s (access_denied=no verified=not_checked)
+2026-11-10 10:46:33       $ /home/ubuntu/new_indeed_script/shell_scripts/save_page_source.sh --window 65011735 --out /home/ubuntu/new_indeed_script/Temp_Data/rank_3/listing_3_page01.html
+2026-11-10 10:46:46         [save_page_source] source will be taken from: https://in.indeed.com/jobs?q=Ramp+Officer&l=Vapi&from=searchOnHP&vjk=cde0a25795d36f10
+2026-11-10 10:46:46         [save_page_source] pressing Ctrl+U
+2026-11-10 10:46:46         [save_page_source] view-source tab confirmed: view-source:https://in.indeed.com/jobs?q=Ramp+Officer&l=Vapi&from=searchOnHP&vjk=cde0a25795d36f10
+2026-11-10 10:46:46         [save_page_source] pressing Ctrl+S
+2026-11-10 10:46:46         [save_page_source] save dialog window=71303846 name='Save As - https://in.indeed.com/jobs?q=Ramp+Officer&l=Vapi&from=searchOnHP&vjk=cde0a25795d36f10 — Mozilla Firefox'
+2026-11-10 10:46:46         [save_page_source] saved 822312 bytes to /home/ubuntu/new_indeed_script/Temp_Data/rank_3/listing_3_page01.html
+2026-11-10 10:46:46         -> exit 0 in 12.9s 
+2026-11-10 10:46:46    saved listing source: /home/ubuntu/new_indeed_script/Temp_Data/rank_3/listing_3_page01.html (822312 bytes)
+2026-11-10 10:46:46    waiting 2.0s before closing the source tab
+2026-11-10 10:46:48       $ /home/ubuntu/new_indeed_script/shell_scripts/close_source_tab.sh --window 65011735
+2026-11-10 10:46:53         [close_source_tab] address bar before closing: view-source:https://in.indeed.com/jobs?q=Ramp+Officer&l=Vapi&from=searchOnHP&vjk=cde0a25795d36f10
+2026-11-10 10:46:53         [close_source_tab] closing the view-source tab
+2026-11-10 10:46:53         [close_source_tab] back on: https://in.indeed.com/jobs?q=Ramp+Officer&l=Vapi&from=searchOnHP&vjk=cde0a25795d36f10
+2026-11-10 10:46:53         -> exit 0 in 4.5s (closed=yes)
+2026-11-10 10:46:53    waiting 3.0s before the next job card
+2026-11-10 10:46:56   [census] the search matched 0 jobs -- the 5 card(s) on this page are Indeed's suggestions, not results for this keyword
+2026-11-10 10:46:56       $ /home/ubuntu/new_indeed_script/shell_scripts/select_job_card.sh --window 65011735 --index 0 --card-x 500 --start-y 433 --max-y 993 --probe-step 55 --probe-limit 12 --scroll-rounds 6 --marker vjk= --preselected-key cde0a25795d36f10
+2026-11-10 10:46:58         [select_job_card] before selection: key='cde0a25795d36f10'
+2026-11-10 10:46:58         [select_job_card] job cde0a25795d36f10 is already selected by Indeed -- taking it without clicking
+2026-11-10 10:46:58         -> exit 0 in 1.8s 
+2026-11-10 10:46:58       selected job cde0a25795d36f10 (preselected)
+2026-11-10 10:46:58       $ /home/ubuntu/new_indeed_script/shell_scripts/save_page_source.sh --window 65011735 --out /home/ubuntu/new_indeed_script/Temp_Data/rank_3/job_3_0000.html --expect-url vjk=cde0a25795d36f10
+2026-11-10 10:47:10         [save_page_source] source will be taken from: https://in.indeed.com/jobs?q=Ramp+Officer&l=Vapi&from=searchOnHP&vjk=cde0a25795d36f10
+2026-11-10 10:47:10         [save_page_source] page identity confirmed against --expect-url
+2026-11-10 10:47:10         [save_page_source] pressing Ctrl+U
+2026-11-10 10:47:10         [save_page_source] view-source tab confirmed: view-source:https://in.indeed.com/jobs?q=Ramp+Officer&l=Vapi&from=searchOnHP&vjk=cde0a25795d36f10
+2026-11-10 10:47:10         [save_page_source] pressing Ctrl+S
+2026-11-10 10:47:10         [save_page_source] save dialog window=71303938 name='Save As - https://in.indeed.com/jobs?q=Ramp+Officer&l=Vapi&from=searchOnHP&vjk=cde0a25795d36f10 — Mozilla Firefox'
+2026-11-10 10:47:10         [save_page_source] saved 822312 bytes to /home/ubuntu/new_indeed_script/Temp_Data/rank_3/job_3_0000.html
+2026-11-10 10:47:10         -> exit 0 in 12.3s 
+2026-11-10 10:47:10    saved source: /home/ubuntu/new_indeed_script/Temp_Data/rank_3/job_3_0000.html (822312 bytes)
+2026-11-10 10:47:10       [fields] 24 of 32 columns filled   (isolation: job-card, 6 job(s) in the document)
+2026-11-10 10:47:10          job_id                 7fd1a9073de92f81c0c5b5d9bb4b40ee
+2026-11-10 10:47:10          internal_job_id        cde0a25795d36f10
+2026-11-10 10:47:10          job_title              Bilingual Copywriter (Odia/English) - AI Trainer   [job-pane]
+2026-11-10 10:47:10          company_name           DataAnnotation   [job-pane]
+2026-11-10 10:47:10          company_website        (blank -- not stated in the saved page)
+2026-11-10 10:47:10          job_description        We are looking for an experienced Bilingual Copywriter (Odia/...
+2026-11-10 10:47:10          skills_required        (blank -- not stated in the saved page)
+2026-11-10 10:47:10          experience_required    We are looking for an experienced Bilingual Copywriter (Odia/...
+2026-11-10 10:47:10          experience_min_years   (blank -- not stated in the saved page)
+2026-11-10 10:47:10          experience_max_years   (blank -- not stated in the saved page)
+2026-11-10 10:47:10          salary_min             2361
+2026-11-10 10:47:10          salary_max             3780
+2026-11-10 10:47:10          salary_currency        INR   [job-card]
+2026-11-10 10:47:10          location               Brahmapur, Odisha   [job-pane]
+2026-11-10 10:47:10          city                   Brahmapur
+2026-11-10 10:47:10          state                  (blank -- not stated in the saved page)
+2026-11-10 10:47:10          country                India
+2026-11-10 10:47:10          remote_type            Onsite
+2026-11-10 10:47:10          employment_type        Full-time   [job-card]
+2026-11-10 10:47:10          job_category           IT Department
+2026-11-10 10:47:10          posted_date            2026-11-06 06:00:00   [job-card]
+2026-11-10 10:47:10          expiry_date            (blank -- not stated in the saved page)
+2026-11-10 10:47:10          application_deadline   (blank -- not stated in the saved page)
+2026-11-10 10:47:10          apply_url              https://in.indeed.com/viewjob?jk=cde0a25795d36f10   [address-bar]
+2026-11-10 10:47:10          updated_at             2026-11-06 06:00:00
+2026-11-10 10:47:10          fetched_at             2026-11-10 05:17:10
+2026-11-10 10:47:10          is_fake                (blank -- not stated in the saved page)
+2026-11-10 10:47:10          is_active              True
+2026-11-10 10:47:10          source_url             https://in.indeed.com/   [address-bar]
+2026-11-10 10:47:10          source_type            job_portal
+2026-11-10 10:47:10          source_platform        Indeed
+2026-11-10 10:47:10          score                  30
+2026-11-10 10:47:10       [note] isolated job cde0a25795d36f10 from a document describing 6 jobs
+2026-11-10 10:47:10       [note] no JSON-LD JobPosting in the source
+2026-11-10 10:47:10       [note] visible-text parsing skipped: the job was isolated from a 6-job document, so page text belongs to other jobs too
+2026-11-10 10:47:10       [parse] not stated by the page: experience_required, skills_required
+2026-11-10 10:47:10 
+2026-11-10 10:47:10 [Rank 3/5]
+2026-11-10 10:47:10 
+2026-11-10 10:47:10 City: Vapi   (1/23)
+2026-11-10 10:47:10 Keyword: Ramp Officer   (3/1264)
+2026-11-10 10:47:10 
+2026-11-10 10:47:10 Page: 1
+2026-11-10 10:47:10 Job: 0
+2026-11-10 10:47:10 
+2026-11-10 10:47:10 Job Title: Bilingual Copywriter (Odia/English) - AI Trainer
+2026-11-10 10:47:10 Company: DataAnnotation
+2026-11-10 10:47:10 
+2026-11-10 10:47:10 Extraction: SUCCESS (1730 chars of description)
+2026-11-10 10:47:10 Duplicate: NO
+2026-11-10 10:47:10 Excel Save: SUCCESS (current_data.xlsx rows=8)
+2026-11-10 10:47:10 
+2026-11-10 10:47:10 Jobs Examined: 13   Extracted: 5   Saved: 8   Duplicates: 15   Rejected: 5   Failures: 8
+2026-11-10 10:47:10 
+2026-11-10 10:47:10 Total Complete Cycle: 0
+2026-11-10 10:47:10 
+2026-11-10 10:47:10 Next: Job Card 1
+2026-11-10 10:47:10 ------------------------------------------------------------
+2026-11-10 10:47:10    waiting 10.0s before closing the source tab
+2026-11-10 10:47:20       $ /home/ubuntu/new_indeed_script/shell_scripts/close_source_tab.sh --window 65011735
+2026-11-10 10:47:25         [close_source_tab] address bar before closing: view-source:https://in.indeed.com/jobs?q=Ramp+Officer&l=Vapi&from=searchOnHP&vjk=cde0a25795d36f10
+2026-11-10 10:47:25         [close_source_tab] closing the view-source tab
+2026-11-10 10:47:25         [close_source_tab] back on: https://in.indeed.com/jobs?q=Ramp+Officer&l=Vapi&from=searchOnHP&vjk=cde0a25795d36f10
+2026-11-10 10:47:25         -> exit 0 in 4.6s (closed=yes)
+2026-11-10 10:47:25    waiting 10.0s before the next job card
+2026-11-10 10:47:35       $ /home/ubuntu/new_indeed_script/shell_scripts/select_job_card.sh --window 65011735 --index 1 --card-x 500 --start-y 433 --max-y 993 --probe-step 55 --probe-limit 12 --scroll-rounds 6 --marker vjk= --seen-keys cde0a25795d36f10
+2026-11-10 10:48:28         [select_job_card] before selection: key='cde0a25795d36f10'
+2026-11-10 10:48:28         [select_job_card] probe 1: clicking 500,433
+2026-11-10 10:48:28         [select_job_card]    same job still selected -- the click was inside the current card
+2026-11-10 10:48:28         [select_job_card] probe 2: clicking 500,488
+2026-11-10 10:48:28         [select_job_card]    same job still selected -- the click was inside the current card
+2026-11-10 10:48:28         [select_job_card] probe 3: clicking 500,543
+2026-11-10 10:48:28         [select_job_card]    same job still selected -- the click was inside the current card
+2026-11-10 10:48:28         [select_job_card] probe 4: clicking 500,598
+2026-11-10 10:48:28         [select_job_card]    same job still selected -- the click was inside the current card
+2026-11-10 10:48:28         [select_job_card] probe 5: clicking 500,653
+2026-11-10 10:48:28         [select_job_card]    same job still selected -- the click was inside the current card
+2026-11-10 10:48:28         [select_job_card] probe 6: clicking 500,708
+2026-11-10 10:48:28         [select_job_card]    same job still selected -- the click was inside the current card
+2026-11-10 10:48:28         [select_job_card] probe 7: clicking 500,763
+2026-11-10 10:48:28         [select_job_card]    same job still selected -- the click was inside the current card
+2026-11-10 10:48:28         [select_job_card] probe 8: clicking 500,818
+2026-11-10 10:48:28         [select_job_card]    same job still selected -- the click was inside the current card
+2026-11-10 10:48:28         [select_job_card] probe 9: clicking 500,873
+2026-11-10 10:48:28         [select_job_card]    same job still selected -- the click was inside the current card
+2026-11-10 10:48:28         [select_job_card] probe 10: clicking 500,928
+2026-11-10 10:48:28         [select_job_card] card index 1 selected: job ef5f05ae120cfb99 at y=928 after 10 probe(s) and 0 scroll(s)
+2026-11-10 10:48:28         -> exit 0 in 53.4s 
+2026-11-10 10:48:28       selected job ef5f05ae120cfb99 (click)
+2026-11-10 10:48:28       $ /home/ubuntu/new_indeed_script/shell_scripts/save_page_source.sh --window 65011735 --out /home/ubuntu/new_indeed_script/Temp_Data/rank_3/job_3_0001.html --expect-url vjk=ef5f05ae120cfb99
+2026-11-10 10:48:39         [save_page_source] source will be taken from: https://in.indeed.com/jobs?q=Ramp+Officer&l=Vapi&from=searchOnHP&vjk=ef5f05ae120cfb99
+2026-11-10 10:48:39         [save_page_source] page identity confirmed against --expect-url
+2026-11-10 10:48:39         [save_page_source] pressing Ctrl+U
+2026-11-10 10:48:39         [save_page_source] view-source tab confirmed: view-source:https://in.indeed.com/jobs?q=Ramp+Officer&l=Vapi&from=searchOnHP&vjk=ef5f05ae120cfb99
+2026-11-10 10:48:39         [save_page_source] pressing Ctrl+S
+2026-11-10 10:48:39         [save_page_source] save dialog window=71304034 name='Save As - https://in.indeed.com/jobs?q=Ramp+Officer&l=Vapi&from=searchOnHP&vjk=ef5f05ae120cfb99 — Mozilla Firefox'
+2026-11-10 10:48:39         [save_page_source] saved 822437 bytes to /home/ubuntu/new_indeed_script/Temp_Data/rank_3/job_3_0001.html
+2026-11-10 10:48:39         -> exit 0 in 11.0s 
+2026-11-10 10:48:39    saved source: /home/ubuntu/new_indeed_script/Temp_Data/rank_3/job_3_0001.html (822437 bytes)
+2026-11-10 10:48:39       [fields] 24 of 32 columns filled   (isolation: job-card, 6 job(s) in the document)
+2026-11-10 10:48:39          job_id                 f75029e7b2bfc4d4f5b7cd4a4490c4c4
+2026-11-10 10:48:39          internal_job_id        ef5f05ae120cfb99
+2026-11-10 10:48:39          job_title              Bilingual Translator (Odia/English) - AI Trainer   [job-pane]
+2026-11-10 10:48:39          company_name           DataAnnotation   [job-pane]
+2026-11-10 10:48:39          company_website        (blank -- not stated in the saved page)
+2026-11-10 10:48:39          job_description        We are looking for an experienced Bilingual Translator (Odia/...
+2026-11-10 10:48:39          skills_required        (blank -- not stated in the saved page)
+2026-11-10 10:48:39          experience_required    We are looking for an experienced Bilingual Translator (Odia/...
+2026-11-10 10:48:39          experience_min_years   (blank -- not stated in the saved page)
+2026-11-10 10:48:39          experience_max_years   (blank -- not stated in the saved page)
+2026-11-10 10:48:39          salary_min             2361
+2026-11-10 10:48:39          salary_max             3780
+2026-11-10 10:48:39          salary_currency        INR   [job-card]
+2026-11-10 10:48:39          location               Brahmapur, Odisha   [job-pane]
+2026-11-10 10:48:39          city                   Brahmapur
+2026-11-10 10:48:39          state                  (blank -- not stated in the saved page)
+2026-11-10 10:48:39          country                India
+2026-11-10 10:48:39          remote_type            Onsite
+2026-11-10 10:48:39          employment_type        Full-time   [job-card]
+2026-11-10 10:48:39          job_category           IT Department
+2026-11-10 10:48:39          posted_date            2026-11-06 06:00:00   [job-card]
+2026-11-10 10:48:39          expiry_date            (blank -- not stated in the saved page)
+2026-11-10 10:48:39          application_deadline   (blank -- not stated in the saved page)
+2026-11-10 10:48:39          apply_url              https://in.indeed.com/viewjob?jk=ef5f05ae120cfb99   [address-bar]
+2026-11-10 10:48:39          updated_at             2026-11-06 06:00:00
+2026-11-10 10:48:39          fetched_at             2026-11-10 05:18:39
+2026-11-10 10:48:39          is_fake                (blank -- not stated in the saved page)
+2026-11-10 10:48:39          is_active              True
+2026-11-10 10:48:39          source_url             https://in.indeed.com/   [address-bar]
+2026-11-10 10:48:39          source_type            job_portal
+2026-11-10 10:48:39          source_platform        Indeed
+2026-11-10 10:48:39          score                  30
+2026-11-10 10:48:39       [note] isolated job ef5f05ae120cfb99 from a document describing 6 jobs
+2026-11-10 10:48:39       [note] no JSON-LD JobPosting in the source
+2026-11-10 10:48:39       [note] visible-text parsing skipped: the job was isolated from a 6-job document, so page text belongs to other jobs too
+2026-11-10 10:48:39       [parse] not stated by the page: experience_required, skills_required
+2026-11-10 10:48:40 
+2026-11-10 10:48:40 [Rank 3/5]
+2026-11-10 10:48:40 
+2026-11-10 10:48:40 City: Vapi   (1/23)
+2026-11-10 10:48:40 Keyword: Ramp Officer   (3/1264)
+2026-11-10 10:48:40 
+2026-11-10 10:48:40 Page: 1
+2026-11-10 10:48:40 Job: 1
+2026-11-10 10:48:40 
+2026-11-10 10:48:40 Job Title: Bilingual Translator (Odia/English) - AI Trainer
+2026-11-10 10:48:40 Company: DataAnnotation
+2026-11-10 10:48:40 
+2026-11-10 10:48:40 Extraction: SUCCESS (1730 chars of description)
+2026-11-10 10:48:40 Duplicate: NO
+2026-11-10 10:48:40 Excel Save: SUCCESS (current_data.xlsx rows=9)
+2026-11-10 10:48:40 
+2026-11-10 10:48:40 Jobs Examined: 14   Extracted: 6   Saved: 9   Duplicates: 15   Rejected: 5   Failures: 8
+2026-11-10 10:48:40 
+2026-11-10 10:48:40 Total Complete Cycle: 0
+2026-11-10 10:48:40 
+2026-11-10 10:48:40 Next: Job Card 2
+2026-11-10 10:48:40 ------------------------------------------------------------
+2026-11-10 10:48:40    waiting 10.0s before closing the source tab
+2026-11-10 10:48:50       $ /home/ubuntu/new_indeed_script/shell_scripts/close_source_tab.sh --window 65011735
+2026-11-10 10:48:54         [close_source_tab] address bar before closing: view-source:https://in.indeed.com/jobs?q=Ramp+Officer&l=Vapi&from=searchOnHP&vjk=ef5f05ae120cfb99
+2026-11-10 10:48:54         [close_source_tab] closing the view-source tab
+2026-11-10 10:48:54         [close_source_tab] back on: https://in.indeed.com/jobs?q=Ramp+Officer&l=Vapi&from=searchOnHP&vjk=ef5f05ae120cfb99
+2026-11-10 10:48:54         -> exit 0 in 4.6s (closed=yes)
+2026-11-10 10:48:54    waiting 10.0s before the next job card
+2026-11-10 10:49:04       $ /home/ubuntu/new_indeed_script/shell_scripts/select_job_card.sh --window 65011735 --index 2 --card-x 500 --start-y 988 --max-y 993 --probe-step 55 --probe-limit 12 --scroll-rounds 6 --marker vjk= --seen-keys cde0a25795d36f10,ef5f05ae120cfb99
+2026-11-10 10:50:00         [select_job_card] before selection: key='ef5f05ae120cfb99'
+2026-11-10 10:50:00         [select_job_card] probe 1: clicking 500,988
+2026-11-10 10:50:00         [select_job_card]    same job still selected -- the click was inside the current card
+2026-11-10 10:50:00         [select_job_card] nothing new above y=1043 -- scrolling the results list (round 1/6)
+2026-11-10 10:50:00         [select_job_card] probe 2: clicking 500,320
+2026-11-10 10:50:00         [select_job_card]    job cde0a25795d36f10 has already been handled -- probing past it
+2026-11-10 10:50:00         [select_job_card] probe 3: clicking 500,375
+2026-11-10 10:50:00         [select_job_card]    same job still selected -- the click was inside the current card
+2026-11-10 10:50:00         [select_job_card] probe 4: clicking 500,430
+2026-11-10 10:50:00         [select_job_card]    same job still selected -- the click was inside the current card
+2026-11-10 10:50:00         [select_job_card] probe 5: clicking 500,485
+2026-11-10 10:50:00         [select_job_card]    same job still selected -- the click was inside the current card
+2026-11-10 10:50:00         [select_job_card] probe 6: clicking 500,540
+2026-11-10 10:50:00         [select_job_card]    job ef5f05ae120cfb99 has already been handled -- probing past it
+2026-11-10 10:50:00         [select_job_card] probe 7: clicking 500,595
+2026-11-10 10:50:00         [select_job_card]    same job still selected -- the click was inside the current card
+2026-11-10 10:50:00         [select_job_card] probe 8: clicking 500,650
+2026-11-10 10:50:00         [select_job_card]    same job still selected -- the click was inside the current card
+2026-11-10 10:50:00         [select_job_card] probe 9: clicking 500,705
+2026-11-10 10:50:00         [select_job_card]    same job still selected -- the click was inside the current card
+2026-11-10 10:50:00         [select_job_card] probe 10: clicking 500,760
+2026-11-10 10:50:00         [select_job_card] card index 2 selected: job e727e48042ba08e5 at y=760 after 10 probe(s) and 1 scroll(s)
+2026-11-10 10:50:00         -> exit 0 in 56.1s 
+2026-11-10 10:50:00       selected job e727e48042ba08e5 (click, after scrolling)
+2026-11-10 10:50:00       $ /home/ubuntu/new_indeed_script/shell_scripts/save_page_source.sh --window 65011735 --out /home/ubuntu/new_indeed_script/Temp_Data/rank_3/job_3_0002.html --expect-url vjk=e727e48042ba08e5
+2026-11-10 10:50:12         [save_page_source] source will be taken from: https://in.indeed.com/jobs?q=Ramp+Officer&l=Vapi&from=searchOnHP&vjk=e727e48042ba08e5
+2026-11-10 10:50:12         [save_page_source] page identity confirmed against --expect-url
+2026-11-10 10:50:12         [save_page_source] pressing Ctrl+U
+2026-11-10 10:50:12         [save_page_source] view-source tab confirmed: view-source:https://in.indeed.com/jobs?q=Ramp+Officer&l=Vapi&from=searchOnHP&vjk=e727e48042ba08e5
+2026-11-10 10:50:12         [save_page_source] pressing Ctrl+S
+2026-11-10 10:50:12         [save_page_source] save dialog window=71304127 name='Save As - https://in.indeed.com/jobs?q=Ramp+Officer&l=Vapi&from=searchOnHP&vjk=e727e48042ba08e5 — Mozilla Firefox'
+2026-11-10 10:50:12         [save_page_source] saved 822813 bytes to /home/ubuntu/new_indeed_script/Temp_Data/rank_3/job_3_0002.html
+2026-11-10 10:50:12         -> exit 0 in 11.8s 
+2026-11-10 10:50:12    saved source: /home/ubuntu/new_indeed_script/Temp_Data/rank_3/job_3_0002.html (822813 bytes)
+2026-11-10 10:50:12       [fields] 24 of 32 columns filled   (isolation: job-card, 6 job(s) in the document)
+2026-11-10 10:50:12          job_id                 df85707239bd70a87f8d02f5e912db63
+2026-11-10 10:50:12          internal_job_id        e727e48042ba08e5
+2026-11-10 10:50:12          job_title              Bilingual Linguistic Consultant (Odia/English) - AI Trainer   [job-pane]
+2026-11-10 10:50:12          company_name           DataAnnotation   [job-pane]
+2026-11-10 10:50:12          company_website        (blank -- not stated in the saved page)
+2026-11-10 10:50:12          job_description        We are looking for an experienced Bilingual Linguistic Consul...
+2026-11-10 10:50:12          skills_required        (blank -- not stated in the saved page)
+2026-11-10 10:50:12          experience_required    We are looking for an experienced Bilingual Linguistic Consul...
+2026-11-10 10:50:12          experience_min_years   (blank -- not stated in the saved page)
+2026-11-10 10:50:12          experience_max_years   (blank -- not stated in the saved page)
+2026-11-10 10:50:12          salary_min             2361
+2026-11-10 10:50:12          salary_max             3780
+2026-11-10 10:50:12          salary_currency        INR   [job-card]
+2026-11-10 10:50:12          location               Brahmapur, Odisha   [job-pane]
+2026-11-10 10:50:12          city                   Brahmapur
+2026-11-10 10:50:12          state                  (blank -- not stated in the saved page)
+2026-11-10 10:50:12          country                India
+2026-11-10 10:50:12          remote_type            Onsite
+2026-11-10 10:50:12          employment_type        Full-time   [job-card]
+2026-11-10 10:50:12          job_category           IT Department
+2026-11-10 10:50:12          posted_date            2026-11-06 06:00:00   [job-card]
+2026-11-10 10:50:12          expiry_date            (blank -- not stated in the saved page)
+2026-11-10 10:50:12          application_deadline   (blank -- not stated in the saved page)
+2026-11-10 10:50:12          apply_url              https://in.indeed.com/viewjob?jk=e727e48042ba08e5   [address-bar]
+2026-11-10 10:50:12          updated_at             2026-11-06 06:00:00
+2026-11-10 10:50:12          fetched_at             2026-11-10 05:20:12
+2026-11-10 10:50:12          is_fake                (blank -- not stated in the saved page)
+2026-11-10 10:50:12          is_active              True
+2026-11-10 10:50:12          source_url             https://in.indeed.com/   [address-bar]
+2026-11-10 10:50:12          source_type            job_portal
+2026-11-10 10:50:12          source_platform        Indeed
+2026-11-10 10:50:12          score                  30
+2026-11-10 10:50:12       [note] isolated job e727e48042ba08e5 from a document describing 6 jobs
+2026-11-10 10:50:12       [note] no JSON-LD JobPosting in the source
+2026-11-10 10:50:12       [note] visible-text parsing skipped: the job was isolated from a 6-job document, so page text belongs to other jobs too
+2026-11-10 10:50:12       [parse] not stated by the page: experience_required, skills_required
+2026-11-10 10:50:12 
+2026-11-10 10:50:12 [Rank 3/5]
+2026-11-10 10:50:12 
+2026-11-10 10:50:12 City: Vapi   (1/23)
+2026-11-10 10:50:12 Keyword: Ramp Officer   (3/1264)
+2026-11-10 10:50:12 
+2026-11-10 10:50:12 Page: 1
+2026-11-10 10:50:12 Job: 2
+2026-11-10 10:50:12 
+2026-11-10 10:50:12 Job Title: Bilingual Linguistic Consultant (Odia/English) - AI Trainer
+2026-11-10 10:50:12 Company: DataAnnotation
+2026-11-10 10:50:12 
+2026-11-10 10:50:12 Extraction: SUCCESS (1741 chars of description)
+2026-11-10 10:50:12 Duplicate: NO
+2026-11-10 10:50:12 Excel Save: SUCCESS (current_data.xlsx rows=10)
+2026-11-10 10:50:12 
+2026-11-10 10:50:12 Jobs Examined: 15   Extracted: 7   Saved: 10   Duplicates: 15   Rejected: 5   Failures: 8
+2026-11-10 10:50:12 
+2026-11-10 10:50:12 Total Complete Cycle: 0
+2026-11-10 10:50:12 
+2026-11-10 10:50:12 Next: Job Card 3
+2026-11-10 10:50:12 ------------------------------------------------------------
+2026-11-10 10:50:12    waiting 10.0s before closing the source tab
+2026-11-10 10:50:22       $ /home/ubuntu/new_indeed_script/shell_scripts/close_source_tab.sh --window 65011735
+2026-11-10 10:50:27         [close_source_tab] address bar before closing: view-source:https://in.indeed.com/jobs?q=Ramp+Officer&l=Vapi&from=searchOnHP&vjk=e727e48042ba08e5
+2026-11-10 10:50:27         [close_source_tab] closing the view-source tab
+2026-11-10 10:50:27         [close_source_tab] back on: https://in.indeed.com/jobs?q=Ramp+Officer&l=Vapi&from=searchOnHP&vjk=e727e48042ba08e5
+2026-11-10 10:50:27         -> exit 0 in 4.6s (closed=yes)
+2026-11-10 10:50:27    waiting 10.0s before the next job card
+2026-11-10 10:50:37       $ /home/ubuntu/new_indeed_script/shell_scripts/select_job_card.sh --window 65011735 --index 3 --card-x 500 --start-y 433 --max-y 993 --probe-step 55 --probe-limit 12 --scroll-rounds 6 --marker vjk= --seen-keys cde0a25795d36f10,ef5f05ae120cfb99,e727e48042ba08e5
+2026-11-10 10:51:35         [select_job_card] before selection: key='e727e48042ba08e5'
+2026-11-10 10:51:35         [select_job_card] probe 1: clicking 500,433
+2026-11-10 10:51:35         [select_job_card]    job cde0a25795d36f10 has already been handled -- probing past it
+2026-11-10 10:51:35         [select_job_card] probe 2: clicking 500,488
+2026-11-10 10:51:35         [select_job_card]    same job still selected -- the click was inside the current card
+2026-11-10 10:51:35         [select_job_card] probe 3: clicking 500,543
+2026-11-10 10:51:35         [select_job_card]    job ef5f05ae120cfb99 has already been handled -- probing past it
+2026-11-10 10:51:35         [select_job_card] probe 4: clicking 500,598
+2026-11-10 10:51:35         [select_job_card]    same job still selected -- the click was inside the current card
+2026-11-10 10:51:35         [select_job_card] probe 5: clicking 500,653
+2026-11-10 10:51:35         [select_job_card]    same job still selected -- the click was inside the current card
+2026-11-10 10:51:35         [select_job_card] probe 6: clicking 500,708
+2026-11-10 10:51:35         [select_job_card]    same job still selected -- the click was inside the current card
+2026-11-10 10:51:35         [select_job_card] probe 7: clicking 500,763
+2026-11-10 10:51:35         [select_job_card]    job e727e48042ba08e5 has already been handled -- probing past it
+2026-11-10 10:51:35         [select_job_card] probe 8: clicking 500,818
+2026-11-10 10:51:35         [select_job_card]    same job still selected -- the click was inside the current card
+2026-11-10 10:51:35         [select_job_card] probe 9: clicking 500,873
+2026-11-10 10:51:35         [select_job_card]    same job still selected -- the click was inside the current card
+2026-11-10 10:51:35         [select_job_card] probe 10: clicking 500,928
+2026-11-10 10:51:35         [select_job_card]    same job still selected -- the click was inside the current card
+2026-11-10 10:51:35         [select_job_card] probe 11: clicking 500,983
+2026-11-10 10:51:35         [select_job_card] card index 3 selected: job 70964a5aa19afe3e at y=983 after 11 probe(s) and 0 scroll(s)
+2026-11-10 10:51:35         -> exit 0 in 58.3s 
+2026-11-10 10:51:35       selected job 70964a5aa19afe3e (click)
+2026-11-10 10:51:35       $ /home/ubuntu/new_indeed_script/shell_scripts/save_page_source.sh --window 65011735 --out /home/ubuntu/new_indeed_script/Temp_Data/rank_3/job_3_0003.html --expect-url vjk=70964a5aa19afe3e
+2026-11-10 10:51:46         [save_page_source] source will be taken from: https://in.indeed.com/jobs?q=Ramp+Officer&l=Vapi&from=searchOnHP&vjk=70964a5aa19afe3e
+2026-11-10 10:51:46         [save_page_source] page identity confirmed against --expect-url
+2026-11-10 10:51:46         [save_page_source] pressing Ctrl+U
+2026-11-10 10:51:46         [save_page_source] view-source tab confirmed: view-source:https://in.indeed.com/jobs?q=Ramp+Officer&l=Vapi&from=searchOnHP&vjk=70964a5aa19afe3e
+2026-11-10 10:51:46         [save_page_source] pressing Ctrl+S
+2026-11-10 10:51:46         [save_page_source] save dialog window=71304217 name='Save As - https://in.indeed.com/jobs?q=Ramp+Officer&l=Vapi&from=searchOnHP&vjk=70964a5aa19afe3e — Mozilla Firefox'
+2026-11-10 10:51:46         [save_page_source] saved 821376 bytes to /home/ubuntu/new_indeed_script/Temp_Data/rank_3/job_3_0003.html
+2026-11-10 10:51:46         -> exit 0 in 10.9s 
+2026-11-10 10:51:46    saved source: /home/ubuntu/new_indeed_script/Temp_Data/rank_3/job_3_0003.html (821376 bytes)
+2026-11-10 10:51:46       [fields] 24 of 32 columns filled   (isolation: job-card, 6 job(s) in the document)
+2026-11-10 10:51:46          job_id                 859adb3f21eeb3f438d5d5f8ad6ca4c6
+2026-11-10 10:51:46          internal_job_id        70964a5aa19afe3e
+2026-11-10 10:51:46          job_title              Bilingual Content Editor (Odia/English) - AI Trainer   [job-pane]
+2026-11-10 10:51:46          company_name           DataAnnotation   [job-pane]
+2026-11-10 10:51:46          company_website        (blank -- not stated in the saved page)
+2026-11-10 10:51:46          job_description        We are looking for an experienced Bilingual Content Editor (O...
+2026-11-10 10:51:46          skills_required        (blank -- not stated in the saved page)
+2026-11-10 10:51:46          experience_required    We are looking for an experienced Bilingual Content Editor (O...
+2026-11-10 10:51:46          experience_min_years   (blank -- not stated in the saved page)
+2026-11-10 10:51:46          experience_max_years   (blank -- not stated in the saved page)
+2026-11-10 10:51:46          salary_min             2361
+2026-11-10 10:51:46          salary_max             3780
+2026-11-10 10:51:46          salary_currency        INR   [job-card]
+2026-11-10 10:51:46          location               Brahmapur, Odisha   [job-pane]
+2026-11-10 10:51:46          city                   Brahmapur
+2026-11-10 10:51:46          state                  (blank -- not stated in the saved page)
+2026-11-10 10:51:46          country                India
+2026-11-10 10:51:46          remote_type            Onsite
+2026-11-10 10:51:46          employment_type        Full-time   [job-card]
+2026-11-10 10:51:46          job_category           IT Department
+2026-11-10 10:51:46          posted_date            2026-11-06 06:00:00   [job-card]
+2026-11-10 10:51:46          expiry_date            (blank -- not stated in the saved page)
+2026-11-10 10:51:46          application_deadline   (blank -- not stated in the saved page)
+2026-11-10 10:51:46          apply_url              https://in.indeed.com/viewjob?jk=70964a5aa19afe3e   [address-bar]
+2026-11-10 10:51:46          updated_at             2026-11-06 06:00:00
+2026-11-10 10:51:46          fetched_at             2026-11-10 05:21:46
+2026-11-10 10:51:46          is_fake                (blank -- not stated in the saved page)
+2026-11-10 10:51:46          is_active              True
+2026-11-10 10:51:46          source_url             https://in.indeed.com/   [address-bar]
+2026-11-10 10:51:46          source_type            job_portal
+2026-11-10 10:51:46          source_platform        Indeed
+2026-11-10 10:51:46          score                  30
+2026-11-10 10:51:46       [note] isolated job 70964a5aa19afe3e from a document describing 6 jobs
+2026-11-10 10:51:46       [note] no JSON-LD JobPosting in the source
+2026-11-10 10:51:46       [note] visible-text parsing skipped: the job was isolated from a 6-job document, so page text belongs to other jobs too
+2026-11-10 10:51:46       [parse] not stated by the page: experience_required, skills_required
+2026-11-10 10:51:46 
+2026-11-10 10:51:46 [Rank 3/5]
+2026-11-10 10:51:46 
+2026-11-10 10:51:46 City: Vapi   (1/23)
+2026-11-10 10:51:46 Keyword: Ramp Officer   (3/1264)
+2026-11-10 10:51:46 
+2026-11-10 10:51:46 Page: 1
+2026-11-10 10:51:46 Job: 3
+2026-11-10 10:51:46 
+2026-11-10 10:51:46 Job Title: Bilingual Content Editor (Odia/English) - AI Trainer
+2026-11-10 10:51:46 Company: DataAnnotation
+2026-11-10 10:51:46 
+2026-11-10 10:51:46 Extraction: SUCCESS (1734 chars of description)
+2026-11-10 10:51:46 Duplicate: NO
+2026-11-10 10:51:46 Excel Save: SUCCESS (current_data.xlsx rows=11)
+2026-11-10 10:51:46 
+2026-11-10 10:51:46 Jobs Examined: 16   Extracted: 8   Saved: 11   Duplicates: 15   Rejected: 5   Failures: 8
+2026-11-10 10:51:46 
+2026-11-10 10:51:46 Total Complete Cycle: 0
+2026-11-10 10:51:46 
+2026-11-10 10:51:46 Next: Job Card 4
+2026-11-10 10:51:46 ------------------------------------------------------------
+2026-11-10 10:51:46    waiting 10.0s before closing the source tab
+2026-11-10 10:51:56       $ /home/ubuntu/new_indeed_script/shell_scripts/close_source_tab.sh --window 65011735
+2026-11-10 10:52:01         [close_source_tab] address bar before closing: view-source:https://in.indeed.com/jobs?q=Ramp+Officer&l=Vapi&from=searchOnHP&vjk=70964a5aa19afe3e
+2026-11-10 10:52:01         [close_source_tab] closing the view-source tab
+2026-11-10 10:52:01         [close_source_tab] back on: https://in.indeed.com/jobs?q=Ramp+Officer&l=Vapi&from=searchOnHP&vjk=70964a5aa19afe3e
+2026-11-10 10:52:01         -> exit 0 in 4.6s (closed=yes)
+2026-11-10 10:52:01    waiting 10.0s before the next job card
+2026-11-10 10:52:11       $ /home/ubuntu/new_indeed_script/shell_scripts/select_job_card.sh --window 65011735 --index 4 --card-x 500 --start-y 1043 --max-y 993 --probe-step 55 --probe-limit 12 --scroll-rounds 6 --marker vjk= --seen-keys cde0a25795d36f10,ef5f05ae120cfb99,e727e48042ba08e5,70964a5aa19afe3e
+2026-11-10 10:53:12         [select_job_card] before selection: key='70964a5aa19afe3e'
+2026-11-10 10:53:12         [select_job_card] nothing new above y=1043 -- scrolling the results list (round 1/6)
+2026-11-10 10:53:12         [select_job_card] probe 1: clicking 500,320
+2026-11-10 10:53:12         [select_job_card]    job ef5f05ae120cfb99 has already been handled -- probing past it
+2026-11-10 10:53:12         [select_job_card] probe 2: clicking 500,375
+2026-11-10 10:53:12         [select_job_card]    same job still selected -- the click was inside the current card
+2026-11-10 10:53:12         [select_job_card] probe 3: clicking 500,430
+2026-11-10 10:53:12         [select_job_card]    job e727e48042ba08e5 has already been handled -- probing past it
+2026-11-10 10:53:12         [select_job_card] probe 4: clicking 500,485
+2026-11-10 10:53:12         [select_job_card]    same job still selected -- the click was inside the current card
+2026-11-10 10:53:12         [select_job_card] probe 5: clicking 500,540
+2026-11-10 10:53:12         [select_job_card]    same job still selected -- the click was inside the current card
+2026-11-10 10:53:12         [select_job_card] probe 6: clicking 500,595
+2026-11-10 10:53:12         [select_job_card]    same job still selected -- the click was inside the current card
+2026-11-10 10:53:12         [select_job_card] probe 7: clicking 500,650
+2026-11-10 10:53:12         [select_job_card]    job 70964a5aa19afe3e has already been handled -- probing past it
+2026-11-10 10:53:12         [select_job_card] probe 8: clicking 500,705
+2026-11-10 10:53:12         [select_job_card]    same job still selected -- the click was inside the current card
+2026-11-10 10:53:12         [select_job_card] probe 9: clicking 500,760
+2026-11-10 10:53:12         [select_job_card]    same job still selected -- the click was inside the current card
+2026-11-10 10:53:12         [select_job_card] probe 10: clicking 500,815
+2026-11-10 10:53:12         [select_job_card]    same job still selected -- the click was inside the current card
+2026-11-10 10:53:12         [select_job_card] probe 11: clicking 500,870
+2026-11-10 10:53:12         [select_job_card] card index 4 selected: job 145eb22f2eb91049 at y=870 after 11 probe(s) and 1 scroll(s)
+2026-11-10 10:53:12         -> exit 0 in 61.4s 
+2026-11-10 10:53:12       selected job 145eb22f2eb91049 (click, after scrolling)
+2026-11-10 10:53:12       $ /home/ubuntu/new_indeed_script/shell_scripts/save_page_source.sh --window 65011735 --out /home/ubuntu/new_indeed_script/Temp_Data/rank_3/job_3_0004.html --expect-url vjk=145eb22f2eb91049
+2026-11-10 10:53:43 
+[STOP] signal 2. Checkpoint saved -- re-run to continue from here.
+2026-11-10 11:53:38   display         : :0 (inherited)
+2026-11-10 11:53:38 ========================================================================
+2026-11-10 11:53:38 NEW INDEED COLLECTOR -- Firefox / xdotool / xclip
+2026-11-10 11:53:38 ========================================================================
+2026-11-10 11:53:38   roles+cities : vendor/ (local, authoritative) -- new_mylib.py md5 5e06a7d1, target_audience_roles.py md5 54b25400
+  row builder  : /home/ubuntu/check_indeed (read-only, 32-column schema)  [stand-ins: gtts]
+2026-11-10 11:53:38   rank            : 3 of 5
+2026-11-10 11:53:38   keywords        : 1264
+2026-11-10 11:53:38     target-audience : 200  (15.8% of the plan)
+2026-11-10 11:53:38     fresher/other   : 1064  (84.2%)
+2026-11-10 11:53:38     departments     : 116
+2026-11-10 11:53:38   cities (all)    : 110
+2026-11-10 11:53:38   cities (rank 3) : 23  -> Vapi, Bharuch, Kochi, Cochin ...
+2026-11-10 11:53:38   excel columns   : 32
+2026-11-10 11:53:38   output          : /home/ubuntu/new_indeed_script/Excel_Data/rank_3
+2026-11-10 11:53:38   temp            : /home/ubuntu/new_indeed_script/Temp_Data/rank_3
+2026-11-10 11:53:38   checkpoint      : /home/ubuntu/new_indeed_script/config/checkpoints/checkpoint_rank_3.json
+2026-11-10 11:53:38   loop            : city-outer, keyword-inner (brief section 8)
+2026-11-10 11:53:38   delays          : 10s before close, 10s before next card
+2026-11-10 11:53:38   between keywords: close the browser, wait 5s, reopen on the home page, verify the search fields
+2026-11-10 11:53:38   complete cycle  : all keywords for one city, then rest 10m 00s
+2026-11-10 11:53:38   night rest      : disabled
+2026-11-10 11:53:38   work period     : 3.7-4.2 h, then a 30-60 min break
+2026-11-10 11:53:38   fixed plan      : 5 page(s) x 10 card(s) = up to 50 jobs per keyword+city
+2026-11-10 11:53:38   paging          : page 1 = typed search, page 2+ = start=10,20,...
+2026-11-10 11:53:38   cards per page  : counted from each page's own source, capped at 10
+2026-11-10 11:53:38   repeated page   : same card list as the previous page -> next keyword
+2026-11-10 11:53:38   page ceiling    : 5 listing page(s) per keyword+city
+2026-11-10 11:53:38   unique target   : 50 distinct jobs EXAMINED per keyword+city
+2026-11-10 11:53:38   TOTAL COMPLETE CYCLE : 0   (cities finished this crawl cycle: 0/23)
+2026-11-10 11:53:38 ========================================================================
+2026-11-10 11:53:38   indeed login   : signed in  (session cookies: PPID, SOCK, SHOE)
+2026-11-10 11:53:38   search mode    : form
+2026-11-10 11:53:38       $ /home/ubuntu/new_indeed_script/shell_scripts/open_firefox.sh --profile /home/ubuntu/new_indeed_script/config/firefox_profile/rank_3 --url https://in.indeed.com --state-file /home/ubuntu/new_indeed_script/Temp_Data/rank_3/browser_window.json --expect-host indeed --download-dir /home/ubuntu/new_indeed_script/Temp_Data/rank_3 --window-size 1845x1046 --window-pos 0,34
+2026-11-10 11:53:49         [open_firefox] pre-existing Firefox windows (never touched): none
+2026-11-10 11:53:49         [open_firefox] display=:0 xauthority=/run/user/1000/gdm/Xauthority
+2026-11-10 11:53:49         [open_firefox] launch mode: snap (inner binary inside 'snap run --shell')
+2026-11-10 11:53:49         [open_firefox] firefox pid=3878
+2026-11-10 11:53:49         [open_firefox] window_id=54525975 name=Mozilla Firefox
+2026-11-10 11:53:49         [open_firefox] window geometry set on attempt 1: 1850x1053+70+27
+2026-11-10 11:53:49         [open_firefox] normal window: 1850x1053+70+27 (asked for 1845x1046+0+34)
+2026-11-10 11:53:49         [open_firefox] address bar: https://in.indeed.com/
+2026-11-10 11:53:49         [open_firefox] ready
+2026-11-10 11:53:49         -> exit 0 in 11.3s (window_id=54525975 fullscreen=no access_denied=no verified=yes)
+2026-11-10 11:53:49    window landed at +70+27, not the +0+34 it was asked for: clicks shifted by (+70,-7) to match
+2026-11-10 11:53:49    browser ready: pid=3878 window=54525975 fullscreen=no
+2026-11-10 11:53:49       $ /home/ubuntu/new_indeed_script/shell_scripts/verify_search_fields.sh --window 54525975 --probe zz --what-xy 770,253 --where-xy 1170,253
+2026-11-10 11:54:06         [verify_search_fields] window at +70+27 1053px tall; probes stay between y=147 and y=1040 (never in Firefox's own chrome)
+2026-11-10 11:54:06         [verify_search_fields] input guard passed; address bar reads: https://in.indeed.com/
+2026-11-10 11:54:06         [verify_search_fields] waiting 7.0s for the page to settle
+2026-11-10 11:54:06         [verify_search_fields]   probe 1 at 770,253: the keyword box answered
+2026-11-10 11:54:06         [verify_search_fields]   probe 2 at 1170,253: the location box answered
+2026-11-10 11:54:06         [verify_search_fields] both search boxes found and answered: keyword at 770,253, location at 1170,253 (after 2 probe(s))
+2026-11-10 11:54:06         -> exit 0 in 16.6s (verified=yes)
+2026-11-10 11:54:06    search fields verified: keyword=yes location=yes (2 probe(s))
+2026-11-10 11:54:06 
+========================================================================
+2026-11-10 11:54:06 CRAWL CYCLE 1 | CITY 1/23: Vapi   (keywords 3..1264)
+2026-11-10 11:54:06 TOTAL COMPLETE CYCLE SO FAR: 0
+2026-11-10 11:54:06 ========================================================================
+2026-11-10 11:54:06 
+  [cycle 1 | city 1/23 Vapi | keyword 3/1264 Ramp Officer | worked 27s]
+2026-11-10 11:54:06 
+  [page 1/5] Ramp Officer @ Vapi  (start=0)
+2026-11-10 11:54:06       $ /home/ubuntu/new_indeed_script/shell_scripts/search_jobs.sh --window 54525975 --keyword 'Ramp Officer' --city Vapi --base-url https://in.indeed.com --mode form --what-xy 770,253 --where-xy 1170,253
+2026-11-10 11:54:28 
+[STOP] signal 2. Checkpoint saved -- re-run to continue from here.
