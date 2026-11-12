@@ -5096,32 +5096,30 @@
   },
   "total_keywords": 1264,
   "current_city_index": 0,
-  "current_keyword_index": 0,
+  "current_keyword_index": 1,
   "current_page": 1,
   "current_city": "Delhi",
-  "current_keyword": "Social Media Designer",
-  "done_job_urls": [
-    "https://in.indeed.com/"
-  ],
+  "current_keyword": "PSU Engineer",
+  "done_job_urls": [],
   "completed_cities": [],
   "total_complete_cycle": 0,
   "last_completed_job_id": "a675dc8b3e50c670624ffc7b12940e95",
   "saved_jobs": 6,
   "duplicate_jobs": 1,
   "rejected_jobs": 2,
-  "failed_jobs": 2,
+  "failed_jobs": 8,
   "examined_jobs": 8,
   "failure_state": {
-    "at": "2026-11-09 11:24:29",
-    "stage": "open_firefox.sh",
-    "reason": "Firefox is up in a normal window, but the address bar does not contain 'indeed'. Got:  non user content | stage=open_firefox.sh | exit=7",
+    "at": "2026-11-12 09:54:08",
+    "stage": "search",
+    "reason": "the results page is an access refusal (title: 'Just a moment... — Mozilla Firefox'). Stopping this search. No retry, no identity change, no session cycling. | stage=search_jobs.sh | exit=10",
     "rank": 1,
     "city": "Delhi",
-    "keyword": "Social Media Designer",
+    "keyword": "PSU Engineer",
     "page": 1
   },
   "cycle_complete": false,
-  "updated_at": "2026-11-09 11:34:10",
+  "updated_at": "2026-11-12 09:54:26",
   "recent_failures": [
     {
       "at": "2026-11-09 11:08:08",
@@ -5139,6 +5137,60 @@
       "rank": 1,
       "city": "Delhi",
       "keyword": "Social Media Designer",
+      "page": 1
+    },
+    {
+      "at": "2026-11-10 12:02:30",
+      "stage": "open_firefox.sh",
+      "reason": "the first page is an access refusal (title: 'Just a moment... — Mozilla Firefox'). Stopping: no retry, no identity change. | stage=open_firefox.sh | exit=10",
+      "rank": 1,
+      "city": "Delhi",
+      "keyword": "Social Media Designer",
+      "page": 1
+    },
+    {
+      "at": "2026-11-10 12:06:10",
+      "stage": "search",
+      "reason": "the results page is an access refusal (title: 'Just a moment... — Mozilla Firefox'). Stopping this search. No retry, no identity change, no session cycling. | stage=search_jobs.sh | exit=10",
+      "rank": 1,
+      "city": "Delhi",
+      "keyword": "Social Media Designer",
+      "page": 1
+    },
+    {
+      "at": "2026-11-10 12:06:51",
+      "stage": "search",
+      "reason": "the click at 710,302 did NOT land in the keyword box: it landed on the page body, so Ctrl+A selected the whole document and the read-back is 273 characters of PAGE TEXT across 18 lines, starting ''. Nothing was submitted. Run verify_search_fields.sh to find the box -- it probes nearby rows and reports the coordinates that work. (Indeed's home page has a different layout when signed in, and a window manager may not place the window where it was asked to.) | stage=search_jobs.sh | exit=7",
+      "rank": 1,
+      "city": "Delhi",
+      "keyword": "Social Media Designer",
+      "page": 1
+    },
+    {
+      "at": "2026-11-10 12:07:24",
+      "stage": "search",
+      "reason": "the click at 710,302 did NOT land in the keyword box: it landed on the page body, so Ctrl+A selected the whole document and the read-back is 273 characters of PAGE TEXT across 18 lines, starting ''. Nothing was submitted. Run verify_search_fields.sh to find the box -- it probes nearby rows and reports the coordinates that work. (Indeed's home page has a different layout when signed in, and a window manager may not place the window where it was asked to.) | stage=search_jobs.sh | exit=7",
+      "rank": 1,
+      "city": "Delhi",
+      "keyword": "Social Media Designer",
+      "page": 1
+    },
+    {
+      "at": "2026-11-10 12:08:26",
+      "stage": "search",
+      "reason": "the results page is an access refusal (title: 'Just a moment... — Mozilla Firefox'). Stopping this search. No retry, no identity change, no session cycling. | stage=search_jobs.sh | exit=10",
+      "rank": 1,
+      "city": "Delhi",
+      "keyword": "PSU Engineer",
+      "page": 1
+    },
+    {
+      "at": "2026-11-12 09:54:08",
+      "stage": "search",
+      "reason": "the results page is an access refusal (title: 'Just a moment... — Mozilla Firefox'). Stopping this search. No retry, no identity change, no session cycling. | stage=search_jobs.sh | exit=10",
+      "rank": 1,
+      "city": "Delhi",
+      "keyword": "PSU Engineer",
       "page": 1
     }
   ]

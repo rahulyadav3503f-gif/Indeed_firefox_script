@@ -60,6 +60,60 @@ if BASE_DIR not in sys.path:
 
 
 # ===========================================================================
+# RUN UNDER THIS PROJECT'S OWN INTERPRETER
+# ===========================================================================
+# This project ships its venv INSIDE the repository, and `venv/bin/activate`
+# carries the absolute path of the machine the venv was first built on.  That
+# file is committed, so on every other host activating it puts a directory
+# that does not exist onto PATH: the shell still prints "(venv)", but
+# `python3` is really /usr/bin/python3.
+#
+# MEASURED on .123: the system interpreter then imports Debian's pandas
+# (2.2.3+dfsg), which cannot load against this host's numpy and dies with
+#     ImportError: cannot import name using_string_dtype
+# from `source_file/indeed_excel.py`, long before anything useful happens.
+#
+# So the run is handed to venv/bin/python3 here rather than depending on the
+# operator's shell being activated correctly.  The sentinel makes it
+# one-shot: if the venv interpreter ALSO cannot import pandas, the real
+# ImportError is raised below instead of re-execing forever.
+_VENV_PYTHON = os.path.join(BASE_DIR, "venv", "bin", "python3")
+_REEXEC_FLAG = "INDEED_FF_REEXECED"
+
+
+def _imports_pandas():
+    try:
+        import pandas                                        # noqa: F401
+    except Exception:
+        return False
+    return True
+
+
+def reexec_under_venv():
+    """Replace this process with venv/bin/python3 when pandas is missing."""
+    if os.environ.get(_REEXEC_FLAG):
+        return                       # already re-executed; do not loop
+    if sys.executable == _VENV_PYTHON:
+        return                       # already the project interpreter
+    if not os.access(_VENV_PYTHON, os.X_OK):
+        return                       # no venv here; let the import speak
+    if _imports_pandas():
+        return                       # whatever we are running, it works
+    # NOTE: compare sys.executable literally, never realpath() -- the venv's
+    # python3 is a SYMLINK to /usr/bin/python3, so the resolved paths are
+    # identical and a realpath comparison would skip the re-exec entirely.
+    sys.stderr.write(
+        "[venv] %s cannot import pandas; re-running under %s\n"
+        % (sys.executable, _VENV_PYTHON))
+    os.environ[_REEXEC_FLAG] = "1"
+    os.execv(_VENV_PYTHON,
+             [_VENV_PYTHON, os.path.abspath(__file__)] + sys.argv[1:])
+
+
+reexec_under_venv()
+
+
+# ===========================================================================
 # CONFIGURATION -- every editable setting is in this one block
 # ===========================================================================
 # The original project puts all of its settings at the top of this same
@@ -74,7 +128,7 @@ if BASE_DIR not in sys.path:
 # The contract is the original project's, including the slicing algorithm
 # (see get_cities_by_rank).  Override from the command line with
 # --rank / --num-sys; these are the defaults.
-rank = 3
+rank = 1
 num_sys = 5
 
 # -- the source ------------------------------------------------------------

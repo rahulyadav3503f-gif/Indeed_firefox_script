@@ -1441,3 +1441,313 @@
 2026-11-09 11:34:09    waiting 10.0s before the next job card
 2026-11-09 11:34:10 
 [STOP] signal 2. Checkpoint saved -- re-run to continue from here.
+2026-11-10 12:01:52 [xvfb] :105 is already up
+2026-11-10 12:01:52   display         : :105 (Xvfb, 1920x1080x24)
+2026-11-10 12:01:52 ========================================================================
+2026-11-10 12:01:52 NEW INDEED COLLECTOR -- Firefox / xdotool / xclip
+2026-11-10 12:01:52 ========================================================================
+2026-11-10 12:01:52   roles+cities : vendor/ (local, authoritative) -- new_mylib.py md5 5e06a7d1, target_audience_roles.py md5 54b25400
+  row builder  : /home/abhinav/indeed_script (read-only, 32-column schema)  [stand-ins: gtts, psutil, Levenshtein]
+2026-11-10 12:01:52   rank            : 1 of 5
+2026-11-10 12:01:52   keywords        : 1264
+2026-11-10 12:01:52     target-audience : 200  (15.8% of the plan)
+2026-11-10 12:01:52     fresher/other   : 1064  (84.2%)
+2026-11-10 12:01:52     departments     : 116
+2026-11-10 12:01:52   cities (all)    : 110
+2026-11-10 12:01:52   cities (rank 1) : 23  -> Delhi, Gurugram, Gurgaon, Noida ...
+2026-11-10 12:01:52   excel columns   : 32
+2026-11-10 12:01:52   output          : /home/abhinav/rahul3/rahul_new_indeed_script/Indeed_firefox_script/Excel_Data/rank_1
+2026-11-10 12:01:52   temp            : /home/abhinav/rahul3/rahul_new_indeed_script/Indeed_firefox_script/Temp_Data/rank_1
+2026-11-10 12:01:52   checkpoint      : /home/abhinav/rahul3/rahul_new_indeed_script/Indeed_firefox_script/config/checkpoints/checkpoint_rank_1.json
+2026-11-10 12:01:52   loop            : city-outer, keyword-inner (brief section 8)
+2026-11-10 12:01:52   delays          : 3s before close, 3s before next card
+2026-11-10 12:01:52   between keywords: close the browser, wait 5s, reopen on the home page, verify the search fields
+2026-11-10 12:01:52   complete cycle  : all keywords for one city, then rest 10m 00s
+2026-11-10 12:01:52   night rest      : disabled
+2026-11-10 12:01:52   work period     : 3.7-4.2 h, then a 30-60 min break
+2026-11-10 12:01:52   fixed plan      : 5 page(s) x 10 card(s) = up to 50 jobs per keyword+city
+2026-11-10 12:01:52   paging          : page 1 = typed search, page 2+ = start=10,20,...
+2026-11-10 12:01:52   cards per page  : counted from each page's own source, capped at 10
+2026-11-10 12:01:52   repeated page   : same card list as the previous page -> next keyword
+2026-11-10 12:01:52   page ceiling    : 1 listing page(s) per keyword+city
+2026-11-10 12:01:52   unique target   : 50 distinct jobs EXAMINED per keyword+city
+2026-11-10 12:01:52   TOTAL COMPLETE CYCLE : 0   (cities finished this crawl cycle: 0/23)
+2026-11-10 12:01:52 ========================================================================
+2026-11-10 12:01:53   indeed login   : signed in  (session cookies: PPID, SOCK, SHOE)
+2026-11-10 12:01:53   search mode    : form
+2026-11-10 12:01:53       $ /home/abhinav/rahul3/rahul_new_indeed_script/Indeed_firefox_script/shell_scripts/open_firefox.sh --profile /home/abhinav/rahul3/rahul_new_indeed_script/Indeed_firefox_script/config/firefox_profile/rank_1 --url https://in.indeed.com --state-file /home/abhinav/rahul3/rahul_new_indeed_script/Indeed_firefox_script/Temp_Data/rank_1/browser_window.json --expect-host indeed --download-dir /home/abhinav/rahul3/rahul_new_indeed_script/Indeed_firefox_script/Temp_Data/rank_1 --window-size 1845x1046 --window-pos 0,34
+2026-11-10 12:02:30         [open_firefox] pre-existing Firefox windows (never touched): none
+2026-11-10 12:02:30         [open_firefox] display=:105 xauthority=unset
+2026-11-10 12:02:30         [open_firefox] launch mode: direct (firefox)
+2026-11-10 12:02:30         [open_firefox] firefox pid=137741
+2026-11-10 12:02:30         [open_firefox] window_id=4194347 name=Mozilla Firefox
+2026-11-10 12:02:30         [open_firefox] window geometry set on attempt 1: 1845x1046+10+96
+2026-11-10 12:02:30         [open_firefox] normal window: 1845x1046+10+96 (asked for 1845x1046+0+34)
+2026-11-10 12:02:30         [open_firefox] address bar: <unreadable>
+2026-11-10 12:02:30         [open_firefox] ERROR(10): the first page is an access refusal (title: 'Just a moment... — Mozilla Firefox'). Stopping: no retry, no identity change.
+2026-11-10 12:02:30         -> exit 10 in 37.1s (window_id=4194347 fullscreen=no access_denied=yes verified=no)
+2026-11-10 12:02:30 
+[FAIL] the first page is an access refusal (title: 'Just a moment... — Mozilla Firefox'). Stopping: no retry, no identity change. | stage=open_firefox.sh | exit=10
+2026-11-10 12:02:31 
+2026-11-10 12:02:31 ========================================================================
+2026-11-10 12:02:31 RUN SUMMARY -- rank 1/5
+2026-11-10 12:02:31   examined 8 | saved 6 | duplicates 1 | rejected 2 | failures 3
+2026-11-10 12:02:31   TOTAL COMPLETE CYCLE : 0
+2026-11-10 12:02:31   cities finished this crawl cycle : 0/23
+2026-11-10 12:02:31   checkpoint : /home/abhinav/rahul3/rahul_new_indeed_script/Indeed_firefox_script/config/checkpoints/checkpoint_rank_1.json
+2026-11-10 12:02:31   excel      : /home/abhinav/rahul3/rahul_new_indeed_script/Indeed_firefox_script/Excel_Data/rank_1
+2026-11-10 12:02:31 ========================================================================
+2026-11-10 12:04:54 [xvfb] :105 is already up
+2026-11-10 12:04:54   display         : :105 (Xvfb, 1920x1080x24)
+2026-11-10 12:04:54 ========================================================================
+2026-11-10 12:04:54 NEW INDEED COLLECTOR -- Firefox / xdotool / xclip
+2026-11-10 12:04:54 ========================================================================
+2026-11-10 12:04:54   roles+cities : vendor/ (local, authoritative) -- new_mylib.py md5 5e06a7d1, target_audience_roles.py md5 54b25400
+  row builder  : /home/abhinav/indeed_script (read-only, 32-column schema)  [stand-ins: gtts, psutil, Levenshtein]
+2026-11-10 12:04:54   rank            : 1 of 5
+2026-11-10 12:04:54   keywords        : 1264
+2026-11-10 12:04:54     target-audience : 200  (15.8% of the plan)
+2026-11-10 12:04:54     fresher/other   : 1064  (84.2%)
+2026-11-10 12:04:54     departments     : 116
+2026-11-10 12:04:54   cities (all)    : 110
+2026-11-10 12:04:54   cities (rank 1) : 23  -> Delhi, Gurugram, Gurgaon, Noida ...
+2026-11-10 12:04:54   excel columns   : 32
+2026-11-10 12:04:54   output          : /home/abhinav/rahul3/rahul_new_indeed_script/Indeed_firefox_script/Excel_Data/rank_1
+2026-11-10 12:04:54   temp            : /home/abhinav/rahul3/rahul_new_indeed_script/Indeed_firefox_script/Temp_Data/rank_1
+2026-11-10 12:04:54   checkpoint      : /home/abhinav/rahul3/rahul_new_indeed_script/Indeed_firefox_script/config/checkpoints/checkpoint_rank_1.json
+2026-11-10 12:04:54   loop            : city-outer, keyword-inner (brief section 8)
+2026-11-10 12:04:54   delays          : 10s before close, 10s before next card
+2026-11-10 12:04:54   between keywords: close the browser, wait 5s, reopen on the home page, verify the search fields
+2026-11-10 12:04:54   complete cycle  : all keywords for one city, then rest 10m 00s
+2026-11-10 12:04:54   night rest      : disabled
+2026-11-10 12:04:54   work period     : 3.7-4.2 h, then a 30-60 min break
+2026-11-10 12:04:54   fixed plan      : 5 page(s) x 10 card(s) = up to 50 jobs per keyword+city
+2026-11-10 12:04:54   paging          : page 1 = typed search, page 2+ = start=10,20,...
+2026-11-10 12:04:54   cards per page  : counted from each page's own source, capped at 10
+2026-11-10 12:04:54   repeated page   : same card list as the previous page -> next keyword
+2026-11-10 12:04:54   page ceiling    : 5 listing page(s) per keyword+city
+2026-11-10 12:04:54   unique target   : 50 distinct jobs EXAMINED per keyword+city
+2026-11-10 12:04:54   TOTAL COMPLETE CYCLE : 0   (cities finished this crawl cycle: 0/23)
+2026-11-10 12:04:54 ========================================================================
+2026-11-10 12:04:57 
+2026-11-10 12:04:57   [WARN] NOT SIGNED IN to Indeed (no Indeed session cookie in /home/abhinav/rahul3/rahul_new_indeed_script/Indeed_firefox_script/config/firefox_profile/rank_1).
+2026-11-10 12:04:57          Indeed asks for a login when paging deeper into
+2026-11-10 12:04:57          results, so this run will collect the first page or
+2026-11-10 12:04:57          two and then stop finding new jobs.
+2026-11-10 12:04:57          Each rank has its OWN browser profile, so a login in
+2026-11-10 12:04:57          one rank's profile is invisible to the others.
+2026-11-10 12:04:57          Sign in once:
+2026-11-10 12:04:57              /home/abhinav/rahul3/rahul_new_indeed_script/Indeed_firefox_script/venv/bin/python3 save_indeed_login.py --rank 1
+2026-11-10 12:04:57          Or, if another rank is already signed in, copy its
+2026-11-10 12:04:57          session to every rank without signing in again:
+2026-11-10 12:04:57              /home/abhinav/rahul3/rahul_new_indeed_script/Indeed_firefox_script/venv/bin/python3 save_indeed_login.py --sync-only --rank <that one>
+2026-11-10 12:04:57 
+2026-11-10 12:04:57   search mode    : form
+2026-11-10 12:04:57       $ /home/abhinav/rahul3/rahul_new_indeed_script/Indeed_firefox_script/shell_scripts/open_firefox.sh --profile /home/abhinav/rahul3/rahul_new_indeed_script/Indeed_firefox_script/config/firefox_profile/rank_1 --url https://in.indeed.com --state-file /home/abhinav/rahul3/rahul_new_indeed_script/Indeed_firefox_script/Temp_Data/rank_1/browser_window.json --expect-host indeed --download-dir /home/abhinav/rahul3/rahul_new_indeed_script/Indeed_firefox_script/Temp_Data/rank_1 --window-size 1845x1046 --window-pos 0,34
+2026-11-10 12:05:22         [open_firefox] pre-existing Firefox windows (never touched): none
+2026-11-10 12:05:22         [open_firefox] display=:105 xauthority=unset
+2026-11-10 12:05:22         [open_firefox] launch mode: direct (firefox)
+2026-11-10 12:05:22         [open_firefox] firefox pid=139476
+2026-11-10 12:05:22         [open_firefox] window_id=4194347 name=Mozilla Firefox
+2026-11-10 12:05:22         [open_firefox] window geometry set on attempt 1: 1845x1046+10+96
+2026-11-10 12:05:22         [open_firefox] normal window: 1845x1046+10+96 (asked for 1845x1046+0+34)
+2026-11-10 12:05:22         [open_firefox] address bar: https://in.indeed.com/
+2026-11-10 12:05:22         [open_firefox] ready
+2026-11-10 12:05:22         -> exit 0 in 25.5s (window_id=4194347 fullscreen=no access_denied=no verified=yes)
+2026-11-10 12:05:22    window landed at +10+96, not the +0+34 it was asked for: clicks shifted by (+10,+62) to match
+2026-11-10 12:05:22    browser ready: pid=139476 window=4194347 fullscreen=no
+2026-11-10 12:05:22       $ /home/abhinav/rahul3/rahul_new_indeed_script/Indeed_firefox_script/shell_scripts/verify_search_fields.sh --window 4194347 --probe zz --what-xy 710,302 --where-xy 1110,302
+2026-11-10 12:05:42         [verify_search_fields] window at +10+96 1046px tall; probes stay between y=216 and y=1102 (never in Firefox's own chrome)
+2026-11-10 12:05:42         [verify_search_fields] input guard passed; address bar reads: https://in.indeed.com/
+2026-11-10 12:05:42         [verify_search_fields] waiting 7.0s for the page to settle
+2026-11-10 12:05:42         [verify_search_fields]   probe 1 at 710,302: the keyword box answered
+2026-11-10 12:05:42         [verify_search_fields]   probe 2 at 1110,302: the location box answered
+2026-11-10 12:05:42         [verify_search_fields] both search boxes found and answered: keyword at 710,302, location at 1110,302 (after 2 probe(s))
+2026-11-10 12:05:42         -> exit 0 in 19.8s (verified=yes)
+2026-11-10 12:05:42    search boxes are at +700,206 and +1100,206 from the window corner; remembered for the next keyword
+2026-11-10 12:05:42    search fields verified: keyword=yes location=yes (2 probe(s))
+2026-11-10 12:05:42 
+========================================================================
+2026-11-10 12:05:42 CRAWL CYCLE 1 | CITY 1/23: Delhi   (keywords 1..1264)
+2026-11-10 12:05:42 TOTAL COMPLETE CYCLE SO FAR: 0
+2026-11-10 12:05:42 ========================================================================
+2026-11-10 12:05:42 
+  [cycle 1 | city 1/23 Delhi | keyword 1/1264 Social Media Designer | worked 45s]
+2026-11-10 12:05:43 
+  [page 1/5] Social Media Designer @ Delhi  (start=0)
+2026-11-10 12:05:43       $ /home/abhinav/rahul3/rahul_new_indeed_script/Indeed_firefox_script/shell_scripts/search_jobs.sh --window 4194347 --keyword 'Social Media Designer' --city Delhi --base-url https://in.indeed.com --mode form --what-xy 710,302 --where-xy 1110,302
+2026-11-10 12:06:10         [search_jobs] input guard passed; address bar reads: https://in.indeed.com/
+2026-11-10 12:06:10         [search_jobs] waiting 7.0s for the page to settle before typing
+2026-11-10 12:06:10         [search_jobs] form search: 'Social Media Designer' in 'Delhi'
+2026-11-10 12:06:10         [search_jobs] clicking the keyword box at 710,302
+2026-11-10 12:06:10         [search_jobs] clicking the city box at 1110,302
+2026-11-10 12:06:10         [search_jobs] both fields confirmed; submitting (focus is still in the city box)
+2026-11-10 12:06:10         [search_jobs] waiting 10.0s for the results to load
+2026-11-10 12:06:10         [search_jobs] window title: Just a moment... — Mozilla Firefox
+2026-11-10 12:06:10         [search_jobs] ERROR(10): the results page is an access refusal (title: 'Just a moment... — Mozilla Firefox'). Stopping this search. No retry, no identity change, no session cycling.
+2026-11-10 12:06:10         -> exit 10 in 27.4s (access_denied=yes)
+2026-11-10 12:06:10   [WARN] the search failed (the results page is an access refusal (title: 'Just a moment... — Mozilla Firefox'). Stopping this search. No retry, no identity change, no session cycling. | stage=search_jobs.sh | exit=10)
+2026-11-10 12:06:10       [wait] 21s before a retry
+2026-11-10 12:06:33 
+  [page 1/5] Social Media Designer @ Delhi  (start=0)
+2026-11-10 12:06:33       $ /home/abhinav/rahul3/rahul_new_indeed_script/Indeed_firefox_script/shell_scripts/search_jobs.sh --window 4194347 --keyword 'Social Media Designer' --city Delhi --base-url https://in.indeed.com --mode form --what-xy 710,302 --where-xy 1110,302
+2026-11-10 12:06:51         [search_jobs] input guard passed; address bar reads: https://in.indeed.com/jobs?q=Social+Media+Designer&l=Delhi
+2026-11-10 12:06:51         [search_jobs] waiting 7.0s for the page to settle before typing
+2026-11-10 12:06:51         [search_jobs] form search: 'Social Media Designer' in 'Delhi'
+2026-11-10 12:06:51         [search_jobs] clicking the keyword box at 710,302
+2026-11-10 12:06:51         [search_jobs] clicking the city box at 1110,302
+2026-11-10 12:06:51         [search_jobs] ERROR(7): the click at 710,302 did NOT land in the keyword box: it landed on the page body, so Ctrl+A selected the whole document and the read-back is 273 characters of PAGE TEXT across 18 lines, starting ''. Nothing was submitted. Run verify_search_fields.sh to find the box -- it probes nearby rows and reports the coordinates that work. (Indeed's home page has a different layout when signed in, and a window manager may not place the window where it was asked to.)
+2026-11-10 12:06:51         -> exit 7 in 18.2s 
+2026-11-10 12:06:51   [WARN] the search failed (the click at 710,302 did NOT land in the keyword box: it landed on the page body, so Ctrl+A selected the whole document and the read-back is 273 characters of PAGE TEXT across 18 lines, starting ''. Nothing was submitted. Run verify_search_fields.sh to find the box -- it probes nearby rows and reports the coordinates that work. (Indeed's home page has a different layout when signed in, and a window manager may not place the window where it was asked to.) | stage=search_jobs.sh | exit=7)
+2026-11-10 12:06:51       [wait] 15s before a retry
+2026-11-10 12:07:07 
+  [page 1/5] Social Media Designer @ Delhi  (start=0)
+2026-11-10 12:07:07       $ /home/abhinav/rahul3/rahul_new_indeed_script/Indeed_firefox_script/shell_scripts/search_jobs.sh --window 4194347 --keyword 'Social Media Designer' --city Delhi --base-url https://in.indeed.com --mode form --what-xy 710,302 --where-xy 1110,302
+2026-11-10 12:07:24         [search_jobs] input guard passed; address bar reads: https://in.indeed.com/jobs?q=Social+Media+Designer&l=Delhi
+2026-11-10 12:07:24         [search_jobs] waiting 7.0s for the page to settle before typing
+2026-11-10 12:07:24         [search_jobs] form search: 'Social Media Designer' in 'Delhi'
+2026-11-10 12:07:24         [search_jobs] clicking the keyword box at 710,302
+2026-11-10 12:07:24         [search_jobs] clicking the city box at 1110,302
+2026-11-10 12:07:24         [search_jobs] ERROR(7): the click at 710,302 did NOT land in the keyword box: it landed on the page body, so Ctrl+A selected the whole document and the read-back is 273 characters of PAGE TEXT across 18 lines, starting ''. Nothing was submitted. Run verify_search_fields.sh to find the box -- it probes nearby rows and reports the coordinates that work. (Indeed's home page has a different layout when signed in, and a window manager may not place the window where it was asked to.)
+2026-11-10 12:07:24         -> exit 7 in 17.0s 
+2026-11-10 12:07:24   [WARN] the search failed (the click at 710,302 did NOT land in the keyword box: it landed on the page body, so Ctrl+A selected the whole document and the read-back is 273 characters of PAGE TEXT across 18 lines, starting ''. Nothing was submitted. Run verify_search_fields.sh to find the box -- it probes nearby rows and reports the coordinates that work. (Indeed's home page has a different layout when signed in, and a window manager may not place the window where it was asked to.) | stage=search_jobs.sh | exit=7)
+2026-11-10 12:07:25   [STOP] 3 searches in a row failed -- giving up on this keyword.
+2026-11-10 12:07:25 
+  [restart] closing the browser, resting 5s, then opening a fresh window on the Indeed home page
+2026-11-10 12:07:25    our Firefox (pid 139476) has exited cleanly
+2026-11-10 12:07:25    waiting 5s before opening the browser again
+2026-11-10 12:07:25       [wait] 5s before the next keyword
+2026-11-10 12:07:30       $ /home/abhinav/rahul3/rahul_new_indeed_script/Indeed_firefox_script/shell_scripts/open_firefox.sh --profile /home/abhinav/rahul3/rahul_new_indeed_script/Indeed_firefox_script/config/firefox_profile/rank_1 --url https://in.indeed.com --state-file /home/abhinav/rahul3/rahul_new_indeed_script/Indeed_firefox_script/Temp_Data/rank_1/browser_window.json --expect-host indeed --download-dir /home/abhinav/rahul3/rahul_new_indeed_script/Indeed_firefox_script/Temp_Data/rank_1 --window-size 1845x1046 --window-pos 0,34
+2026-11-10 12:07:42         [open_firefox] pre-existing Firefox windows (never touched): none
+2026-11-10 12:07:42         [open_firefox] display=:105 xauthority=unset
+2026-11-10 12:07:42         [open_firefox] launch mode: direct (firefox)
+2026-11-10 12:07:42         [open_firefox] firefox pid=141288
+2026-11-10 12:07:42         [open_firefox] window_id=4194347 name=Mozilla Firefox
+2026-11-10 12:07:42         [open_firefox] window geometry set on attempt 1: 1845x1046+10+96
+2026-11-10 12:07:42         [open_firefox] normal window: 1845x1046+10+96 (asked for 1845x1046+0+34)
+2026-11-10 12:07:42         [open_firefox] address bar: https://in.indeed.com/
+2026-11-10 12:07:42         [open_firefox] ready
+2026-11-10 12:07:42         -> exit 0 in 11.9s (window_id=4194347 fullscreen=no access_denied=no verified=yes)
+2026-11-10 12:07:42    window landed at +10+96, not the +0+34 it was asked for: clicks shifted by (+10,+62) to match
+2026-11-10 12:07:42    browser ready: pid=141288 window=4194347 fullscreen=no
+2026-11-10 12:07:42       $ /home/abhinav/rahul3/rahul_new_indeed_script/Indeed_firefox_script/shell_scripts/verify_search_fields.sh --window 4194347 --probe zz --what-xy 710,302 --where-xy 1110,302
+2026-11-10 12:07:59         [verify_search_fields] window at +10+96 1046px tall; probes stay between y=216 and y=1102 (never in Firefox's own chrome)
+2026-11-10 12:07:59         [verify_search_fields] input guard passed; address bar reads: https://in.indeed.com/
+2026-11-10 12:07:59         [verify_search_fields] waiting 7.0s for the page to settle
+2026-11-10 12:07:59         [verify_search_fields]   probe 1 at 710,302: the keyword box answered
+2026-11-10 12:07:59         [verify_search_fields]   probe 2 at 1110,302: the location box answered
+2026-11-10 12:07:59         [verify_search_fields] both search boxes found and answered: keyword at 710,302, location at 1110,302 (after 2 probe(s))
+2026-11-10 12:07:59         -> exit 0 in 16.9s (verified=yes)
+2026-11-10 12:07:59    search fields verified: keyword=yes location=yes (2 probe(s))
+2026-11-10 12:07:59       [login] signed in: NO (no Indeed session cookie in /home/abhinav/rahul3/rahul_new_indeed_script/Indeed_firefox_script/config/firefox_profile/rank_1)
+2026-11-10 12:07:59 
+  [cycle 1 | city 1/23 Delhi | keyword 2/1264 PSU Engineer | worked 3m 02s]
+2026-11-10 12:08:00 
+  [page 1/5] PSU Engineer @ Delhi  (start=0)
+2026-11-10 12:08:00       $ /home/abhinav/rahul3/rahul_new_indeed_script/Indeed_firefox_script/shell_scripts/search_jobs.sh --window 4194347 --keyword 'PSU Engineer' --city Delhi --base-url https://in.indeed.com --mode form --what-xy 710,302 --where-xy 1110,302
+2026-11-10 12:08:26         [search_jobs] input guard passed; address bar reads: https://in.indeed.com/
+2026-11-10 12:08:26         [search_jobs] waiting 7.0s for the page to settle before typing
+2026-11-10 12:08:26         [search_jobs] form search: 'PSU Engineer' in 'Delhi'
+2026-11-10 12:08:26         [search_jobs] clicking the keyword box at 710,302
+2026-11-10 12:08:26         [search_jobs] clicking the city box at 1110,302
+2026-11-10 12:08:26         [search_jobs] both fields confirmed; submitting (focus is still in the city box)
+2026-11-10 12:08:26         [search_jobs] waiting 10.0s for the results to load
+2026-11-10 12:08:26         [search_jobs] window title: Just a moment... — Mozilla Firefox
+2026-11-10 12:08:26         [search_jobs] ERROR(10): the results page is an access refusal (title: 'Just a moment... — Mozilla Firefox'). Stopping this search. No retry, no identity change, no session cycling.
+2026-11-10 12:08:26         -> exit 10 in 26.6s (access_denied=yes)
+2026-11-10 12:08:26   [WARN] the search failed (the results page is an access refusal (title: 'Just a moment... — Mozilla Firefox'). Stopping this search. No retry, no identity change, no session cycling. | stage=search_jobs.sh | exit=10)
+2026-11-10 12:08:26       [wait] 21s before a retry
+2026-11-10 12:08:38 
+[STOP] signal 2. Checkpoint saved -- re-run to continue from here.
+2026-11-12 09:53:15 [xvfb] :105 is already up
+2026-11-12 09:53:15   display         : :105 (Xvfb, 1920x1080x24)
+2026-11-12 09:53:15 ========================================================================
+2026-11-12 09:53:15 NEW INDEED COLLECTOR -- Firefox / xdotool / xclip
+2026-11-12 09:53:15 ========================================================================
+2026-11-12 09:53:15   roles+cities : vendor/ (local, authoritative) -- new_mylib.py md5 5e06a7d1, target_audience_roles.py md5 54b25400
+  row builder  : /home/abhinav/indeed_script (read-only, 32-column schema)  [stand-ins: gtts, psutil, Levenshtein]
+2026-11-12 09:53:15   rank            : 1 of 5
+2026-11-12 09:53:15   keywords        : 1264
+2026-11-12 09:53:15     target-audience : 200  (15.8% of the plan)
+2026-11-12 09:53:15     fresher/other   : 1064  (84.2%)
+2026-11-12 09:53:15     departments     : 116
+2026-11-12 09:53:15   cities (all)    : 110
+2026-11-12 09:53:15   cities (rank 1) : 23  -> Delhi, Gurugram, Gurgaon, Noida ...
+2026-11-12 09:53:15   excel columns   : 32
+2026-11-12 09:53:15   output          : /home/abhinav/rahul3/rahul_new_indeed_script/Indeed_firefox_script/Excel_Data/rank_1
+2026-11-12 09:53:15   temp            : /home/abhinav/rahul3/rahul_new_indeed_script/Indeed_firefox_script/Temp_Data/rank_1
+2026-11-12 09:53:15   checkpoint      : /home/abhinav/rahul3/rahul_new_indeed_script/Indeed_firefox_script/config/checkpoints/checkpoint_rank_1.json
+2026-11-12 09:53:15   loop            : city-outer, keyword-inner (brief section 8)
+2026-11-12 09:53:15   delays          : 10s before close, 10s before next card
+2026-11-12 09:53:15   between keywords: close the browser, wait 5s, reopen on the home page, verify the search fields
+2026-11-12 09:53:15   complete cycle  : all keywords for one city, then rest 10m 00s
+2026-11-12 09:53:15   night rest      : disabled
+2026-11-12 09:53:15   work period     : 3.7-4.2 h, then a 30-60 min break
+2026-11-12 09:53:15   fixed plan      : 5 page(s) x 10 card(s) = up to 50 jobs per keyword+city
+2026-11-12 09:53:15   paging          : page 1 = typed search, page 2+ = start=10,20,...
+2026-11-12 09:53:15   cards per page  : counted from each page's own source, capped at 10
+2026-11-12 09:53:15   repeated page   : same card list as the previous page -> next keyword
+2026-11-12 09:53:15   page ceiling    : 5 listing page(s) per keyword+city
+2026-11-12 09:53:15   unique target   : 50 distinct jobs EXAMINED per keyword+city
+2026-11-12 09:53:15   TOTAL COMPLETE CYCLE : 0   (cities finished this crawl cycle: 0/23)
+2026-11-12 09:53:15 ========================================================================
+2026-11-12 09:53:15 
+2026-11-12 09:53:15   [WARN] NOT SIGNED IN to Indeed (no Indeed session cookie in /home/abhinav/rahul3/rahul_new_indeed_script/Indeed_firefox_script/config/firefox_profile/rank_1).
+2026-11-12 09:53:15          Indeed asks for a login when paging deeper into
+2026-11-12 09:53:15          results, so this run will collect the first page or
+2026-11-12 09:53:15          two and then stop finding new jobs.
+2026-11-12 09:53:15          Each rank has its OWN browser profile, so a login in
+2026-11-12 09:53:15          one rank's profile is invisible to the others.
+2026-11-12 09:53:15          Sign in once:
+2026-11-12 09:53:15              /home/abhinav/rahul3/rahul_new_indeed_script/Indeed_firefox_script/venv/bin/python3 save_indeed_login.py --rank 1
+2026-11-12 09:53:15          Or, if another rank is already signed in, copy its
+2026-11-12 09:53:15          session to every rank without signing in again:
+2026-11-12 09:53:15              /home/abhinav/rahul3/rahul_new_indeed_script/Indeed_firefox_script/venv/bin/python3 save_indeed_login.py --sync-only --rank <that one>
+2026-11-12 09:53:15 
+2026-11-12 09:53:15   search mode    : form
+2026-11-12 09:53:15       $ /home/abhinav/rahul3/rahul_new_indeed_script/Indeed_firefox_script/shell_scripts/open_firefox.sh --profile /home/abhinav/rahul3/rahul_new_indeed_script/Indeed_firefox_script/config/firefox_profile/rank_1 --url https://in.indeed.com --state-file /home/abhinav/rahul3/rahul_new_indeed_script/Indeed_firefox_script/Temp_Data/rank_1/browser_window.json --expect-host indeed --download-dir /home/abhinav/rahul3/rahul_new_indeed_script/Indeed_firefox_script/Temp_Data/rank_1 --window-size 1845x1046 --window-pos 0,34
+2026-11-12 09:53:25         [open_firefox] pre-existing Firefox windows (never touched): none
+2026-11-12 09:53:25         [open_firefox] display=:105 xauthority=unset
+2026-11-12 09:53:25         [open_firefox] launch mode: direct (firefox)
+2026-11-12 09:53:25         [open_firefox] firefox pid=913481
+2026-11-12 09:53:25         [open_firefox] window_id=4194347 name=Mozilla Firefox
+2026-11-12 09:53:25         [open_firefox] window geometry set on attempt 1: 1845x1046+10+96
+2026-11-12 09:53:25         [open_firefox] normal window: 1845x1046+10+96 (asked for 1845x1046+0+34)
+2026-11-12 09:53:25         [open_firefox] address bar: https://in.indeed.com/
+2026-11-12 09:53:25         [open_firefox] ready
+2026-11-12 09:53:25         -> exit 0 in 9.4s (window_id=4194347 fullscreen=no access_denied=no verified=yes)
+2026-11-12 09:53:25    window landed at +10+96, not the +0+34 it was asked for: clicks shifted by (+10,+62) to match
+2026-11-12 09:53:25    browser ready: pid=913481 window=4194347 fullscreen=no
+2026-11-12 09:53:25       $ /home/abhinav/rahul3/rahul_new_indeed_script/Indeed_firefox_script/shell_scripts/verify_search_fields.sh --window 4194347 --probe zz --what-xy 710,302 --where-xy 1110,302
+2026-11-12 09:53:42         [verify_search_fields] window at +10+96 1046px tall; probes stay between y=216 and y=1102 (never in Firefox's own chrome)
+2026-11-12 09:53:42         [verify_search_fields] input guard passed; address bar reads: https://in.indeed.com/
+2026-11-12 09:53:42         [verify_search_fields] waiting 7.0s for the page to settle
+2026-11-12 09:53:42         [verify_search_fields]   probe 1 at 710,302: the keyword box answered
+2026-11-12 09:53:42         [verify_search_fields]   probe 2 at 1110,302: the location box answered
+2026-11-12 09:53:42         [verify_search_fields] both search boxes found and answered: keyword at 710,302, location at 1110,302 (after 2 probe(s))
+2026-11-12 09:53:42         -> exit 0 in 16.8s (verified=yes)
+2026-11-12 09:53:42    search fields verified: keyword=yes location=yes (2 probe(s))
+2026-11-12 09:53:42 
+========================================================================
+2026-11-12 09:53:42 CRAWL CYCLE 1 | CITY 1/23: Delhi   (keywords 2..1264)
+2026-11-12 09:53:42 TOTAL COMPLETE CYCLE SO FAR: 0
+2026-11-12 09:53:42 ========================================================================
+2026-11-12 09:53:42 
+  [cycle 1 | city 1/23 Delhi | keyword 2/1264 PSU Engineer | worked 26s]
+2026-11-12 09:53:42 
+  [page 1/5] PSU Engineer @ Delhi  (start=0)
+2026-11-12 09:53:42       $ /home/abhinav/rahul3/rahul_new_indeed_script/Indeed_firefox_script/shell_scripts/search_jobs.sh --window 4194347 --keyword 'PSU Engineer' --city Delhi --base-url https://in.indeed.com --mode form --what-xy 710,302 --where-xy 1110,302
+2026-11-12 09:54:08         [search_jobs] input guard passed; address bar reads: https://in.indeed.com/
+2026-11-12 09:54:08         [search_jobs] waiting 7.0s for the page to settle before typing
+2026-11-12 09:54:08         [search_jobs] form search: 'PSU Engineer' in 'Delhi'
+2026-11-12 09:54:08         [search_jobs] clicking the keyword box at 710,302
+2026-11-12 09:54:08         [search_jobs] clicking the city box at 1110,302
+2026-11-12 09:54:08         [search_jobs] both fields confirmed; submitting (focus is still in the city box)
+2026-11-12 09:54:08         [search_jobs] waiting 10.0s for the results to load
+2026-11-12 09:54:08         [search_jobs] window title: Just a moment... — Mozilla Firefox
+2026-11-12 09:54:08         [search_jobs] ERROR(10): the results page is an access refusal (title: 'Just a moment... — Mozilla Firefox'). Stopping this search. No retry, no identity change, no session cycling.
+2026-11-12 09:54:08         -> exit 10 in 26.7s (access_denied=yes)
+2026-11-12 09:54:08   [WARN] the search failed (the results page is an access refusal (title: 'Just a moment... — Mozilla Firefox'). Stopping this search. No retry, no identity change, no session cycling. | stage=search_jobs.sh | exit=10)
+2026-11-12 09:54:08       [wait] 24s before a retry
+2026-11-12 09:54:26 
+[STOP] signal 2. Checkpoint saved -- re-run to continue from here.
